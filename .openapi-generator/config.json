@@ -1,0 +1,11 @@
+{
+  "packageName": "DragonflyDotNet",
+  "projectName": "DragonflyDotNet",
+  "packageUrl": "https://github.com/ladybug-tools/dragonfly-schema",
+  "packageVersion":"1.0.0",
+  "targetFramework":"v4.5",
+  "sourceFolder":"src",
+  "sortParamsByRequiredFlag": true,
+  "optionalAssemblyInfo":false,
+  "optionalProjectFile":true
+}
