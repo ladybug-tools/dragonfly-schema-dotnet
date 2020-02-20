@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.LightingAbridged
+# DragonflySchema.Model.LightingAbridged
 
 ## Properties
 

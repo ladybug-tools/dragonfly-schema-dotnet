@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.ContextShadeEnergyPropertiesAbridged
+# DragonflySchema.Model.ContextShadeEnergyPropertiesAbridged
 
 ## Properties
 

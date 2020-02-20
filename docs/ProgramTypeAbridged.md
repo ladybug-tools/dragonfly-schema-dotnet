@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.ProgramTypeAbridged
+# DragonflySchema.Model.ProgramTypeAbridged
 
 ## Properties
 

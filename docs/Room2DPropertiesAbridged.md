@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.Room2DPropertiesAbridged
+# DragonflySchema.Model.Room2DPropertiesAbridged
 
 ## Properties
 

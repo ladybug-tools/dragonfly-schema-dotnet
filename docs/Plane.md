@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.Plane
+# DragonflySchema.Model.Plane
 
 ## Properties
 

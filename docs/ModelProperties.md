@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.ModelProperties
+# DragonflySchema.Model.ModelProperties
 
 ## Properties
 

@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.ElectricEquipmentAbridged
+# DragonflySchema.Model.ElectricEquipmentAbridged
 
 ## Properties
 

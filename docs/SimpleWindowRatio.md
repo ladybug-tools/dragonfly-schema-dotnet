@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.SimpleWindowRatio
+# DragonflySchema.Model.SimpleWindowRatio
 
 ## Properties
 

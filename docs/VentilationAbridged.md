@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.VentilationAbridged
+# DragonflySchema.Model.VentilationAbridged
 
 ## Properties
 

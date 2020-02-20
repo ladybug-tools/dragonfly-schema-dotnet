@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.DetailedWindows
+# DragonflySchema.Model.DetailedWindows
 
 ## Properties
 

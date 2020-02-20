@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.ScheduleFixedIntervalAbridged
+# DragonflySchema.Model.ScheduleFixedIntervalAbridged
 
 ## Properties
 

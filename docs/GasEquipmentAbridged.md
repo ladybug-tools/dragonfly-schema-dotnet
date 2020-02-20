@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.GasEquipmentAbridged
+# DragonflySchema.Model.GasEquipmentAbridged
 
 ## Properties
 

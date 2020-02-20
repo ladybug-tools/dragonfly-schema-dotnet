@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.SingleWindow
+# DragonflySchema.Model.SingleWindow
 
 ## Properties
 

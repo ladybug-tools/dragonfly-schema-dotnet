@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.ModelEnergyProperties
+# DragonflySchema.Model.ModelEnergyProperties
 
 ## Properties
 

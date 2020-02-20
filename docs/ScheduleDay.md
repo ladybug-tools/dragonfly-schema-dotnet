@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.ScheduleDay
+# DragonflySchema.Model.ScheduleDay
 
 ## Properties
 

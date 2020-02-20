@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.FloorSetAbridged
+# DragonflySchema.Model.FloorSetAbridged
 
 ## Properties
 

@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.OpaqueConstructionAbridged
+# DragonflySchema.Model.OpaqueConstructionAbridged
 
 ## Properties
 

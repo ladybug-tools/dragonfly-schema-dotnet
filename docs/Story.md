@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.Story
+# DragonflySchema.Model.Story
 
 ## Properties
 

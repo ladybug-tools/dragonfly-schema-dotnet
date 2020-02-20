@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.EnergyWindowMaterialBlind
+# DragonflySchema.Model.EnergyWindowMaterialBlind
 
 ## Properties
 

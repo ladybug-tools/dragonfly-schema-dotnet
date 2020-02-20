@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.ExtrudedBorder
+# DragonflySchema.Model.ExtrudedBorder
 
 ## Properties
 

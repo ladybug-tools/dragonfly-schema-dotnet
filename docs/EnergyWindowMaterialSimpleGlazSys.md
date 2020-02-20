@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.EnergyWindowMaterialSimpleGlazSys
+# DragonflySchema.Model.EnergyWindowMaterialSimpleGlazSys
 
 ## Properties
 

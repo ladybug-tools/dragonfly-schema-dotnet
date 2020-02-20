@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.LouversByDistance
+# DragonflySchema.Model.LouversByDistance
 
 ## Properties
 

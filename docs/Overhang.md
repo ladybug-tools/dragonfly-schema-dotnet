@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.Overhang
+# DragonflySchema.Model.Overhang
 
 ## Properties
 

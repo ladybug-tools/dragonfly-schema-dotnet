@@ -1,6 +1,7 @@
 
 import os
 import urllib.request, json
+import shutil
 
 
 def get_allof_types(obj, allofList):
@@ -86,8 +87,14 @@ def check_anyof_types(source_json_url):
   all_types = get_allof_types_from_json(source_json_url)
 
   root = os.path.dirname(os.path.dirname(__file__))
-  source_folder = os.path.join(root, 'src', 'DragonflyDotNet', 'Model')
+  source_folder = os.path.join(root, 'src', 'DragonflySchema', 'Model')
   check_csfiles(source_folder, all_types)
 
+def cleanup():
+  root = os.path.dirname(os.path.dirname(__file__))
+  target_folder = os.path.join(root, 'src', 'DragonflySchema', 'Client')
+  shutil.rmtree(target_folder)
 
+
+cleanup()
 check_anyof_types("https://www.ladybug.tools/dragonfly-schema/model.json")

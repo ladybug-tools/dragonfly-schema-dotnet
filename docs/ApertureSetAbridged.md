@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.ApertureSetAbridged
+# DragonflySchema.Model.ApertureSetAbridged
 
 ## Properties
 

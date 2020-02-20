@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.ShadeConstruction
+# DragonflySchema.Model.ShadeConstruction
 
 ## Properties
 

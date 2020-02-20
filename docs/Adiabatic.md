@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.Adiabatic
+# DragonflySchema.Model.Adiabatic
 
 ## Properties
 

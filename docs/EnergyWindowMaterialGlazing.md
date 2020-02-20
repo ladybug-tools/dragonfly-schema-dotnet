@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.EnergyWindowMaterialGlazing
+# DragonflySchema.Model.EnergyWindowMaterialGlazing
 
 ## Properties
 

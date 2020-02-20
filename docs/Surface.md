@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.Surface
+# DragonflySchema.Model.Surface
 
 ## Properties
 

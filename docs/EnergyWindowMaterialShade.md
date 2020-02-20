@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.EnergyWindowMaterialShade
+# DragonflySchema.Model.EnergyWindowMaterialShade
 
 ## Properties
 

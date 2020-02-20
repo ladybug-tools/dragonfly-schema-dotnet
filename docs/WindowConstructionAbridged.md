@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.WindowConstructionAbridged
+# DragonflySchema.Model.WindowConstructionAbridged
 
 ## Properties
 

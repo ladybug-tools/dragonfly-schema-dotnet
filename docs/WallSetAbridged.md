@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.WallSetAbridged
+# DragonflySchema.Model.WallSetAbridged
 
 ## Properties
 

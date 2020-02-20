@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.EnergyMaterialNoMass
+# DragonflySchema.Model.EnergyMaterialNoMass
 
 ## Properties
 

@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.StoryEnergyPropertiesAbridged
+# DragonflySchema.Model.StoryEnergyPropertiesAbridged
 
 ## Properties
 

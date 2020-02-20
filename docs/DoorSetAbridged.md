@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.DoorSetAbridged
+# DragonflySchema.Model.DoorSetAbridged
 
 ## Properties
 

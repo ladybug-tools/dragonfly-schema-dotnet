@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.RoofCeilingSetAbridged
+# DragonflySchema.Model.RoofCeilingSetAbridged
 
 ## Properties
 

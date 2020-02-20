@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.Ground
+# DragonflySchema.Model.Ground
 
 ## Properties
 

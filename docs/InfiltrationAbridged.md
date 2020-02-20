@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.InfiltrationAbridged
+# DragonflySchema.Model.InfiltrationAbridged
 
 ## Properties
 

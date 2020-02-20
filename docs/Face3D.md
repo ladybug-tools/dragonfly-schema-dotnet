@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.Face3D
+# DragonflySchema.Model.Face3D
 
 ## Properties
 

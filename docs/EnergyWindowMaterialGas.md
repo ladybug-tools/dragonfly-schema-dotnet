@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.EnergyWindowMaterialGas
+# DragonflySchema.Model.EnergyWindowMaterialGas
 
 ## Properties
 

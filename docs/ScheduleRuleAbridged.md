@@ -1,5 +1,5 @@
 
-# DragonflyDotNet.Model.ScheduleRuleAbridged
+# DragonflySchema.Model.ScheduleRuleAbridged
 
 ## Properties
 
