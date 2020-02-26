@@ -6,7 +6,7 @@ jobs:
   updateImage:
     name: "Check Event"
     runs-on: ubuntu-latest
-    if: github.event.action == 'honeybee_schema_release'
+    if: github.event.action == 'dragonfly_schema_release'
 
     steps:
     - name: "Checkout Master Branch"

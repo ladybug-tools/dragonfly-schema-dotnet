@@ -95,6 +95,7 @@ def cleanup():
   target_folder = os.path.join(root, 'src', 'DragonflySchema', 'Client')
   shutil.rmtree(target_folder)
 
+version = os.getenv("VERSION")
 
 cleanup()
-check_anyof_types("https://www.ladybug.tools/dragonfly-schema/model.json")
+check_anyof_types(f"https://github.com/ladybug-tools/dragonfly-schema/releases/download/{version}/model.json")
