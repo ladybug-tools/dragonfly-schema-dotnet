@@ -5,10 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Name of the object used in all simulation engines. Must not contain spaces and use only letters, digits and underscores/dashes. It cannot be longer than 100 characters. | 
+**Identifier** | **string** | Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. | 
 **Geometry** | [**List&lt;Face3D&gt;**](Face3D.md) | An array of planar Face3Ds that together represent the context shade. | 
 **Properties** | [**ContextShadePropertiesAbridged**](ContextShadePropertiesAbridged.md) | Extension properties for particular simulation engines (Radiance, EnergyPlus). | 
-**DisplayName** | **string** | Display name of the object with no restrictions. | [optional] 
+**DisplayName** | **string** | Display name of the object with no character restrictions. | [optional] 
+**UserData** | [**Object**](.md) | Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). | [optional] 
 **Type** | **string** |  | [optional] [default to "ContextShade"]
 
 [[Back to Model list]](../README.md#documentation-for-models)
