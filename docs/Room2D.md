@@ -5,12 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Name of the object used in all simulation engines. Must not contain spaces and use only letters, digits and underscores/dashes. It cannot be longer than 100 characters. | 
+**Identifier** | **string** | Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. | 
 **FloorBoundary** | **List&lt;List&lt;double&gt;&gt;** | A list of 2D points representing the outer boundary vertices of the Room2D. The list should include at least 3 points and each point should be a list of 2 (x, y) values. | 
 **FloorHeight** | **double** | A number to indicate the height of the floor plane in the Z axis. | 
 **FloorToCeilingHeight** | **double** | A number for the distance between the floor and the ceiling. | 
 **Properties** | [**Room2DPropertiesAbridged**](Room2DPropertiesAbridged.md) | Extension properties for particular simulation engines (Radiance, EnergyPlus). | 
-**DisplayName** | **string** | Display name of the object with no restrictions. | [optional] 
+**DisplayName** | **string** | Display name of the object with no character restrictions. | [optional] 
+**UserData** | [**Object**](.md) | Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). | [optional] 
 **Type** | **string** |  | [optional] [default to "Room2D"]
 **FloorHoles** | **List&lt;List&lt;List&lt;double&gt;&gt;&gt;** | Optional list of lists with one list for each hole in the floor plate.Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate. | [optional] 
 **IsGroundContact** | **bool** | A boolean noting whether this Room2D has its floor in contact with the ground. | [optional] [default to false]
