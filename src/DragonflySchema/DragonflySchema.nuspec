@@ -26,8 +26,7 @@
         <dependencies>
 
             <dependency id="NewtonSoft.Json" version="12.0.1" />
-            <dependency id="JsonSubTypes" version="1.5.2" />
-            <dependency id="RestSharp" version="105.1.0" />
+            <dependency id="HoneybeeSchema" version="1.25.6.33464" />
 
         </dependencies>
     </metadata>

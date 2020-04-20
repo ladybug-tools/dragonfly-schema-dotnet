@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 Dragonfly Model Schema
 
@@ -9,7 +9,6 @@ Contact: info@ladybug.tools
 -->
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{229E7E52-5893-4FAE-A0C5-2EF28F850CDC}</ProjectGuid>
@@ -40,41 +39,27 @@ Contact: info@ladybug.tools
     <DocumentationFile>bin\Release\DragonflySchema.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HoneybeeSchema">
+      <HintPath>..\..\packages\HoneybeeSchema.1.25.6.33464\lib\net45\HoneybeeSchema.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml" />
     <Reference Include="Newtonsoft.Json">
       <HintPath Condition="Exists('$(SolutionDir)\packages')">$(SolutionDir)\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <HintPath Condition="Exists('..\packages')">..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <HintPath Condition="Exists('..\..\packages')">..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <HintPath Condition="Exists('..\..\vendor')">..\..\vendor\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="JsonSubTypes">
-      <HintPath Condition="Exists('$(SolutionDir)\packages')">$(SolutionDir)\packages\JsonSubTypes.1.5.2\lib\net45\JsonSubTypes.dll</HintPath>
-      <HintPath Condition="Exists('..\packages')">..\packages\JsonSubTypes.1.5.2\lib\net45\JsonSubTypes.dll</HintPath>
-      <HintPath Condition="Exists('..\..\packages')">..\..\packages\JsonSubTypes.1.5.2\lib\net45\JsonSubTypes.dll</HintPath>
-      <HintPath Condition="Exists('..\..\vendor')">..\..\vendor\JsonSubTypes.1.5.2\lib\net45\JsonSubTypes.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp">
-        <HintPath Condition="Exists('$(SolutionDir)\packages')">$(SolutionDir)\packages\RestSharp.105.1.0\lib\net45\RestSharp.dll</HintPath>
-        <HintPath Condition="Exists('..\packages')">..\packages\RestSharp.105.1.0\lib\net45\RestSharp.dll</HintPath>
-        <HintPath Condition="Exists('..\..\packages')">..\..\packages\RestSharp.105.1.0\lib\net45\RestSharp.dll</HintPath>
-      <HintPath Condition="Exists('..\..\vendor')">..\..\vendor\RestSharp.105.1.0\lib\net45\RestSharp.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs"
-             Exclude="obj\**" />
+    <Compile Include="**\*.cs" Exclude="obj\**" />
   </ItemGroup>
   <ItemGroup>
-      <None Include="packages.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MsBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
-
