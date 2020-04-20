@@ -28,8 +28,9 @@ namespace DragonflySchema
     /// Extruded borders over all windows in the wall.
     /// </summary>
     [DataContract]
-    public partial class ExtrudedBorder :  IEquatable<ExtrudedBorder>, IValidatableObject
+    public partial class ExtrudedBorder : HoneybeeObject, IEquatable<ExtrudedBorder>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtrudedBorder" /> class.
         /// </summary>
@@ -39,7 +40,11 @@ namespace DragonflySchema
         /// Initializes a new instance of the <see cref="ExtrudedBorder" /> class.
         /// </summary>
         /// <param name="depth">A number for the depth of the border. (required).</param>
-        public ExtrudedBorder(double depth)
+        public ExtrudedBorder
+        (
+            double depth // Required parameters
+            // Optional parameters
+        )// BaseClass
         {
             // to ensure "depth" is required (not null)
             if (depth == null)
@@ -51,6 +56,9 @@ namespace DragonflySchema
                 this.Depth = depth;
             }
             
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "ExtrudedBorder";
         }
         
         /// <summary>
@@ -60,25 +68,32 @@ namespace DragonflySchema
         [DataMember(Name="depth", EmitDefaultValue=false)]
         [JsonProperty("depth")]
         public double Depth { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"ExtrudedBorder {iDd.Identifier}";
+       
+            return "ExtrudedBorder";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class ExtrudedBorder {\n");
+            sb.Append("ExtrudedBorder:\n");
             sb.Append("  Depth: ").Append(Depth).Append("\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -99,7 +114,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<ExtrudedBorder>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal

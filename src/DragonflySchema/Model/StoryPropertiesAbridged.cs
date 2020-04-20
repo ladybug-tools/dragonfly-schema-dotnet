@@ -28,42 +28,57 @@ namespace DragonflySchema
     /// StoryPropertiesAbridged
     /// </summary>
     [DataContract]
-    public partial class StoryPropertiesAbridged :  IEquatable<StoryPropertiesAbridged>, IValidatableObject
+    public partial class StoryPropertiesAbridged : HoneybeeObject, IEquatable<StoryPropertiesAbridged>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="StoryPropertiesAbridged" /> class.
         /// </summary>
         /// <param name="energy">energy.</param>
-        public StoryPropertiesAbridged(StoryEnergyPropertiesAbridged energy = default)
+        public StoryPropertiesAbridged
+        (
+            // Required parameters
+            StoryEnergyPropertiesAbridged energy= default// Optional parameters
+        )// BaseClass
         {
             this.Energy = energy;
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "StoryPropertiesAbridged";
         }
         
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
         /// <summary>
         /// Gets or Sets Energy
         /// </summary>
         [DataMember(Name="energy", EmitDefaultValue=false)]
         [JsonProperty("energy")]
         public StoryEnergyPropertiesAbridged Energy { get; set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"StoryPropertiesAbridged {iDd.Identifier}";
+       
+            return "StoryPropertiesAbridged";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class StoryPropertiesAbridged {\n");
+            sb.Append("StoryPropertiesAbridged:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  Energy: ").Append(Energy).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -84,7 +99,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<StoryPropertiesAbridged>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal

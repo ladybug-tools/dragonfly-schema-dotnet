@@ -28,24 +28,25 @@ namespace DragonflySchema
     /// Base class for all objects that are not extensible with additional keys.  This effectively includes all objects except for the Properties classes that are assigned to geometry objects.
     /// </summary>
     [DataContract]
-    public partial class BuildingEnergyPropertiesAbridged :  IEquatable<BuildingEnergyPropertiesAbridged>, IValidatableObject
+    public partial class BuildingEnergyPropertiesAbridged : HoneybeeObject, IEquatable<BuildingEnergyPropertiesAbridged>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildingEnergyPropertiesAbridged" /> class.
         /// </summary>
         /// <param name="constructionSet">Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used..</param>
-        public BuildingEnergyPropertiesAbridged(string constructionSet = default)
+        public BuildingEnergyPropertiesAbridged
+        (
+            // Required parameters
+            string constructionSet= default// Optional parameters
+        )// BaseClass
         {
             this.ConstructionSet = constructionSet;
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "BuildingEnergyPropertiesAbridged";
         }
         
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
         /// <summary>
         /// Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used.
         /// </summary>
@@ -53,18 +54,32 @@ namespace DragonflySchema
         [DataMember(Name="construction_set", EmitDefaultValue=false)]
         [JsonProperty("construction_set")]
         public string ConstructionSet { get; set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"BuildingEnergyPropertiesAbridged {iDd.Identifier}";
+       
+            return "BuildingEnergyPropertiesAbridged";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class BuildingEnergyPropertiesAbridged {\n");
+            sb.Append("BuildingEnergyPropertiesAbridged:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  ConstructionSet: ").Append(ConstructionSet).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -85,7 +100,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<BuildingEnergyPropertiesAbridged>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal

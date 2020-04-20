@@ -12,7 +12,7 @@ Contact: info@ladybug.tools
     
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B5FAAB94-7013-4144-A0AC-43099C461597}</ProjectGuid>
+    <ProjectGuid>{229E7E52-5893-4FAE-A0C5-2EF28F850CDC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DragonflySchema</RootNamespace>

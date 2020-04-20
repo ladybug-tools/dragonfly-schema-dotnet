@@ -28,8 +28,9 @@ namespace DragonflySchema
     /// A single window defined by an area ratio with the base surface.
     /// </summary>
     [DataContract]
-    public partial class SimpleWindowRatio :  IEquatable<SimpleWindowRatio>, IValidatableObject
+    public partial class SimpleWindowRatio : HoneybeeObject, IEquatable<SimpleWindowRatio>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleWindowRatio" /> class.
         /// </summary>
@@ -39,7 +40,11 @@ namespace DragonflySchema
         /// Initializes a new instance of the <see cref="SimpleWindowRatio" /> class.
         /// </summary>
         /// <param name="windowRatio">A number between 0 and 1 for the ratio between the window area and the parent wall surface area. (required).</param>
-        public SimpleWindowRatio(double windowRatio)
+        public SimpleWindowRatio
+        (
+            double windowRatio // Required parameters
+            // Optional parameters
+        )// BaseClass
         {
             // to ensure "windowRatio" is required (not null)
             if (windowRatio == null)
@@ -51,6 +56,9 @@ namespace DragonflySchema
                 this.WindowRatio = windowRatio;
             }
             
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "SimpleWindowRatio";
         }
         
         /// <summary>
@@ -60,25 +68,32 @@ namespace DragonflySchema
         [DataMember(Name="window_ratio", EmitDefaultValue=false)]
         [JsonProperty("window_ratio")]
         public double WindowRatio { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"SimpleWindowRatio {iDd.Identifier}";
+       
+            return "SimpleWindowRatio";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class SimpleWindowRatio {\n");
+            sb.Append("SimpleWindowRatio:\n");
             sb.Append("  WindowRatio: ").Append(WindowRatio).Append("\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -99,7 +114,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<SimpleWindowRatio>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal

@@ -28,8 +28,9 @@ namespace DragonflySchema
     /// Base class for all objects that are not extensible with additional keys.  This effectively includes all objects except for the Properties classes that are assigned to geometry objects.
     /// </summary>
     [DataContract]
-    public partial class ModelEnergyProperties :  IEquatable<ModelEnergyProperties>, IValidatableObject
+    public partial class ModelEnergyProperties : HoneybeeObject, IEquatable<ModelEnergyProperties>, IValidatableObject
     {
+
         /// <summary>
         /// Text for the terrain in which the model sits. This is used to determine the wind profile over the height of the buildings.
         /// </summary>
@@ -87,7 +88,11 @@ namespace DragonflySchema
         /// <param name="programTypes">List of all ProgramTypes in the Model..</param>
         /// <param name="schedules">A list of all unique schedules in the model. This includes schedules across all HVAC systems, ProgramTypes and ContextShades..</param>
         /// <param name="scheduleTypeLimits">A list of all unique ScheduleTypeLimits in the model. This all ScheduleTypeLimits needed to make the Model schedules..</param>
-        public ModelEnergyProperties(TerrainTypeEnum? terrainType = TerrainTypeEnum.City, string globalConstructionSet = default, List<AnyOf<ConstructionSetAbridged,ConstructionSet>> constructionSets = default, List<AnyOf<OpaqueConstructionAbridged,WindowConstructionAbridged,ShadeConstruction,AirBoundaryConstructionAbridged,OpaqueConstruction,WindowConstruction,AirBoundaryConstruction>> constructions = default, List<AnyOf<EnergyMaterial,EnergyMaterialNoMass,EnergyWindowMaterialGas,EnergyWindowMaterialGasCustom,EnergyWindowMaterialGasMixture,EnergyWindowMaterialSimpleGlazSys,EnergyWindowMaterialBlind,EnergyWindowMaterialGlazing,EnergyWindowMaterialShade>> materials = default, List<IdealAirSystemAbridged> hvacs = default, List<AnyOf<ProgramTypeAbridged,ProgramType>> programTypes = default, List<AnyOf<ScheduleRulesetAbridged,ScheduleFixedIntervalAbridged,ScheduleRuleset,ScheduleFixedInterval>> schedules = default, List<ScheduleTypeLimit> scheduleTypeLimits = default)
+        public ModelEnergyProperties
+        (
+            // Required parameters
+            TerrainTypeEnum? terrainType = TerrainTypeEnum.City, string globalConstructionSet= default, List<AnyOf<ConstructionSetAbridged,ConstructionSet>> constructionSets= default, List<AnyOf<OpaqueConstructionAbridged,WindowConstructionAbridged,ShadeConstruction,AirBoundaryConstructionAbridged,OpaqueConstruction,WindowConstruction,AirBoundaryConstruction>> constructions= default, List<AnyOf<EnergyMaterial,EnergyMaterialNoMass,EnergyWindowMaterialGas,EnergyWindowMaterialGasCustom,EnergyWindowMaterialGasMixture,EnergyWindowMaterialSimpleGlazSys,EnergyWindowMaterialBlind,EnergyWindowMaterialGlazing,EnergyWindowMaterialShade>> materials= default, List<IdealAirSystemAbridged> hvacs= default, List<AnyOf<ProgramTypeAbridged,ProgramType>> programTypes= default, List<AnyOf<ScheduleRulesetAbridged,ScheduleFixedIntervalAbridged,ScheduleRuleset,ScheduleFixedInterval>> schedules= default, List<ScheduleTypeLimit> scheduleTypeLimits= default// Optional parameters
+        )// BaseClass
         {
             // use default value if no "terrainType" provided
             if (terrainType == null)
@@ -106,16 +111,11 @@ namespace DragonflySchema
             this.ProgramTypes = programTypes;
             this.Schedules = schedules;
             this.ScheduleTypeLimits = scheduleTypeLimits;
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "ModelEnergyProperties";
         }
         
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
-
         /// <summary>
         /// Name for the ConstructionSet to be used for all objects lacking their own construction or a parent construction_set. This ConstructionSet must appear under the Model construction_sets.
         /// </summary>
@@ -123,7 +123,6 @@ namespace DragonflySchema
         [DataMember(Name="global_construction_set", EmitDefaultValue=false)]
         [JsonProperty("global_construction_set")]
         public string GlobalConstructionSet { get; set; }
-
         /// <summary>
         /// List of all ConstructionSets in the Model.
         /// </summary>
@@ -131,7 +130,6 @@ namespace DragonflySchema
         [DataMember(Name="construction_sets", EmitDefaultValue=false)]
         [JsonProperty("construction_sets")]
         public List<AnyOf<ConstructionSetAbridged,ConstructionSet>> ConstructionSets { get; set; }
-
         /// <summary>
         /// A list of all unique constructions in the model. This includes constructions across all the Model construction_sets.
         /// </summary>
@@ -139,7 +137,6 @@ namespace DragonflySchema
         [DataMember(Name="constructions", EmitDefaultValue=false)]
         [JsonProperty("constructions")]
         public List<AnyOf<OpaqueConstructionAbridged,WindowConstructionAbridged,ShadeConstruction,AirBoundaryConstructionAbridged,OpaqueConstruction,WindowConstruction,AirBoundaryConstruction>> Constructions { get; set; }
-
         /// <summary>
         /// A list of all unique materials in the model. This includes materials needed to make the Model constructions.
         /// </summary>
@@ -147,7 +144,6 @@ namespace DragonflySchema
         [DataMember(Name="materials", EmitDefaultValue=false)]
         [JsonProperty("materials")]
         public List<AnyOf<EnergyMaterial,EnergyMaterialNoMass,EnergyWindowMaterialGas,EnergyWindowMaterialGasCustom,EnergyWindowMaterialGasMixture,EnergyWindowMaterialSimpleGlazSys,EnergyWindowMaterialBlind,EnergyWindowMaterialGlazing,EnergyWindowMaterialShade>> Materials { get; set; }
-
         /// <summary>
         /// List of all HVAC systems in the Model.
         /// </summary>
@@ -155,7 +151,6 @@ namespace DragonflySchema
         [DataMember(Name="hvacs", EmitDefaultValue=false)]
         [JsonProperty("hvacs")]
         public List<IdealAirSystemAbridged> Hvacs { get; set; }
-
         /// <summary>
         /// List of all ProgramTypes in the Model.
         /// </summary>
@@ -163,7 +158,6 @@ namespace DragonflySchema
         [DataMember(Name="program_types", EmitDefaultValue=false)]
         [JsonProperty("program_types")]
         public List<AnyOf<ProgramTypeAbridged,ProgramType>> ProgramTypes { get; set; }
-
         /// <summary>
         /// A list of all unique schedules in the model. This includes schedules across all HVAC systems, ProgramTypes and ContextShades.
         /// </summary>
@@ -171,7 +165,6 @@ namespace DragonflySchema
         [DataMember(Name="schedules", EmitDefaultValue=false)]
         [JsonProperty("schedules")]
         public List<AnyOf<ScheduleRulesetAbridged,ScheduleFixedIntervalAbridged,ScheduleRuleset,ScheduleFixedInterval>> Schedules { get; set; }
-
         /// <summary>
         /// A list of all unique ScheduleTypeLimits in the model. This all ScheduleTypeLimits needed to make the Model schedules.
         /// </summary>
@@ -179,15 +172,30 @@ namespace DragonflySchema
         [DataMember(Name="schedule_type_limits", EmitDefaultValue=false)]
         [JsonProperty("schedule_type_limits")]
         public List<ScheduleTypeLimit> ScheduleTypeLimits { get; set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"ModelEnergyProperties {iDd.Identifier}";
+       
+            return "ModelEnergyProperties";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class ModelEnergyProperties {\n");
+            sb.Append("ModelEnergyProperties:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  TerrainType: ").Append(TerrainType).Append("\n");
             sb.Append("  GlobalConstructionSet: ").Append(GlobalConstructionSet).Append("\n");
@@ -198,7 +206,6 @@ namespace DragonflySchema
             sb.Append("  ProgramTypes: ").Append(ProgramTypes).Append("\n");
             sb.Append("  Schedules: ").Append(Schedules).Append("\n");
             sb.Append("  ScheduleTypeLimits: ").Append(ScheduleTypeLimits).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -219,7 +226,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<ModelEnergyProperties>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal

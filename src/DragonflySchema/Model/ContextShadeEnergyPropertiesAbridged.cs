@@ -28,26 +28,27 @@ namespace DragonflySchema
     /// Base class for all objects that are not extensible with additional keys.  This effectively includes all objects except for the Properties classes that are assigned to geometry objects.
     /// </summary>
     [DataContract]
-    public partial class ContextShadeEnergyPropertiesAbridged :  IEquatable<ContextShadeEnergyPropertiesAbridged>, IValidatableObject
+    public partial class ContextShadeEnergyPropertiesAbridged : HoneybeeObject, IEquatable<ContextShadeEnergyPropertiesAbridged>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextShadeEnergyPropertiesAbridged" /> class.
         /// </summary>
         /// <param name="construction">Name of a ShadeConstruction to set the reflectance and specularity of the ContextShade. If None, the the EnergyPlus default of 0.2 diffuse reflectance will be used..</param>
         /// <param name="transmittanceSchedule">Name of a schedule to set the transmittance of the ContextShade, which can vary throughout the simulation. If None, the ContextShade will be completely opauqe..</param>
-        public ContextShadeEnergyPropertiesAbridged(string construction = default, string transmittanceSchedule = default)
+        public ContextShadeEnergyPropertiesAbridged
+        (
+            // Required parameters
+            string construction= default, string transmittanceSchedule= default// Optional parameters
+        )// BaseClass
         {
             this.Construction = construction;
             this.TransmittanceSchedule = transmittanceSchedule;
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "ContextShadeEnergyPropertiesAbridged";
         }
         
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
         /// <summary>
         /// Name of a ShadeConstruction to set the reflectance and specularity of the ContextShade. If None, the the EnergyPlus default of 0.2 diffuse reflectance will be used.
         /// </summary>
@@ -55,7 +56,6 @@ namespace DragonflySchema
         [DataMember(Name="construction", EmitDefaultValue=false)]
         [JsonProperty("construction")]
         public string Construction { get; set; }
-
         /// <summary>
         /// Name of a schedule to set the transmittance of the ContextShade, which can vary throughout the simulation. If None, the ContextShade will be completely opauqe.
         /// </summary>
@@ -63,19 +63,33 @@ namespace DragonflySchema
         [DataMember(Name="transmittance_schedule", EmitDefaultValue=false)]
         [JsonProperty("transmittance_schedule")]
         public string TransmittanceSchedule { get; set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"ContextShadeEnergyPropertiesAbridged {iDd.Identifier}";
+       
+            return "ContextShadeEnergyPropertiesAbridged";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class ContextShadeEnergyPropertiesAbridged {\n");
+            sb.Append("ContextShadeEnergyPropertiesAbridged:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  Construction: ").Append(Construction).Append("\n");
             sb.Append("  TransmittanceSchedule: ").Append(TransmittanceSchedule).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -96,7 +110,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<ContextShadeEnergyPropertiesAbridged>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal

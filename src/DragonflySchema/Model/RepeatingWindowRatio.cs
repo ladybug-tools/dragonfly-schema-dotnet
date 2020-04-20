@@ -28,8 +28,9 @@ namespace DragonflySchema
     /// Repeating windows derived from an area ratio with the base wall.
     /// </summary>
     [DataContract]
-    public partial class RepeatingWindowRatio :  IEquatable<RepeatingWindowRatio>, IValidatableObject
+    public partial class RepeatingWindowRatio : HoneybeeObject, IEquatable<RepeatingWindowRatio>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RepeatingWindowRatio" /> class.
         /// </summary>
@@ -43,7 +44,11 @@ namespace DragonflySchema
         /// <param name="sillHeight">A number for the target height above the bottom edge of the wall to start the windows. Note that, if the ratio is too large for the height, the ratio will take precedence and the sill_height will be smaller than this value. (required).</param>
         /// <param name="horizontalSeparation">A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced. (required).</param>
         /// <param name="verticalSeparation">An optional number to create a single vertical separation between top and bottom windows. (default to 0D).</param>
-        public RepeatingWindowRatio(double windowRatio, double windowHeight, double sillHeight, double horizontalSeparation, double verticalSeparation = 0D)
+        public RepeatingWindowRatio
+        (
+            double windowRatio, double windowHeight, double sillHeight, double horizontalSeparation, // Required parameters
+            double verticalSeparation = 0D// Optional parameters
+        )// BaseClass
         {
             // to ensure "windowRatio" is required (not null)
             if (windowRatio == null)
@@ -94,6 +99,9 @@ namespace DragonflySchema
             {
                 this.VerticalSeparation = verticalSeparation;
             }
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "RepeatingWindowRatio";
         }
         
         /// <summary>
@@ -103,7 +111,6 @@ namespace DragonflySchema
         [DataMember(Name="window_ratio", EmitDefaultValue=false)]
         [JsonProperty("window_ratio")]
         public double WindowRatio { get; set; }
-
         /// <summary>
         /// A number for the target height of the windows. Note that, if the window ratio is too large for the height, the ratio will take precedence and the actual window_height will be larger than this value.
         /// </summary>
@@ -111,7 +118,6 @@ namespace DragonflySchema
         [DataMember(Name="window_height", EmitDefaultValue=false)]
         [JsonProperty("window_height")]
         public double WindowHeight { get; set; }
-
         /// <summary>
         /// A number for the target height above the bottom edge of the wall to start the windows. Note that, if the ratio is too large for the height, the ratio will take precedence and the sill_height will be smaller than this value.
         /// </summary>
@@ -119,7 +125,6 @@ namespace DragonflySchema
         [DataMember(Name="sill_height", EmitDefaultValue=false)]
         [JsonProperty("sill_height")]
         public double SillHeight { get; set; }
-
         /// <summary>
         /// A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced.
         /// </summary>
@@ -127,14 +132,6 @@ namespace DragonflySchema
         [DataMember(Name="horizontal_separation", EmitDefaultValue=false)]
         [JsonProperty("horizontal_separation")]
         public double HorizontalSeparation { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
         /// <summary>
         /// An optional number to create a single vertical separation between top and bottom windows.
         /// </summary>
@@ -142,22 +139,36 @@ namespace DragonflySchema
         [DataMember(Name="vertical_separation", EmitDefaultValue=false)]
         [JsonProperty("vertical_separation")]
         public double VerticalSeparation { get; set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"RepeatingWindowRatio {iDd.Identifier}";
+       
+            return "RepeatingWindowRatio";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class RepeatingWindowRatio {\n");
+            sb.Append("RepeatingWindowRatio:\n");
             sb.Append("  WindowRatio: ").Append(WindowRatio).Append("\n");
             sb.Append("  WindowHeight: ").Append(WindowHeight).Append("\n");
             sb.Append("  SillHeight: ").Append(SillHeight).Append("\n");
             sb.Append("  HorizontalSeparation: ").Append(HorizontalSeparation).Append("\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  VerticalSeparation: ").Append(VerticalSeparation).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -178,7 +189,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<RepeatingWindowRatio>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal

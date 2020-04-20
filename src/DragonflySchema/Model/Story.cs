@@ -28,8 +28,9 @@ namespace DragonflySchema
     /// Base class for all objects requiring a identifiers acceptable for all engines.
     /// </summary>
     [DataContract]
-    public partial class Story :  IEquatable<Story>, IValidatableObject
+    public partial class Story : IDdBaseModel, IEquatable<Story>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Story" /> class.
         /// </summary>
@@ -38,47 +39,21 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Story" /> class.
         /// </summary>
-        /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. (required).</param>
-        /// <param name="room2ds">An array of dragonfly Room2D objects that together form an entire story of a building. (required).</param>
-        /// <param name="properties">Extension properties for particular simulation engines (Radiance, EnergyPlus). (required).</param>
-        /// <param name="displayName">Display name of the object with no character restrictions..</param>
-        /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
+        /// <param name="room2ds">An array of dragonfly Room2D objects that together form an entire story of a building..</param>
+        /// <param name="properties">Extension properties for particular simulation engines (Radiance, EnergyPlus)..</param>
         /// <param name="floorToFloorHeight">A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If None, this value will be the maximum floor_to_ceiling_height of the input room_2ds..</param>
         /// <param name="multiplier">An integer that denotes the number of times that this Story is repeated over the height of the building. (default to 1).</param>
-        public Story(string identifier, List<Room2D> room2ds, StoryPropertiesAbridged properties, string displayName = default, Object userData = default, double floorToFloorHeight = default, int multiplier = 1)
+        /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. (required).</param>
+        /// <param name="displayName">Display name of the object with no character restrictions..</param>
+        /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
+        public Story
+        (
+            string identifier, // Required parameters
+            List<Room2D> room2ds= default, StoryPropertiesAbridged properties= default, double floorToFloorHeight= default, int multiplier = 1, string displayName= default, Object userData= default// Optional parameters
+        ) : base(identifier: identifier, displayName: displayName, userData: userData )// BaseClass
         {
-            // to ensure "identifier" is required (not null)
-            if (identifier == null)
-            {
-                throw new InvalidDataException("identifier is a required property for Story and cannot be null");
-            }
-            else
-            {
-                this.Identifier = identifier;
-            }
-            
-            // to ensure "room2ds" is required (not null)
-            if (room2ds == null)
-            {
-                throw new InvalidDataException("room2ds is a required property for Story and cannot be null");
-            }
-            else
-            {
-                this.Room2ds = room2ds;
-            }
-            
-            // to ensure "properties" is required (not null)
-            if (properties == null)
-            {
-                throw new InvalidDataException("properties is a required property for Story and cannot be null");
-            }
-            else
-            {
-                this.Properties = properties;
-            }
-            
-            this.DisplayName = displayName;
-            this.UserData = userData;
+            this.Room2ds = room2ds;
+            this.Properties = properties;
             this.FloorToFloorHeight = floorToFloorHeight;
             // use default value if no "multiplier" provided
             if (multiplier == null)
@@ -89,16 +64,11 @@ namespace DragonflySchema
             {
                 this.Multiplier = multiplier;
             }
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "Story";
         }
         
-        /// <summary>
-        /// Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters.
-        /// </summary>
-        /// <value>Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters.</value>
-        [DataMember(Name="identifier", EmitDefaultValue=false)]
-        [JsonProperty("identifier")]
-        public string Identifier { get; set; }
-
         /// <summary>
         /// An array of dragonfly Room2D objects that together form an entire story of a building.
         /// </summary>
@@ -106,7 +76,6 @@ namespace DragonflySchema
         [DataMember(Name="room_2ds", EmitDefaultValue=false)]
         [JsonProperty("room_2ds")]
         public List<Room2D> Room2ds { get; set; }
-
         /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
@@ -114,30 +83,6 @@ namespace DragonflySchema
         [DataMember(Name="properties", EmitDefaultValue=false)]
         [JsonProperty("properties")]
         public StoryPropertiesAbridged Properties { get; set; }
-
-        /// <summary>
-        /// Display name of the object with no character restrictions.
-        /// </summary>
-        /// <value>Display name of the object with no character restrictions.</value>
-        [DataMember(Name="display_name", EmitDefaultValue=false)]
-        [JsonProperty("display_name")]
-        public string DisplayName { get; set; }
-
-        /// <summary>
-        /// Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list).
-        /// </summary>
-        /// <value>Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list).</value>
-        [DataMember(Name="user_data", EmitDefaultValue=false)]
-        [JsonProperty("user_data")]
-        public Object UserData { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
         /// <summary>
         /// A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If None, this value will be the maximum floor_to_ceiling_height of the input room_2ds.
         /// </summary>
@@ -145,7 +90,6 @@ namespace DragonflySchema
         [DataMember(Name="floor_to_floor_height", EmitDefaultValue=false)]
         [JsonProperty("floor_to_floor_height")]
         public double FloorToFloorHeight { get; set; }
-
         /// <summary>
         /// An integer that denotes the number of times that this Story is repeated over the height of the building.
         /// </summary>
@@ -153,24 +97,39 @@ namespace DragonflySchema
         [DataMember(Name="multiplier", EmitDefaultValue=false)]
         [JsonProperty("multiplier")]
         public int Multiplier { get; set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"Story {iDd.Identifier}";
+       
+            return "Story";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class Story {\n");
+            sb.Append("Story:\n");
+            sb.Append("  ").Append(base.ToString().Replace("\n", "\n  ")).Append("\n");
             sb.Append("  Identifier: ").Append(Identifier).Append("\n");
-            sb.Append("  Room2ds: ").Append(Room2ds).Append("\n");
-            sb.Append("  Properties: ").Append(Properties).Append("\n");
             sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
             sb.Append("  UserData: ").Append(UserData).Append("\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  Room2ds: ").Append(Room2ds).Append("\n");
             sb.Append("  FloorToFloorHeight: ").Append(FloorToFloorHeight).Append("\n");
             sb.Append("  Multiplier: ").Append(Multiplier).Append("\n");
-            sb.Append("}\n");
+            sb.Append("  Properties: ").Append(Properties).Append("\n");
             return sb.ToString();
         }
   
@@ -178,7 +137,7 @@ namespace DragonflySchema
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public virtual string ToJson()
+        public override string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented, new AnyOfJsonConverter());
         }
@@ -191,7 +150,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<Story>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal
@@ -213,43 +172,28 @@ namespace DragonflySchema
             if (input == null)
                 return false;
 
-            return 
-                (
-                    this.Identifier == input.Identifier ||
-                    (this.Identifier != null &&
-                    this.Identifier.Equals(input.Identifier))
-                ) && 
+            return base.Equals(input) && 
                 (
                     this.Room2ds == input.Room2ds ||
                     this.Room2ds != null &&
                     input.Room2ds != null &&
                     this.Room2ds.SequenceEqual(input.Room2ds)
-                ) && 
+                ) && base.Equals(input) && 
                 (
                     this.Properties == input.Properties ||
                     (this.Properties != null &&
                     this.Properties.Equals(input.Properties))
-                ) && 
-                (
-                    this.DisplayName == input.DisplayName ||
-                    (this.DisplayName != null &&
-                    this.DisplayName.Equals(input.DisplayName))
-                ) && 
-                (
-                    this.UserData == input.UserData ||
-                    (this.UserData != null &&
-                    this.UserData.Equals(input.UserData))
-                ) && 
+                ) && base.Equals(input) && 
                 (
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
-                ) && 
+                ) && base.Equals(input) && 
                 (
                     this.FloorToFloorHeight == input.FloorToFloorHeight ||
                     (this.FloorToFloorHeight != null &&
                     this.FloorToFloorHeight.Equals(input.FloorToFloorHeight))
-                ) && 
+                ) && base.Equals(input) && 
                 (
                     this.Multiplier == input.Multiplier ||
                     (this.Multiplier != null &&
@@ -265,17 +209,11 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = 41;
-                if (this.Identifier != null)
-                    hashCode = hashCode * 59 + this.Identifier.GetHashCode();
+                int hashCode = base.GetHashCode();
                 if (this.Room2ds != null)
                     hashCode = hashCode * 59 + this.Room2ds.GetHashCode();
                 if (this.Properties != null)
                     hashCode = hashCode * 59 + this.Properties.GetHashCode();
-                if (this.DisplayName != null)
-                    hashCode = hashCode * 59 + this.DisplayName.GetHashCode();
-                if (this.UserData != null)
-                    hashCode = hashCode * 59 + this.UserData.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.FloorToFloorHeight != null)
@@ -293,25 +231,7 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            // Identifier (string) maxLength
-            if(this.Identifier != null && this.Identifier.Length > 100)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Identifier, length must be less than 100.", new [] { "Identifier" });
-            }
-
-            // Identifier (string) minLength
-            if(this.Identifier != null && this.Identifier.Length < 1)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Identifier, length must be greater than 1.", new [] { "Identifier" });
-            }
-
-            // Identifier (string) pattern
-            Regex regexIdentifier = new Regex(@"[A-Za-z0-9_-]", RegexOptions.CultureInvariant);
-            if (false == regexIdentifier.Match(this.Identifier).Success)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Identifier, must match a pattern of " + regexIdentifier, new [] { "Identifier" });
-            }
-
+            foreach(var x in base.BaseValidate(validationContext)) yield return x;
             // Type (string) pattern
             Regex regexType = new Regex(@"^Story$", RegexOptions.CultureInvariant);
             if (false == regexType.Match(this.Type).Success)

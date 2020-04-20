@@ -28,42 +28,57 @@ namespace DragonflySchema
     /// ContextShadePropertiesAbridged
     /// </summary>
     [DataContract]
-    public partial class ContextShadePropertiesAbridged :  IEquatable<ContextShadePropertiesAbridged>, IValidatableObject
+    public partial class ContextShadePropertiesAbridged : HoneybeeObject, IEquatable<ContextShadePropertiesAbridged>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextShadePropertiesAbridged" /> class.
         /// </summary>
         /// <param name="energy">energy.</param>
-        public ContextShadePropertiesAbridged(ContextShadeEnergyPropertiesAbridged energy = default)
+        public ContextShadePropertiesAbridged
+        (
+            // Required parameters
+            ContextShadeEnergyPropertiesAbridged energy= default// Optional parameters
+        )// BaseClass
         {
             this.Energy = energy;
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "ContextShadePropertiesAbridged";
         }
         
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
         /// <summary>
         /// Gets or Sets Energy
         /// </summary>
         [DataMember(Name="energy", EmitDefaultValue=false)]
         [JsonProperty("energy")]
         public ContextShadeEnergyPropertiesAbridged Energy { get; set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"ContextShadePropertiesAbridged {iDd.Identifier}";
+       
+            return "ContextShadePropertiesAbridged";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class ContextShadePropertiesAbridged {\n");
+            sb.Append("ContextShadePropertiesAbridged:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  Energy: ").Append(Energy).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -84,7 +99,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<ContextShadePropertiesAbridged>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal
