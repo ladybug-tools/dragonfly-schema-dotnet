@@ -4,7 +4,7 @@ Dragonfly Model Schema
 
 This is the documentation for Dragonfly model schema.
 
-The version of the OpenAPI document: 1.5.9
+The version of the OpenAPI document: 1.5.10
 Contact: info@ladybug.tools
 -->
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -81,7 +81,7 @@ Contact: info@ladybug.tools
   <Import Project="$(MsBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
       <ProjectReference Include="..\DragonflySchema\DragonflySchema.csproj">
-          <Project>{AFB82868-687B-4A8D-90B3-CC71837901E1}</Project>
+          <Project>{B5FAAB94-7013-4144-A0AC-43099C461597}</Project>
           <Name>DragonflySchema</Name>
       </ProjectReference>
   </ItemGroup>
