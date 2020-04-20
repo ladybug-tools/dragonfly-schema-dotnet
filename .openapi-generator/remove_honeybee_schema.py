@@ -2,7 +2,10 @@ import os
 import sys
 import json
 import urllib.request
+import time
 
+
+time.sleep(3)
 root = os.path.dirname(os.path.dirname(__file__))
 
 def remove_honeybeeSchema(source_json):
