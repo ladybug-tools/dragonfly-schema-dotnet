@@ -81,7 +81,7 @@ Contact: info@ladybug.tools
   <Import Project="$(MsBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
       <ProjectReference Include="..\DragonflySchema\DragonflySchema.csproj">
-          <Project>{B5FAAB94-7013-4144-A0AC-43099C461597}</Project>
+          <Project>{229E7E52-5893-4FAE-A0C5-2EF28F850CDC}</Project>
           <Name>DragonflySchema</Name>
       </ProjectReference>
   </ItemGroup>

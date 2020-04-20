@@ -28,8 +28,9 @@ namespace DragonflySchema
     /// Several detailed windows defined by 2D Polygons (lists of 2D vertices).
     /// </summary>
     [DataContract]
-    public partial class DetailedWindows :  IEquatable<DetailedWindows>, IValidatableObject
+    public partial class DetailedWindows : HoneybeeObject, IEquatable<DetailedWindows>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailedWindows" /> class.
         /// </summary>
@@ -39,7 +40,11 @@ namespace DragonflySchema
         /// Initializes a new instance of the <see cref="DetailedWindows" /> class.
         /// </summary>
         /// <param name="polygons">An array of arrays with each sub-array representing a polygonal boundary of a window within the plane of the wall. Each sub-array should consist of at least three 2D points and each point should be a list of 2 (x, y) values. The wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each point in the polygon should always be positive. Note that, if you are starting from 3D vertices of windows, you can use these window parameters to represent them. Some sample code to convert from 2D vertices to 2D vertices in the plane of the wall can be found here: https://www.ladybug.tools/dragonfly-core/docs/dragonfly.windowparameter.html#dragonfly.windowparameter.DetailedWindows (required).</param>
-        public DetailedWindows(List<List<List<double>>> polygons)
+        public DetailedWindows
+        (
+            List<List<List<double>>> polygons // Required parameters
+            // Optional parameters
+        )// BaseClass
         {
             // to ensure "polygons" is required (not null)
             if (polygons == null)
@@ -51,6 +56,9 @@ namespace DragonflySchema
                 this.Polygons = polygons;
             }
             
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "DetailedWindows";
         }
         
         /// <summary>
@@ -60,25 +68,32 @@ namespace DragonflySchema
         [DataMember(Name="polygons", EmitDefaultValue=false)]
         [JsonProperty("polygons")]
         public List<List<List<double>>> Polygons { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"DetailedWindows {iDd.Identifier}";
+       
+            return "DetailedWindows";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class DetailedWindows {\n");
+            sb.Append("DetailedWindows:\n");
             sb.Append("  Polygons: ").Append(Polygons).Append("\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -99,7 +114,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<DetailedWindows>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal

@@ -28,8 +28,9 @@ namespace DragonflySchema
     /// A single window in the wall center defined by a width * height.
     /// </summary>
     [DataContract]
-    public partial class SingleWindow :  IEquatable<SingleWindow>, IValidatableObject
+    public partial class SingleWindow : HoneybeeObject, IEquatable<SingleWindow>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SingleWindow" /> class.
         /// </summary>
@@ -41,7 +42,11 @@ namespace DragonflySchema
         /// <param name="width">A number for the window width. Note that, if this width is applied to a wall that is too narrow for this width, the generated window will automatically be shortened when it is applied to the wall. In this way, setting the width to be &#x60;float(\&quot;inf\&quot;)&#x60; will create parameters that always generate a ribboin window. (required).</param>
         /// <param name="height">A number for the window height. Note that, if this height is applied to a wall that is too short for this height, the generated window will automatically be shortened when it is applied to the wall. (required).</param>
         /// <param name="sillHeight">A number for the window sill height. (default to 1.0D).</param>
-        public SingleWindow(double width, double height, double sillHeight = 1.0D)
+        public SingleWindow
+        (
+            double width, double height, // Required parameters
+            double sillHeight = 1.0D// Optional parameters
+        )// BaseClass
         {
             // to ensure "width" is required (not null)
             if (width == null)
@@ -72,6 +77,9 @@ namespace DragonflySchema
             {
                 this.SillHeight = sillHeight;
             }
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "SingleWindow";
         }
         
         /// <summary>
@@ -81,7 +89,6 @@ namespace DragonflySchema
         [DataMember(Name="width", EmitDefaultValue=false)]
         [JsonProperty("width")]
         public double Width { get; set; }
-
         /// <summary>
         /// A number for the window height. Note that, if this height is applied to a wall that is too short for this height, the generated window will automatically be shortened when it is applied to the wall.
         /// </summary>
@@ -89,14 +96,6 @@ namespace DragonflySchema
         [DataMember(Name="height", EmitDefaultValue=false)]
         [JsonProperty("height")]
         public double Height { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
         /// <summary>
         /// A number for the window sill height.
         /// </summary>
@@ -104,20 +103,34 @@ namespace DragonflySchema
         [DataMember(Name="sill_height", EmitDefaultValue=false)]
         [JsonProperty("sill_height")]
         public double SillHeight { get; set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"SingleWindow {iDd.Identifier}";
+       
+            return "SingleWindow";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class SingleWindow {\n");
+            sb.Append("SingleWindow:\n");
             sb.Append("  Width: ").Append(Width).Append("\n");
             sb.Append("  Height: ").Append(Height).Append("\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  SillHeight: ").Append(SillHeight).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -138,7 +151,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<SingleWindow>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal

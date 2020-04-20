@@ -28,28 +28,29 @@ namespace DragonflySchema
     /// Base class for all objects that are not extensible with additional keys.  This effectively includes all objects except for the Properties classes that are assigned to geometry objects.
     /// </summary>
     [DataContract]
-    public partial class Room2DEnergyPropertiesAbridged :  IEquatable<Room2DEnergyPropertiesAbridged>, IValidatableObject
+    public partial class Room2DEnergyPropertiesAbridged : HoneybeeObject, IEquatable<Room2DEnergyPropertiesAbridged>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Room2DEnergyPropertiesAbridged" /> class.
         /// </summary>
         /// <param name="constructionSet">Name of a ConstructionSet to specify all constructions for the Room2D. If None, the Room2D will use the Story or Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects..</param>
         /// <param name="programType">Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints..</param>
         /// <param name="hvac">An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned..</param>
-        public Room2DEnergyPropertiesAbridged(string constructionSet = default, string programType = default, string hvac = default)
+        public Room2DEnergyPropertiesAbridged
+        (
+            // Required parameters
+            string constructionSet= default, string programType= default, string hvac= default// Optional parameters
+        )// BaseClass
         {
             this.ConstructionSet = constructionSet;
             this.ProgramType = programType;
             this.Hvac = hvac;
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "Room2DEnergyPropertiesAbridged";
         }
         
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
         /// <summary>
         /// Name of a ConstructionSet to specify all constructions for the Room2D. If None, the Room2D will use the Story or Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects.
         /// </summary>
@@ -57,7 +58,6 @@ namespace DragonflySchema
         [DataMember(Name="construction_set", EmitDefaultValue=false)]
         [JsonProperty("construction_set")]
         public string ConstructionSet { get; set; }
-
         /// <summary>
         /// Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints.
         /// </summary>
@@ -65,7 +65,6 @@ namespace DragonflySchema
         [DataMember(Name="program_type", EmitDefaultValue=false)]
         [JsonProperty("program_type")]
         public string ProgramType { get; set; }
-
         /// <summary>
         /// An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned.
         /// </summary>
@@ -73,20 +72,34 @@ namespace DragonflySchema
         [DataMember(Name="hvac", EmitDefaultValue=false)]
         [JsonProperty("hvac")]
         public string Hvac { get; set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"Room2DEnergyPropertiesAbridged {iDd.Identifier}";
+       
+            return "Room2DEnergyPropertiesAbridged";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class Room2DEnergyPropertiesAbridged {\n");
+            sb.Append("Room2DEnergyPropertiesAbridged:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  ConstructionSet: ").Append(ConstructionSet).Append("\n");
             sb.Append("  ProgramType: ").Append(ProgramType).Append("\n");
             sb.Append("  Hvac: ").Append(Hvac).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -107,7 +120,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<Room2DEnergyPropertiesAbridged>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal

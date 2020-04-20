@@ -28,8 +28,9 @@ namespace DragonflySchema
     /// Several rectangular windows, defined by origin, width and height.
     /// </summary>
     [DataContract]
-    public partial class RectangularWindows :  IEquatable<RectangularWindows>, IValidatableObject
+    public partial class RectangularWindows : HoneybeeObject, IEquatable<RectangularWindows>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RectangularWindows" /> class.
         /// </summary>
@@ -41,7 +42,11 @@ namespace DragonflySchema
         /// <param name="origins">An array of 2D points within the plane of the wall for the origin of each window. Each point should be a list of 2 (x, y) values. The wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each origin point should be positive. (required).</param>
         /// <param name="widths">An array of postive numbers for the window widths. The length of this list must match the length of the origins. (required).</param>
         /// <param name="heights">An array of postive numbers for the window heights. The length of this list must match the length of the origins. (required).</param>
-        public RectangularWindows(List<List<double>> origins, List<double> widths, List<double> heights)
+        public RectangularWindows
+        (
+            List<List<double>> origins, List<double> widths, List<double> heights // Required parameters
+            // Optional parameters
+        )// BaseClass
         {
             // to ensure "origins" is required (not null)
             if (origins == null)
@@ -73,6 +78,9 @@ namespace DragonflySchema
                 this.Heights = heights;
             }
             
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "RectangularWindows";
         }
         
         /// <summary>
@@ -82,7 +90,6 @@ namespace DragonflySchema
         [DataMember(Name="origins", EmitDefaultValue=false)]
         [JsonProperty("origins")]
         public List<List<double>> Origins { get; set; }
-
         /// <summary>
         /// An array of postive numbers for the window widths. The length of this list must match the length of the origins.
         /// </summary>
@@ -90,7 +97,6 @@ namespace DragonflySchema
         [DataMember(Name="widths", EmitDefaultValue=false)]
         [JsonProperty("widths")]
         public List<double> Widths { get; set; }
-
         /// <summary>
         /// An array of postive numbers for the window heights. The length of this list must match the length of the origins.
         /// </summary>
@@ -98,27 +104,34 @@ namespace DragonflySchema
         [DataMember(Name="heights", EmitDefaultValue=false)]
         [JsonProperty("heights")]
         public List<double> Heights { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"RectangularWindows {iDd.Identifier}";
+       
+            return "RectangularWindows";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class RectangularWindows {\n");
+            sb.Append("RectangularWindows:\n");
             sb.Append("  Origins: ").Append(Origins).Append("\n");
             sb.Append("  Widths: ").Append(Widths).Append("\n");
             sb.Append("  Heights: ").Append(Heights).Append("\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -139,7 +152,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<RectangularWindows>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal

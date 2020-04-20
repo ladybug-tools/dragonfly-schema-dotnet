@@ -28,8 +28,9 @@ namespace DragonflySchema
     /// A single overhang over an entire wall.
     /// </summary>
     [DataContract]
-    public partial class Overhang :  IEquatable<Overhang>, IValidatableObject
+    public partial class Overhang : HoneybeeObject, IEquatable<Overhang>, IValidatableObject
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Overhang" /> class.
         /// </summary>
@@ -40,7 +41,11 @@ namespace DragonflySchema
         /// </summary>
         /// <param name="depth">A number for the overhang depth. (required).</param>
         /// <param name="angle">A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation. (default to 0D).</param>
-        public Overhang(double depth, double angle = 0D)
+        public Overhang
+        (
+            double depth, // Required parameters
+            double angle = 0D// Optional parameters
+        )// BaseClass
         {
             // to ensure "depth" is required (not null)
             if (depth == null)
@@ -61,6 +66,9 @@ namespace DragonflySchema
             {
                 this.Angle = angle;
             }
+
+            // Set non-required readonly properties with defaultValue
+            this.Type = "Overhang";
         }
         
         /// <summary>
@@ -70,14 +78,6 @@ namespace DragonflySchema
         [DataMember(Name="depth", EmitDefaultValue=false)]
         [JsonProperty("depth")]
         public double Depth { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Type
-        /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        [JsonProperty("type")]
-        public string Type { get; private set; }
-
         /// <summary>
         /// A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.
         /// </summary>
@@ -85,19 +85,33 @@ namespace DragonflySchema
         [DataMember(Name="angle", EmitDefaultValue=false)]
         [JsonProperty("angle")]
         public double Angle { get; set; }
-
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"Overhang {iDd.Identifier}";
+       
+            return "Overhang";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class Overhang {\n");
+            sb.Append("Overhang:\n");
             sb.Append("  Depth: ").Append(Depth).Append("\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  Angle: ").Append(Angle).Append("\n");
-            sb.Append("}\n");
             return sb.ToString();
         }
   
@@ -118,7 +132,7 @@ namespace DragonflySchema
         {
             return JsonConvert.DeserializeObject<Overhang>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal
