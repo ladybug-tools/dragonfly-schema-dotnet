@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | [optional] [default to "ContextShadeEnergyPropertiesAbridged"]
+**Type** | **string** |  | [optional] [readonly] [default to "ContextShadeEnergyPropertiesAbridged"]
 **Construction** | **string** | Name of a ShadeConstruction to set the reflectance and specularity of the ContextShade. If None, the the EnergyPlus default of 0.2 diffuse reflectance will be used. | [optional] 
 **TransmittanceSchedule** | **string** | Name of a schedule to set the transmittance of the ContextShade, which can vary throughout the simulation. If None, the ContextShade will be completely opauqe. | [optional] 
 

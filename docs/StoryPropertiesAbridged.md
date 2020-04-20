@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | [optional] [default to "StoryPropertiesAbridged"]
+**Type** | **string** |  | [optional] [readonly] [default to "StoryPropertiesAbridged"]
 **Energy** | [**StoryEnergyPropertiesAbridged**](StoryEnergyPropertiesAbridged.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)

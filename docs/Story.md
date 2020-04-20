@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Properties** | [**StoryPropertiesAbridged**](StoryPropertiesAbridged.md) | Extension properties for particular simulation engines (Radiance, EnergyPlus). | 
 **DisplayName** | **string** | Display name of the object with no character restrictions. | [optional] 
 **UserData** | [**Object**](.md) | Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). | [optional] 
-**Type** | **string** |  | [optional] [default to "Story"]
+**Type** | **string** |  | [optional] [readonly] [default to "Story"]
 **FloorToFloorHeight** | **double** | A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If None, this value will be the maximum floor_to_ceiling_height of the input room_2ds. | [optional] 
 **Multiplier** | **int** | An integer that denotes the number of times that this Story is repeated over the height of the building. | [optional] [default to 1]
 

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | [optional] [default to "BuildingPropertiesAbridged"]
+**Type** | **string** |  | [optional] [readonly] [default to "BuildingPropertiesAbridged"]
 **Energy** | [**BuildingEnergyPropertiesAbridged**](BuildingEnergyPropertiesAbridged.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | [optional] [default to "Room2DPropertiesAbridged"]
+**Type** | **string** |  | [optional] [readonly] [default to "Room2DPropertiesAbridged"]
 **Energy** | [**Room2DEnergyPropertiesAbridged**](Room2DEnergyPropertiesAbridged.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)

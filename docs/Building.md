@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Properties** | [**BuildingPropertiesAbridged**](BuildingPropertiesAbridged.md) | Extension properties for particular simulation engines (Radiance, EnergyPlus). | 
 **DisplayName** | **string** | Display name of the object with no character restrictions. | [optional] 
 **UserData** | [**Object**](.md) | Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). | [optional] 
-**Type** | **string** |  | [optional] [default to "Building"]
+**Type** | **string** |  | [optional] [readonly] [default to "Building"]
 
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)

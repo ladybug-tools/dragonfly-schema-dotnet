@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **CoolingSchedule** | **string** | Identifier of the schedule for the cooling setpoint. The values in this schedule should be temperature in [C]. | 
 **HeatingSchedule** | **string** | Identifier of the schedule for the heating setpoint. The values in this schedule should be temperature in [C]. | 
 **DisplayName** | **string** | Display name of the object with no character restrictions. | [optional] 
-**Type** | **string** |  | [optional] [default to "SetpointAbridged"]
+**Type** | **string** |  | [optional] [readonly] [default to "SetpointAbridged"]
 **HumidifyingSchedule** | **string** | Identifier of the schedule for the humidification setpoint. The values in this schedule should be in [%]. | [optional] 
 **DehumidifyingSchedule** | **string** | Identifier of the schedule for the dehumidification setpoint. The values in this schedule should be in [%]. | [optional] 
 

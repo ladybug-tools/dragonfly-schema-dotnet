@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Properties** | [**Room2DPropertiesAbridged**](Room2DPropertiesAbridged.md) | Extension properties for particular simulation engines (Radiance, EnergyPlus). | 
 **DisplayName** | **string** | Display name of the object with no character restrictions. | [optional] 
 **UserData** | [**Object**](.md) | Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). | [optional] 
-**Type** | **string** |  | [optional] [default to "Room2D"]
+**Type** | **string** |  | [optional] [readonly] [default to "Room2D"]
 **FloorHoles** | **List&lt;List&lt;List&lt;double&gt;&gt;&gt;** | Optional list of lists with one list for each hole in the floor plate.Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate. | [optional] 
 **IsGroundContact** | **bool** | A boolean noting whether this Room2D has its floor in contact with the ground. | [optional] [default to false]
 **IsTopExposed** | **bool** | A boolean noting whether this Room2D has its ceiling exposed to the outdoors. | [optional] [default to false]

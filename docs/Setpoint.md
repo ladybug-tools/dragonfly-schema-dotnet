@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **CoolingSchedule** | [**AnyOfScheduleRulesetScheduleFixedInterval**](AnyOfScheduleRulesetScheduleFixedInterval.md) | Schedule for the cooling setpoint. The values in this schedule should be temperature in [C]. | 
 **HeatingSchedule** | [**AnyOfScheduleRulesetScheduleFixedInterval**](AnyOfScheduleRulesetScheduleFixedInterval.md) | Schedule for the heating setpoint. The values in this schedule should be temperature in [C]. | 
 **DisplayName** | **string** | Display name of the object with no character restrictions. | [optional] 
-**Type** | **string** |  | [optional] [default to "Setpoint"]
+**Type** | **string** |  | [optional] [readonly] [default to "Setpoint"]
 **HumidifyingSchedule** | [**AnyOfScheduleRulesetScheduleFixedInterval**](AnyOfScheduleRulesetScheduleFixedInterval.md) | Schedule for the humidification setpoint. The values in this schedule should be in [%]. | [optional] 
 **DehumidifyingSchedule** | [**AnyOfScheduleRulesetScheduleFixedInterval**](AnyOfScheduleRulesetScheduleFixedInterval.md) | Schedule for the dehumidification setpoint. The values in this schedule should be in [%]. | [optional] 
 

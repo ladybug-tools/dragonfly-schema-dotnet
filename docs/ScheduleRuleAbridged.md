@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ScheduleDay** | **string** | The identifier of a ScheduleDay object associated with this rule. | 
-**Type** | **string** |  | [optional] [default to "ScheduleRuleAbridged"]
+**Type** | **string** |  | [optional] [readonly] [default to "ScheduleRuleAbridged"]
 **ApplySunday** | **bool** | Boolean noting whether to apply schedule_day on Sundays. | [optional] [default to false]
 **ApplyMonday** | **bool** | Boolean noting whether to apply schedule_day on Mondays. | [optional] [default to false]
 **ApplyTuesday** | **bool** | Boolean noting whether to apply schedule_day on Tuesdays. | [optional] [default to false]
