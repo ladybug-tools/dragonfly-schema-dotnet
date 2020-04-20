@@ -9,8 +9,9 @@
     {{#generatePropertyChanged}}
     [ImplementPropertyChanged]
     {{/generatePropertyChanged}}
-    {{>visibility}} partial class {{classname}} : {{#parent}}{{{parent}}}, {{/parent}} IEquatable<{{classname}}>{{^netStandard}}{{#validatable}}, IValidatableObject{{/validatable}}{{/netStandard}}
+    {{>visibility}} partial class {{classname}} : {{#parent}}{{{parent}}}, {{/parent}}{{^parent}}HoneybeeObject, {{/parent}}IEquatable<{{classname}}>{{^netStandard}}{{#validatable}}, IValidatableObject{{/validatable}}{{/netStandard}}
     {
+
         {{#vars}}
         {{#items.isEnum}}
         {{#items}}
@@ -52,10 +53,23 @@
         /// <param name="{{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}">{{#description}}{{description}}{{/description}}{{^description}}{{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}{{/description}}{{#required}} (required){{/required}}{{#defaultValue}} (default to {{defaultValue}}){{/defaultValue}}.</param>
         {{/isReadOnly}}
         {{/vars}}
+        {{#parent}}
+        {{#parentModel}}
+        {{#allVars}}
+        {{^isReadOnly}}
+        /// <param name="{{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}">{{#description}}{{description}}{{/description}}{{^description}}{{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}{{/description}}{{#required}} (required){{/required}}{{#defaultValue}} (default to {{defaultValue}}){{/defaultValue}}.</param>
+        {{/isReadOnly}}
+        {{/allVars}}
+        {{/parentModel}}
+        {{/parent}}
     {{#hasOnlyReadOnly}}
         [JsonConstructorAttribute]
     {{/hasOnlyReadOnly}}
-        public {{classname}}({{#readWriteVars}}{{{datatypeWithEnum}}}{{#isEnum}}{{^isContainer}}{{^required}}?{{/required}}{{/isContainer}}{{/isEnum}} {{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}{{#defaultValue}} = {{{defaultValue}}}{{/defaultValue}}{{^defaultValue}}{{^required}} = default{{/required}}{{/defaultValue}}{{^-last}}, {{/-last}}{{/readWriteVars}}){{#parent}} : base({{#parentVars}}{{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}{{#hasMore}}, {{/hasMore}}{{/parentVars}}){{/parent}}
+        public {{classname}}
+        (
+            {{#readWriteVars}}{{#required}}{{{datatypeWithEnum}}} {{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/readWriteVars}}{{#hasRequired}}{{#hasOptional}}, {{/hasOptional}}{{/hasRequired}}// Required parameters
+            {{#readWriteVars}}{{^required}}{{{datatypeWithEnum}}}{{#isEnum}}{{^isContainer}}?{{/isContainer}}{{/isEnum}} {{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}{{#defaultValue}} = {{{defaultValue}}}{{/defaultValue}}{{^defaultValue}}= default{{/defaultValue}}{{#hasMore}}, {{/hasMore}}{{/required}}{{/readWriteVars}}// Optional parameters
+        ){{#parent}} : base({{#parentModel}}{{#allVars}}{{^isReadOnly}}{{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}: {{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}}{{#hasMore}}, {{/hasMore}}{{/isReadOnly}}{{/allVars}}{{/parentModel}}){{/parent}}// BaseClass
         {
             {{#vars}}
             {{^isInherited}}
@@ -99,11 +113,27 @@ this.{{name}} = {{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}};
             {{/isReadOnly}}
             {{/isInherited}}
             {{/vars}}
+
+            // Set non-required readonly properties with defaultValue
+            {{#vars}}
+            {{^isInherited}}
+            {{^isEnum}}
+            {{^required}}
+            {{#isReadOnly}}
+            {{#defaultValue}}
+            this.{{name}} = {{{defaultValue}}};
+            {{/defaultValue}}
+            {{/isReadOnly}}
+            {{/required}}
+            {{/isEnum}}
+            {{/isInherited}}
+            {{/vars}}
         }
         
         {{#vars}}
         {{^isInherited}}
         {{^isEnum}}
+        {{^isReadOnly}}
         /// <summary>
         /// {{^description}}Gets or Sets {{{name}}}{{/description}}{{#description}}{{description}}{{/description}}
         /// </summary>{{#description}}
@@ -111,26 +141,41 @@ this.{{name}} = {{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}};
         [DataMember(Name="{{baseName}}", EmitDefaultValue={{#vendorExtensions.x-emit-default-value}}true{{/vendorExtensions.x-emit-default-value}}{{^vendorExtensions.x-emit-default-value}}{{#isNullable}}true{{/isNullable}}{{^isNullable}}false{{/isNullable}}{{/vendorExtensions.x-emit-default-value}})]{{#isDate}}
         [JsonConverter(typeof(OpenAPIDateConverter))]{{/isDate}}
         [JsonProperty("{{baseName}}")]
-        public {{{dataType}}} {{name}} { get; {{#isReadOnly}}private {{/isReadOnly}}set; }
+        public {{{dataType}}} {{name}} { get; set; }
+        {{/isReadOnly}}
         {{/isEnum}}
         {{/isInherited}}
-
         {{/vars}}
+        
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
+            if (this is IIDdBase iDd)
+                return $"{{classname}} {iDd.Identifier}";
+       
+            return "{{classname}}";
+        }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public string ToString(bool detailed)
+        {
+            if (detailed)
+                return this.ToString();
+            
             var sb = new StringBuilder();
-            sb.Append("class {{classname}} {\n");
+            sb.Append("{{classname}}:\n");
             {{#parent}}
             sb.Append("  ").Append(base.ToString().Replace("\n", "\n  ")).Append("\n");
             {{/parent}}
-            {{#vars}}
+            {{#allVars}}
             sb.Append("  {{name}}: ").Append({{name}}).Append("\n");
-            {{/vars}}
-            sb.Append("}\n");
+            {{/allVars}}
             return sb.ToString();
         }
   
@@ -151,7 +196,7 @@ this.{{name}} = {{#lambda.camelcase_param}}{{name}}{{/lambda.camelcase_param}};
         {
             return JsonConvert.DeserializeObject<{{classname}}>(json, new AnyOfJsonConverter());
         }
-
+     
 
         /// <summary>
         /// Returns true if objects are equal

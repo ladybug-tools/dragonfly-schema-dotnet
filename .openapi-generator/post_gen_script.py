@@ -4,7 +4,7 @@ import urllib.request
 import json
 import shutil
 import re
-
+import time
 
 def get_allof_types(obj, allofList):
 
@@ -31,6 +31,30 @@ def get_allof_types(obj, allofList):
                     get_allof_types(item, allofList)
 
 
+def fix_constructor(read_data):
+    regexs = [
+        r"(,\s*,)(?=\s*\/\/ Required parameters\n\s+\b)",
+        r"(,)(?=\s*\/\/ Optional parameters)",
+        r"(,)(?=\s*\/\/ Required parameters\n\s+\/\/ Optional parameters)",
+        r"(,)(?=\s*\)\/\/ BaseClass)",
+        r"(?<=\()(\s*,)(?=\s*\/\/ Required parameters)"
+    ]
+
+    replace_new = [
+        ",",
+        " ",
+        "",
+        "",
+        ""
+    ]
+    data = read_data
+    for i, rex in enumerate(regexs):
+        replace = replace_new[i]
+        if re.findall(rex, data) != []:
+            data = re.sub(rex, replace, data)
+    return data
+
+
 def replace_decimal(read_data):
     data = read_data
     replace_source = ['decimal', '1M', '2M', '3M', '4M', '5M', '6M', '7M', '8M', '9M', '0M']
@@ -45,7 +69,7 @@ def replace_anyof_type(read_data, anyof_types):
     data = read_data
     for items in anyof_types:
         if len(items) > 0:
-            replace_source = "AnyOf%s" % ("".join(items))
+            replace_source = "AnyOf%s" % ("".join(items).replace('number', 'double'))
             replace_new = "AnyOf<%s>" % (",".join(items).replace('number', 'double'))
             rex = "(%s)(?=[ >])" % replace_source # find replace_source only with " "(space) or ">" follows
             if re.findall(rex, data) != []:
@@ -68,7 +92,8 @@ def check_csfiles(source_folder, anyof_types):
         # take care of anyof type
         data = replace_anyof_type(data, anyof_types)
         # replace decimal/number to double
-        data = replace_decimal(data)
+        # data = replace_decimal(data)
+        data = fix_constructor(data)
         f.close()
 
         # save data
@@ -81,10 +106,20 @@ def get_allof_types_from_json(source_json_url):
     # load schema json, and get all union types
     unitItem = []
 
-    json_url = urllib.request.urlopen(source_json_url)
-    data = json.loads(json_url.read())
+    if source_json_url.startswith('https:'):
+        json_url = urllib.request.urlopen(source_json_url)
+        data = json.loads(json_url.read())
+    else:
+        with open(source_json_url, "rb") as jsonFile:
+            data = json.load(jsonFile)
     for sn, sp in data['components']['schemas'].items():
-        props = sp['properties']
+        if 'properties' in sp:
+            props = sp['properties']
+        elif 'allOf' in sp:
+            all_objs = sp['allOf']
+            for obj in all_objs:
+                if 'properties' in obj:
+                    props = obj['properties']
         get_allof_types(props, unitItem)
     return unitItem
 
@@ -97,14 +132,42 @@ def check_anyof_types(source_json_url):
     check_csfiles(source_folder, all_types)
 
 
-def cleanup():
+def cleanup(projectName):
     root = os.path.dirname(os.path.dirname(__file__))
-    target_folder = os.path.join(root, 'src', 'DragonflySchema', 'Client')
+    # remove Client folder
+    target_folder = os.path.join(root, 'src', projectName, 'Client')
     if os.path.exists(target_folder):
         shutil.rmtree(target_folder)
+    # remove all *AllOf.cs files
+    target_folder = os.path.join(root, 'src', projectName, 'Model')
+    class_files = [x for x in os.listdir(target_folder) if x.endswith("AllOf.cs")]
+    for f in class_files:
+        cs_file = os.path.join(target_folder, f)
+        os.remove(cs_file)
+    # remove all *AllOf.md files
+    docs_folder = os.path.join(root, 'docs')
+    print(f"Checking {docs_folder}")
+    class_files = [x for x in os.listdir(docs_folder) if x.endswith("AllOf.md")]
+    for f in class_files:
+        cs_file = os.path.join(docs_folder, f)
+        os.remove(cs_file)
+    # remove all *AllOfTests.cs files
+    target_folder = os.path.join(root, 'src', f'{projectName}.Test', 'Model')
+    print(f"Checking {target_folder}")
+    class_files = [x for x in os.listdir(target_folder) if x.endswith("AllOfTests.cs")]
+    for f in class_files:
+        cs_file = os.path.join(target_folder, f)
+        os.remove(cs_file)
 
 
-json_url = sys.argv[1:][0]
-cleanup()
-print(f"post processing with {json_url}")
-check_anyof_types(json_url)
+args = sys.argv[1:]
+if args == []:
+    json_file = os.path.join(os.getcwd(), 'model.json')
+else:
+    json_file = args[0]
+
+time.sleep(3)
+cleanup('DragonflySchema')
+print(f"post processing with {json_file}")
+check_anyof_types(json_file)
+
