@@ -38,7 +38,7 @@ Contact: info@ladybug.tools
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HoneybeeSchema">
-      <HintPath>..\..\packages\HoneybeeSchema.1.25.6.33464\lib\net45\HoneybeeSchema.dll</HintPath>
+      <HintPath>..\..\packages\HoneybeeSchema.1.25.6.73\HoneybeeSchema.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
