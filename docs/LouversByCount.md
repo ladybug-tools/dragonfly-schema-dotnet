@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LouverCount** | **int** | A positive integer for the number of louvers to generate. | [optional] 
+**LouverCount** | **int** | A positive integer for the number of louvers to generate. | 
 **Type** | **string** |  | [optional] [readonly] [default to "LouversByCount"]
 
 [[Back to Model list]](../README.md#documentation-for-models)
