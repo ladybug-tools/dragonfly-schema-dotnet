@@ -50,7 +50,7 @@ namespace DragonflySchema
         public Story
         (
             string identifier, List<Room2D> room2ds, StoryPropertiesAbridged properties, // Required parameters
-            double floorToFloorHeight= default, int multiplier = 1, string displayName= default, Object userData= default// Optional parameters
+            string displayName= default, Object userData= default, double floorToFloorHeight= default, int multiplier = 1// Optional parameters
         ) : base(identifier: identifier, displayName: displayName, userData: userData )// BaseClass
         {
             // to ensure "room2ds" is required (not null)

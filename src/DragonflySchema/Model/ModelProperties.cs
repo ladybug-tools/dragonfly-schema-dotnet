@@ -37,7 +37,8 @@ namespace DragonflySchema
         /// </summary>
         /// <param name="energy">energy.</param>
         public ModelProperties
-        ( // Required parameters
+        (
+             // Required parameters
             ModelEnergyProperties energy= default// Optional parameters
         )// BaseClass
         {

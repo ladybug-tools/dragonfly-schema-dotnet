@@ -37,7 +37,8 @@ namespace DragonflySchema
         /// </summary>
         /// <param name="energy">energy.</param>
         public ContextShadePropertiesAbridged
-        ( // Required parameters
+        (
+             // Required parameters
             ContextShadeEnergyPropertiesAbridged energy= default// Optional parameters
         )// BaseClass
         {

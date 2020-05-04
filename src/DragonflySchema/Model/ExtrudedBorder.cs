@@ -42,8 +42,9 @@ namespace DragonflySchema
         /// </summary>
         /// <param name="depth">A number for the depth of the border. (required).</param>
         public ExtrudedBorder
-        ( double depth// Required parameters
-            // Optional parameters
+        (
+             double depth// Required parameters
+             // Optional parameters
         )// BaseClass
         {
             // to ensure "depth" is required (not null)

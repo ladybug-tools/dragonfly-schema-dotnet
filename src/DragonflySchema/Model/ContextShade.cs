@@ -48,7 +48,7 @@ namespace DragonflySchema
         public ContextShade
         (
             string identifier, List<Face3D> geometry, ContextShadePropertiesAbridged properties, // Required parameters
-            string displayName= default, Object userData= default// Optional parameters
+            string displayName= default, Object userData= default // Optional parameters
         ) : base(identifier: identifier, displayName: displayName, userData: userData )// BaseClass
         {
             // to ensure "geometry" is required (not null)

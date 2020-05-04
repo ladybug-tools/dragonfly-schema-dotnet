@@ -48,7 +48,7 @@ namespace DragonflySchema
         public Building
         (
             string identifier, List<Story> uniqueStories, BuildingPropertiesAbridged properties, // Required parameters
-            string displayName= default, Object userData= default// Optional parameters
+            string displayName= default, Object userData= default // Optional parameters
         ) : base(identifier: identifier, displayName: displayName, userData: userData )// BaseClass
         {
             // to ensure "uniqueStories" is required (not null)

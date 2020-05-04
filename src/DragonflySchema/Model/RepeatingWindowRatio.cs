@@ -46,7 +46,8 @@ namespace DragonflySchema
         /// <param name="horizontalSeparation">A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced. (required).</param>
         /// <param name="verticalSeparation">An optional number to create a single vertical separation between top and bottom windows. (default to 0D).</param>
         public RepeatingWindowRatio
-        ( double windowRatio, double windowHeight, double sillHeight, double horizontalSeparation, // Required parameters
+        (
+             double windowRatio, double windowHeight, double sillHeight, double horizontalSeparation, // Required parameters
             double verticalSeparation = 0D// Optional parameters
         )// BaseClass
         {
