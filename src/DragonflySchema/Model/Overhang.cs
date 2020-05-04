@@ -43,7 +43,8 @@ namespace DragonflySchema
         /// <param name="depth">A number for the overhang depth. (required).</param>
         /// <param name="angle">A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation. (default to 0D).</param>
         public Overhang
-        ( double depth, // Required parameters
+        (
+             double depth, // Required parameters
             double angle = 0D// Optional parameters
         )// BaseClass
         {

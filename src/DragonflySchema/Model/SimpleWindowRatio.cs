@@ -42,8 +42,9 @@ namespace DragonflySchema
         /// </summary>
         /// <param name="windowRatio">A number between 0 and 1 for the ratio between the window area and the parent wall surface area. (required).</param>
         public SimpleWindowRatio
-        ( double windowRatio// Required parameters
-            // Optional parameters
+        (
+             double windowRatio// Required parameters
+             // Optional parameters
         )// BaseClass
         {
             // to ensure "windowRatio" is required (not null)

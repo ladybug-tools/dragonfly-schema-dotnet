@@ -37,7 +37,8 @@ namespace DragonflySchema
         /// </summary>
         /// <param name="constructionSet">Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used..</param>
         public BuildingEnergyPropertiesAbridged
-        ( // Required parameters
+        (
+             // Required parameters
             string constructionSet= default// Optional parameters
         )// BaseClass
         {

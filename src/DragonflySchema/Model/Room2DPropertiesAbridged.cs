@@ -37,7 +37,8 @@ namespace DragonflySchema
         /// </summary>
         /// <param name="energy">energy.</param>
         public Room2DPropertiesAbridged
-        ( // Required parameters
+        (
+             // Required parameters
             Room2DEnergyPropertiesAbridged energy= default// Optional parameters
         )// BaseClass
         {

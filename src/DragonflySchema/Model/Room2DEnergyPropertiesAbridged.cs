@@ -39,7 +39,8 @@ namespace DragonflySchema
         /// <param name="programType">Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints..</param>
         /// <param name="hvac">An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned..</param>
         public Room2DEnergyPropertiesAbridged
-        ( // Required parameters
+        (
+             // Required parameters
             string constructionSet= default, string programType= default, string hvac= default// Optional parameters
         )// BaseClass
         {

@@ -44,7 +44,8 @@ namespace DragonflySchema
         /// <param name="height">A number for the window height. Note that, if this height is applied to a wall that is too short for this height, the generated window will automatically be shortened when it is applied to the wall. (required).</param>
         /// <param name="sillHeight">A number for the window sill height. (default to 1.0D).</param>
         public SingleWindow
-        ( double width, double height, // Required parameters
+        (
+             double width, double height, // Required parameters
             double sillHeight = 1.0D// Optional parameters
         )// BaseClass
         {

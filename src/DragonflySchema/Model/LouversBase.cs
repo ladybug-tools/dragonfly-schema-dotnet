@@ -46,8 +46,9 @@ namespace DragonflySchema
         /// <param name="contourVector">A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours..</param>
         /// <param name="flipStartSide">Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left. (default to false).</param>
         public LouversBase
-        ( double depth, // Required parameters
-            double offset = 0D, double angle = 0D, List<double> contourVector= default, bool flipStartSide = false// Optional parameters
+        (
+             double depth, // Required parameters
+            double offset = 0D, double angle = 0D, List<double> contourVector= default, bool flipStartSide = false // Optional parameters
         )// BaseClass
         {
             // to ensure "depth" is required (not null)

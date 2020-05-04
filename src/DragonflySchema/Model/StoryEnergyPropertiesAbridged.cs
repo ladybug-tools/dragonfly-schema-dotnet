@@ -37,7 +37,8 @@ namespace DragonflySchema
         /// </summary>
         /// <param name="constructionSet">Name of a ConstructionSet to specify all constructions for the Story. If None, the Story will use the Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects..</param>
         public StoryEnergyPropertiesAbridged
-        ( // Required parameters
+        (
+             // Required parameters
             string constructionSet= default// Optional parameters
         )// BaseClass
         {

@@ -49,7 +49,7 @@ namespace DragonflySchema
         public LouversByDistance
         (
             double depth, double distance, // Required parameters
-            double offset = 0D, double angle = 0D, List<double> contourVector= default, bool flipStartSide = false// Optional parameters
+            double offset = 0D, double angle = 0D, List<double> contourVector= default, bool flipStartSide = false // Optional parameters
         ) : base(depth: depth, offset: offset, angle: angle, contourVector: contourVector, flipStartSide: flipStartSide )// BaseClass
         {
             // to ensure "distance" is required (not null)

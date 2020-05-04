@@ -98,7 +98,7 @@ namespace DragonflySchema
         public Model
         (
             string identifier, List<Building> buildings, ModelProperties properties, // Required parameters
-            List<ContextShade> contextShades= default, double northAngle = 0D, UnitsEnum? units = UnitsEnum.Meters, double tolerance = 0D, double angleTolerance = 0D, string displayName= default, Object userData= default// Optional parameters
+            string displayName= default, Object userData= default, List<ContextShade> contextShades= default, double northAngle = 0D, UnitsEnum? units = UnitsEnum.Meters, double tolerance = 0D, double angleTolerance = 0D// Optional parameters
         ) : base(identifier: identifier, displayName: displayName, userData: userData )// BaseClass
         {
             // to ensure "buildings" is required (not null)
