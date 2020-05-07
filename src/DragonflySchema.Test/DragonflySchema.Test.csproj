@@ -37,8 +37,8 @@ Contact: info@ladybug.tools
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HoneybeeSchema">
-      <HintPath>..\..\packages\HoneybeeSchema.1.26.0.39391\HoneybeeSchema.dll</HintPath>
+    <Reference Include="HoneybeeSchema, Version=1.27.4.7885, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HoneybeeSchema.1.27.4.7885\HoneybeeSchema.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
