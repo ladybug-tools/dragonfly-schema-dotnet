@@ -38,6 +38,9 @@ Contact: info@ladybug.tools
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\DragonflySchema.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <NoWarn>CS0472,CS1591,CS0108</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="HoneybeeSchema">
       <HintPath>..\..\packages\HoneybeeSchema.1.26.0.39391\HoneybeeSchema.dll</HintPath>
