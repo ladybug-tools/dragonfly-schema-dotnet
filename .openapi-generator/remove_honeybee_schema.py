@@ -19,9 +19,10 @@ def remove_honeybeeSchema(source_json):
     else:
         with open(source_json, "rb") as jsonFile:
             data = json.load(jsonFile)
-    
-    for key in data.keys():
-        name_space = data[key].title().replace('_', '', 1)
+    classesItems = data['classes']
+
+    for key in classesItems.keys():
+        name_space = classesItems[key].title().replace('_', '', 1)
         if name_space.startswith('HoneybeeSchema'):
             # remove the interface:
             layers = name_space.split('.')
