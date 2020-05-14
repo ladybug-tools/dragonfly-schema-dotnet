@@ -23,7 +23,7 @@ def add_reference_honeybeeSchema(new_version):
     update_version(config, rex, new_version)
     update_version(nuspec, rex, new_version)
     
-    rex = r"(?<=HoneybeeSchema.)\S+(?=\\)"
+    rex = r"(?<=HoneybeeSchema.)\S+(?=\\lib)"
     update_version(csproj, rex, new_version)
 
     # update DragonflySchema.Test
