@@ -32,7 +32,7 @@ namespace DragonflySchema.Test
     public class Room2DPropertiesAbridgedTests
     {
         // TODO uncomment below to declare an instance variable for Room2DPropertiesAbridged
-        //private Room2DPropertiesAbridged instance;
+        private Room2DPropertiesAbridged instance;
 
         /// <summary>
         /// Setup before each test
@@ -41,7 +41,7 @@ namespace DragonflySchema.Test
         public void Init()
         {
             // TODO uncomment below to create an instance of Room2DPropertiesAbridged
-            //instance = new Room2DPropertiesAbridged();
+            instance = new Room2DPropertiesAbridged();
         }
 
         /// <summary>
@@ -60,9 +60,16 @@ namespace DragonflySchema.Test
         public void Room2DPropertiesAbridgedInstanceTest()
         {
             // TODO uncomment below to test "IsInstanceOf" Room2DPropertiesAbridged
-            //Assert.IsInstanceOf(typeof(Room2DPropertiesAbridged), instance);
+            Assert.IsInstanceOf(typeof(Room2DPropertiesAbridged), instance);
         }
 
+        [Test]
+        public void ToStringTest()
+        {
+            var obj = new Room2DPropertiesAbridged();
+            var s = obj.ToString();
+            Assert.IsTrue(s == nameof(Room2DPropertiesAbridged));
+        }
 
         /// <summary>
         /// Test the property 'Type'
