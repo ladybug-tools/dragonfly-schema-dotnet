@@ -20,7 +20,8 @@ def remove_honeybeeSchema(source_json):
         with open(source_json, "rb") as jsonFile:
             data = json.load(jsonFile)
     classesItems = data['classes']
-
+    classesItems.update(data['enums'])
+    
     for key in classesItems.keys():
         name_space = classesItems[key].title().replace('_', '', 1)
         if name_space.startswith('HoneybeeSchema'):
