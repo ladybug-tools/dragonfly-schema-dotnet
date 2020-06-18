@@ -26,7 +26,7 @@
         <dependencies>
 
             <dependency id="NewtonSoft.Json" version="12.0.1" />
-            <dependency id="HoneybeeSchema" version="1.32.0.39156" />
+            <dependency id="HoneybeeSchema" version="1.34.1.37007" />
 
         </dependencies>
     </metadata>

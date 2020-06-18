@@ -43,7 +43,7 @@ Contact: info@ladybug.tools
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HoneybeeSchema, Version=1.30.2.29202, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\HoneybeeSchema.1.32.0.39156\lib\net45\HoneybeeSchema.dll</HintPath>
+      <HintPath>..\..\packages\HoneybeeSchema.1.34.1.37007\lib\net45\HoneybeeSchema.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
