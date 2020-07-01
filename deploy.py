@@ -20,3 +20,5 @@ except Exception as e:
     print(str(e))
     raise Exception(e)
 
+print(f"Deployed to https://www.nuget.org/packages/DragonflySchema/{BUILD_VERSION}")
+print("nuget usually takes a few miniutes to process this new package until it shows up from above link")
