@@ -64,7 +64,7 @@ Contact: info@ladybug.tools
       <Version>1.34.2.3774</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.1</Version>
+      <Version>12.0.3</Version>
     </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.11.0</Version>
