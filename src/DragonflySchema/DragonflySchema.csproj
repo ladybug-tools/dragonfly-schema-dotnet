@@ -42,8 +42,8 @@ Contact: info@ladybug.tools
     <NoWarn>CS0472,CS1591,CS0108</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HoneybeeSchema, Version=1.30.2.29202, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\HoneybeeSchema.1.34.1.37007\lib\net45\HoneybeeSchema.dll</HintPath>
+    <Reference Include="HoneybeeSchema, Version=1.34.2.3774, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HoneybeeSchema.1.34.2.3774\lib\net45\HoneybeeSchema.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,6 +56,9 @@ Contact: info@ladybug.tools
       <HintPath Condition="Exists('..\packages')">..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <HintPath Condition="Exists('..\..\packages')">..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <HintPath Condition="Exists('..\..\vendor')">..\..\vendor\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

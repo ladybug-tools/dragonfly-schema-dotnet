@@ -163,21 +163,33 @@ namespace DragonflySchema
         }
   
         /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public virtual string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented, JsonSetting.AnyOfConvertSetting);
-        }
-
-        /// <summary>
         /// Returns the object from JSON string
         /// </summary>
         /// <returns>LouversBase object</returns>
         public static LouversBase FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<LouversBase>(json, JsonSetting.AnyOfConvertSetting);
+            var obj = JsonConvert.DeserializeObject<LouversBase>(json, JsonSetting.AnyOfConvertSetting);
+            if (obj == null)
+                return null;
+            return obj.Type.ToLower() == obj.GetType().Name.ToLower() ? obj : null;
+        }
+
+        /// <summary>
+        /// Creates a new instance with the same properties.
+        /// </summary>
+        /// <returns>LouversBase object</returns>
+        public LouversBase DuplicateLouversBase()
+        {
+            return Duplicate() as LouversBase;
+        }
+
+        /// <summary>
+        /// Creates a new instance with the same properties.
+        /// </summary>
+        /// <returns>HoneybeeObject</returns>
+        public override HoneybeeObject Duplicate()
+        {
+            return FromJson(this.ToJson());
         }
      
 
@@ -305,5 +317,4 @@ namespace DragonflySchema
             yield break;
         }
     }
-
 }

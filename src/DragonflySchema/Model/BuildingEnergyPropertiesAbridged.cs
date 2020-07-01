@@ -85,21 +85,33 @@ namespace DragonflySchema
         }
   
         /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public virtual string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented, JsonSetting.AnyOfConvertSetting);
-        }
-
-        /// <summary>
         /// Returns the object from JSON string
         /// </summary>
         /// <returns>BuildingEnergyPropertiesAbridged object</returns>
         public static BuildingEnergyPropertiesAbridged FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<BuildingEnergyPropertiesAbridged>(json, JsonSetting.AnyOfConvertSetting);
+            var obj = JsonConvert.DeserializeObject<BuildingEnergyPropertiesAbridged>(json, JsonSetting.AnyOfConvertSetting);
+            if (obj == null)
+                return null;
+            return obj.Type.ToLower() == obj.GetType().Name.ToLower() ? obj : null;
+        }
+
+        /// <summary>
+        /// Creates a new instance with the same properties.
+        /// </summary>
+        /// <returns>BuildingEnergyPropertiesAbridged object</returns>
+        public BuildingEnergyPropertiesAbridged DuplicateBuildingEnergyPropertiesAbridged()
+        {
+            return Duplicate() as BuildingEnergyPropertiesAbridged;
+        }
+
+        /// <summary>
+        /// Creates a new instance with the same properties.
+        /// </summary>
+        /// <returns>HoneybeeObject</returns>
+        public override HoneybeeObject Duplicate()
+        {
+            return FromJson(this.ToJson());
         }
      
 
@@ -182,5 +194,4 @@ namespace DragonflySchema
             yield break;
         }
     }
-
 }

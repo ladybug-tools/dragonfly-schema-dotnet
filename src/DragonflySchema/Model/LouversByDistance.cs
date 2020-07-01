@@ -109,21 +109,33 @@ namespace DragonflySchema
         }
   
         /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public override string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented, JsonSetting.AnyOfConvertSetting);
-        }
-
-        /// <summary>
         /// Returns the object from JSON string
         /// </summary>
         /// <returns>LouversByDistance object</returns>
         public static LouversByDistance FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<LouversByDistance>(json, JsonSetting.AnyOfConvertSetting);
+            var obj = JsonConvert.DeserializeObject<LouversByDistance>(json, JsonSetting.AnyOfConvertSetting);
+            if (obj == null)
+                return null;
+            return obj.Type.ToLower() == obj.GetType().Name.ToLower() ? obj : null;
+        }
+
+        /// <summary>
+        /// Creates a new instance with the same properties.
+        /// </summary>
+        /// <returns>LouversByDistance object</returns>
+        public LouversByDistance DuplicateLouversByDistance()
+        {
+            return Duplicate() as LouversByDistance;
+        }
+
+        /// <summary>
+        /// Creates a new instance with the same properties.
+        /// </summary>
+        /// <returns>HoneybeeObject</returns>
+        public override HoneybeeObject Duplicate()
+        {
+            return FromJson(this.ToJson());
         }
      
 
@@ -195,5 +207,4 @@ namespace DragonflySchema
             yield break;
         }
     }
-
 }
