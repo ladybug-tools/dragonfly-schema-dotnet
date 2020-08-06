@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonflySchema", "src\DragonflySchema\DragonflySchema.csproj", "{229E7E52-5893-4FAE-A0C5-2EF28F850CDC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonflySchema", "src\DragonflySchema\DragonflySchema.csproj", "{F538E302-ABB3-49D6-BBB5-9ACB4C70001B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonflySchema.Test", "src\DragonflySchema.Test\DragonflySchema.Test.csproj", "{19F1DEBC-DE5E-4517-8062-F000CD499087}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonflySchema.Test", "src\DragonflySchema.Test\DragonflySchema.Test.csproj", "{C66FD2A5-00B0-46B9-BD04-1EEFC7FF96D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,14 +12,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{229E7E52-5893-4FAE-A0C5-2EF28F850CDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{229E7E52-5893-4FAE-A0C5-2EF28F850CDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{229E7E52-5893-4FAE-A0C5-2EF28F850CDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{229E7E52-5893-4FAE-A0C5-2EF28F850CDC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F538E302-ABB3-49D6-BBB5-9ACB4C70001B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F538E302-ABB3-49D6-BBB5-9ACB4C70001B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F538E302-ABB3-49D6-BBB5-9ACB4C70001B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F538E302-ABB3-49D6-BBB5-9ACB4C70001B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C66FD2A5-00B0-46B9-BD04-1EEFC7FF96D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C66FD2A5-00B0-46B9-BD04-1EEFC7FF96D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C66FD2A5-00B0-46B9-BD04-1EEFC7FF96D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C66FD2A5-00B0-46B9-BD04-1EEFC7FF96D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
