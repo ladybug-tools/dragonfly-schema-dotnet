@@ -8,6 +8,8 @@
 *.sln.docstates
 ./nuget
 nuget.exe
+package-lock.json
+
 # Build results
 
 [Dd]ebug/
@@ -17,6 +19,7 @@ build/
 [Bb]in/
 [Oo]bj/
 .vs/
+node_modules/
 
 # NuGet Packages
 *.nupkg
