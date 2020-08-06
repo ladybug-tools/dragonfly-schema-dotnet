@@ -1,3 +1,8 @@
+# Install python, java, npm
+# Install openapi-generator
+#   npm install @openapitools/openapi-generator-cli@cli-4.3.0
+
+
 python .openapi-generator/pre_gen_script.py
 npx openapi-generator generate -i "https://www.ladybug.tools/dragonfly-schema/model_inheritance.json"  -t ".openapi-generator/templates/csharp" -g csharp -o . --skip-validate-spec -c .openapi-generator/config.json
 python .openapi-generator/post_gen_script.py "https://www.ladybug.tools/dragonfly-schema/model_inheritance.json"
