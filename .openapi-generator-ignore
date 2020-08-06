@@ -27,3 +27,9 @@ Client/*.cs
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
+
+.travis.yml
+build.bat
+build.sh
+git_push.sh
+mono_nunit_test.sh
