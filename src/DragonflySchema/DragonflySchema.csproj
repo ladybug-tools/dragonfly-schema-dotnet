@@ -21,7 +21,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="HoneybeeSchema" Version="1.38.3.3" />
+    <PackageReference Include="HoneybeeSchema" Version="1.39.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
