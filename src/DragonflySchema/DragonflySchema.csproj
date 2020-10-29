@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.6.8.0</Version>
+    <Version>1.6.9.0</Version>
     <Authors>Ladybug Tools</Authors>
     <Description>This is the .Net version of Dragonfly Schema</Description>
     <Copyright>Copyright © 2020 Ladybug Tools LLC</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://www.ladybug.tools/dragonfly-schema</PackageProjectUrl>
-    <AssemblyVersion>1.6.8.0</AssemblyVersion>
-    <FileVersion>1.6.8.0</FileVersion>
+    <AssemblyVersion>1.6.9.0</AssemblyVersion>
+    <FileVersion>1.6.9.0</FileVersion>
     <RepositoryUrl>https://github.com/ladybug-tools/dragonfly-schema-dotnet</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
