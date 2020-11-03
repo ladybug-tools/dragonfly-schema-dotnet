@@ -22,7 +22,7 @@ jobs:
           dotnet build --configuration Release /nowarn:CS0472,CS0108
 
       - name: Run Unit Tests
-        working-directory: src/DragonflySchema.Test
+        working-directory: src/DragonflySchema.Tests
         run: |
           dotnet test --configuration Release
 
