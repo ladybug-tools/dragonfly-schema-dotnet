@@ -6,5 +6,6 @@ python3 .openapi-generator/update_assembly_version.py
 python3 .openapi-generator/create_interface.py ".openapi-docs/model_mapper.json"
 python3 .openapi-generator/remove_honeybee_schema.py "https://www.ladybug.tools/dragonfly-schema/model_mapper.json"
 
+rm src/DragonflySchema/Model/OpenAPIGenBaseModel.cs
 # dotnet build -c Release -f netstandard2.0 src/HoneybeeSchema
 
