@@ -18,6 +18,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using HoneybeeSchema;
 using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
