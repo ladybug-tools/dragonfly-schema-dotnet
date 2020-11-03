@@ -2,10 +2,10 @@
     "packageName": "DragonflySchema",
     "projectName": "DragonflySchema",
     "packageUrl": "https://github.com/ladybug-tools/dragonfly-schema",
-    "packageVersion": "1.5.28",
+    "packageVersion": "1.6.14",
     "targetFramework": "v4.5",
     "sourceFolder": "src",
     "sortParamsByRequiredFlag": true,
     "optionalAssemblyInfo": false,
-    "optionalProjectFile": true
+    "optionalProjectFile": false
 }
