@@ -15,9 +15,6 @@ using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
 {{#models}}
 {{#model}}
-{{#discriminator}}
-using JsonSubTypes;
-{{/discriminator}}
 {{/model}}
 {{/models}}
 {{^netStandard}}
