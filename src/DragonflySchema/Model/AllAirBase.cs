@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Base class for all-air systems.
     /// </summary>
     [DataContract(Name = "_AllAirBase")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class AllAirBase : IDdEnergyBaseModel, IEquatable<AllAirBase>, IValidatableObject
     {
         /// <summary>
@@ -83,14 +81,12 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A number between 0 and 1 for the effectiveness of sensible heat recovery within the system. If None or Autosize, it will be whatever is recommended for the given vintage.</value>
         [DataMember(Name = "sensible_heat_recovery", EmitDefaultValue = false)]
-        
         public AnyOf<Autosize,double> SensibleHeatRecovery { get; set; } 
         /// <summary>
         /// A number between 0 and 1 for the effectiveness of latent heat recovery within the system. If None or Autosize, it will be whatever is recommended for the given vintage.
         /// </summary>
         /// <value>A number between 0 and 1 for the effectiveness of latent heat recovery within the system. If None or Autosize, it will be whatever is recommended for the given vintage.</value>
         [DataMember(Name = "latent_heat_recovery", EmitDefaultValue = false)]
-        
         public AnyOf<Autosize,double> LatentHeatRecovery { get; set; } 
 
         /// <summary>

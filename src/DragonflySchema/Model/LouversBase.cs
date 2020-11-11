@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,9 +28,6 @@ namespace DragonflySchema
     /// Base class for for a series of louvered shades over a wall.
     /// </summary>
     [DataContract(Name = "_LouversBase")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
-    [JsonSubtypes.KnownSubType(typeof(LouversByDistance), "LouversByDistance")]
-    [JsonSubtypes.KnownSubType(typeof(LouversByCount), "LouversByCount")]
     public partial class LouversBase : OpenAPIGenBaseModel, IEquatable<LouversBase>, IValidatableObject
     {
         /// <summary>
@@ -73,35 +69,30 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A number for the depth to extrude the louvers.</value>
         [DataMember(Name = "depth", IsRequired = true, EmitDefaultValue = false)]
-        
         public double Depth { get; set; } 
         /// <summary>
         /// A number for the distance to louvers from the wall.
         /// </summary>
         /// <value>A number for the distance to louvers from the wall.</value>
         [DataMember(Name = "offset", EmitDefaultValue = true)]
-        
         public double Offset { get; set; }  = 0D;
         /// <summary>
         /// A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.
         /// </summary>
         /// <value>A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.</value>
         [DataMember(Name = "angle", EmitDefaultValue = true)]
-        
         public double Angle { get; set; }  = 0D;
         /// <summary>
         /// A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours.
         /// </summary>
         /// <value>A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours.</value>
         [DataMember(Name = "contour_vector", EmitDefaultValue = false)]
-        
         public List<double> ContourVector { get; set; } 
         /// <summary>
         /// Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left.
         /// </summary>
         /// <value>Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left.</value>
         [DataMember(Name = "flip_start_side", EmitDefaultValue = true)]
-        
         public bool FlipStartSide { get; set; }  = false;
 
         /// <summary>

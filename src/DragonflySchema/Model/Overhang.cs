@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// A single overhang over an entire wall.
     /// </summary>
     [DataContract(Name = "Overhang")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class Overhang : OpenAPIGenBaseModel, IEquatable<Overhang>, IValidatableObject
     {
         /// <summary>
@@ -65,14 +63,12 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A number for the overhang depth.</value>
         [DataMember(Name = "depth", IsRequired = true, EmitDefaultValue = false)]
-        
         public double Depth { get; set; } 
         /// <summary>
         /// A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.
         /// </summary>
         /// <value>A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.</value>
         [DataMember(Name = "angle", EmitDefaultValue = true)]
-        
         public double Angle { get; set; }  = 0D;
 
         /// <summary>

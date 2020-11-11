@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Base class for all objects requiring a identifiers acceptable for all engines.
     /// </summary>
     [DataContract(Name = "Building")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class Building : IDdBaseModel, IEquatable<Building>, IValidatableObject
     {
         /// <summary>
@@ -70,14 +68,12 @@ namespace DragonflySchema
         /// </summary>
         /// <value>An array of unique dragonfly Story objects that together form the entire building. Stories should generally be ordered from lowest floor to highest floor. Note that, if a given Story is repeated several times over the height of the building, the unique story included in this list should be the first (lowest) story of the repeated floors.</value>
         [DataMember(Name = "unique_stories", IsRequired = true, EmitDefaultValue = false)]
-        
         public List<Story> UniqueStories { get; set; } 
         /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         /// <value>Extension properties for particular simulation engines (Radiance, EnergyPlus).</value>
         [DataMember(Name = "properties", IsRequired = true, EmitDefaultValue = false)]
-        
         public BuildingPropertiesAbridged Properties { get; set; } 
 
         /// <summary>

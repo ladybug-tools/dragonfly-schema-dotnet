@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// A set of constructions for wall, floor, or roof assemblies.
     /// </summary>
     [DataContract(Name = "_FaceSubSet")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class FaceSubSet : OpenAPIGenBaseModel, IEquatable<FaceSubSet>, IValidatableObject
     {
         /// <summary>
@@ -57,21 +55,18 @@ namespace DragonflySchema
         /// </summary>
         /// <value>An OpaqueConstruction for walls with a Surface or Adiabatic boundary condition.</value>
         [DataMember(Name = "interior_construction", EmitDefaultValue = false)]
-        
         public OpaqueConstruction InteriorConstruction { get; set; } 
         /// <summary>
         /// An OpaqueConstruction for walls with an Outdoors boundary condition.
         /// </summary>
         /// <value>An OpaqueConstruction for walls with an Outdoors boundary condition.</value>
         [DataMember(Name = "exterior_construction", EmitDefaultValue = false)]
-        
         public OpaqueConstruction ExteriorConstruction { get; set; } 
         /// <summary>
         /// An OpaqueConstruction for walls with a Ground boundary condition.
         /// </summary>
         /// <value>An OpaqueConstruction for walls with a Ground boundary condition.</value>
         [DataMember(Name = "ground_construction", EmitDefaultValue = false)]
-        
         public OpaqueConstruction GroundConstruction { get; set; } 
 
         /// <summary>

@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// ModelProperties
     /// </summary>
     [DataContract(Name = "ModelProperties")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class ModelProperties : OpenAPIGenBaseModel, IEquatable<ModelProperties>, IValidatableObject
     {
         /// <summary>
@@ -52,7 +50,6 @@ namespace DragonflySchema
         /// Gets or Sets Energy
         /// </summary>
         [DataMember(Name = "energy", EmitDefaultValue = false)]
-        
         public ModelEnergyProperties Energy { get; set; } 
 
         /// <summary>

@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Base class for all objects that are not extensible with additional keys.  This effectively includes all objects except for the Properties classes that are assigned to geometry objects.
     /// </summary>
     [DataContract(Name = "ModelEnergyProperties")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class ModelEnergyProperties : OpenAPIGenBaseModel, IEquatable<ModelEnergyProperties>, IValidatableObject
     {
         /// <summary>
@@ -65,49 +63,42 @@ namespace DragonflySchema
         /// </summary>
         /// <value>List of all ConstructionSets in the Model.</value>
         [DataMember(Name = "construction_sets", EmitDefaultValue = false)]
-        
         public List<AnyOf<ConstructionSetAbridged,ConstructionSet>> ConstructionSets { get; set; } 
         /// <summary>
         /// A list of all unique constructions in the model. This includes constructions across all the Model construction_sets.
         /// </summary>
         /// <value>A list of all unique constructions in the model. This includes constructions across all the Model construction_sets.</value>
         [DataMember(Name = "constructions", EmitDefaultValue = false)]
-        
         public List<AnyOf<OpaqueConstructionAbridged,WindowConstructionAbridged,ShadeConstruction,AirBoundaryConstructionAbridged,OpaqueConstruction,WindowConstruction,AirBoundaryConstruction>> Constructions { get; set; } 
         /// <summary>
         /// A list of all unique materials in the model. This includes materials needed to make the Model constructions.
         /// </summary>
         /// <value>A list of all unique materials in the model. This includes materials needed to make the Model constructions.</value>
         [DataMember(Name = "materials", EmitDefaultValue = false)]
-        
         public List<AnyOf<EnergyMaterial,EnergyMaterialNoMass,EnergyWindowMaterialGas,EnergyWindowMaterialGasCustom,EnergyWindowMaterialGasMixture,EnergyWindowMaterialSimpleGlazSys,EnergyWindowMaterialBlind,EnergyWindowMaterialGlazing,EnergyWindowMaterialShade>> Materials { get; set; } 
         /// <summary>
         /// List of all HVAC systems in the Model.
         /// </summary>
         /// <value>List of all HVAC systems in the Model.</value>
         [DataMember(Name = "hvacs", EmitDefaultValue = false)]
-        
         public List<AnyOf<IdealAirSystemAbridged,VAV,PVAV,PSZ,PTAC,ForcedAirFurnace,FCUwithDOAS,WSHPwithDOAS,VRFwithDOAS,FCU,WSHP,VRF,Baseboard,EvaporativeCooler,Residential,WindowAC,GasUnitHeater>> Hvacs { get; set; } 
         /// <summary>
         /// List of all ProgramTypes in the Model.
         /// </summary>
         /// <value>List of all ProgramTypes in the Model.</value>
         [DataMember(Name = "program_types", EmitDefaultValue = false)]
-        
         public List<AnyOf<ProgramTypeAbridged,ProgramType>> ProgramTypes { get; set; } 
         /// <summary>
         /// A list of all unique schedules in the model. This includes schedules across all HVAC systems, ProgramTypes and ContextShades.
         /// </summary>
         /// <value>A list of all unique schedules in the model. This includes schedules across all HVAC systems, ProgramTypes and ContextShades.</value>
         [DataMember(Name = "schedules", EmitDefaultValue = false)]
-        
         public List<AnyOf<ScheduleRulesetAbridged,ScheduleFixedIntervalAbridged,ScheduleRuleset,ScheduleFixedInterval>> Schedules { get; set; } 
         /// <summary>
         /// A list of all unique ScheduleTypeLimits in the model. This all ScheduleTypeLimits needed to make the Model schedules.
         /// </summary>
         /// <value>A list of all unique ScheduleTypeLimits in the model. This all ScheduleTypeLimits needed to make the Model schedules.</value>
         [DataMember(Name = "schedule_type_limits", EmitDefaultValue = false)]
-        
         public List<ScheduleTypeLimit> ScheduleTypeLimits { get; set; } 
 
         /// <summary>

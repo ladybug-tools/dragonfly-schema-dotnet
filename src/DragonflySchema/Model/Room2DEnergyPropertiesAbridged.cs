@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Base class for all objects that are not extensible with additional keys.  This effectively includes all objects except for the Properties classes that are assigned to geometry objects.
     /// </summary>
     [DataContract(Name = "Room2DEnergyPropertiesAbridged")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class Room2DEnergyPropertiesAbridged : OpenAPIGenBaseModel, IEquatable<Room2DEnergyPropertiesAbridged>, IValidatableObject
     {
         /// <summary>
@@ -61,35 +59,30 @@ namespace DragonflySchema
         /// </summary>
         /// <value>Name of a ConstructionSet to specify all constructions for the Room2D. If None, the Room2D will use the Story or Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects.</value>
         [DataMember(Name = "construction_set", EmitDefaultValue = false)]
-        
         public string ConstructionSet { get; set; } 
         /// <summary>
         /// Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints.
         /// </summary>
         /// <value>Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints.</value>
         [DataMember(Name = "program_type", EmitDefaultValue = false)]
-        
         public string ProgramType { get; set; } 
         /// <summary>
         /// An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned.
         /// </summary>
         /// <value>An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned.</value>
         [DataMember(Name = "hvac", EmitDefaultValue = false)]
-        
         public string Hvac { get; set; } 
         /// <summary>
         /// An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.
         /// </summary>
         /// <value>An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.</value>
         [DataMember(Name = "window_vent_control", EmitDefaultValue = false)]
-        
         public VentilationControlAbridged WindowVentControl { get; set; } 
         /// <summary>
         /// An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open.
         /// </summary>
         /// <value>An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open.</value>
         [DataMember(Name = "window_vent_opening", EmitDefaultValue = false)]
-        
         public VentilationOpening WindowVentOpening { get; set; } 
 
         /// <summary>

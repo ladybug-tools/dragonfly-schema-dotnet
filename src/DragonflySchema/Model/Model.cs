@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Base class for all objects requiring a identifiers acceptable for all engines.
     /// </summary>
     [DataContract(Name = "Model")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class Model : IDdBaseModel, IEquatable<Model>, IValidatableObject
     {
         /// <summary>
@@ -87,42 +85,36 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A list of Buildings in the model.</value>
         [DataMember(Name = "buildings", IsRequired = true, EmitDefaultValue = false)]
-        
         public List<Building> Buildings { get; set; } 
         /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         /// <value>Extension properties for particular simulation engines (Radiance, EnergyPlus).</value>
         [DataMember(Name = "properties", IsRequired = true, EmitDefaultValue = false)]
-        
         public ModelProperties Properties { get; set; } 
         /// <summary>
         /// Text string for the current version of the schema.
         /// </summary>
         /// <value>Text string for the current version of the schema.</value>
         [DataMember(Name = "version", EmitDefaultValue = true)]
-        
         public string Version { get; set; }  = "0.0.0";
         /// <summary>
         /// A list of ContextShades in the model.
         /// </summary>
         /// <value>A list of ContextShades in the model.</value>
         [DataMember(Name = "context_shades", EmitDefaultValue = false)]
-        
         public List<ContextShade> ContextShades { get; set; } 
         /// <summary>
         /// The maximum difference between x, y, and z values at which vertices are considered equivalent. This value should be in the Model units and is used in a variety of checks and operations. A value of 0 will result in bypassing all checks so it is recommended that this always be a positive number when checks have not already been performed on a Model. The default of 0.01 is suitable for models in meters.
         /// </summary>
         /// <value>The maximum difference between x, y, and z values at which vertices are considered equivalent. This value should be in the Model units and is used in a variety of checks and operations. A value of 0 will result in bypassing all checks so it is recommended that this always be a positive number when checks have not already been performed on a Model. The default of 0.01 is suitable for models in meters.</value>
         [DataMember(Name = "tolerance", EmitDefaultValue = true)]
-        
         public double Tolerance { get; set; }  = 0.01D;
         /// <summary>
         /// The max angle difference in degrees that vertices are allowed to differ from one another in order to consider them colinear. This value is used in a variety of checks and operations that can be performed on geometry. A value of 0 will result in no checks and an inability to perform certain operations so it is recommended that this always be a positive number when checks have not already been performed on a given Model.
         /// </summary>
         /// <value>The max angle difference in degrees that vertices are allowed to differ from one another in order to consider them colinear. This value is used in a variety of checks and operations that can be performed on geometry. A value of 0 will result in no checks and an inability to perform certain operations so it is recommended that this always be a positive number when checks have not already been performed on a given Model.</value>
         [DataMember(Name = "angle_tolerance", EmitDefaultValue = true)]
-        
         public double AngleTolerance { get; set; }  = 1.0D;
 
         /// <summary>

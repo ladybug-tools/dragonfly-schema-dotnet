@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// ContextShadePropertiesAbridged
     /// </summary>
     [DataContract(Name = "ContextShadePropertiesAbridged")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class ContextShadePropertiesAbridged : OpenAPIGenBaseModel, IEquatable<ContextShadePropertiesAbridged>, IValidatableObject
     {
         /// <summary>
@@ -52,7 +50,6 @@ namespace DragonflySchema
         /// Gets or Sets Energy
         /// </summary>
         [DataMember(Name = "energy", EmitDefaultValue = false)]
-        
         public ContextShadeEnergyPropertiesAbridged Energy { get; set; } 
 
         /// <summary>

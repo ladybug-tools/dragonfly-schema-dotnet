@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Base class for all objects that are not extensible with additional keys.  This effectively includes all objects except for the Properties classes that are assigned to geometry objects.
     /// </summary>
     [DataContract(Name = "ContextShadeEnergyPropertiesAbridged")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class ContextShadeEnergyPropertiesAbridged : OpenAPIGenBaseModel, IEquatable<ContextShadeEnergyPropertiesAbridged>, IValidatableObject
     {
         /// <summary>
@@ -55,14 +53,12 @@ namespace DragonflySchema
         /// </summary>
         /// <value>Name of a ShadeConstruction to set the reflectance and specularity of the ContextShade. If None, the the EnergyPlus default of 0.2 diffuse reflectance will be used.</value>
         [DataMember(Name = "construction", EmitDefaultValue = false)]
-        
         public string Construction { get; set; } 
         /// <summary>
         /// Name of a schedule to set the transmittance of the ContextShade, which can vary throughout the simulation. If None, the ContextShade will be completely opaque.
         /// </summary>
         /// <value>Name of a schedule to set the transmittance of the ContextShade, which can vary throughout the simulation. If None, the ContextShade will be completely opaque.</value>
         [DataMember(Name = "transmittance_schedule", EmitDefaultValue = false)]
-        
         public string TransmittanceSchedule { get; set; } 
 
         /// <summary>
