@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// A specific number of louvered Shades over a wall.
     /// </summary>
     [DataContract(Name = "LouversByCount")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class LouversByCount : LouversBase, IEquatable<LouversByCount>, IValidatableObject
     {
         /// <summary>
@@ -68,7 +66,6 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A positive integer for the number of louvers to generate.</value>
         [DataMember(Name = "louver_count", IsRequired = true, EmitDefaultValue = false)]
-        
         public int LouverCount { get; set; } 
 
         /// <summary>

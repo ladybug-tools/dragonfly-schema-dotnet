@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Repeating windows derived from an area ratio with the base wall.
     /// </summary>
     [DataContract(Name = "RepeatingWindowRatio")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class RepeatingWindowRatio : OpenAPIGenBaseModel, IEquatable<RepeatingWindowRatio>, IValidatableObject
     {
         /// <summary>
@@ -71,35 +69,30 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A number between 0 and 1 for the ratio between the window area and the parent wall surface area.</value>
         [DataMember(Name = "window_ratio", IsRequired = true, EmitDefaultValue = false)]
-        
         public double WindowRatio { get; set; } 
         /// <summary>
         /// A number for the target height of the windows. Note that, if the window ratio is too large for the height, the ratio will take precedence and the actual window_height will be larger than this value.
         /// </summary>
         /// <value>A number for the target height of the windows. Note that, if the window ratio is too large for the height, the ratio will take precedence and the actual window_height will be larger than this value.</value>
         [DataMember(Name = "window_height", IsRequired = true, EmitDefaultValue = false)]
-        
         public double WindowHeight { get; set; } 
         /// <summary>
         /// A number for the target height above the bottom edge of the wall to start the windows. Note that, if the ratio is too large for the height, the ratio will take precedence and the sill_height will be smaller than this value.
         /// </summary>
         /// <value>A number for the target height above the bottom edge of the wall to start the windows. Note that, if the ratio is too large for the height, the ratio will take precedence and the sill_height will be smaller than this value.</value>
         [DataMember(Name = "sill_height", IsRequired = true, EmitDefaultValue = false)]
-        
         public double SillHeight { get; set; } 
         /// <summary>
         /// A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced.
         /// </summary>
         /// <value>A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced.</value>
         [DataMember(Name = "horizontal_separation", IsRequired = true, EmitDefaultValue = false)]
-        
         public double HorizontalSeparation { get; set; } 
         /// <summary>
         /// An optional number to create a single vertical separation between top and bottom windows.
         /// </summary>
         /// <value>An optional number to create a single vertical separation between top and bottom windows.</value>
         [DataMember(Name = "vertical_separation", EmitDefaultValue = true)]
-        
         public double VerticalSeparation { get; set; }  = 0D;
 
         /// <summary>

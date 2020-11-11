@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Base class for all heating/cooling systems without any ventilation.
     /// </summary>
     [DataContract(Name = "_HeatCoolBase")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class HeatCoolBase : IDdEnergyBaseModel, IEquatable<HeatCoolBase>, IValidatableObject
     {
         /// <summary>

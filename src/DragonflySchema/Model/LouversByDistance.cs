@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// A series of louvered Shades at a given distance between each louver.
     /// </summary>
     [DataContract(Name = "LouversByDistance")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class LouversByDistance : LouversBase, IEquatable<LouversByDistance>, IValidatableObject
     {
         /// <summary>
@@ -68,7 +66,6 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A number for the approximate distance between each louver.</value>
         [DataMember(Name = "distance", IsRequired = true, EmitDefaultValue = false)]
-        
         public double Distance { get; set; } 
 
         /// <summary>

@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// A single window defined by an area ratio with the base surface.
     /// </summary>
     [DataContract(Name = "SimpleWindowRatio")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class SimpleWindowRatio : OpenAPIGenBaseModel, IEquatable<SimpleWindowRatio>, IValidatableObject
     {
         /// <summary>
@@ -63,7 +61,6 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A number between 0 and 1 for the ratio between the window area and the parent wall surface area.</value>
         [DataMember(Name = "window_ratio", IsRequired = true, EmitDefaultValue = false)]
-        
         public double WindowRatio { get; set; } 
 
         /// <summary>

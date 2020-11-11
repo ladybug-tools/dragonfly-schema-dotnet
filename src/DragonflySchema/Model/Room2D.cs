@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Base class for all objects requiring a identifiers acceptable for all engines.
     /// </summary>
     [DataContract(Name = "Room2D")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class Room2D : IDdBaseModel, IEquatable<Room2D>, IValidatableObject
     {
         /// <summary>
@@ -86,70 +84,60 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A list of 2D points representing the outer boundary vertices of the Room2D. The list should include at least 3 points and each point should be a list of 2 (x, y) values.</value>
         [DataMember(Name = "floor_boundary", IsRequired = true, EmitDefaultValue = false)]
-        
         public List<List<double>> FloorBoundary { get; set; } 
         /// <summary>
         /// A number to indicate the height of the floor plane in the Z axis.
         /// </summary>
         /// <value>A number to indicate the height of the floor plane in the Z axis.</value>
         [DataMember(Name = "floor_height", IsRequired = true, EmitDefaultValue = false)]
-        
         public double FloorHeight { get; set; } 
         /// <summary>
         /// A number for the distance between the floor and the ceiling.
         /// </summary>
         /// <value>A number for the distance between the floor and the ceiling.</value>
         [DataMember(Name = "floor_to_ceiling_height", IsRequired = true, EmitDefaultValue = false)]
-        
         public double FloorToCeilingHeight { get; set; } 
         /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         /// <value>Extension properties for particular simulation engines (Radiance, EnergyPlus).</value>
         [DataMember(Name = "properties", IsRequired = true, EmitDefaultValue = false)]
-        
         public Room2DPropertiesAbridged Properties { get; set; } 
         /// <summary>
         /// Optional list of lists with one list for each hole in the floor plate. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate.
         /// </summary>
         /// <value>Optional list of lists with one list for each hole in the floor plate. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate.</value>
         [DataMember(Name = "floor_holes", EmitDefaultValue = false)]
-        
         public List<List<List<double>>> FloorHoles { get; set; } 
         /// <summary>
         /// A boolean noting whether this Room2D has its floor in contact with the ground.
         /// </summary>
         /// <value>A boolean noting whether this Room2D has its floor in contact with the ground.</value>
         [DataMember(Name = "is_ground_contact", EmitDefaultValue = true)]
-        
         public bool IsGroundContact { get; set; }  = false;
         /// <summary>
         /// A boolean noting whether this Room2D has its ceiling exposed to the outdoors.
         /// </summary>
         /// <value>A boolean noting whether this Room2D has its ceiling exposed to the outdoors.</value>
         [DataMember(Name = "is_top_exposed", EmitDefaultValue = true)]
-        
         public bool IsTopExposed { get; set; }  = false;
         /// <summary>
         /// A list of boundary conditions that match the number of segments in the input floor_geometry + floor_holes. These will be used to assign boundary conditions to each of the walls of the Room in the resulting model. Their order should align with the order of segments in the floor_boundary and then with each hole segment. If None, all boundary conditions will be Outdoors or Ground depending on whether ceiling height of the room is at or below 0 (the assumed ground plane).
         /// </summary>
         /// <value>A list of boundary conditions that match the number of segments in the input floor_geometry + floor_holes. These will be used to assign boundary conditions to each of the walls of the Room in the resulting model. Their order should align with the order of segments in the floor_boundary and then with each hole segment. If None, all boundary conditions will be Outdoors or Ground depending on whether ceiling height of the room is at or below 0 (the assumed ground plane).</value>
         [DataMember(Name = "boundary_conditions", EmitDefaultValue = false)]
-        
         public List<AnyOf<Ground,Outdoors,Adiabatic,Surface>> BoundaryConditions { get; set; } 
         /// <summary>
         /// A list of WindowParameter objects that dictate how the window geometries will be generated for each of the walls. If None, no windows will exist over the entire Room2D.
         /// </summary>
         /// <value>A list of WindowParameter objects that dictate how the window geometries will be generated for each of the walls. If None, no windows will exist over the entire Room2D.</value>
         [DataMember(Name = "window_parameters", EmitDefaultValue = false)]
-        
         public List<AnyOf<SingleWindow,SimpleWindowRatio,RepeatingWindowRatio,RectangularWindows,DetailedWindows>> WindowParameters { get; set; } 
         /// <summary>
         /// A list of ShadingParameter objects that dictate how the shade geometries will be generated for each of the walls. If None, no shades will exist over the entire Room2D.
         /// </summary>
         /// <value>A list of ShadingParameter objects that dictate how the shade geometries will be generated for each of the walls. If None, no shades will exist over the entire Room2D.</value>
         [DataMember(Name = "shading_parameters", EmitDefaultValue = false)]
-        
         public List<AnyOf<ExtrudedBorder,Overhang,LouversByDistance,LouversByCount>> ShadingParameters { get; set; } 
 
         /// <summary>

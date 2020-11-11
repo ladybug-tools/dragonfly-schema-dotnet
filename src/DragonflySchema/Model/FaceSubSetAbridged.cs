@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,10 +28,6 @@ namespace DragonflySchema
     /// A set of constructions for wall, floor, or roof assemblies.
     /// </summary>
     [DataContract(Name = "_FaceSubSetAbridged")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
-    [JsonSubtypes.KnownSubType(typeof(WallConstructionSetAbridged), "WallConstructionSetAbridged")]
-    [JsonSubtypes.KnownSubType(typeof(FloorConstructionSetAbridged), "FloorConstructionSetAbridged")]
-    [JsonSubtypes.KnownSubType(typeof(RoofCeilingConstructionSetAbridged), "RoofCeilingConstructionSetAbridged")]
     public partial class FaceSubSetAbridged : OpenAPIGenBaseModel, IEquatable<FaceSubSetAbridged>, IValidatableObject
     {
         /// <summary>
@@ -60,21 +55,18 @@ namespace DragonflySchema
         /// </summary>
         /// <value>Identifier for an OpaqueConstruction for faces with a Surface or Adiabatic boundary condition.</value>
         [DataMember(Name = "interior_construction", EmitDefaultValue = false)]
-        
         public string InteriorConstruction { get; set; } 
         /// <summary>
         /// Identifier for an OpaqueConstruction for faces with an Outdoors boundary condition.
         /// </summary>
         /// <value>Identifier for an OpaqueConstruction for faces with an Outdoors boundary condition.</value>
         [DataMember(Name = "exterior_construction", EmitDefaultValue = false)]
-        
         public string ExteriorConstruction { get; set; } 
         /// <summary>
         /// Identifier for an OpaqueConstruction for faces with a Ground boundary condition.
         /// </summary>
         /// <value>Identifier for an OpaqueConstruction for faces with a Ground boundary condition.</value>
         [DataMember(Name = "ground_construction", EmitDefaultValue = false)]
-        
         public string GroundConstruction { get; set; } 
 
         /// <summary>

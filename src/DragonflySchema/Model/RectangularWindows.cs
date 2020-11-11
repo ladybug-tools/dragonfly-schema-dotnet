@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Several rectangular windows, defined by origin, width and height.
     /// </summary>
     [DataContract(Name = "RectangularWindows")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class RectangularWindows : OpenAPIGenBaseModel, IEquatable<RectangularWindows>, IValidatableObject
     {
         /// <summary>
@@ -70,21 +68,18 @@ namespace DragonflySchema
         /// </summary>
         /// <value>An array of 2D points within the plane of the wall for the origin of each window. Each point should be a list of 2 (x, y) values. The wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each origin point should be positive.</value>
         [DataMember(Name = "origins", IsRequired = true, EmitDefaultValue = false)]
-        
         public List<List<double>> Origins { get; set; } 
         /// <summary>
         /// An array of positive numbers for the window widths. The length of this list must match the length of the origins.
         /// </summary>
         /// <value>An array of positive numbers for the window widths. The length of this list must match the length of the origins.</value>
         [DataMember(Name = "widths", IsRequired = true, EmitDefaultValue = false)]
-        
         public List<double> Widths { get; set; } 
         /// <summary>
         /// An array of positive numbers for the window heights. The length of this list must match the length of the origins.
         /// </summary>
         /// <value>An array of positive numbers for the window heights. The length of this list must match the length of the origins.</value>
         [DataMember(Name = "heights", IsRequired = true, EmitDefaultValue = false)]
-        
         public List<double> Heights { get; set; } 
 
         /// <summary>

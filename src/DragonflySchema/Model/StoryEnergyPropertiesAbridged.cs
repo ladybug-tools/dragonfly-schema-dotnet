@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Base class for all objects that are not extensible with additional keys.  This effectively includes all objects except for the Properties classes that are assigned to geometry objects.
     /// </summary>
     [DataContract(Name = "StoryEnergyPropertiesAbridged")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class StoryEnergyPropertiesAbridged : OpenAPIGenBaseModel, IEquatable<StoryEnergyPropertiesAbridged>, IValidatableObject
     {
         /// <summary>
@@ -53,7 +51,6 @@ namespace DragonflySchema
         /// </summary>
         /// <value>Name of a ConstructionSet to specify all constructions for the Story. If None, the Story will use the Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects.</value>
         [DataMember(Name = "construction_set", EmitDefaultValue = false)]
-        
         public string ConstructionSet { get; set; } 
 
         /// <summary>

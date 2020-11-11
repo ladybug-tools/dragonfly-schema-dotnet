@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Base class for all objects requiring a identifiers acceptable for all engines.
     /// </summary>
     [DataContract(Name = "Story")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class Story : IDdBaseModel, IEquatable<Story>, IValidatableObject
     {
         /// <summary>
@@ -76,35 +74,30 @@ namespace DragonflySchema
         /// </summary>
         /// <value>An array of dragonfly Room2D objects that together form an entire story of a building.</value>
         [DataMember(Name = "room_2ds", IsRequired = true, EmitDefaultValue = false)]
-        
         public List<Room2D> Room2ds { get; set; } 
         /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         /// <value>Extension properties for particular simulation engines (Radiance, EnergyPlus).</value>
         [DataMember(Name = "properties", IsRequired = true, EmitDefaultValue = false)]
-        
         public StoryPropertiesAbridged Properties { get; set; } 
         /// <summary>
         /// A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If None, this value will be the maximum floor_to_ceiling_height of the input room_2ds.
         /// </summary>
         /// <value>A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If None, this value will be the maximum floor_to_ceiling_height of the input room_2ds.</value>
         [DataMember(Name = "floor_to_floor_height", EmitDefaultValue = false)]
-        
         public double FloorToFloorHeight { get; set; } 
         /// <summary>
         /// A number to indicate the height of the floor plane in the Z axis.If None, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums.
         /// </summary>
         /// <value>A number to indicate the height of the floor plane in the Z axis.If None, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums.</value>
         [DataMember(Name = "floor_height", EmitDefaultValue = false)]
-        
         public double FloorHeight { get; set; } 
         /// <summary>
         /// An integer that denotes the number of times that this Story is repeated over the height of the building.
         /// </summary>
         /// <value>An integer that denotes the number of times that this Story is repeated over the height of the building.</value>
         [DataMember(Name = "multiplier", EmitDefaultValue = true)]
-        
         public int Multiplier { get; set; }  = 1;
 
         /// <summary>

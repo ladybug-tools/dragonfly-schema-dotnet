@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Extruded borders over all windows in the wall.
     /// </summary>
     [DataContract(Name = "ExtrudedBorder")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class ExtrudedBorder : OpenAPIGenBaseModel, IEquatable<ExtrudedBorder>, IValidatableObject
     {
         /// <summary>
@@ -63,7 +61,6 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A number for the depth of the border.</value>
         [DataMember(Name = "depth", IsRequired = true, EmitDefaultValue = false)]
-        
         public double Depth { get; set; } 
 
         /// <summary>

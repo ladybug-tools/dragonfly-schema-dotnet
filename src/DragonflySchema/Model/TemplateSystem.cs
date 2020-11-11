@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Base class for HVAC systems following a standards template.
     /// </summary>
     [DataContract(Name = "_TemplateSystem")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class TemplateSystem : IDdEnergyBaseModel, IEquatable<TemplateSystem>, IValidatableObject
     {
         /// <summary>

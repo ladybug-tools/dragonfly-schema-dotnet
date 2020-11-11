@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Base class for all objects requiring a identifiers acceptable for all engines.
     /// </summary>
     [DataContract(Name = "ContextShade")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class ContextShade : IDdBaseModel, IEquatable<ContextShade>, IValidatableObject
     {
         /// <summary>
@@ -70,14 +68,12 @@ namespace DragonflySchema
         /// </summary>
         /// <value>An array of planar Face3Ds that together represent the context shade.</value>
         [DataMember(Name = "geometry", IsRequired = true, EmitDefaultValue = false)]
-        
         public List<Face3D> Geometry { get; set; } 
         /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         /// <value>Extension properties for particular simulation engines (Radiance, EnergyPlus).</value>
         [DataMember(Name = "properties", IsRequired = true, EmitDefaultValue = false)]
-        
         public ContextShadePropertiesAbridged Properties { get; set; } 
 
         /// <summary>

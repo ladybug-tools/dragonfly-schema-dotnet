@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using HoneybeeSchema;
-using JsonSubTypes;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -29,7 +28,6 @@ namespace DragonflySchema
     /// Several detailed windows defined by 2D Polygons (lists of 2D vertices).
     /// </summary>
     [DataContract(Name = "DetailedWindows")]
-    [JsonConverter(typeof(JsonSubtypes), "Type")]
     public partial class DetailedWindows : OpenAPIGenBaseModel, IEquatable<DetailedWindows>, IValidatableObject
     {
         /// <summary>
@@ -64,7 +62,6 @@ namespace DragonflySchema
         /// </summary>
         /// <value>An array of arrays with each sub-array representing a polygonal boundary of a window within the plane of the wall. Each sub-array should consist of at least three 2D points and each point should be a list of 2 (x, y) values. The wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each point in the polygon should always be positive. Note that, if you are starting from 3D vertices of windows, you can use these window parameters to represent them. Some sample code to convert from 2D vertices to 2D vertices in the plane of the wall can be found here: https://www.ladybug.tools/dragonfly-core/docs/dragonfly.windowparameter.html#dragonfly.windowparameter.DetailedWindows</value>
         [DataMember(Name = "polygons", IsRequired = true, EmitDefaultValue = false)]
-        
         public List<List<List<double>>> Polygons { get; set; } 
 
         /// <summary>
