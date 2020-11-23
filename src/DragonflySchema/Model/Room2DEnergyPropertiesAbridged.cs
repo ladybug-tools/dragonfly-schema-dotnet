@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// Base class for all objects that are not extensible with additional keys.  This effectively includes all objects except for the Properties classes that are assigned to geometry objects.
     /// </summary>
     [DataContract(Name = "Room2DEnergyPropertiesAbridged")]
-    public partial class Room2DEnergyPropertiesAbridged : OpenAPIGenBaseModel, IEquatable<Room2DEnergyPropertiesAbridged>, IValidatableObject
+    public partial class Room2DEnergyPropertiesAbridged : IEquatable<Room2DEnergyPropertiesAbridged>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Room2DEnergyPropertiesAbridged" /> class.
@@ -42,7 +42,7 @@ namespace DragonflySchema
         (
              // Required parameters
             string constructionSet= default, string programType= default, string hvac= default, VentilationControlAbridged windowVentControl= default, VentilationOpening windowVentOpening= default// Optional parameters
-        ) : base()// BaseClass
+        )// BaseClass
         {
             this.ConstructionSet = constructionSet;
             this.ProgramType = programType;
@@ -144,14 +144,6 @@ namespace DragonflySchema
             return DuplicateRoom2DEnergyPropertiesAbridged();
         }
 
-        /// <summary>
-        /// Creates a new instance with the same properties.
-        /// </summary>
-        /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
-        {
-            return DuplicateRoom2DEnergyPropertiesAbridged();
-        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -172,32 +164,32 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return base.Equals(input) && 
+            return 
                 (
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.ConstructionSet == input.ConstructionSet ||
                     (this.ConstructionSet != null &&
                     this.ConstructionSet.Equals(input.ConstructionSet))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.ProgramType == input.ProgramType ||
                     (this.ProgramType != null &&
                     this.ProgramType.Equals(input.ProgramType))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Hvac == input.Hvac ||
                     (this.Hvac != null &&
                     this.Hvac.Equals(input.Hvac))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.WindowVentControl == input.WindowVentControl ||
                     (this.WindowVentControl != null &&
                     this.WindowVentControl.Equals(input.WindowVentControl))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.WindowVentOpening == input.WindowVentOpening ||
                     (this.WindowVentOpening != null &&
@@ -213,7 +205,7 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.ConstructionSet != null)
@@ -237,7 +229,6 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern

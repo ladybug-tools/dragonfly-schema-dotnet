@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// Base class for for a series of louvered shades over a wall.
     /// </summary>
     [DataContract(Name = "_LouversBase")]
-    public partial class LouversBase : OpenAPIGenBaseModel, IEquatable<LouversBase>, IValidatableObject
+    public partial class LouversBase : IEquatable<LouversBase>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LouversBase" /> class.
@@ -51,8 +51,8 @@ namespace DragonflySchema
         public LouversBase
         (
              double depth, // Required parameters
-            double offset = 0D, double angle = 0D, List<double> contourVector= default, bool flipStartSide = false // Optional parameters
-        ) : base()// BaseClass
+            double offset = 0D, double angle = 0D, List<double> contourVector= default, bool flipStartSide = false// Optional parameters
+        )// BaseClass
         {
             this.Depth = depth;
             this.Offset = offset;
@@ -154,14 +154,6 @@ namespace DragonflySchema
             return DuplicateLouversBase();
         }
 
-        /// <summary>
-        /// Creates a new instance with the same properties.
-        /// </summary>
-        /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
-        {
-            return DuplicateLouversBase();
-        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -182,37 +174,37 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return base.Equals(input) && 
+            return 
+                (
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
+                ) && 
                 (
                     this.Depth == input.Depth ||
                     (this.Depth != null &&
                     this.Depth.Equals(input.Depth))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Offset == input.Offset ||
                     (this.Offset != null &&
                     this.Offset.Equals(input.Offset))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Angle == input.Angle ||
                     (this.Angle != null &&
                     this.Angle.Equals(input.Angle))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.ContourVector == input.ContourVector ||
                     this.ContourVector != null &&
                     input.ContourVector != null &&
                     this.ContourVector.SequenceEqual(input.ContourVector)
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.FlipStartSide == input.FlipStartSide ||
                     (this.FlipStartSide != null &&
                     this.FlipStartSide.Equals(input.FlipStartSide))
-                ) && base.Equals(input) && 
-                (
-                    this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -224,7 +216,9 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Depth != null)
                     hashCode = hashCode * 59 + this.Depth.GetHashCode();
                 if (this.Offset != null)
@@ -235,8 +229,6 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.ContourVector.GetHashCode();
                 if (this.FlipStartSide != null)
                     hashCode = hashCode * 59 + this.FlipStartSide.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }
@@ -248,17 +240,15 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            return this.BaseValidate(validationContext);
-        }
 
-        /// <summary>
-        /// To validate all properties of the instance
-        /// </summary>
-        /// <param name="validationContext">Validation context</param>
-        /// <returns>Validation Result</returns>
-        protected IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> BaseValidate(ValidationContext validationContext)
-        {
-            foreach(var x in base.BaseValidate(validationContext)) yield return x;
+            
+            // Type (string) pattern
+            Regex regexType = new Regex(@"^_LouversBase$", RegexOptions.CultureInvariant);
+            if (false == regexType.Match(this.Type).Success)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });
+            }
+
 
             
             // Offset (double) minimum
@@ -279,15 +269,6 @@ namespace DragonflySchema
             if(this.Angle < (double)-90)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Angle, must be a value greater than or equal to -90.", new [] { "Angle" });
-            }
-
-
-            
-            // Type (string) pattern
-            Regex regexType = new Regex(@"^_LouversBase$", RegexOptions.CultureInvariant);
-            if (false == regexType.Match(this.Type).Success)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });
             }
 
             yield break;

@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// A single window defined by an area ratio with the base surface.
     /// </summary>
     [DataContract(Name = "SimpleWindowRatio")]
-    public partial class SimpleWindowRatio : OpenAPIGenBaseModel, IEquatable<SimpleWindowRatio>, IValidatableObject
+    public partial class SimpleWindowRatio : IEquatable<SimpleWindowRatio>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleWindowRatio" /> class.
@@ -48,7 +48,7 @@ namespace DragonflySchema
         (
              double windowRatio// Required parameters
              // Optional parameters
-        ) : base()// BaseClass
+        )// BaseClass
         {
             this.WindowRatio = windowRatio;
 
@@ -118,14 +118,6 @@ namespace DragonflySchema
             return DuplicateSimpleWindowRatio();
         }
 
-        /// <summary>
-        /// Creates a new instance with the same properties.
-        /// </summary>
-        /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
-        {
-            return DuplicateSimpleWindowRatio();
-        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -146,16 +138,16 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return base.Equals(input) && 
-                (
-                    this.WindowRatio == input.WindowRatio ||
-                    (this.WindowRatio != null &&
-                    this.WindowRatio.Equals(input.WindowRatio))
-                ) && base.Equals(input) && 
+            return 
                 (
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
+                ) && 
+                (
+                    this.WindowRatio == input.WindowRatio ||
+                    (this.WindowRatio != null &&
+                    this.WindowRatio.Equals(input.WindowRatio))
                 );
         }
 
@@ -167,11 +159,11 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
-                if (this.WindowRatio != null)
-                    hashCode = hashCode * 59 + this.WindowRatio.GetHashCode();
+                int hashCode = 41;
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.WindowRatio != null)
+                    hashCode = hashCode * 59 + this.WindowRatio.GetHashCode();
                 return hashCode;
             }
         }
@@ -183,7 +175,6 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern

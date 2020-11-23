@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// Base class for all objects that are not extensible with additional keys.  This effectively includes all objects except for the Properties classes that are assigned to geometry objects.
     /// </summary>
     [DataContract(Name = "ContextShadeEnergyPropertiesAbridged")]
-    public partial class ContextShadeEnergyPropertiesAbridged : OpenAPIGenBaseModel, IEquatable<ContextShadeEnergyPropertiesAbridged>, IValidatableObject
+    public partial class ContextShadeEnergyPropertiesAbridged : IEquatable<ContextShadeEnergyPropertiesAbridged>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextShadeEnergyPropertiesAbridged" /> class.
@@ -39,7 +39,7 @@ namespace DragonflySchema
         (
              // Required parameters
             string construction= default, string transmittanceSchedule= default// Optional parameters
-        ) : base()// BaseClass
+        )// BaseClass
         {
             this.Construction = construction;
             this.TransmittanceSchedule = transmittanceSchedule;
@@ -117,14 +117,6 @@ namespace DragonflySchema
             return DuplicateContextShadeEnergyPropertiesAbridged();
         }
 
-        /// <summary>
-        /// Creates a new instance with the same properties.
-        /// </summary>
-        /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
-        {
-            return DuplicateContextShadeEnergyPropertiesAbridged();
-        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -145,17 +137,17 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return base.Equals(input) && 
+            return 
                 (
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Construction == input.Construction ||
                     (this.Construction != null &&
                     this.Construction.Equals(input.Construction))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.TransmittanceSchedule == input.TransmittanceSchedule ||
                     (this.TransmittanceSchedule != null &&
@@ -171,7 +163,7 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Construction != null)
@@ -189,7 +181,6 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern

@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// Extruded borders over all windows in the wall.
     /// </summary>
     [DataContract(Name = "ExtrudedBorder")]
-    public partial class ExtrudedBorder : OpenAPIGenBaseModel, IEquatable<ExtrudedBorder>, IValidatableObject
+    public partial class ExtrudedBorder : IEquatable<ExtrudedBorder>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtrudedBorder" /> class.
@@ -48,7 +48,7 @@ namespace DragonflySchema
         (
              double depth// Required parameters
              // Optional parameters
-        ) : base()// BaseClass
+        )// BaseClass
         {
             this.Depth = depth;
 
@@ -118,14 +118,6 @@ namespace DragonflySchema
             return DuplicateExtrudedBorder();
         }
 
-        /// <summary>
-        /// Creates a new instance with the same properties.
-        /// </summary>
-        /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
-        {
-            return DuplicateExtrudedBorder();
-        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -146,16 +138,16 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return base.Equals(input) && 
-                (
-                    this.Depth == input.Depth ||
-                    (this.Depth != null &&
-                    this.Depth.Equals(input.Depth))
-                ) && base.Equals(input) && 
+            return 
                 (
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
+                ) && 
+                (
+                    this.Depth == input.Depth ||
+                    (this.Depth != null &&
+                    this.Depth.Equals(input.Depth))
                 );
         }
 
@@ -167,11 +159,11 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
-                if (this.Depth != null)
-                    hashCode = hashCode * 59 + this.Depth.GetHashCode();
+                int hashCode = 41;
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Depth != null)
+                    hashCode = hashCode * 59 + this.Depth.GetHashCode();
                 return hashCode;
             }
         }
@@ -183,7 +175,6 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern

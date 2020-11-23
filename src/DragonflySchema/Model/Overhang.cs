@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// A single overhang over an entire wall.
     /// </summary>
     [DataContract(Name = "Overhang")]
-    public partial class Overhang : OpenAPIGenBaseModel, IEquatable<Overhang>, IValidatableObject
+    public partial class Overhang : IEquatable<Overhang>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Overhang" /> class.
@@ -49,7 +49,7 @@ namespace DragonflySchema
         (
              double depth, // Required parameters
             double angle = 0D// Optional parameters
-        ) : base()// BaseClass
+        )// BaseClass
         {
             this.Depth = depth;
             this.Angle = angle;
@@ -127,14 +127,6 @@ namespace DragonflySchema
             return DuplicateOverhang();
         }
 
-        /// <summary>
-        /// Creates a new instance with the same properties.
-        /// </summary>
-        /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
-        {
-            return DuplicateOverhang();
-        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -155,17 +147,17 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return base.Equals(input) && 
-                (
-                    this.Depth == input.Depth ||
-                    (this.Depth != null &&
-                    this.Depth.Equals(input.Depth))
-                ) && base.Equals(input) && 
+            return 
                 (
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
-                ) && base.Equals(input) && 
+                ) && 
+                (
+                    this.Depth == input.Depth ||
+                    (this.Depth != null &&
+                    this.Depth.Equals(input.Depth))
+                ) && 
                 (
                     this.Angle == input.Angle ||
                     (this.Angle != null &&
@@ -181,11 +173,11 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
-                if (this.Depth != null)
-                    hashCode = hashCode * 59 + this.Depth.GetHashCode();
+                int hashCode = 41;
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Depth != null)
+                    hashCode = hashCode * 59 + this.Depth.GetHashCode();
                 if (this.Angle != null)
                     hashCode = hashCode * 59 + this.Angle.GetHashCode();
                 return hashCode;
@@ -199,7 +191,6 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern

@@ -3,7 +3,7 @@
     "servers": [],
     "info": {
         "description": "Documentation for Dragonfly model schema",
-        "version": "1.6.17",
+        "version": "1.6.19",
         "title": "Dragonfly Model Schema",
         "contact": {
             "name": "Ladybug Tools",
@@ -931,10 +931,7 @@
                     }
                 ],
                 "title": "ScheduleDay",
-                "description": "Used to describe the daily schedule for a single simulation day.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Used to describe the daily schedule for a single simulation day."
             },
             "ScheduleRuleAbridged": {
                 "allOf": [
@@ -1038,10 +1035,7 @@
                     }
                 ],
                 "title": "ScheduleRuleAbridged",
-                "description": "Schedule rule including a ScheduleDay and when it should be applied..",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Schedule rule including a ScheduleDay and when it should be applied.."
             },
             "NoLimit": {
                 "allOf": [
@@ -1063,10 +1057,7 @@
                     }
                 ],
                 "title": "NoLimit",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "ScheduleNumericType": {
                 "title": "ScheduleNumericType",
@@ -1127,7 +1118,10 @@
                                         "type": "number",
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "upper_limit": {
                                 "title": "Upper Limit",
@@ -1143,7 +1137,10 @@
                                         "type": "number",
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "numeric_type": {
                                 "default": "Continuous",
@@ -1166,10 +1163,7 @@
                     }
                 ],
                 "title": "ScheduleTypeLimit",
-                "description": "Specifies the data types and limits for values contained in schedules.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Specifies the data types and limits for values contained in schedules."
             },
             "ScheduleRuleset": {
                 "allOf": [
@@ -1248,10 +1242,7 @@
                     }
                 ],
                 "title": "ScheduleRuleset",
-                "description": "Used to define a schedule for a default day, further described by ScheduleRule.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Used to define a schedule for a default day, further described by ScheduleRule."
             },
             "ScheduleFixedInterval": {
                 "allOf": [
@@ -1331,10 +1322,7 @@
                     }
                 ],
                 "title": "ScheduleFixedInterval",
-                "description": "Used to specify a start date and a list of values for a period of analysis.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Used to specify a start date and a list of values for a period of analysis."
             },
             "Setpoint": {
                 "allOf": [
@@ -1358,7 +1346,10 @@
                                     {
                                         "$ref": "#/components/schemas/ScheduleFixedInterval"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "heating_schedule": {
                                 "title": "Heating Schedule",
@@ -1370,7 +1361,10 @@
                                     {
                                         "$ref": "#/components/schemas/ScheduleFixedInterval"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -1389,7 +1383,10 @@
                                     {
                                         "$ref": "#/components/schemas/ScheduleFixedInterval"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "dehumidifying_schedule": {
                                 "title": "Dehumidifying Schedule",
@@ -1401,17 +1398,17 @@
                                     {
                                         "$ref": "#/components/schemas/ScheduleFixedInterval"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             }
                         },
                         "additionalProperties": false
                     }
                 ],
                 "title": "Setpoint",
-                "description": "Used to specify information about the setpoint schedule.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Used to specify information about the setpoint schedule."
             },
             "Ground": {
                 "allOf": [
@@ -1433,10 +1430,7 @@
                     }
                 ],
                 "title": "Ground",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "Autocalculate": {
                 "allOf": [
@@ -1458,10 +1452,7 @@
                     }
                 ],
                 "title": "Autocalculate",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "Outdoors": {
                 "allOf": [
@@ -1506,17 +1497,17 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             }
                         },
                         "additionalProperties": false
                     }
                 ],
                 "title": "Outdoors",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "Adiabatic": {
                 "allOf": [
@@ -1538,10 +1529,7 @@
                     }
                 ],
                 "title": "Adiabatic",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "Surface": {
                 "allOf": [
@@ -1576,10 +1564,7 @@
                     }
                 ],
                 "title": "Surface",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "SingleWindow": {
                 "allOf": [
@@ -1627,10 +1612,7 @@
                     }
                 ],
                 "title": "SingleWindow",
-                "description": "A single window in the wall center defined by a width * height.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A single window in the wall center defined by a width * height."
             },
             "SimpleWindowRatio": {
                 "allOf": [
@@ -1663,10 +1645,7 @@
                     }
                 ],
                 "title": "SimpleWindowRatio",
-                "description": "A single window defined by an area ratio with the base surface.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A single window defined by an area ratio with the base surface."
             },
             "RepeatingWindowRatio": {
                 "allOf": [
@@ -1731,10 +1710,7 @@
                     }
                 ],
                 "title": "RepeatingWindowRatio",
-                "description": "Repeating windows derived from an area ratio with the base wall.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Repeating windows derived from an area ratio with the base wall."
             },
             "RectangularWindows": {
                 "allOf": [
@@ -1799,10 +1775,7 @@
                     }
                 ],
                 "title": "RectangularWindows",
-                "description": "Several rectangular windows, defined by origin, width and height.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Several rectangular windows, defined by origin, width and height."
             },
             "DetailedWindows": {
                 "allOf": [
@@ -1846,10 +1819,7 @@
                     }
                 ],
                 "title": "DetailedWindows",
-                "description": "Several detailed windows defined by 2D Polygons (lists of 2D vertices).",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Several detailed windows defined by 2D Polygons (lists of 2D vertices)."
             },
             "ExtrudedBorder": {
                 "allOf": [
@@ -1881,10 +1851,7 @@
                     }
                 ],
                 "title": "ExtrudedBorder",
-                "description": "Extruded borders over all windows in the wall.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Extruded borders over all windows in the wall."
             },
             "Overhang": {
                 "allOf": [
@@ -1925,10 +1892,7 @@
                     }
                 ],
                 "title": "Overhang",
-                "description": "A single overhang over an entire wall.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A single overhang over an entire wall."
             },
             "LouversByDistance": {
                 "allOf": [
@@ -1960,10 +1924,7 @@
                     }
                 ],
                 "title": "LouversByDistance",
-                "description": "A series of louvered Shades at a given distance between each louver.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A series of louvered Shades at a given distance between each louver."
             },
             "LouversByCount": {
                 "allOf": [
@@ -1995,10 +1956,7 @@
                     }
                 ],
                 "title": "LouversByCount",
-                "description": "A specific number of louvered Shades over a wall.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A specific number of louvered Shades over a wall."
             },
             "VentilationControlAbridged": {
                 "allOf": [
@@ -2072,10 +2030,7 @@
                     }
                 ],
                 "title": "VentilationControlAbridged",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "VentilationOpening": {
                 "allOf": [
@@ -2154,10 +2109,7 @@
                     }
                 ],
                 "title": "VentilationOpening",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "Room2DEnergyPropertiesAbridged": {
                 "allOf": [
@@ -2218,10 +2170,7 @@
                     }
                 ],
                 "title": "Room2DEnergyPropertiesAbridged",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "Room2DPropertiesAbridged": {
                 "allOf": [
@@ -2244,10 +2193,7 @@
                         }
                     }
                 ],
-                "title": "Room2DPropertiesAbridged",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "title": "Room2DPropertiesAbridged"
             },
             "Room2D": {
                 "allOf": [
@@ -2407,10 +2353,7 @@
                     }
                 ],
                 "title": "Room2D",
-                "description": "Base class for all objects requiring a identifiers acceptable for all engines.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a identifiers acceptable for all engines."
             },
             "People": {
                 "allOf": [
@@ -2442,7 +2385,10 @@
                                     {
                                         "$ref": "#/components/schemas/ScheduleFixedInterval"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "activity_schedule": {
                                 "title": "Activity Schedule",
@@ -2454,7 +2400,10 @@
                                     {
                                         "$ref": "#/components/schemas/ScheduleFixedInterval"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -2488,17 +2437,17 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             }
                         },
                         "additionalProperties": false
                     }
                 ],
                 "title": "People",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "Lighting": {
                 "allOf": [
@@ -2529,7 +2478,10 @@
                                     {
                                         "$ref": "#/components/schemas/ScheduleFixedInterval"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -2578,10 +2530,7 @@
                     }
                 ],
                 "title": "Lighting",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "ElectricEquipment": {
                 "allOf": [
@@ -2612,7 +2561,10 @@
                                     {
                                         "$ref": "#/components/schemas/ScheduleFixedInterval"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "radiant_fraction": {
                                 "title": "Radiant Fraction",
@@ -2653,10 +2605,7 @@
                     }
                 ],
                 "title": "ElectricEquipment",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "GasEquipment": {
                 "allOf": [
@@ -2687,7 +2636,10 @@
                                     {
                                         "$ref": "#/components/schemas/ScheduleFixedInterval"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "radiant_fraction": {
                                 "title": "Radiant Fraction",
@@ -2728,10 +2680,7 @@
                     }
                 ],
                 "title": "GasEquipment",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "Infiltration": {
                 "allOf": [
@@ -2762,7 +2711,10 @@
                                     {
                                         "$ref": "#/components/schemas/ScheduleFixedInterval"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -2797,10 +2749,7 @@
                     }
                 ],
                 "title": "Infiltration",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "Ventilation": {
                 "allOf": [
@@ -2859,17 +2808,17 @@
                                     {
                                         "$ref": "#/components/schemas/ScheduleFixedInterval"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             }
                         },
                         "additionalProperties": false
                     }
                 ],
                 "title": "Ventilation",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "ProgramType": {
                 "allOf": [
@@ -2954,10 +2903,7 @@
                     }
                 ],
                 "title": "ProgramType",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "Vintages": {
                 "title": "Vintages",
@@ -3003,10 +2949,7 @@
                     }
                 ],
                 "title": "Autosize",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "FurnaceEquipmentType": {
                 "title": "FurnaceEquipmentType",
@@ -3058,7 +3001,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "latent_heat_recovery": {
                                 "title": "Latent Heat Recovery",
@@ -3076,7 +3022,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -3099,10 +3048,7 @@
                     }
                 ],
                 "title": "ForcedAirFurnace",
-                "description": "Forced Air Furnace HVAC system. Intended for spaces only requiring heating.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Forced Air Furnace HVAC system. Intended for spaces only requiring heating."
             },
             "OpaqueConstructionAbridged": {
                 "allOf": [
@@ -3139,10 +3085,7 @@
                     }
                 ],
                 "title": "OpaqueConstructionAbridged",
-                "description": "Construction for opaque objects (Face, Shade, Door).",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Construction for opaque objects (Face, Shade, Door)."
             },
             "Roughness": {
                 "title": "Roughness",
@@ -3247,10 +3190,7 @@
                     }
                 ],
                 "title": "EnergyMaterial",
-                "description": "Opaque material representing a layer within an opaque construction.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Opaque material representing a layer within an opaque construction."
             },
             "EnergyMaterialNoMass": {
                 "allOf": [
@@ -3317,10 +3257,7 @@
                     }
                 ],
                 "title": "EnergyMaterialNoMass",
-                "description": "No mass opaque material representing a layer within an opaque construction.\n\nUsed when only the thermal resistance (R value) of the material is known.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "No mass opaque material representing a layer within an opaque construction.\n\nUsed when only the thermal resistance (R value) of the material is known."
             },
             "OpaqueConstruction": {
                 "allOf": [
@@ -3362,10 +3299,7 @@
                     }
                 ],
                 "title": "OpaqueConstruction",
-                "description": "Construction for opaque objects (Face, Shade, Door).",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Construction for opaque objects (Face, Shade, Door)."
             },
             "WallConstructionSet": {
                 "allOf": [
@@ -3414,10 +3348,7 @@
                     }
                 ],
                 "title": "WallConstructionSet",
-                "description": "A set of constructions for wall assemblies.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for wall assemblies."
             },
             "FloorConstructionSet": {
                 "allOf": [
@@ -3466,10 +3397,7 @@
                     }
                 ],
                 "title": "FloorConstructionSet",
-                "description": "A set of constructions for floor assemblies.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for floor assemblies."
             },
             "RoofCeilingConstructionSet": {
                 "allOf": [
@@ -3518,10 +3446,7 @@
                     }
                 ],
                 "title": "RoofCeilingConstructionSet",
-                "description": "A set of constructions for roof and ceiling assemblies.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for roof and ceiling assemblies."
             },
             "EnergyWindowMaterialSimpleGlazSys": {
                 "allOf": [
@@ -3572,10 +3497,7 @@
                     }
                 ],
                 "title": "EnergyWindowMaterialSimpleGlazSys",
-                "description": "Describe an entire glazing system rather than individual layers.\n\nUsed when only very limited information is available on the glazing layers or when\nspecific performance levels are being targeted.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Describe an entire glazing system rather than individual layers.\n\nUsed when only very limited information is available on the glazing layers or when\nspecific performance levels are being targeted."
             },
             "EnergyWindowMaterialGlazing": {
                 "allOf": [
@@ -3703,10 +3625,7 @@
                     }
                 ],
                 "title": "EnergyWindowMaterialGlazing",
-                "description": "Describe a single glass pane corresponding to a layer in a window construction.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Describe a single glass pane corresponding to a layer in a window construction."
             },
             "GasType": {
                 "title": "GasType",
@@ -3755,10 +3674,7 @@
                     }
                 ],
                 "title": "EnergyWindowMaterialGas",
-                "description": "Create single layer of gas in a window construction.\n\nCan be combined with EnergyWindowMaterialGlazing to make multi-pane windows.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Create single layer of gas in a window construction.\n\nCan be combined with EnergyWindowMaterialGlazing to make multi-pane windows."
             },
             "EnergyWindowMaterialGasCustom": {
                 "allOf": [
@@ -3872,10 +3788,7 @@
                     }
                 ],
                 "title": "EnergyWindowMaterialGasCustom",
-                "description": "Create single layer of custom gas.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Create single layer of custom gas."
             },
             "EnergyWindowMaterialGasMixture": {
                 "allOf": [
@@ -3929,10 +3842,7 @@
                     }
                 ],
                 "title": "EnergyWindowMaterialGasMixture",
-                "description": "Create a mixture of two to four different gases to fill the panes of multiple\npane windows.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Create a mixture of two to four different gases to fill the panes of multiple\npane windows."
             },
             "WindowConstruction": {
                 "allOf": [
@@ -3983,10 +3893,7 @@
                     }
                 ],
                 "title": "WindowConstruction",
-                "description": "Construction for window objects (Aperture, Door).",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Construction for window objects (Aperture, Door)."
             },
             "ApertureConstructionSet": {
                 "allOf": [
@@ -4044,10 +3951,7 @@
                     }
                 ],
                 "title": "ApertureConstructionSet",
-                "description": "A set of constructions for aperture assemblies.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for aperture assemblies."
             },
             "DoorConstructionSet": {
                 "allOf": [
@@ -4114,10 +4018,7 @@
                     }
                 ],
                 "title": "DoorConstructionSet",
-                "description": "A set of constructions for door assemblies.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for door assemblies."
             },
             "ShadeConstruction": {
                 "allOf": [
@@ -4163,10 +4064,7 @@
                     }
                 ],
                 "title": "ShadeConstruction",
-                "description": "Construction for Shade objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Construction for Shade objects."
             },
             "AirBoundaryConstruction": {
                 "allOf": [
@@ -4189,7 +4087,10 @@
                                     {
                                         "$ref": "#/components/schemas/ScheduleFixedInterval"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -4211,10 +4112,7 @@
                     }
                 ],
                 "title": "AirBoundaryConstruction",
-                "description": "Construction for Air Boundary objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Construction for Air Boundary objects."
             },
             "ConstructionSet": {
                 "allOf": [
@@ -4299,10 +4197,7 @@
                     }
                 ],
                 "title": "ConstructionSet",
-                "description": "A set of constructions for different surface types and boundary conditions.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for different surface types and boundary conditions."
             },
             "BaseboardEquipmentType": {
                 "title": "BaseboardEquipmentType",
@@ -4353,10 +4248,7 @@
                     }
                 ],
                 "title": "Baseboard",
-                "description": "Baseboard heating system. Intended for spaces only requiring heating.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Baseboard heating system. Intended for spaces only requiring heating."
             },
             "GasUnitHeaterEquipmentType": {
                 "title": "GasUnitHeaterEquipmentType",
@@ -4404,10 +4296,7 @@
                     }
                 ],
                 "title": "GasUnitHeater",
-                "description": "Gas unit heating system. Intended for spaces only requiring heating.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Gas unit heating system. Intended for spaces only requiring heating."
             },
             "VAVEquipmentType": {
                 "title": "VAVEquipmentType",
@@ -4473,7 +4362,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "latent_heat_recovery": {
                                 "title": "Latent Heat Recovery",
@@ -4491,7 +4383,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -4514,10 +4409,7 @@
                     }
                 ],
                 "title": "VAV",
-                "description": "Variable Air Volume (VAV) HVAC system.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Variable Air Volume (VAV) HVAC system."
             },
             "Plane": {
                 "allOf": [
@@ -4576,10 +4468,7 @@
                     }
                 ],
                 "title": "Plane",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "Face3D": {
                 "allOf": [
@@ -4646,10 +4535,7 @@
                     }
                 ],
                 "title": "Face3D",
-                "description": "A single planar face in 3D space.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A single planar face in 3D space."
             },
             "ContextShadeEnergyPropertiesAbridged": {
                 "allOf": [
@@ -4685,10 +4571,7 @@
                     }
                 ],
                 "title": "ContextShadeEnergyPropertiesAbridged",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "ContextShadePropertiesAbridged": {
                 "allOf": [
@@ -4711,10 +4594,7 @@
                         }
                     }
                 ],
-                "title": "ContextShadePropertiesAbridged",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "title": "ContextShadePropertiesAbridged"
             },
             "ContextShade": {
                 "allOf": [
@@ -4757,10 +4637,7 @@
                     }
                 ],
                 "title": "ContextShade",
-                "description": "Base class for all objects requiring a identifiers acceptable for all engines.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a identifiers acceptable for all engines."
             },
             "WallConstructionSetAbridged": {
                 "allOf": [
@@ -4782,10 +4659,7 @@
                     }
                 ],
                 "title": "WallConstructionSetAbridged",
-                "description": "A set of constructions for wall assemblies.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for wall assemblies."
             },
             "FloorConstructionSetAbridged": {
                 "allOf": [
@@ -4807,10 +4681,7 @@
                     }
                 ],
                 "title": "FloorConstructionSetAbridged",
-                "description": "A set of constructions for floor assemblies.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for floor assemblies."
             },
             "RoofCeilingConstructionSetAbridged": {
                 "allOf": [
@@ -4832,10 +4703,7 @@
                     }
                 ],
                 "title": "RoofCeilingConstructionSetAbridged",
-                "description": "A set of constructions for roof and ceiling assemblies.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for roof and ceiling assemblies."
             },
             "ApertureConstructionSetAbridged": {
                 "allOf": [
@@ -4885,10 +4753,7 @@
                     }
                 ],
                 "title": "ApertureConstructionSetAbridged",
-                "description": "A set of constructions for aperture assemblies.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for aperture assemblies."
             },
             "DoorConstructionSetAbridged": {
                 "allOf": [
@@ -4945,10 +4810,7 @@
                     }
                 ],
                 "title": "DoorConstructionSetAbridged",
-                "description": "A set of constructions for door assemblies.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for door assemblies."
             },
             "ConstructionSetAbridged": {
                 "allOf": [
@@ -5029,10 +4891,7 @@
                     }
                 ],
                 "title": "ConstructionSetAbridged",
-                "description": "A set of constructions for different surface types and boundary conditions.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for different surface types and boundary conditions."
             },
             "EconomizerType": {
                 "title": "EconomizerType",
@@ -5128,7 +4987,10 @@
                                         "minimum": 0,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "cooling_limit": {
                                 "title": "Cooling Limit",
@@ -5148,7 +5010,10 @@
                                         "minimum": 0,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "heating_availability": {
                                 "title": "Heating Availability",
@@ -5169,10 +5034,7 @@
                     }
                 ],
                 "title": "IdealAirSystemAbridged",
-                "description": "Provides a model for an ideal HVAC system.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Provides a model for an ideal HVAC system."
             },
             "PTACEquipmentType": {
                 "title": "PTACEquipmentType",
@@ -5234,7 +5096,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "latent_heat_recovery": {
                                 "title": "Latent Heat Recovery",
@@ -5252,7 +5117,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -5275,10 +5143,7 @@
                     }
                 ],
                 "title": "PTAC",
-                "description": "Packaged Terminal Air Conditioning (PTAC) or Heat Pump (PTHP) HVAC system.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Packaged Terminal Air Conditioning (PTAC) or Heat Pump (PTHP) HVAC system."
             },
             "WSHPEquipmentType": {
                 "title": "WSHPEquipmentType",
@@ -5329,10 +5194,7 @@
                     }
                 ],
                 "title": "WSHP",
-                "description": "Direct evaporative cooling systems (with optional heating).",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Direct evaporative cooling systems (with optional heating)."
             },
             "LightingAbridged": {
                 "allOf": [
@@ -5407,10 +5269,7 @@
                     }
                 ],
                 "title": "LightingAbridged",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "PVAVEquipmentType": {
                 "title": "PVAVEquipmentType",
@@ -5466,7 +5325,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "latent_heat_recovery": {
                                 "title": "Latent Heat Recovery",
@@ -5484,7 +5346,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -5507,10 +5372,7 @@
                     }
                 ],
                 "title": "PVAV",
-                "description": "Packaged Variable Air Volume (PVAV) HVAC system.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Packaged Variable Air Volume (PVAV) HVAC system."
             },
             "VRFEquipmentType": {
                 "title": "VRFEquipmentType",
@@ -5558,10 +5420,7 @@
                     }
                 ],
                 "title": "VRF",
-                "description": "Variable Refrigerant Flow (VRF) heating/cooling system (with no ventilation).",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Variable Refrigerant Flow (VRF) heating/cooling system (with no ventilation)."
             },
             "FCUEquipmentType": {
                 "title": "FCUEquipmentType",
@@ -5626,10 +5485,7 @@
                     }
                 ],
                 "title": "FCU",
-                "description": "Fan Coil Unit (FCU) heating/cooling system (with no ventilation).",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Fan Coil Unit (FCU) heating/cooling system (with no ventilation)."
             },
             "StoryEnergyPropertiesAbridged": {
                 "allOf": [
@@ -5658,10 +5514,7 @@
                     }
                 ],
                 "title": "StoryEnergyPropertiesAbridged",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "StoryPropertiesAbridged": {
                 "allOf": [
@@ -5684,10 +5537,7 @@
                         }
                     }
                 ],
-                "title": "StoryPropertiesAbridged",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "title": "StoryPropertiesAbridged"
             },
             "Story": {
                 "allOf": [
@@ -5750,10 +5600,7 @@
                     }
                 ],
                 "title": "Story",
-                "description": "Base class for all objects requiring a identifiers acceptable for all engines.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a identifiers acceptable for all engines."
             },
             "SlatOrientation": {
                 "title": "SlatOrientation",
@@ -6016,10 +5863,7 @@
                     }
                 ],
                 "title": "EnergyWindowMaterialBlind",
-                "description": "Window blind material consisting of flat, equally-spaced slats.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Window blind material consisting of flat, equally-spaced slats."
             },
             "BuildingEnergyPropertiesAbridged": {
                 "allOf": [
@@ -6048,10 +5892,7 @@
                     }
                 ],
                 "title": "BuildingEnergyPropertiesAbridged",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "AirBoundaryConstructionAbridged": {
                 "allOf": [
@@ -6091,10 +5932,7 @@
                     }
                 ],
                 "title": "AirBoundaryConstructionAbridged",
-                "description": "Construction for Air Boundary objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Construction for Air Boundary objects."
             },
             "PeopleAbridged": {
                 "allOf": [
@@ -6162,17 +6000,17 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             }
                         },
                         "additionalProperties": false
                     }
                 ],
                 "title": "PeopleAbridged",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "BuildingPropertiesAbridged": {
                 "allOf": [
@@ -6195,10 +6033,7 @@
                         }
                     }
                 ],
-                "title": "BuildingPropertiesAbridged",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "title": "BuildingPropertiesAbridged"
             },
             "Building": {
                 "allOf": [
@@ -6241,10 +6076,7 @@
                     }
                 ],
                 "title": "Building",
-                "description": "Base class for all objects requiring a identifiers acceptable for all engines.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a identifiers acceptable for all engines."
             },
             "Units": {
                 "title": "Units",
@@ -6293,10 +6125,7 @@
                     }
                 ],
                 "title": "WindowConstructionAbridged",
-                "description": "Construction for window objects (Aperture, Door).",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Construction for window objects (Aperture, Door)."
             },
             "EnergyWindowMaterialShade": {
                 "allOf": [
@@ -6442,10 +6271,7 @@
                     }
                 ],
                 "title": "EnergyWindowMaterialShade",
-                "description": "This object specifies the properties of window shade materials.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "This object specifies the properties of window shade materials."
             },
             "PSZEquipmentType": {
                 "title": "PSZEquipmentType",
@@ -6517,7 +6343,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "latent_heat_recovery": {
                                 "title": "Latent Heat Recovery",
@@ -6535,7 +6364,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -6558,10 +6390,7 @@
                     }
                 ],
                 "title": "PSZ",
-                "description": "Packaged Single-Zone (PSZ) HVAC system.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Packaged Single-Zone (PSZ) HVAC system."
             },
             "FCUwithDOASEquipmentType": {
                 "title": "FCUwithDOASEquipmentType",
@@ -6621,7 +6450,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "latent_heat_recovery": {
                                 "title": "Latent Heat Recovery",
@@ -6639,7 +6471,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -6662,10 +6497,7 @@
                     }
                 ],
                 "title": "FCUwithDOAS",
-                "description": "Fan Coil Unit (FCU) with DOAS HVAC system.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Fan Coil Unit (FCU) with DOAS HVAC system."
             },
             "WSHPwithDOASEquipmentType": {
                 "title": "WSHPwithDOASEquipmentType",
@@ -6711,7 +6543,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "latent_heat_recovery": {
                                 "title": "Latent Heat Recovery",
@@ -6729,7 +6564,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -6752,10 +6590,7 @@
                     }
                 ],
                 "title": "WSHPwithDOAS",
-                "description": "Water Source Heat Pump (WSHP) with DOAS HVAC system.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Water Source Heat Pump (WSHP) with DOAS HVAC system."
             },
             "VRFwithDOASEquipmentType": {
                 "title": "VRFwithDOASEquipmentType",
@@ -6798,7 +6633,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "latent_heat_recovery": {
                                 "title": "Latent Heat Recovery",
@@ -6816,7 +6654,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -6839,10 +6680,7 @@
                     }
                 ],
                 "title": "VRFwithDOAS",
-                "description": "Variable Refrigerant Flow (VRF) with DOAS HVAC system.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Variable Refrigerant Flow (VRF) with DOAS HVAC system."
             },
             "EvaporativeCoolerEquipmentType": {
                 "title": "EvaporativeCoolerEquipmentType",
@@ -6896,10 +6734,7 @@
                     }
                 ],
                 "title": "EvaporativeCooler",
-                "description": "Direct evaporative cooling systems (with optional heating).",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Direct evaporative cooling systems (with optional heating)."
             },
             "ResidentialEquipmentType": {
                 "title": "ResidentialEquipmentType",
@@ -6955,10 +6790,7 @@
                     }
                 ],
                 "title": "Residential",
-                "description": "Residential Air Conditioning, Heat Pump or Furnace system.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Residential Air Conditioning, Heat Pump or Furnace system."
             },
             "WindowACEquipmentType": {
                 "title": "WindowACEquipmentType",
@@ -7012,10 +6844,7 @@
                     }
                 ],
                 "title": "WindowAC",
-                "description": "Window Air Conditioning cooling system (with optional heating).",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Window Air Conditioning cooling system (with optional heating)."
             },
             "ElectricEquipmentAbridged": {
                 "allOf": [
@@ -7037,10 +6866,7 @@
                     }
                 ],
                 "title": "ElectricEquipmentAbridged",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "GasEquipmentAbridged": {
                 "allOf": [
@@ -7062,10 +6888,7 @@
                     }
                 ],
                 "title": "GasEquipmentAbridged",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "InfiltrationAbridged": {
                 "allOf": [
@@ -7126,10 +6949,7 @@
                     }
                 ],
                 "title": "InfiltrationAbridged",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "VentilationAbridged": {
                 "allOf": [
@@ -7190,10 +7010,7 @@
                     }
                 ],
                 "title": "VentilationAbridged",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "SetpointAbridged": {
                 "allOf": [
@@ -7247,10 +7064,7 @@
                     }
                 ],
                 "title": "SetpointAbridged",
-                "description": "Used to specify information about the setpoint schedule.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Used to specify information about the setpoint schedule."
             },
             "ProgramTypeAbridged": {
                 "allOf": [
@@ -7335,10 +7149,7 @@
                     }
                 ],
                 "title": "ProgramTypeAbridged",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "ScheduleRulesetAbridged": {
                 "allOf": [
@@ -7415,10 +7226,7 @@
                     }
                 ],
                 "title": "ScheduleRulesetAbridged",
-                "description": "Used to define a schedule for a default day, further described by ScheduleRule.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Used to define a schedule for a default day, further described by ScheduleRule."
             },
             "ScheduleFixedIntervalAbridged": {
                 "allOf": [
@@ -7496,10 +7304,7 @@
                     }
                 ],
                 "title": "ScheduleFixedIntervalAbridged",
-                "description": "Used to specify a start date and a list of values for a period of analysis.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Used to specify a start date and a list of values for a period of analysis."
             },
             "ModelEnergyProperties": {
                 "allOf": [
@@ -7706,10 +7511,7 @@
                     }
                 ],
                 "title": "ModelEnergyProperties",
-                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects."
             },
             "ModelProperties": {
                 "allOf": [
@@ -7732,10 +7534,7 @@
                         }
                     }
                 ],
-                "title": "ModelProperties",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "title": "ModelProperties"
             },
             "Model": {
                 "allOf": [
@@ -7818,10 +7617,7 @@
                     }
                 ],
                 "title": "Model",
-                "description": "Base class for all objects requiring a identifiers acceptable for all engines.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a identifiers acceptable for all engines."
             },
             "IDdEnergyBaseModel": {
                 "allOf": [
@@ -7858,10 +7654,7 @@
                     }
                 ],
                 "title": "IDdEnergyBaseModel",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "IDdBaseModel": {
                 "allOf": [
@@ -7904,10 +7697,7 @@
                     }
                 ],
                 "title": "IDdBaseModel",
-                "description": "Base class for all objects requiring a identifiers acceptable for all engines.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a identifiers acceptable for all engines."
             },
             "_AllAirBase": {
                 "allOf": [
@@ -7951,7 +7741,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "latent_heat_recovery": {
                                 "title": "Latent Heat Recovery",
@@ -7969,7 +7762,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -7983,10 +7779,7 @@
                     }
                 ],
                 "title": "_AllAirBase",
-                "description": "Base class for all-air systems.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all-air systems."
             },
             "_TemplateSystem": {
                 "allOf": [
@@ -8017,10 +7810,7 @@
                     }
                 ],
                 "title": "_TemplateSystem",
-                "description": "Base class for HVAC systems following a standards template.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for HVAC systems following a standards template."
             },
             "_FaceSubSet": {
                 "allOf": [
@@ -8069,10 +7859,7 @@
                     }
                 ],
                 "title": "_FaceSubSet",
-                "description": "A set of constructions for wall, floor, or roof assemblies.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for wall, floor, or roof assemblies."
             },
             "_HeatCoolBase": {
                 "allOf": [
@@ -8103,10 +7890,7 @@
                     }
                 ],
                 "title": "_HeatCoolBase",
-                "description": "Base class for all heating/cooling systems without any ventilation.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all heating/cooling systems without any ventilation."
             },
             "_LouversBase": {
                 "allOf": [
@@ -8176,10 +7960,7 @@
                     }
                 ],
                 "title": "_LouversBase",
-                "description": "Base class for for a series of louvered shades over a wall.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for for a series of louvered shades over a wall."
             },
             "DatedBaseModel": {
                 "allOf": [
@@ -8201,10 +7982,7 @@
                     }
                 ],
                 "title": "DatedBaseModel",
-                "description": "Base class for all objects needing to check for a valid Date.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects needing to check for a valid Date."
             },
             "_EquipmentBase": {
                 "allOf": [
@@ -8271,10 +8049,7 @@
                     }
                 ],
                 "title": "_EquipmentBase",
-                "description": "Base class for all objects requiring a valid EnergyPlus identifier.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for all objects requiring a valid EnergyPlus identifier."
             },
             "_FaceSubSetAbridged": {
                 "allOf": [
@@ -8317,10 +8092,7 @@
                     }
                 ],
                 "title": "_FaceSubSetAbridged",
-                "description": "A set of constructions for wall, floor, or roof assemblies.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "A set of constructions for wall, floor, or roof assemblies."
             },
             "_DOASBase": {
                 "allOf": [
@@ -8355,7 +8127,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "latent_heat_recovery": {
                                 "title": "Latent Heat Recovery",
@@ -8373,7 +8148,10 @@
                                         "maximum": 1,
                                         "format": "double"
                                     }
-                                ]
+                                ],
+                                "discriminator": {
+                                    "propertyName": "type"
+                                }
                             },
                             "type": {
                                 "title": "Type",
@@ -8387,10 +8165,7 @@
                     }
                 ],
                 "title": "_DOASBase",
-                "description": "Base class for DOAS systems.",
-                "discriminator": {
-                    "propertyName": "type"
-                }
+                "description": "Base class for DOAS systems."
             },
             "_OpenAPIGenBaseModel": {
                 "title": "_OpenAPIGenBaseModel",
@@ -8403,9 +8178,6 @@
                         "type": "string",
                         "readOnly": true
                     }
-                },
-                "discriminator": {
-                    "propertyName": "type"
                 }
             }
         }

@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// A single window in the wall center defined by a width * height.
     /// </summary>
     [DataContract(Name = "SingleWindow")]
-    public partial class SingleWindow : OpenAPIGenBaseModel, IEquatable<SingleWindow>, IValidatableObject
+    public partial class SingleWindow : IEquatable<SingleWindow>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SingleWindow" /> class.
@@ -50,7 +50,7 @@ namespace DragonflySchema
         (
              double width, double height, // Required parameters
             double sillHeight = 1.0D// Optional parameters
-        ) : base()// BaseClass
+        )// BaseClass
         {
             this.Width = width;
             this.Height = height;
@@ -136,14 +136,6 @@ namespace DragonflySchema
             return DuplicateSingleWindow();
         }
 
-        /// <summary>
-        /// Creates a new instance with the same properties.
-        /// </summary>
-        /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
-        {
-            return DuplicateSingleWindow();
-        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -164,22 +156,22 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return base.Equals(input) && 
-                (
-                    this.Width == input.Width ||
-                    (this.Width != null &&
-                    this.Width.Equals(input.Width))
-                ) && base.Equals(input) && 
-                (
-                    this.Height == input.Height ||
-                    (this.Height != null &&
-                    this.Height.Equals(input.Height))
-                ) && base.Equals(input) && 
+            return 
                 (
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
-                ) && base.Equals(input) && 
+                ) && 
+                (
+                    this.Width == input.Width ||
+                    (this.Width != null &&
+                    this.Width.Equals(input.Width))
+                ) && 
+                (
+                    this.Height == input.Height ||
+                    (this.Height != null &&
+                    this.Height.Equals(input.Height))
+                ) && 
                 (
                     this.SillHeight == input.SillHeight ||
                     (this.SillHeight != null &&
@@ -195,13 +187,13 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Width != null)
                     hashCode = hashCode * 59 + this.Width.GetHashCode();
                 if (this.Height != null)
                     hashCode = hashCode * 59 + this.Height.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.SillHeight != null)
                     hashCode = hashCode * 59 + this.SillHeight.GetHashCode();
                 return hashCode;
@@ -215,7 +207,6 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern

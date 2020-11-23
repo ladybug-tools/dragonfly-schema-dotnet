@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// Several detailed windows defined by 2D Polygons (lists of 2D vertices).
     /// </summary>
     [DataContract(Name = "DetailedWindows")]
-    public partial class DetailedWindows : OpenAPIGenBaseModel, IEquatable<DetailedWindows>, IValidatableObject
+    public partial class DetailedWindows : IEquatable<DetailedWindows>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailedWindows" /> class.
@@ -48,7 +48,7 @@ namespace DragonflySchema
         (
              List<List<List<double>>> polygons// Required parameters
              // Optional parameters
-        ) : base()// BaseClass
+        )// BaseClass
         {
             // to ensure "polygons" is required (not null)
             this.Polygons = polygons ?? throw new ArgumentNullException("polygons is a required property for DetailedWindows and cannot be null");
@@ -119,14 +119,6 @@ namespace DragonflySchema
             return DuplicateDetailedWindows();
         }
 
-        /// <summary>
-        /// Creates a new instance with the same properties.
-        /// </summary>
-        /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
-        {
-            return DuplicateDetailedWindows();
-        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -147,17 +139,17 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return base.Equals(input) && 
+            return 
+                (
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
+                ) && 
                 (
                     this.Polygons == input.Polygons ||
                     this.Polygons != null &&
                     input.Polygons != null &&
                     this.Polygons.SequenceEqual(input.Polygons)
-                ) && base.Equals(input) && 
-                (
-                    this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -169,11 +161,11 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
-                if (this.Polygons != null)
-                    hashCode = hashCode * 59 + this.Polygons.GetHashCode();
+                int hashCode = 41;
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Polygons != null)
+                    hashCode = hashCode * 59 + this.Polygons.GetHashCode();
                 return hashCode;
             }
         }
@@ -185,7 +177,6 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern

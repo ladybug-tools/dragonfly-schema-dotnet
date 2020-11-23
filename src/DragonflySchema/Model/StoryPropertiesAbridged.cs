@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// StoryPropertiesAbridged
     /// </summary>
     [DataContract(Name = "StoryPropertiesAbridged")]
-    public partial class StoryPropertiesAbridged : OpenAPIGenBaseModel, IEquatable<StoryPropertiesAbridged>, IValidatableObject
+    public partial class StoryPropertiesAbridged : IEquatable<StoryPropertiesAbridged>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StoryPropertiesAbridged" /> class.
@@ -38,7 +38,7 @@ namespace DragonflySchema
         (
              // Required parameters
             StoryEnergyPropertiesAbridged energy= default// Optional parameters
-        ) : base()// BaseClass
+        )// BaseClass
         {
             this.Energy = energy;
 
@@ -107,14 +107,6 @@ namespace DragonflySchema
             return DuplicateStoryPropertiesAbridged();
         }
 
-        /// <summary>
-        /// Creates a new instance with the same properties.
-        /// </summary>
-        /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
-        {
-            return DuplicateStoryPropertiesAbridged();
-        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -135,12 +127,12 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return base.Equals(input) && 
+            return 
                 (
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Energy == input.Energy ||
                     (this.Energy != null &&
@@ -156,7 +148,7 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Energy != null)
@@ -172,7 +164,6 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern

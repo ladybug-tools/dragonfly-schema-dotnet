@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// Base class for all objects requiring a identifiers acceptable for all engines.
     /// </summary>
     [DataContract(Name = "Story")]
-    public partial class Story : IDdBaseModel, IEquatable<Story>, IValidatableObject
+    public partial class Story : IEquatable<Story>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Story" /> class.
@@ -43,24 +43,28 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Story" /> class.
         /// </summary>
+        /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. (required).</param>
+        /// <param name="displayName">Display name of the object with no character restrictions..</param>
+        /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
         /// <param name="room2ds">An array of dragonfly Room2D objects that together form an entire story of a building. (required).</param>
         /// <param name="properties">Extension properties for particular simulation engines (Radiance, EnergyPlus). (required).</param>
         /// <param name="floorToFloorHeight">A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If None, this value will be the maximum floor_to_ceiling_height of the input room_2ds..</param>
         /// <param name="floorHeight">A number to indicate the height of the floor plane in the Z axis.If None, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums..</param>
         /// <param name="multiplier">An integer that denotes the number of times that this Story is repeated over the height of the building. (default to 1).</param>
-        /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. (required).</param>
-        /// <param name="displayName">Display name of the object with no character restrictions..</param>
-        /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
         public Story
         (
-            string identifier, List<Room2D> room2ds, StoryPropertiesAbridged properties, // Required parameters
+             string identifier, List<Room2D> room2ds, StoryPropertiesAbridged properties, // Required parameters
             string displayName= default, Object userData= default, double floorToFloorHeight= default, double floorHeight= default, int multiplier = 1// Optional parameters
-        ) : base(identifier: identifier, displayName: displayName, userData: userData)// BaseClass
+        )// BaseClass
         {
+            // to ensure "identifier" is required (not null)
+            this.Identifier = identifier ?? throw new ArgumentNullException("identifier is a required property for Story and cannot be null");
             // to ensure "room2ds" is required (not null)
             this.Room2ds = room2ds ?? throw new ArgumentNullException("room2ds is a required property for Story and cannot be null");
             // to ensure "properties" is required (not null)
             this.Properties = properties ?? throw new ArgumentNullException("properties is a required property for Story and cannot be null");
+            this.DisplayName = displayName;
+            this.UserData = userData;
             this.FloorToFloorHeight = floorToFloorHeight;
             this.FloorHeight = floorHeight;
             this.Multiplier = multiplier;
@@ -69,6 +73,24 @@ namespace DragonflySchema
             this.Type = "Story";
         }
 
+        /// <summary>
+        /// Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters.
+        /// </summary>
+        /// <value>Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters.</value>
+        [DataMember(Name = "identifier", IsRequired = true, EmitDefaultValue = false)]
+        public string Identifier { get; set; } 
+        /// <summary>
+        /// Display name of the object with no character restrictions.
+        /// </summary>
+        /// <value>Display name of the object with no character restrictions.</value>
+        [DataMember(Name = "display_name", EmitDefaultValue = false)]
+        public string DisplayName { get; set; } 
+        /// <summary>
+        /// Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list).
+        /// </summary>
+        /// <value>Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list).</value>
+        [DataMember(Name = "user_data", EmitDefaultValue = false)]
+        public Object UserData { get; set; } 
         /// <summary>
         /// An array of dragonfly Room2D objects that together form an entire story of a building.
         /// </summary>
@@ -162,14 +184,6 @@ namespace DragonflySchema
             return DuplicateStory();
         }
 
-        /// <summary>
-        /// Creates a new instance with the same properties.
-        /// </summary>
-        /// <returns>OpenAPIGenBaseModel</returns>
-        public override IDdBaseModel DuplicateIDdBaseModel()
-        {
-            return DuplicateStory();
-        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -190,33 +204,48 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return base.Equals(input) && 
+            return 
+                (
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
+                ) && 
+                (
+                    this.Identifier == input.Identifier ||
+                    (this.Identifier != null &&
+                    this.Identifier.Equals(input.Identifier))
+                ) && 
+                (
+                    this.DisplayName == input.DisplayName ||
+                    (this.DisplayName != null &&
+                    this.DisplayName.Equals(input.DisplayName))
+                ) && 
+                (
+                    this.UserData == input.UserData ||
+                    (this.UserData != null &&
+                    this.UserData.Equals(input.UserData))
+                ) && 
                 (
                     this.Room2ds == input.Room2ds ||
                     this.Room2ds != null &&
                     input.Room2ds != null &&
                     this.Room2ds.SequenceEqual(input.Room2ds)
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Properties == input.Properties ||
                     (this.Properties != null &&
                     this.Properties.Equals(input.Properties))
-                ) && base.Equals(input) && 
-                (
-                    this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.FloorToFloorHeight == input.FloorToFloorHeight ||
                     (this.FloorToFloorHeight != null &&
                     this.FloorToFloorHeight.Equals(input.FloorToFloorHeight))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.FloorHeight == input.FloorHeight ||
                     (this.FloorHeight != null &&
                     this.FloorHeight.Equals(input.FloorHeight))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Multiplier == input.Multiplier ||
                     (this.Multiplier != null &&
@@ -232,13 +261,19 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Identifier != null)
+                    hashCode = hashCode * 59 + this.Identifier.GetHashCode();
+                if (this.DisplayName != null)
+                    hashCode = hashCode * 59 + this.DisplayName.GetHashCode();
+                if (this.UserData != null)
+                    hashCode = hashCode * 59 + this.UserData.GetHashCode();
                 if (this.Room2ds != null)
                     hashCode = hashCode * 59 + this.Room2ds.GetHashCode();
                 if (this.Properties != null)
                     hashCode = hashCode * 59 + this.Properties.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.FloorToFloorHeight != null)
                     hashCode = hashCode * 59 + this.FloorToFloorHeight.GetHashCode();
                 if (this.FloorHeight != null)
@@ -256,7 +291,6 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern
@@ -264,6 +298,25 @@ namespace DragonflySchema
             if (false == regexType.Match(this.Type).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });
+            }
+
+            // Identifier (string) maxLength
+            if(this.Identifier != null && this.Identifier.Length > 100)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Identifier, length must be less than 100.", new [] { "Identifier" });
+            }
+
+            // Identifier (string) minLength
+            if(this.Identifier != null && this.Identifier.Length < 1)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Identifier, length must be greater than 1.", new [] { "Identifier" });
+            }
+            
+            // Identifier (string) pattern
+            Regex regexIdentifier = new Regex(@"[A-Za-z0-9_-]", RegexOptions.CultureInvariant);
+            if (false == regexIdentifier.Match(this.Identifier).Success)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Identifier, must match a pattern of " + regexIdentifier, new [] { "Identifier" });
             }
 
 

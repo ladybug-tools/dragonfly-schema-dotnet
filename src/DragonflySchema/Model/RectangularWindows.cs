@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// Several rectangular windows, defined by origin, width and height.
     /// </summary>
     [DataContract(Name = "RectangularWindows")]
-    public partial class RectangularWindows : OpenAPIGenBaseModel, IEquatable<RectangularWindows>, IValidatableObject
+    public partial class RectangularWindows : IEquatable<RectangularWindows>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RectangularWindows" /> class.
@@ -50,7 +50,7 @@ namespace DragonflySchema
         (
              List<List<double>> origins, List<double> widths, List<double> heights// Required parameters
              // Optional parameters
-        ) : base()// BaseClass
+        )// BaseClass
         {
             // to ensure "origins" is required (not null)
             this.Origins = origins ?? throw new ArgumentNullException("origins is a required property for RectangularWindows and cannot be null");
@@ -139,14 +139,6 @@ namespace DragonflySchema
             return DuplicateRectangularWindows();
         }
 
-        /// <summary>
-        /// Creates a new instance with the same properties.
-        /// </summary>
-        /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
-        {
-            return DuplicateRectangularWindows();
-        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -167,29 +159,29 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return base.Equals(input) && 
+            return 
+                (
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
+                ) && 
                 (
                     this.Origins == input.Origins ||
                     this.Origins != null &&
                     input.Origins != null &&
                     this.Origins.SequenceEqual(input.Origins)
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Widths == input.Widths ||
                     this.Widths != null &&
                     input.Widths != null &&
                     this.Widths.SequenceEqual(input.Widths)
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Heights == input.Heights ||
                     this.Heights != null &&
                     input.Heights != null &&
                     this.Heights.SequenceEqual(input.Heights)
-                ) && base.Equals(input) && 
-                (
-                    this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -201,15 +193,15 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Origins != null)
                     hashCode = hashCode * 59 + this.Origins.GetHashCode();
                 if (this.Widths != null)
                     hashCode = hashCode * 59 + this.Widths.GetHashCode();
                 if (this.Heights != null)
                     hashCode = hashCode * 59 + this.Heights.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }
@@ -221,7 +213,6 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern

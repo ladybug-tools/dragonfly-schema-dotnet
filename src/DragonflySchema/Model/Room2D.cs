@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// Base class for all objects requiring a identifiers acceptable for all engines.
     /// </summary>
     [DataContract(Name = "Room2D")]
-    public partial class Room2D : IDdBaseModel, IEquatable<Room2D>, IValidatableObject
+    public partial class Room2D : IEquatable<Room2D>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Room2D" /> class.
@@ -43,6 +43,9 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Room2D" /> class.
         /// </summary>
+        /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. (required).</param>
+        /// <param name="displayName">Display name of the object with no character restrictions..</param>
+        /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
         /// <param name="floorBoundary">A list of 2D points representing the outer boundary vertices of the Room2D. The list should include at least 3 points and each point should be a list of 2 (x, y) values. (required).</param>
         /// <param name="floorHeight">A number to indicate the height of the floor plane in the Z axis. (required).</param>
         /// <param name="floorToCeilingHeight">A number for the distance between the floor and the ceiling. (required).</param>
@@ -53,21 +56,22 @@ namespace DragonflySchema
         /// <param name="boundaryConditions">A list of boundary conditions that match the number of segments in the input floor_geometry + floor_holes. These will be used to assign boundary conditions to each of the walls of the Room in the resulting model. Their order should align with the order of segments in the floor_boundary and then with each hole segment. If None, all boundary conditions will be Outdoors or Ground depending on whether ceiling height of the room is at or below 0 (the assumed ground plane)..</param>
         /// <param name="windowParameters">A list of WindowParameter objects that dictate how the window geometries will be generated for each of the walls. If None, no windows will exist over the entire Room2D..</param>
         /// <param name="shadingParameters">A list of ShadingParameter objects that dictate how the shade geometries will be generated for each of the walls. If None, no shades will exist over the entire Room2D..</param>
-        /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. (required).</param>
-        /// <param name="displayName">Display name of the object with no character restrictions..</param>
-        /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
         public Room2D
         (
-            string identifier, List<List<double>> floorBoundary, double floorHeight, double floorToCeilingHeight, Room2DPropertiesAbridged properties, // Required parameters
+             string identifier, List<List<double>> floorBoundary, double floorHeight, double floorToCeilingHeight, Room2DPropertiesAbridged properties, // Required parameters
             string displayName= default, Object userData= default, List<List<List<double>>> floorHoles= default, bool isGroundContact = false, bool isTopExposed = false, List<AnyOf<Ground,Outdoors,Adiabatic,Surface>> boundaryConditions= default, List<AnyOf<SingleWindow,SimpleWindowRatio,RepeatingWindowRatio,RectangularWindows,DetailedWindows>> windowParameters= default, List<AnyOf<ExtrudedBorder,Overhang,LouversByDistance,LouversByCount>> shadingParameters= default// Optional parameters
-        ) : base(identifier: identifier, displayName: displayName, userData: userData)// BaseClass
+        )// BaseClass
         {
+            // to ensure "identifier" is required (not null)
+            this.Identifier = identifier ?? throw new ArgumentNullException("identifier is a required property for Room2D and cannot be null");
             // to ensure "floorBoundary" is required (not null)
             this.FloorBoundary = floorBoundary ?? throw new ArgumentNullException("floorBoundary is a required property for Room2D and cannot be null");
             this.FloorHeight = floorHeight;
             this.FloorToCeilingHeight = floorToCeilingHeight;
             // to ensure "properties" is required (not null)
             this.Properties = properties ?? throw new ArgumentNullException("properties is a required property for Room2D and cannot be null");
+            this.DisplayName = displayName;
+            this.UserData = userData;
             this.FloorHoles = floorHoles;
             this.IsGroundContact = isGroundContact;
             this.IsTopExposed = isTopExposed;
@@ -79,6 +83,24 @@ namespace DragonflySchema
             this.Type = "Room2D";
         }
 
+        /// <summary>
+        /// Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters.
+        /// </summary>
+        /// <value>Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters.</value>
+        [DataMember(Name = "identifier", IsRequired = true, EmitDefaultValue = false)]
+        public string Identifier { get; set; } 
+        /// <summary>
+        /// Display name of the object with no character restrictions.
+        /// </summary>
+        /// <value>Display name of the object with no character restrictions.</value>
+        [DataMember(Name = "display_name", EmitDefaultValue = false)]
+        public string DisplayName { get; set; } 
+        /// <summary>
+        /// Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list).
+        /// </summary>
+        /// <value>Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list).</value>
+        [DataMember(Name = "user_data", EmitDefaultValue = false)]
+        public Object UserData { get; set; } 
         /// <summary>
         /// A list of 2D points representing the outer boundary vertices of the Room2D. The list should include at least 3 points and each point should be a list of 2 (x, y) values.
         /// </summary>
@@ -207,14 +229,6 @@ namespace DragonflySchema
             return DuplicateRoom2D();
         }
 
-        /// <summary>
-        /// Creates a new instance with the same properties.
-        /// </summary>
-        /// <returns>OpenAPIGenBaseModel</returns>
-        public override IDdBaseModel DuplicateIDdBaseModel()
-        {
-            return DuplicateRoom2D();
-        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -235,61 +249,76 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return base.Equals(input) && 
+            return 
+                (
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
+                ) && 
+                (
+                    this.Identifier == input.Identifier ||
+                    (this.Identifier != null &&
+                    this.Identifier.Equals(input.Identifier))
+                ) && 
+                (
+                    this.DisplayName == input.DisplayName ||
+                    (this.DisplayName != null &&
+                    this.DisplayName.Equals(input.DisplayName))
+                ) && 
+                (
+                    this.UserData == input.UserData ||
+                    (this.UserData != null &&
+                    this.UserData.Equals(input.UserData))
+                ) && 
                 (
                     this.FloorBoundary == input.FloorBoundary ||
                     this.FloorBoundary != null &&
                     input.FloorBoundary != null &&
                     this.FloorBoundary.SequenceEqual(input.FloorBoundary)
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.FloorHeight == input.FloorHeight ||
                     (this.FloorHeight != null &&
                     this.FloorHeight.Equals(input.FloorHeight))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.FloorToCeilingHeight == input.FloorToCeilingHeight ||
                     (this.FloorToCeilingHeight != null &&
                     this.FloorToCeilingHeight.Equals(input.FloorToCeilingHeight))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.Properties == input.Properties ||
                     (this.Properties != null &&
                     this.Properties.Equals(input.Properties))
-                ) && base.Equals(input) && 
-                (
-                    this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.FloorHoles == input.FloorHoles ||
                     this.FloorHoles != null &&
                     input.FloorHoles != null &&
                     this.FloorHoles.SequenceEqual(input.FloorHoles)
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.IsGroundContact == input.IsGroundContact ||
                     (this.IsGroundContact != null &&
                     this.IsGroundContact.Equals(input.IsGroundContact))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.IsTopExposed == input.IsTopExposed ||
                     (this.IsTopExposed != null &&
                     this.IsTopExposed.Equals(input.IsTopExposed))
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.BoundaryConditions == input.BoundaryConditions ||
                     this.BoundaryConditions != null &&
                     input.BoundaryConditions != null &&
                     this.BoundaryConditions.SequenceEqual(input.BoundaryConditions)
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.WindowParameters == input.WindowParameters ||
                     this.WindowParameters != null &&
                     input.WindowParameters != null &&
                     this.WindowParameters.SequenceEqual(input.WindowParameters)
-                ) && base.Equals(input) && 
+                ) && 
                 (
                     this.ShadingParameters == input.ShadingParameters ||
                     this.ShadingParameters != null &&
@@ -306,7 +335,15 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = base.GetHashCode();
+                int hashCode = 41;
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Identifier != null)
+                    hashCode = hashCode * 59 + this.Identifier.GetHashCode();
+                if (this.DisplayName != null)
+                    hashCode = hashCode * 59 + this.DisplayName.GetHashCode();
+                if (this.UserData != null)
+                    hashCode = hashCode * 59 + this.UserData.GetHashCode();
                 if (this.FloorBoundary != null)
                     hashCode = hashCode * 59 + this.FloorBoundary.GetHashCode();
                 if (this.FloorHeight != null)
@@ -315,8 +352,6 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.FloorToCeilingHeight.GetHashCode();
                 if (this.Properties != null)
                     hashCode = hashCode * 59 + this.Properties.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.FloorHoles != null)
                     hashCode = hashCode * 59 + this.FloorHoles.GetHashCode();
                 if (this.IsGroundContact != null)
@@ -340,7 +375,6 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern
@@ -348,6 +382,25 @@ namespace DragonflySchema
             if (false == regexType.Match(this.Type).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });
+            }
+
+            // Identifier (string) maxLength
+            if(this.Identifier != null && this.Identifier.Length > 100)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Identifier, length must be less than 100.", new [] { "Identifier" });
+            }
+
+            // Identifier (string) minLength
+            if(this.Identifier != null && this.Identifier.Length < 1)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Identifier, length must be greater than 1.", new [] { "Identifier" });
+            }
+            
+            // Identifier (string) pattern
+            Regex regexIdentifier = new Regex(@"[A-Za-z0-9_-]", RegexOptions.CultureInvariant);
+            if (false == regexIdentifier.Match(this.Identifier).Success)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Identifier, must match a pattern of " + regexIdentifier, new [] { "Identifier" });
             }
 
             yield break;
