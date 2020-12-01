@@ -3,7 +3,7 @@
     "servers": [],
     "info": {
         "description": "Documentation for Dragonfly model schema",
-        "version": "1.6.19",
+        "version": "1.6.20",
         "title": "Dragonfly Model Schema",
         "contact": {
             "name": "Ladybug Tools",
@@ -6289,7 +6289,6 @@
                     "PSZ-AC with no heat",
                     "PSZ-AC district chilled water with baseboard electric",
                     "PSZ-AC district chilled water with baseboard gas boiler",
-                    "PSZ-AC district chilled water with baseboard district hot water",
                     "PSZ-AC district chilled water with gas unit heaters",
                     "PSZ-AC district chilled water with electric coil",
                     "PSZ-AC district chilled water with gas coil",
