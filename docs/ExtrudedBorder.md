@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | [optional] [readonly] [default to "ExtrudedBorder"]
 **Depth** | **double** | A number for the depth of the border. | 
+**Type** | **string** |  | [optional] [readonly] [default to "ExtrudedBorder"]
 
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)

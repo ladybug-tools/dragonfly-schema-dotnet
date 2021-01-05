@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// Repeating windows derived from an area ratio with the base wall.
     /// </summary>
     [DataContract(Name = "RepeatingWindowRatio")]
-    public partial class RepeatingWindowRatio : IEquatable<RepeatingWindowRatio>, IValidatableObject
+    public partial class RepeatingWindowRatio : OpenAPIGenBaseModel, IEquatable<RepeatingWindowRatio>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RepeatingWindowRatio" /> class.
@@ -161,6 +161,14 @@ namespace DragonflySchema
             return DuplicateRepeatingWindowRatio();
         }
 
+        /// <summary>
+        /// Creates a new instance with the same properties.
+        /// </summary>
+        /// <returns>OpenAPIGenBaseModel</returns>
+        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
+        {
+            return DuplicateRepeatingWindowRatio();
+        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -182,32 +190,32 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return 
-                (
-                    this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
-                ) && 
+            return base.Equals(input) && 
                 (
                     this.WindowRatio == input.WindowRatio ||
                     (this.WindowRatio != null &&
                     this.WindowRatio.Equals(input.WindowRatio))
-                ) && 
+                ) && base.Equals(input) && 
                 (
                     this.WindowHeight == input.WindowHeight ||
                     (this.WindowHeight != null &&
                     this.WindowHeight.Equals(input.WindowHeight))
-                ) && 
+                ) && base.Equals(input) && 
                 (
                     this.SillHeight == input.SillHeight ||
                     (this.SillHeight != null &&
                     this.SillHeight.Equals(input.SillHeight))
-                ) && 
+                ) && base.Equals(input) && 
                 (
                     this.HorizontalSeparation == input.HorizontalSeparation ||
                     (this.HorizontalSeparation != null &&
                     this.HorizontalSeparation.Equals(input.HorizontalSeparation))
-                ) && 
+                ) && base.Equals(input) && 
+                (
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
+                ) && base.Equals(input) && 
                 (
                     this.VerticalSeparation == input.VerticalSeparation ||
                     (this.VerticalSeparation != null &&
@@ -223,9 +231,7 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = 41;
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                int hashCode = base.GetHashCode();
                 if (this.WindowRatio != null)
                     hashCode = hashCode * 59 + this.WindowRatio.GetHashCode();
                 if (this.WindowHeight != null)
@@ -234,6 +240,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.SillHeight.GetHashCode();
                 if (this.HorizontalSeparation != null)
                     hashCode = hashCode * 59 + this.HorizontalSeparation.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.VerticalSeparation != null)
                     hashCode = hashCode * 59 + this.VerticalSeparation.GetHashCode();
                 return hashCode;
@@ -247,6 +255,15 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            foreach(var x in base.BaseValidate(validationContext)) yield return x;
+
+            
+            // HorizontalSeparation (double) minimum
+            if(this.HorizontalSeparation < (double)0)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for HorizontalSeparation, must be a value greater than or equal to 0.", new [] { "HorizontalSeparation" });
+            }
+
 
             
             // Type (string) pattern
@@ -254,14 +271,6 @@ namespace DragonflySchema
             if (false == regexType.Match(this.Type).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });
-            }
-
-
-            
-            // HorizontalSeparation (double) minimum
-            if(this.HorizontalSeparation < (double)0)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for HorizontalSeparation, must be a value greater than or equal to 0.", new [] { "HorizontalSeparation" });
             }
 
 

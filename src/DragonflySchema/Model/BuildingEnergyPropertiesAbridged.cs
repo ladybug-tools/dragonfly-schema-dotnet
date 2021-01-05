@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// Base class for all objects that are not extensible with additional keys.  This effectively includes all objects except for the Properties classes that are assigned to geometry objects.
     /// </summary>
     [DataContract(Name = "BuildingEnergyPropertiesAbridged")]
-    public partial class BuildingEnergyPropertiesAbridged : IEquatable<BuildingEnergyPropertiesAbridged>, IValidatableObject
+    public partial class BuildingEnergyPropertiesAbridged : OpenAPIGenBaseModel, IEquatable<BuildingEnergyPropertiesAbridged>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildingEnergyPropertiesAbridged" /> class.
@@ -115,6 +115,14 @@ namespace DragonflySchema
             return DuplicateBuildingEnergyPropertiesAbridged();
         }
 
+        /// <summary>
+        /// Creates a new instance with the same properties.
+        /// </summary>
+        /// <returns>OpenAPIGenBaseModel</returns>
+        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
+        {
+            return DuplicateBuildingEnergyPropertiesAbridged();
+        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -136,12 +144,12 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return 
+            return base.Equals(input) && 
                 (
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
-                ) && 
+                ) && base.Equals(input) && 
                 (
                     this.ConstructionSet == input.ConstructionSet ||
                     (this.ConstructionSet != null &&
@@ -157,7 +165,7 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = 41;
+                int hashCode = base.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.ConstructionSet != null)
@@ -173,6 +181,7 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern
