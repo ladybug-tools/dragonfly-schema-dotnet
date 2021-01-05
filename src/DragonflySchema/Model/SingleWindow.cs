@@ -48,9 +48,9 @@ namespace DragonflySchema
         /// <param name="sillHeight">A number for the window sill height. (default to 1.0D).</param>
         public SingleWindow
         (
-             double width, double height, // Required parameters
-            double sillHeight = 1.0D// Optional parameters
-        )// BaseClass
+           double width, double height, // Required parameters
+           double sillHeight = 1.0D// Optional parameters
+        ) : base()// BaseClass
         {
             this.Width = width;
             this.Height = height;
@@ -60,23 +60,30 @@ namespace DragonflySchema
             this.Type = "SingleWindow";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "SingleWindow";
+
         /// <summary>
         /// A number for the window width. Note that, if this width is applied to a wall that is too narrow for this width, the generated window will automatically be shortened when it is applied to the wall. In this way, setting the width to be &#x60;float(\&quot;inf\&quot;)&#x60; will create parameters that always generate a ribbon window.
         /// </summary>
         /// <value>A number for the window width. Note that, if this width is applied to a wall that is too narrow for this width, the generated window will automatically be shortened when it is applied to the wall. In this way, setting the width to be &#x60;float(\&quot;inf\&quot;)&#x60; will create parameters that always generate a ribbon window.</value>
-        [DataMember(Name = "width", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "width", IsRequired = true)]
         public double Width { get; set; } 
         /// <summary>
         /// A number for the window height. Note that, if this height is applied to a wall that is too short for this height, the generated window will automatically be shortened when it is applied to the wall.
         /// </summary>
         /// <value>A number for the window height. Note that, if this height is applied to a wall that is too short for this height, the generated window will automatically be shortened when it is applied to the wall.</value>
-        [DataMember(Name = "height", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "height", IsRequired = true)]
         public double Height { get; set; } 
         /// <summary>
         /// A number for the window sill height.
         /// </summary>
         /// <value>A number for the window sill height.</value>
-        [DataMember(Name = "sill_height", EmitDefaultValue = true)]
+        [DataMember(Name = "sill_height")]
         public double SillHeight { get; set; }  = 1.0D;
 
         /// <summary>
@@ -144,6 +151,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as SingleWindow);
         }
 

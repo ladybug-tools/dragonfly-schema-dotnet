@@ -36,9 +36,9 @@ namespace DragonflySchema
         /// <param name="constructionSet">Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used..</param>
         public BuildingEnergyPropertiesAbridged
         (
-             // Required parameters
-            string constructionSet= default// Optional parameters
-        )// BaseClass
+           // Required parameters
+           string constructionSet= default// Optional parameters
+        ) : base()// BaseClass
         {
             this.ConstructionSet = constructionSet;
 
@@ -46,11 +46,18 @@ namespace DragonflySchema
             this.Type = "BuildingEnergyPropertiesAbridged";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "BuildingEnergyPropertiesAbridged";
+
         /// <summary>
         /// Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used.
         /// </summary>
         /// <value>Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used.</value>
-        [DataMember(Name = "construction_set", EmitDefaultValue = false)]
+        [DataMember(Name = "construction_set")]
         public string ConstructionSet { get; set; } 
 
         /// <summary>
@@ -116,6 +123,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as BuildingEnergyPropertiesAbridged);
         }
 

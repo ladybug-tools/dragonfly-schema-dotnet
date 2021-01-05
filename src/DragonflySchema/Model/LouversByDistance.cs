@@ -66,6 +66,13 @@ namespace DragonflySchema
             this.Type = "LouversByDistance";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "LouversByDistance";
+
         /// <summary>
         /// A number for the depth to extrude the louvers.
         /// </summary>
@@ -100,7 +107,7 @@ namespace DragonflySchema
         /// A number for the approximate distance between each louver.
         /// </summary>
         /// <value>A number for the approximate distance between each louver.</value>
-        [DataMember(Name = "distance", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "distance", IsRequired = true)]
         public double Distance { get; set; } 
 
         /// <summary>
@@ -171,6 +178,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as LouversByDistance);
         }
 

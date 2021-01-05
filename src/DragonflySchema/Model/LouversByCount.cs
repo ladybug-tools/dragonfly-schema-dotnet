@@ -66,6 +66,13 @@ namespace DragonflySchema
             this.Type = "LouversByCount";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "LouversByCount";
+
         /// <summary>
         /// A number for the depth to extrude the louvers.
         /// </summary>
@@ -100,7 +107,7 @@ namespace DragonflySchema
         /// A positive integer for the number of louvers to generate.
         /// </summary>
         /// <value>A positive integer for the number of louvers to generate.</value>
-        [DataMember(Name = "louver_count", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "louver_count", IsRequired = true)]
         public int LouverCount { get; set; } 
 
         /// <summary>
@@ -171,6 +178,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as LouversByCount);
         }
 

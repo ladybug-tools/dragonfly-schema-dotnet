@@ -38,9 +38,9 @@ namespace DragonflySchema
         /// <param name="groundConstruction">Identifier for an OpaqueConstruction for faces with a Ground boundary condition..</param>
         public FaceSubSetAbridged
         (
-             // Required parameters
-            string interiorConstruction= default, string exteriorConstruction= default, string groundConstruction= default// Optional parameters
-        )// BaseClass
+           // Required parameters
+           string interiorConstruction= default, string exteriorConstruction= default, string groundConstruction= default // Optional parameters
+        ) : base()// BaseClass
         {
             this.InteriorConstruction = interiorConstruction;
             this.ExteriorConstruction = exteriorConstruction;
@@ -50,23 +50,30 @@ namespace DragonflySchema
             this.Type = "_FaceSubSetAbridged";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "_FaceSubSetAbridged";
+
         /// <summary>
         /// Identifier for an OpaqueConstruction for faces with a Surface or Adiabatic boundary condition.
         /// </summary>
         /// <value>Identifier for an OpaqueConstruction for faces with a Surface or Adiabatic boundary condition.</value>
-        [DataMember(Name = "interior_construction", EmitDefaultValue = false)]
+        [DataMember(Name = "interior_construction")]
         public string InteriorConstruction { get; set; } 
         /// <summary>
         /// Identifier for an OpaqueConstruction for faces with an Outdoors boundary condition.
         /// </summary>
         /// <value>Identifier for an OpaqueConstruction for faces with an Outdoors boundary condition.</value>
-        [DataMember(Name = "exterior_construction", EmitDefaultValue = false)]
+        [DataMember(Name = "exterior_construction")]
         public string ExteriorConstruction { get; set; } 
         /// <summary>
         /// Identifier for an OpaqueConstruction for faces with a Ground boundary condition.
         /// </summary>
         /// <value>Identifier for an OpaqueConstruction for faces with a Ground boundary condition.</value>
-        [DataMember(Name = "ground_construction", EmitDefaultValue = false)]
+        [DataMember(Name = "ground_construction")]
         public string GroundConstruction { get; set; } 
 
         /// <summary>
@@ -134,6 +141,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as FaceSubSetAbridged);
         }
 

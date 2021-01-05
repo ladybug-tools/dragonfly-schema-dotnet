@@ -56,11 +56,15 @@ namespace DragonflySchema
         /// <param name="boundaryConditions">A list of boundary conditions that match the number of segments in the input floor_geometry + floor_holes. These will be used to assign boundary conditions to each of the walls of the Room in the resulting model. Their order should align with the order of segments in the floor_boundary and then with each hole segment. If None, all boundary conditions will be Outdoors or Ground depending on whether ceiling height of the room is at or below 0 (the assumed ground plane)..</param>
         /// <param name="windowParameters">A list of WindowParameter objects that dictate how the window geometries will be generated for each of the walls. If None, no windows will exist over the entire Room2D..</param>
         /// <param name="shadingParameters">A list of ShadingParameter objects that dictate how the shade geometries will be generated for each of the walls. If None, no shades will exist over the entire Room2D..</param>
+        /// <param name="airBoundaries">A list of booleans for whether each wall has an air boundary type. False values indicate a standard opaque type while True values indicate an AirBoundary type. All walls will be False by default. Note that any walls with a True air boundary must have a Surface boundary condition without any windows..</param>
+        /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. (required).</param>
+        /// <param name="displayName">Display name of the object with no character restrictions..</param>
+        /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
         public Room2D
         (
-             string identifier, List<List<double>> floorBoundary, double floorHeight, double floorToCeilingHeight, Room2DPropertiesAbridged properties, // Required parameters
-            string displayName= default, Object userData= default, List<List<List<double>>> floorHoles= default, bool isGroundContact = false, bool isTopExposed = false, List<AnyOf<Ground,Outdoors,Adiabatic,Surface>> boundaryConditions= default, List<AnyOf<SingleWindow,SimpleWindowRatio,RepeatingWindowRatio,RectangularWindows,DetailedWindows>> windowParameters= default, List<AnyOf<ExtrudedBorder,Overhang,LouversByDistance,LouversByCount>> shadingParameters= default// Optional parameters
-        )// BaseClass
+            string identifier, List<List<double>> floorBoundary, double floorHeight, double floorToCeilingHeight, Room2DPropertiesAbridged properties, // Required parameters
+            string displayName= default, Object userData= default, List<List<List<double>>> floorHoles= default, bool isGroundContact = false, bool isTopExposed = false, List<AnyOf<Ground,Outdoors,Adiabatic,Surface>> boundaryConditions= default, List<AnyOf<SingleWindow,SimpleWindowRatio,RepeatingWindowRatio,RectangularWindows,DetailedWindows>> windowParameters= default, List<AnyOf<ExtrudedBorder,Overhang,LouversByDistance,LouversByCount>> shadingParameters= default, List<bool> airBoundaries= default// Optional parameters
+        ) : base(identifier: identifier, displayName: displayName, userData: userData)// BaseClass
         {
             // to ensure "identifier" is required (not null)
             this.Identifier = identifier ?? throw new ArgumentNullException("identifier is a required property for Room2D and cannot be null");
@@ -78,10 +82,18 @@ namespace DragonflySchema
             this.BoundaryConditions = boundaryConditions;
             this.WindowParameters = windowParameters;
             this.ShadingParameters = shadingParameters;
+            this.AirBoundaries = airBoundaries;
 
             // Set non-required readonly properties with defaultValue
             this.Type = "Room2D";
         }
+
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "Room2D";
 
         /// <summary>
         /// Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters.
@@ -105,62 +117,68 @@ namespace DragonflySchema
         /// A list of 2D points representing the outer boundary vertices of the Room2D. The list should include at least 3 points and each point should be a list of 2 (x, y) values.
         /// </summary>
         /// <value>A list of 2D points representing the outer boundary vertices of the Room2D. The list should include at least 3 points and each point should be a list of 2 (x, y) values.</value>
-        [DataMember(Name = "floor_boundary", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "floor_boundary", IsRequired = true)]
         public List<List<double>> FloorBoundary { get; set; } 
         /// <summary>
         /// A number to indicate the height of the floor plane in the Z axis.
         /// </summary>
         /// <value>A number to indicate the height of the floor plane in the Z axis.</value>
-        [DataMember(Name = "floor_height", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "floor_height", IsRequired = true)]
         public double FloorHeight { get; set; } 
         /// <summary>
         /// A number for the distance between the floor and the ceiling.
         /// </summary>
         /// <value>A number for the distance between the floor and the ceiling.</value>
-        [DataMember(Name = "floor_to_ceiling_height", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "floor_to_ceiling_height", IsRequired = true)]
         public double FloorToCeilingHeight { get; set; } 
         /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         /// <value>Extension properties for particular simulation engines (Radiance, EnergyPlus).</value>
-        [DataMember(Name = "properties", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "properties", IsRequired = true)]
         public Room2DPropertiesAbridged Properties { get; set; } 
         /// <summary>
         /// Optional list of lists with one list for each hole in the floor plate. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate.
         /// </summary>
         /// <value>Optional list of lists with one list for each hole in the floor plate. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate.</value>
-        [DataMember(Name = "floor_holes", EmitDefaultValue = false)]
+        [DataMember(Name = "floor_holes")]
         public List<List<List<double>>> FloorHoles { get; set; } 
         /// <summary>
         /// A boolean noting whether this Room2D has its floor in contact with the ground.
         /// </summary>
         /// <value>A boolean noting whether this Room2D has its floor in contact with the ground.</value>
-        [DataMember(Name = "is_ground_contact", EmitDefaultValue = true)]
+        [DataMember(Name = "is_ground_contact")]
         public bool IsGroundContact { get; set; }  = false;
         /// <summary>
         /// A boolean noting whether this Room2D has its ceiling exposed to the outdoors.
         /// </summary>
         /// <value>A boolean noting whether this Room2D has its ceiling exposed to the outdoors.</value>
-        [DataMember(Name = "is_top_exposed", EmitDefaultValue = true)]
+        [DataMember(Name = "is_top_exposed")]
         public bool IsTopExposed { get; set; }  = false;
         /// <summary>
         /// A list of boundary conditions that match the number of segments in the input floor_geometry + floor_holes. These will be used to assign boundary conditions to each of the walls of the Room in the resulting model. Their order should align with the order of segments in the floor_boundary and then with each hole segment. If None, all boundary conditions will be Outdoors or Ground depending on whether ceiling height of the room is at or below 0 (the assumed ground plane).
         /// </summary>
         /// <value>A list of boundary conditions that match the number of segments in the input floor_geometry + floor_holes. These will be used to assign boundary conditions to each of the walls of the Room in the resulting model. Their order should align with the order of segments in the floor_boundary and then with each hole segment. If None, all boundary conditions will be Outdoors or Ground depending on whether ceiling height of the room is at or below 0 (the assumed ground plane).</value>
-        [DataMember(Name = "boundary_conditions", EmitDefaultValue = false)]
+        [DataMember(Name = "boundary_conditions")]
         public List<AnyOf<Ground,Outdoors,Adiabatic,Surface>> BoundaryConditions { get; set; } 
         /// <summary>
         /// A list of WindowParameter objects that dictate how the window geometries will be generated for each of the walls. If None, no windows will exist over the entire Room2D.
         /// </summary>
         /// <value>A list of WindowParameter objects that dictate how the window geometries will be generated for each of the walls. If None, no windows will exist over the entire Room2D.</value>
-        [DataMember(Name = "window_parameters", EmitDefaultValue = false)]
+        [DataMember(Name = "window_parameters")]
         public List<AnyOf<SingleWindow,SimpleWindowRatio,RepeatingWindowRatio,RectangularWindows,DetailedWindows>> WindowParameters { get; set; } 
         /// <summary>
         /// A list of ShadingParameter objects that dictate how the shade geometries will be generated for each of the walls. If None, no shades will exist over the entire Room2D.
         /// </summary>
         /// <value>A list of ShadingParameter objects that dictate how the shade geometries will be generated for each of the walls. If None, no shades will exist over the entire Room2D.</value>
-        [DataMember(Name = "shading_parameters", EmitDefaultValue = false)]
+        [DataMember(Name = "shading_parameters")]
         public List<AnyOf<ExtrudedBorder,Overhang,LouversByDistance,LouversByCount>> ShadingParameters { get; set; } 
+        /// <summary>
+        /// A list of booleans for whether each wall has an air boundary type. False values indicate a standard opaque type while True values indicate an AirBoundary type. All walls will be False by default. Note that any walls with a True air boundary must have a Surface boundary condition without any windows.
+        /// </summary>
+        /// <value>A list of booleans for whether each wall has an air boundary type. False values indicate a standard opaque type while True values indicate an AirBoundary type. All walls will be False by default. Note that any walls with a True air boundary must have a Surface boundary condition without any windows.</value>
+        [DataMember(Name = "air_boundaries")]
+        public List<bool> AirBoundaries { get; set; } 
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -196,6 +214,7 @@ namespace DragonflySchema
             sb.Append("  BoundaryConditions: ").Append(BoundaryConditions).Append("\n");
             sb.Append("  WindowParameters: ").Append(WindowParameters).Append("\n");
             sb.Append("  ShadingParameters: ").Append(ShadingParameters).Append("\n");
+            sb.Append("  AirBoundaries: ").Append(AirBoundaries).Append("\n");
             return sb.ToString();
         }
   
@@ -237,6 +256,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as Room2D);
         }
 
@@ -324,6 +344,12 @@ namespace DragonflySchema
                     this.ShadingParameters != null &&
                     input.ShadingParameters != null &&
                     this.ShadingParameters.SequenceEqual(input.ShadingParameters)
+                ) && base.Equals(input) && 
+                (
+                    this.AirBoundaries == input.AirBoundaries ||
+                    this.AirBoundaries != null &&
+                    input.AirBoundaries != null &&
+                    this.AirBoundaries.SequenceEqual(input.AirBoundaries)
                 );
         }
 
@@ -364,6 +390,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.WindowParameters.GetHashCode();
                 if (this.ShadingParameters != null)
                     hashCode = hashCode * 59 + this.ShadingParameters.GetHashCode();
+                if (this.AirBoundaries != null)
+                    hashCode = hashCode * 59 + this.AirBoundaries.GetHashCode();
                 return hashCode;
             }
         }

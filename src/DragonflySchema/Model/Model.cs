@@ -34,8 +34,8 @@ namespace DragonflySchema
         /// Text indicating the units in which the model geometry exists. This is used to scale the geometry to the correct units for simulation engines like EnergyPlus, which requires all geometry be in meters.
         /// </summary>
         /// <value>Text indicating the units in which the model geometry exists. This is used to scale the geometry to the correct units for simulation engines like EnergyPlus, which requires all geometry be in meters.</value>
-        [DataMember(Name="units", EmitDefaultValue=false)]
-        public Units Units { get; set; }   
+        [DataMember(Name="units")]
+        public Units Units { get; set; } = Units.Meters;
         /// <summary>
         /// Initializes a new instance of the <see cref="Model" /> class.
         /// </summary>
@@ -61,9 +61,9 @@ namespace DragonflySchema
         /// <param name="angleTolerance">The max angle difference in degrees that vertices are allowed to differ from one another in order to consider them colinear. This value is used in a variety of checks and operations that can be performed on geometry. A value of 0 will result in no checks and an inability to perform certain operations so it is recommended that this always be a positive number when checks have not already been performed on a given Model. (default to 1.0D).</param>
         public Model
         (
-             string identifier, List<Building> buildings, ModelProperties properties, // Required parameters
-            string displayName= default, Object userData= default, string version = "0.0.0", List<ContextShade> contextShades= default, Units units= default, double tolerance = 0.01D, double angleTolerance = 1.0D// Optional parameters
-        )// BaseClass
+            string identifier, List<Building> buildings, ModelProperties properties, // Required parameters
+            string displayName= default, Object userData= default, string version = "0.0.0", List<ContextShade> contextShades= default, Units units= Units.Meters, double tolerance = 0.01D, double angleTolerance = 1.0D// Optional parameters
+        ) : base(identifier: identifier, displayName: displayName, userData: userData)// BaseClass
         {
             // to ensure "identifier" is required (not null)
             this.Identifier = identifier ?? throw new ArgumentNullException("identifier is a required property for Model and cannot be null");
@@ -83,6 +83,13 @@ namespace DragonflySchema
             // Set non-required readonly properties with defaultValue
             this.Type = "Model";
         }
+
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "Model";
 
         /// <summary>
         /// Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters.
@@ -106,37 +113,37 @@ namespace DragonflySchema
         /// A list of Buildings in the model.
         /// </summary>
         /// <value>A list of Buildings in the model.</value>
-        [DataMember(Name = "buildings", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "buildings", IsRequired = true)]
         public List<Building> Buildings { get; set; } 
         /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         /// <value>Extension properties for particular simulation engines (Radiance, EnergyPlus).</value>
-        [DataMember(Name = "properties", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "properties", IsRequired = true)]
         public ModelProperties Properties { get; set; } 
         /// <summary>
         /// Text string for the current version of the schema.
         /// </summary>
         /// <value>Text string for the current version of the schema.</value>
-        [DataMember(Name = "version", EmitDefaultValue = true)]
+        [DataMember(Name = "version")]
         public string Version { get; set; }  = "0.0.0";
         /// <summary>
         /// A list of ContextShades in the model.
         /// </summary>
         /// <value>A list of ContextShades in the model.</value>
-        [DataMember(Name = "context_shades", EmitDefaultValue = false)]
+        [DataMember(Name = "context_shades")]
         public List<ContextShade> ContextShades { get; set; } 
         /// <summary>
         /// The maximum difference between x, y, and z values at which vertices are considered equivalent. This value should be in the Model units and is used in a variety of checks and operations. A value of 0 will result in bypassing all checks so it is recommended that this always be a positive number when checks have not already been performed on a Model. The default of 0.01 is suitable for models in meters.
         /// </summary>
         /// <value>The maximum difference between x, y, and z values at which vertices are considered equivalent. This value should be in the Model units and is used in a variety of checks and operations. A value of 0 will result in bypassing all checks so it is recommended that this always be a positive number when checks have not already been performed on a Model. The default of 0.01 is suitable for models in meters.</value>
-        [DataMember(Name = "tolerance", EmitDefaultValue = true)]
+        [DataMember(Name = "tolerance")]
         public double Tolerance { get; set; }  = 0.01D;
         /// <summary>
         /// The max angle difference in degrees that vertices are allowed to differ from one another in order to consider them colinear. This value is used in a variety of checks and operations that can be performed on geometry. A value of 0 will result in no checks and an inability to perform certain operations so it is recommended that this always be a positive number when checks have not already been performed on a given Model.
         /// </summary>
         /// <value>The max angle difference in degrees that vertices are allowed to differ from one another in order to consider them colinear. This value is used in a variety of checks and operations that can be performed on geometry. A value of 0 will result in no checks and an inability to perform certain operations so it is recommended that this always be a positive number when checks have not already been performed on a given Model.</value>
-        [DataMember(Name = "angle_tolerance", EmitDefaultValue = true)]
+        [DataMember(Name = "angle_tolerance")]
         public double AngleTolerance { get; set; }  = 1.0D;
 
         /// <summary>
@@ -211,6 +218,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as Model);
         }
 

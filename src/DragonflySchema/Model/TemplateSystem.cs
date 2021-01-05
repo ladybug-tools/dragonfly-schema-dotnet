@@ -34,7 +34,7 @@ namespace DragonflySchema
         /// Text for the vintage of the template system. This will be used to set efficiencies for various pieces of equipment within the system. Further information about these defaults can be found in the version of ASHRAE 90.1 corresponding to the selected vintage. Read-only versions of the standard can be found at: https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards
         /// </summary>
         /// <value>Text for the vintage of the template system. This will be used to set efficiencies for various pieces of equipment within the system. Further information about these defaults can be found in the version of ASHRAE 90.1 corresponding to the selected vintage. Read-only versions of the standard can be found at: https://www.ashrae.org/technical-resources/standards-and-guidelines/read-only-versions-of-ashrae-standards</value>
-        [DataMember(Name="vintage", EmitDefaultValue=false)]
+        [DataMember(Name="vintage")]
         public Vintages Vintage { get; set; }   
         /// <summary>
         /// Initializes a new instance of the <see cref="TemplateSystem" /> class.
@@ -67,18 +67,13 @@ namespace DragonflySchema
             this.Type = "_TemplateSystem";
         }
 
+        //============================================== is ReadOnly 
         /// <summary>
-        /// Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, osm). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters, use only ASCII characters and exclude (, ; ! \\n \\t).
+        /// Gets or Sets Type
         /// </summary>
-        /// <value>Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, osm). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters, use only ASCII characters and exclude (, ; ! \\n \\t).</value>
-        [DataMember(Name = "identifier", IsRequired = true, EmitDefaultValue = false)]
-        public string Identifier { get; set; } 
-        /// <summary>
-        /// Display name of the object with no character restrictions.
-        /// </summary>
-        /// <value>Display name of the object with no character restrictions.</value>
-        [DataMember(Name = "display_name", EmitDefaultValue = false)]
-        public string DisplayName { get; set; } 
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "_TemplateSystem";
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -145,6 +140,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as TemplateSystem);
         }
 

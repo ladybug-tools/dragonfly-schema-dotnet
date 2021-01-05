@@ -46,9 +46,9 @@ namespace DragonflySchema
         /// <param name="windowRatio">A number between 0 and 1 for the ratio between the window area and the parent wall surface area. (required).</param>
         public SimpleWindowRatio
         (
-             double windowRatio// Required parameters
-             // Optional parameters
-        )// BaseClass
+           double windowRatio// Required parameters
+           // Optional parameters
+        ) : base()// BaseClass
         {
             this.WindowRatio = windowRatio;
 
@@ -56,11 +56,18 @@ namespace DragonflySchema
             this.Type = "SimpleWindowRatio";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "SimpleWindowRatio";
+
         /// <summary>
         /// A number between 0 and 1 for the ratio between the window area and the parent wall surface area.
         /// </summary>
         /// <value>A number between 0 and 1 for the ratio between the window area and the parent wall surface area.</value>
-        [DataMember(Name = "window_ratio", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "window_ratio", IsRequired = true)]
         public double WindowRatio { get; set; } 
 
         /// <summary>
@@ -126,6 +133,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as SimpleWindowRatio);
         }
 

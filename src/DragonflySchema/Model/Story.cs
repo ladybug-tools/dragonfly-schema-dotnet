@@ -73,6 +73,13 @@ namespace DragonflySchema
             this.Type = "Story";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "Story";
+
         /// <summary>
         /// Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters.
         /// </summary>
@@ -95,31 +102,31 @@ namespace DragonflySchema
         /// An array of dragonfly Room2D objects that together form an entire story of a building.
         /// </summary>
         /// <value>An array of dragonfly Room2D objects that together form an entire story of a building.</value>
-        [DataMember(Name = "room_2ds", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "room_2ds", IsRequired = true)]
         public List<Room2D> Room2ds { get; set; } 
         /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         /// <value>Extension properties for particular simulation engines (Radiance, EnergyPlus).</value>
-        [DataMember(Name = "properties", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "properties", IsRequired = true)]
         public StoryPropertiesAbridged Properties { get; set; } 
         /// <summary>
         /// A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If None, this value will be the maximum floor_to_ceiling_height of the input room_2ds.
         /// </summary>
         /// <value>A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If None, this value will be the maximum floor_to_ceiling_height of the input room_2ds.</value>
-        [DataMember(Name = "floor_to_floor_height", EmitDefaultValue = false)]
+        [DataMember(Name = "floor_to_floor_height")]
         public double FloorToFloorHeight { get; set; } 
         /// <summary>
         /// A number to indicate the height of the floor plane in the Z axis.If None, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums.
         /// </summary>
         /// <value>A number to indicate the height of the floor plane in the Z axis.If None, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums.</value>
-        [DataMember(Name = "floor_height", EmitDefaultValue = false)]
+        [DataMember(Name = "floor_height")]
         public double FloorHeight { get; set; } 
         /// <summary>
         /// An integer that denotes the number of times that this Story is repeated over the height of the building.
         /// </summary>
         /// <value>An integer that denotes the number of times that this Story is repeated over the height of the building.</value>
-        [DataMember(Name = "multiplier", EmitDefaultValue = true)]
+        [DataMember(Name = "multiplier")]
         public int Multiplier { get; set; }  = 1;
 
         /// <summary>
@@ -192,6 +199,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as Story);
         }
 

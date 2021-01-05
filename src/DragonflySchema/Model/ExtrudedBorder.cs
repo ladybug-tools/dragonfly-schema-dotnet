@@ -46,9 +46,9 @@ namespace DragonflySchema
         /// <param name="depth">A number for the depth of the border. (required).</param>
         public ExtrudedBorder
         (
-             double depth// Required parameters
-             // Optional parameters
-        )// BaseClass
+           double depth// Required parameters
+           // Optional parameters
+        ) : base()// BaseClass
         {
             this.Depth = depth;
 
@@ -56,11 +56,18 @@ namespace DragonflySchema
             this.Type = "ExtrudedBorder";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "ExtrudedBorder";
+
         /// <summary>
         /// A number for the depth of the border.
         /// </summary>
         /// <value>A number for the depth of the border.</value>
-        [DataMember(Name = "depth", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "depth", IsRequired = true)]
         public double Depth { get; set; } 
 
         /// <summary>
@@ -126,6 +133,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as ExtrudedBorder);
         }
 

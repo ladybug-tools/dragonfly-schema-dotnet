@@ -67,6 +67,13 @@ namespace DragonflySchema
             this.Type = "ContextShade";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "ContextShade";
+
         /// <summary>
         /// Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters.
         /// </summary>
@@ -89,13 +96,13 @@ namespace DragonflySchema
         /// An array of planar Face3Ds that together represent the context shade.
         /// </summary>
         /// <value>An array of planar Face3Ds that together represent the context shade.</value>
-        [DataMember(Name = "geometry", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "geometry", IsRequired = true)]
         public List<Face3D> Geometry { get; set; } 
         /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         /// <value>Extension properties for particular simulation engines (Radiance, EnergyPlus).</value>
-        [DataMember(Name = "properties", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "properties", IsRequired = true)]
         public ContextShadePropertiesAbridged Properties { get; set; } 
 
         /// <summary>
@@ -165,6 +172,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as ContextShade);
         }
 
