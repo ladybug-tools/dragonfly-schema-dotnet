@@ -196,6 +196,10 @@ docs/ScheduleRulesetAllOf.md
 docs/ScheduleTypeLimit.md
 docs/ScheduleTypeLimitAllOf.md
 docs/ScheduleUnitType.md
+docs/ServiceHotWater.md
+docs/ServiceHotWaterAbridged.md
+docs/ServiceHotWaterAbridgedAllOf.md
+docs/ServiceHotWaterAllOf.md
 docs/Setpoint.md
 docs/SetpointAbridged.md
 docs/SetpointAbridgedAllOf.md
@@ -450,6 +454,10 @@ src/DragonflySchema.Test/Model/ScheduleRulesetTests.cs
 src/DragonflySchema.Test/Model/ScheduleTypeLimitAllOfTests.cs
 src/DragonflySchema.Test/Model/ScheduleTypeLimitTests.cs
 src/DragonflySchema.Test/Model/ScheduleUnitTypeTests.cs
+src/DragonflySchema.Test/Model/ServiceHotWaterAbridgedAllOfTests.cs
+src/DragonflySchema.Test/Model/ServiceHotWaterAbridgedTests.cs
+src/DragonflySchema.Test/Model/ServiceHotWaterAllOfTests.cs
+src/DragonflySchema.Test/Model/ServiceHotWaterTests.cs
 src/DragonflySchema.Test/Model/SetpointAbridgedAllOfTests.cs
 src/DragonflySchema.Test/Model/SetpointAbridgedTests.cs
 src/DragonflySchema.Test/Model/SetpointAllOfTests.cs
@@ -713,6 +721,10 @@ src/DragonflySchema/Model/ScheduleRulesetAllOf.cs
 src/DragonflySchema/Model/ScheduleTypeLimit.cs
 src/DragonflySchema/Model/ScheduleTypeLimitAllOf.cs
 src/DragonflySchema/Model/ScheduleUnitType.cs
+src/DragonflySchema/Model/ServiceHotWater.cs
+src/DragonflySchema/Model/ServiceHotWaterAbridged.cs
+src/DragonflySchema/Model/ServiceHotWaterAbridgedAllOf.cs
+src/DragonflySchema/Model/ServiceHotWaterAllOf.cs
 src/DragonflySchema/Model/Setpoint.cs
 src/DragonflySchema/Model/SetpointAbridged.cs
 src/DragonflySchema/Model/SetpointAbridgedAllOf.cs
