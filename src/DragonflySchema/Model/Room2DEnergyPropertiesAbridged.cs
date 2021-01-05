@@ -40,9 +40,9 @@ namespace DragonflySchema
         /// <param name="windowVentOpening">An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open..</param>
         public Room2DEnergyPropertiesAbridged
         (
-             // Required parameters
-            string constructionSet= default, string programType= default, string hvac= default, VentilationControlAbridged windowVentControl= default, VentilationOpening windowVentOpening= default// Optional parameters
-        )// BaseClass
+           // Required parameters
+           string constructionSet= default, string programType= default, string hvac= default, VentilationControlAbridged windowVentControl= default, VentilationOpening windowVentOpening= default// Optional parameters
+        ) : base()// BaseClass
         {
             this.ConstructionSet = constructionSet;
             this.ProgramType = programType;
@@ -54,35 +54,42 @@ namespace DragonflySchema
             this.Type = "Room2DEnergyPropertiesAbridged";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "Room2DEnergyPropertiesAbridged";
+
         /// <summary>
         /// Name of a ConstructionSet to specify all constructions for the Room2D. If None, the Room2D will use the Story or Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects.
         /// </summary>
         /// <value>Name of a ConstructionSet to specify all constructions for the Room2D. If None, the Room2D will use the Story or Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects.</value>
-        [DataMember(Name = "construction_set", EmitDefaultValue = false)]
+        [DataMember(Name = "construction_set")]
         public string ConstructionSet { get; set; } 
         /// <summary>
         /// Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints.
         /// </summary>
         /// <value>Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints.</value>
-        [DataMember(Name = "program_type", EmitDefaultValue = false)]
+        [DataMember(Name = "program_type")]
         public string ProgramType { get; set; } 
         /// <summary>
         /// An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned.
         /// </summary>
         /// <value>An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned.</value>
-        [DataMember(Name = "hvac", EmitDefaultValue = false)]
+        [DataMember(Name = "hvac")]
         public string Hvac { get; set; } 
         /// <summary>
         /// An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.
         /// </summary>
         /// <value>An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.</value>
-        [DataMember(Name = "window_vent_control", EmitDefaultValue = false)]
+        [DataMember(Name = "window_vent_control")]
         public VentilationControlAbridged WindowVentControl { get; set; } 
         /// <summary>
         /// An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open.
         /// </summary>
         /// <value>An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open.</value>
-        [DataMember(Name = "window_vent_opening", EmitDefaultValue = false)]
+        [DataMember(Name = "window_vent_opening")]
         public VentilationOpening WindowVentOpening { get; set; } 
 
         /// <summary>
@@ -152,6 +159,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as Room2DEnergyPropertiesAbridged);
         }
 

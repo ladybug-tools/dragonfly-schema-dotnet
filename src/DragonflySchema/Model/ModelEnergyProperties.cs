@@ -42,9 +42,9 @@ namespace DragonflySchema
         /// <param name="scheduleTypeLimits">A list of all unique ScheduleTypeLimits in the model. This all ScheduleTypeLimits needed to make the Model schedules..</param>
         public ModelEnergyProperties
         (
-             // Required parameters
-            List<AnyOf<ConstructionSetAbridged,ConstructionSet>> constructionSets= default, List<AnyOf<OpaqueConstructionAbridged,WindowConstructionAbridged,ShadeConstruction,AirBoundaryConstructionAbridged,OpaqueConstruction,WindowConstruction,AirBoundaryConstruction>> constructions= default, List<AnyOf<EnergyMaterial,EnergyMaterialNoMass,EnergyWindowMaterialGas,EnergyWindowMaterialGasCustom,EnergyWindowMaterialGasMixture,EnergyWindowMaterialSimpleGlazSys,EnergyWindowMaterialBlind,EnergyWindowMaterialGlazing,EnergyWindowMaterialShade>> materials= default, List<AnyOf<IdealAirSystemAbridged,VAV,PVAV,PSZ,PTAC,ForcedAirFurnace,FCUwithDOAS,WSHPwithDOAS,VRFwithDOAS,FCU,WSHP,VRF,Baseboard,EvaporativeCooler,Residential,WindowAC,GasUnitHeater>> hvacs= default, List<AnyOf<ProgramTypeAbridged,ProgramType>> programTypes= default, List<AnyOf<ScheduleRulesetAbridged,ScheduleFixedIntervalAbridged,ScheduleRuleset,ScheduleFixedInterval>> schedules= default, List<ScheduleTypeLimit> scheduleTypeLimits= default// Optional parameters
-        )// BaseClass
+           // Required parameters
+           List<AnyOf<ConstructionSetAbridged,ConstructionSet>> constructionSets= default, List<AnyOf<OpaqueConstructionAbridged,WindowConstructionAbridged,ShadeConstruction,AirBoundaryConstructionAbridged,OpaqueConstruction,WindowConstruction,AirBoundaryConstruction>> constructions= default, List<AnyOf<EnergyMaterial,EnergyMaterialNoMass,EnergyWindowMaterialGas,EnergyWindowMaterialGasCustom,EnergyWindowMaterialGasMixture,EnergyWindowMaterialSimpleGlazSys,EnergyWindowMaterialBlind,EnergyWindowMaterialGlazing,EnergyWindowMaterialShade>> materials= default, List<AnyOf<IdealAirSystemAbridged,VAV,PVAV,PSZ,PTAC,ForcedAirFurnace,FCUwithDOAS,WSHPwithDOAS,VRFwithDOAS,FCU,WSHP,VRF,Baseboard,EvaporativeCooler,Residential,WindowAC,GasUnitHeater>> hvacs= default, List<AnyOf<ProgramTypeAbridged,ProgramType>> programTypes= default, List<AnyOf<ScheduleRulesetAbridged,ScheduleFixedIntervalAbridged,ScheduleRuleset,ScheduleFixedInterval>> schedules= default, List<ScheduleTypeLimit> scheduleTypeLimits= default// Optional parameters
+        ) : base()// BaseClass
         {
             this.ConstructionSets = constructionSets;
             this.Constructions = constructions;
@@ -58,47 +58,54 @@ namespace DragonflySchema
             this.Type = "ModelEnergyProperties";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "ModelEnergyProperties";
+
         /// <summary>
         /// List of all ConstructionSets in the Model.
         /// </summary>
         /// <value>List of all ConstructionSets in the Model.</value>
-        [DataMember(Name = "construction_sets", EmitDefaultValue = false)]
+        [DataMember(Name = "construction_sets")]
         public List<AnyOf<ConstructionSetAbridged,ConstructionSet>> ConstructionSets { get; set; } 
         /// <summary>
         /// A list of all unique constructions in the model. This includes constructions across all the Model construction_sets.
         /// </summary>
         /// <value>A list of all unique constructions in the model. This includes constructions across all the Model construction_sets.</value>
-        [DataMember(Name = "constructions", EmitDefaultValue = false)]
+        [DataMember(Name = "constructions")]
         public List<AnyOf<OpaqueConstructionAbridged,WindowConstructionAbridged,ShadeConstruction,AirBoundaryConstructionAbridged,OpaqueConstruction,WindowConstruction,AirBoundaryConstruction>> Constructions { get; set; } 
         /// <summary>
         /// A list of all unique materials in the model. This includes materials needed to make the Model constructions.
         /// </summary>
         /// <value>A list of all unique materials in the model. This includes materials needed to make the Model constructions.</value>
-        [DataMember(Name = "materials", EmitDefaultValue = false)]
+        [DataMember(Name = "materials")]
         public List<AnyOf<EnergyMaterial,EnergyMaterialNoMass,EnergyWindowMaterialGas,EnergyWindowMaterialGasCustom,EnergyWindowMaterialGasMixture,EnergyWindowMaterialSimpleGlazSys,EnergyWindowMaterialBlind,EnergyWindowMaterialGlazing,EnergyWindowMaterialShade>> Materials { get; set; } 
         /// <summary>
         /// List of all HVAC systems in the Model.
         /// </summary>
         /// <value>List of all HVAC systems in the Model.</value>
-        [DataMember(Name = "hvacs", EmitDefaultValue = false)]
+        [DataMember(Name = "hvacs")]
         public List<AnyOf<IdealAirSystemAbridged,VAV,PVAV,PSZ,PTAC,ForcedAirFurnace,FCUwithDOAS,WSHPwithDOAS,VRFwithDOAS,FCU,WSHP,VRF,Baseboard,EvaporativeCooler,Residential,WindowAC,GasUnitHeater>> Hvacs { get; set; } 
         /// <summary>
         /// List of all ProgramTypes in the Model.
         /// </summary>
         /// <value>List of all ProgramTypes in the Model.</value>
-        [DataMember(Name = "program_types", EmitDefaultValue = false)]
+        [DataMember(Name = "program_types")]
         public List<AnyOf<ProgramTypeAbridged,ProgramType>> ProgramTypes { get; set; } 
         /// <summary>
         /// A list of all unique schedules in the model. This includes schedules across all HVAC systems, ProgramTypes and ContextShades.
         /// </summary>
         /// <value>A list of all unique schedules in the model. This includes schedules across all HVAC systems, ProgramTypes and ContextShades.</value>
-        [DataMember(Name = "schedules", EmitDefaultValue = false)]
+        [DataMember(Name = "schedules")]
         public List<AnyOf<ScheduleRulesetAbridged,ScheduleFixedIntervalAbridged,ScheduleRuleset,ScheduleFixedInterval>> Schedules { get; set; } 
         /// <summary>
         /// A list of all unique ScheduleTypeLimits in the model. This all ScheduleTypeLimits needed to make the Model schedules.
         /// </summary>
         /// <value>A list of all unique ScheduleTypeLimits in the model. This all ScheduleTypeLimits needed to make the Model schedules.</value>
-        [DataMember(Name = "schedule_type_limits", EmitDefaultValue = false)]
+        [DataMember(Name = "schedule_type_limits")]
         public List<ScheduleTypeLimit> ScheduleTypeLimits { get; set; } 
 
         /// <summary>
@@ -170,6 +177,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as ModelEnergyProperties);
         }
 

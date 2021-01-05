@@ -37,9 +37,9 @@ namespace DragonflySchema
         /// <param name="transmittanceSchedule">Name of a schedule to set the transmittance of the ContextShade, which can vary throughout the simulation. If None, the ContextShade will be completely opaque..</param>
         public ContextShadeEnergyPropertiesAbridged
         (
-             // Required parameters
-            string construction= default, string transmittanceSchedule= default// Optional parameters
-        )// BaseClass
+           // Required parameters
+           string construction= default, string transmittanceSchedule= default// Optional parameters
+        ) : base()// BaseClass
         {
             this.Construction = construction;
             this.TransmittanceSchedule = transmittanceSchedule;
@@ -48,17 +48,24 @@ namespace DragonflySchema
             this.Type = "ContextShadeEnergyPropertiesAbridged";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "ContextShadeEnergyPropertiesAbridged";
+
         /// <summary>
         /// Name of a ShadeConstruction to set the reflectance and specularity of the ContextShade. If None, the the EnergyPlus default of 0.2 diffuse reflectance will be used.
         /// </summary>
         /// <value>Name of a ShadeConstruction to set the reflectance and specularity of the ContextShade. If None, the the EnergyPlus default of 0.2 diffuse reflectance will be used.</value>
-        [DataMember(Name = "construction", EmitDefaultValue = false)]
+        [DataMember(Name = "construction")]
         public string Construction { get; set; } 
         /// <summary>
         /// Name of a schedule to set the transmittance of the ContextShade, which can vary throughout the simulation. If None, the ContextShade will be completely opaque.
         /// </summary>
         /// <value>Name of a schedule to set the transmittance of the ContextShade, which can vary throughout the simulation. If None, the ContextShade will be completely opaque.</value>
-        [DataMember(Name = "transmittance_schedule", EmitDefaultValue = false)]
+        [DataMember(Name = "transmittance_schedule")]
         public string TransmittanceSchedule { get; set; } 
 
         /// <summary>
@@ -125,6 +132,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as ContextShadeEnergyPropertiesAbridged);
         }
 

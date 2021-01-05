@@ -48,9 +48,9 @@ namespace DragonflySchema
         /// <param name="heights">An array of positive numbers for the window heights. The length of this list must match the length of the origins. (required).</param>
         public RectangularWindows
         (
-             List<List<double>> origins, List<double> widths, List<double> heights// Required parameters
-             // Optional parameters
-        )// BaseClass
+           List<List<double>> origins, List<double> widths, List<double> heights// Required parameters
+           // Optional parameters
+        ) : base()// BaseClass
         {
             // to ensure "origins" is required (not null)
             this.Origins = origins ?? throw new ArgumentNullException("origins is a required property for RectangularWindows and cannot be null");
@@ -63,23 +63,30 @@ namespace DragonflySchema
             this.Type = "RectangularWindows";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "RectangularWindows";
+
         /// <summary>
         /// An array of 2D points within the plane of the wall for the origin of each window. Each point should be a list of 2 (x, y) values. The wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each origin point should be positive.
         /// </summary>
         /// <value>An array of 2D points within the plane of the wall for the origin of each window. Each point should be a list of 2 (x, y) values. The wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each origin point should be positive.</value>
-        [DataMember(Name = "origins", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "origins", IsRequired = true)]
         public List<List<double>> Origins { get; set; } 
         /// <summary>
         /// An array of positive numbers for the window widths. The length of this list must match the length of the origins.
         /// </summary>
         /// <value>An array of positive numbers for the window widths. The length of this list must match the length of the origins.</value>
-        [DataMember(Name = "widths", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "widths", IsRequired = true)]
         public List<double> Widths { get; set; } 
         /// <summary>
         /// An array of positive numbers for the window heights. The length of this list must match the length of the origins.
         /// </summary>
         /// <value>An array of positive numbers for the window heights. The length of this list must match the length of the origins.</value>
-        [DataMember(Name = "heights", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "heights", IsRequired = true)]
         public List<double> Heights { get; set; } 
 
         /// <summary>
@@ -147,6 +154,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as RectangularWindows);
         }
 

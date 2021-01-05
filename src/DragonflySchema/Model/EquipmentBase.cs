@@ -70,6 +70,13 @@ namespace DragonflySchema
             this.Type = "_EquipmentBase";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "_EquipmentBase";
+
         /// <summary>
         /// Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, osm). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters, use only ASCII characters and exclude (, ; ! \\n \\t).
         /// </summary>
@@ -86,31 +93,31 @@ namespace DragonflySchema
         /// Equipment level per floor area as [W/m2].
         /// </summary>
         /// <value>Equipment level per floor area as [W/m2].</value>
-        [DataMember(Name = "watts_per_area", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "watts_per_area", IsRequired = true)]
         public double WattsPerArea { get; set; } 
         /// <summary>
         /// Identifier of the schedule for the use of equipment over the course of the year. The type of this schedule should be Fractional and the fractional values will get multiplied by the watts_per_area to yield a complete equipment profile.
         /// </summary>
         /// <value>Identifier of the schedule for the use of equipment over the course of the year. The type of this schedule should be Fractional and the fractional values will get multiplied by the watts_per_area to yield a complete equipment profile.</value>
-        [DataMember(Name = "schedule", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "schedule", IsRequired = true)]
         public string Schedule { get; set; } 
         /// <summary>
         /// Number for the amount of long-wave radiation heat given off by electric equipment. Default value is 0.
         /// </summary>
         /// <value>Number for the amount of long-wave radiation heat given off by electric equipment. Default value is 0.</value>
-        [DataMember(Name = "radiant_fraction", EmitDefaultValue = true)]
+        [DataMember(Name = "radiant_fraction")]
         public double RadiantFraction { get; set; }  = 0D;
         /// <summary>
         /// Number for the amount of latent heat given off by electricequipment. Default value is 0.
         /// </summary>
         /// <value>Number for the amount of latent heat given off by electricequipment. Default value is 0.</value>
-        [DataMember(Name = "latent_fraction", EmitDefaultValue = true)]
+        [DataMember(Name = "latent_fraction")]
         public double LatentFraction { get; set; }  = 0D;
         /// <summary>
         /// Number for the amount of “lost” heat being given off by equipment. The default value is 0.
         /// </summary>
         /// <value>Number for the amount of “lost” heat being given off by equipment. The default value is 0.</value>
-        [DataMember(Name = "lost_fraction", EmitDefaultValue = true)]
+        [DataMember(Name = "lost_fraction")]
         public double LostFraction { get; set; }  = 0D;
 
         /// <summary>
@@ -182,6 +189,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as EquipmentBase);
         }
 

@@ -36,9 +36,9 @@ namespace DragonflySchema
         /// <param name="constructionSet">Name of a ConstructionSet to specify all constructions for the Story. If None, the Story will use the Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects..</param>
         public StoryEnergyPropertiesAbridged
         (
-             // Required parameters
-            string constructionSet= default// Optional parameters
-        )// BaseClass
+           // Required parameters
+           string constructionSet= default// Optional parameters
+        ) : base()// BaseClass
         {
             this.ConstructionSet = constructionSet;
 
@@ -46,11 +46,18 @@ namespace DragonflySchema
             this.Type = "StoryEnergyPropertiesAbridged";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "StoryEnergyPropertiesAbridged";
+
         /// <summary>
         /// Name of a ConstructionSet to specify all constructions for the Story. If None, the Story will use the Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects.
         /// </summary>
         /// <value>Name of a ConstructionSet to specify all constructions for the Story. If None, the Story will use the Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects.</value>
-        [DataMember(Name = "construction_set", EmitDefaultValue = false)]
+        [DataMember(Name = "construction_set")]
         public string ConstructionSet { get; set; } 
 
         /// <summary>
@@ -116,6 +123,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as StoryEnergyPropertiesAbridged);
         }
 

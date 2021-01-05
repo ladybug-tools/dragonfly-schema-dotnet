@@ -36,9 +36,9 @@ namespace DragonflySchema
         /// <param name="energy">energy.</param>
         public StoryPropertiesAbridged
         (
-             // Required parameters
-            StoryEnergyPropertiesAbridged energy= default// Optional parameters
-        )// BaseClass
+           // Required parameters
+           StoryEnergyPropertiesAbridged energy= default// Optional parameters
+        ) : base()// BaseClass
         {
             this.Energy = energy;
 
@@ -46,10 +46,17 @@ namespace DragonflySchema
             this.Type = "StoryPropertiesAbridged";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "StoryPropertiesAbridged";
+
         /// <summary>
         /// Gets or Sets Energy
         /// </summary>
-        [DataMember(Name = "energy", EmitDefaultValue = false)]
+        [DataMember(Name = "energy")]
         public StoryEnergyPropertiesAbridged Energy { get; set; } 
 
         /// <summary>
@@ -115,6 +122,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as StoryPropertiesAbridged);
         }
 

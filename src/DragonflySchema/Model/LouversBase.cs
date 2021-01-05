@@ -50,9 +50,9 @@ namespace DragonflySchema
         /// <param name="flipStartSide">Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left. (default to false).</param>
         public LouversBase
         (
-             double depth, // Required parameters
-            double offset = 0D, double angle = 0D, List<double> contourVector= default, bool flipStartSide = false// Optional parameters
-        )// BaseClass
+           double depth, // Required parameters
+           double offset = 0D, double angle = 0D, List<double> contourVector= default, bool flipStartSide = false // Optional parameters
+        ) : base()// BaseClass
         {
             this.Depth = depth;
             this.Offset = offset;
@@ -64,35 +64,42 @@ namespace DragonflySchema
             this.Type = "_LouversBase";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "_LouversBase";
+
         /// <summary>
         /// A number for the depth to extrude the louvers.
         /// </summary>
         /// <value>A number for the depth to extrude the louvers.</value>
-        [DataMember(Name = "depth", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "depth", IsRequired = true)]
         public double Depth { get; set; } 
         /// <summary>
         /// A number for the distance to louvers from the wall.
         /// </summary>
         /// <value>A number for the distance to louvers from the wall.</value>
-        [DataMember(Name = "offset", EmitDefaultValue = true)]
+        [DataMember(Name = "offset")]
         public double Offset { get; set; }  = 0D;
         /// <summary>
         /// A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.
         /// </summary>
         /// <value>A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.</value>
-        [DataMember(Name = "angle", EmitDefaultValue = true)]
+        [DataMember(Name = "angle")]
         public double Angle { get; set; }  = 0D;
         /// <summary>
         /// A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours.
         /// </summary>
         /// <value>A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours.</value>
-        [DataMember(Name = "contour_vector", EmitDefaultValue = false)]
+        [DataMember(Name = "contour_vector")]
         public List<double> ContourVector { get; set; } 
         /// <summary>
         /// Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left.
         /// </summary>
         /// <value>Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left.</value>
-        [DataMember(Name = "flip_start_side", EmitDefaultValue = true)]
+        [DataMember(Name = "flip_start_side")]
         public bool FlipStartSide { get; set; }  = false;
 
         /// <summary>
@@ -162,6 +169,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as LouversBase);
         }
 

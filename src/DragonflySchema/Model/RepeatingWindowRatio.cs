@@ -50,9 +50,9 @@ namespace DragonflySchema
         /// <param name="verticalSeparation">An optional number to create a single vertical separation between top and bottom windows. (default to 0D).</param>
         public RepeatingWindowRatio
         (
-             double windowRatio, double windowHeight, double sillHeight, double horizontalSeparation, // Required parameters
-            double verticalSeparation = 0D// Optional parameters
-        )// BaseClass
+           double windowRatio, double windowHeight, double sillHeight, double horizontalSeparation, // Required parameters
+           double verticalSeparation = 0D// Optional parameters
+        ) : base()// BaseClass
         {
             this.WindowRatio = windowRatio;
             this.WindowHeight = windowHeight;
@@ -64,35 +64,42 @@ namespace DragonflySchema
             this.Type = "RepeatingWindowRatio";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "RepeatingWindowRatio";
+
         /// <summary>
         /// A number between 0 and 1 for the ratio between the window area and the parent wall surface area.
         /// </summary>
         /// <value>A number between 0 and 1 for the ratio between the window area and the parent wall surface area.</value>
-        [DataMember(Name = "window_ratio", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "window_ratio", IsRequired = true)]
         public double WindowRatio { get; set; } 
         /// <summary>
         /// A number for the target height of the windows. Note that, if the window ratio is too large for the height, the ratio will take precedence and the actual window_height will be larger than this value.
         /// </summary>
         /// <value>A number for the target height of the windows. Note that, if the window ratio is too large for the height, the ratio will take precedence and the actual window_height will be larger than this value.</value>
-        [DataMember(Name = "window_height", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "window_height", IsRequired = true)]
         public double WindowHeight { get; set; } 
         /// <summary>
         /// A number for the target height above the bottom edge of the wall to start the windows. Note that, if the ratio is too large for the height, the ratio will take precedence and the sill_height will be smaller than this value.
         /// </summary>
         /// <value>A number for the target height above the bottom edge of the wall to start the windows. Note that, if the ratio is too large for the height, the ratio will take precedence and the sill_height will be smaller than this value.</value>
-        [DataMember(Name = "sill_height", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "sill_height", IsRequired = true)]
         public double SillHeight { get; set; } 
         /// <summary>
         /// A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced.
         /// </summary>
         /// <value>A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced.</value>
-        [DataMember(Name = "horizontal_separation", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "horizontal_separation", IsRequired = true)]
         public double HorizontalSeparation { get; set; } 
         /// <summary>
         /// An optional number to create a single vertical separation between top and bottom windows.
         /// </summary>
         /// <value>An optional number to create a single vertical separation between top and bottom windows.</value>
-        [DataMember(Name = "vertical_separation", EmitDefaultValue = true)]
+        [DataMember(Name = "vertical_separation")]
         public double VerticalSeparation { get; set; }  = 0D;
 
         /// <summary>
@@ -162,6 +169,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as RepeatingWindowRatio);
         }
 

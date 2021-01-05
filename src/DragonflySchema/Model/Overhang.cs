@@ -47,9 +47,9 @@ namespace DragonflySchema
         /// <param name="angle">A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation. (default to 0D).</param>
         public Overhang
         (
-             double depth, // Required parameters
-            double angle = 0D// Optional parameters
-        )// BaseClass
+           double depth, // Required parameters
+           double angle = 0D// Optional parameters
+        ) : base()// BaseClass
         {
             this.Depth = depth;
             this.Angle = angle;
@@ -58,17 +58,24 @@ namespace DragonflySchema
             this.Type = "Overhang";
         }
 
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }  = "Overhang";
+
         /// <summary>
         /// A number for the overhang depth.
         /// </summary>
         /// <value>A number for the overhang depth.</value>
-        [DataMember(Name = "depth", IsRequired = true, EmitDefaultValue = false)]
+        [DataMember(Name = "depth", IsRequired = true)]
         public double Depth { get; set; } 
         /// <summary>
         /// A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.
         /// </summary>
         /// <value>A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.</value>
-        [DataMember(Name = "angle", EmitDefaultValue = true)]
+        [DataMember(Name = "angle")]
         public double Angle { get; set; }  = 0D;
 
         /// <summary>
@@ -135,6 +142,7 @@ namespace DragonflySchema
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
+            input = input is AnyOf anyOf ? anyOf.Obj : input;
             return this.Equals(input as Overhang);
         }
 
