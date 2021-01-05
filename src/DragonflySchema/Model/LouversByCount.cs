@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// A specific number of louvered Shades over a wall.
     /// </summary>
     [DataContract(Name = "LouversByCount")]
-    public partial class LouversByCount : IEquatable<LouversByCount>, IValidatableObject
+    public partial class LouversByCount : LouversBase, IEquatable<LouversByCount>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LouversByCount" /> class.
@@ -43,24 +43,19 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="LouversByCount" /> class.
         /// </summary>
+        /// <param name="louverCount">A positive integer for the number of louvers to generate. (required).</param>
         /// <param name="depth">A number for the depth to extrude the louvers. (required).</param>
         /// <param name="offset">A number for the distance to louvers from the wall. (default to 0D).</param>
         /// <param name="angle">A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation. (default to 0D).</param>
         /// <param name="contourVector">A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours..</param>
         /// <param name="flipStartSide">Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left. (default to false).</param>
-        /// <param name="louverCount">A positive integer for the number of louvers to generate. (required).</param>
         public LouversByCount
         (
-             double depth, int louverCount, // Required parameters
+            double depth, int louverCount, // Required parameters
             double offset = 0D, double angle = 0D, List<double> contourVector= default, bool flipStartSide = false // Optional parameters
-        )// BaseClass
+        ) : base(depth: depth, offset: offset, angle: angle, contourVector: contourVector, flipStartSide: flipStartSide)// BaseClass
         {
-            this.Depth = depth;
             this.LouverCount = louverCount;
-            this.Offset = offset;
-            this.Angle = angle;
-            this.ContourVector = contourVector;
-            this.FlipStartSide = flipStartSide;
 
             // Set non-required readonly properties with defaultValue
             this.Type = "LouversByCount";
@@ -73,36 +68,6 @@ namespace DragonflySchema
         [DataMember(Name = "type")]
         public string Type { get; protected set; }  = "LouversByCount";
 
-        /// <summary>
-        /// A number for the depth to extrude the louvers.
-        /// </summary>
-        /// <value>A number for the depth to extrude the louvers.</value>
-        [DataMember(Name = "depth", IsRequired = true, EmitDefaultValue = false)]
-        public double Depth { get; set; } 
-        /// <summary>
-        /// A number for the distance to louvers from the wall.
-        /// </summary>
-        /// <value>A number for the distance to louvers from the wall.</value>
-        [DataMember(Name = "offset", EmitDefaultValue = true)]
-        public double Offset { get; set; }  = 0D;
-        /// <summary>
-        /// A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.
-        /// </summary>
-        /// <value>A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.</value>
-        [DataMember(Name = "angle", EmitDefaultValue = true)]
-        public double Angle { get; set; }  = 0D;
-        /// <summary>
-        /// A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours.
-        /// </summary>
-        /// <value>A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours.</value>
-        [DataMember(Name = "contour_vector", EmitDefaultValue = false)]
-        public List<double> ContourVector { get; set; } 
-        /// <summary>
-        /// Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left.
-        /// </summary>
-        /// <value>Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left.</value>
-        [DataMember(Name = "flip_start_side", EmitDefaultValue = true)]
-        public bool FlipStartSide { get; set; }  = false;
         /// <summary>
         /// A positive integer for the number of louvers to generate.
         /// </summary>
@@ -170,6 +135,14 @@ namespace DragonflySchema
             return DuplicateLouversByCount();
         }
 
+        /// <summary>
+        /// Creates a new instance with the same properties.
+        /// </summary>
+        /// <returns>OpenAPIGenBaseModel</returns>
+        public override LouversBase DuplicateLouversBase()
+        {
+            return DuplicateLouversByCount();
+        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -191,42 +164,16 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return 
-                (
-                    this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
-                ) && 
-                (
-                    this.Depth == input.Depth ||
-                    (this.Depth != null &&
-                    this.Depth.Equals(input.Depth))
-                ) && 
-                (
-                    this.Offset == input.Offset ||
-                    (this.Offset != null &&
-                    this.Offset.Equals(input.Offset))
-                ) && 
-                (
-                    this.Angle == input.Angle ||
-                    (this.Angle != null &&
-                    this.Angle.Equals(input.Angle))
-                ) && 
-                (
-                    this.ContourVector == input.ContourVector ||
-                    this.ContourVector != null &&
-                    input.ContourVector != null &&
-                    this.ContourVector.SequenceEqual(input.ContourVector)
-                ) && 
-                (
-                    this.FlipStartSide == input.FlipStartSide ||
-                    (this.FlipStartSide != null &&
-                    this.FlipStartSide.Equals(input.FlipStartSide))
-                ) && 
+            return base.Equals(input) && 
                 (
                     this.LouverCount == input.LouverCount ||
                     (this.LouverCount != null &&
                     this.LouverCount.Equals(input.LouverCount))
+                ) && base.Equals(input) && 
+                (
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -238,21 +185,11 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = 41;
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
-                if (this.Depth != null)
-                    hashCode = hashCode * 59 + this.Depth.GetHashCode();
-                if (this.Offset != null)
-                    hashCode = hashCode * 59 + this.Offset.GetHashCode();
-                if (this.Angle != null)
-                    hashCode = hashCode * 59 + this.Angle.GetHashCode();
-                if (this.ContourVector != null)
-                    hashCode = hashCode * 59 + this.ContourVector.GetHashCode();
-                if (this.FlipStartSide != null)
-                    hashCode = hashCode * 59 + this.FlipStartSide.GetHashCode();
+                int hashCode = base.GetHashCode();
                 if (this.LouverCount != null)
                     hashCode = hashCode * 59 + this.LouverCount.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }
@@ -264,6 +201,7 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern
@@ -271,28 +209,6 @@ namespace DragonflySchema
             if (false == regexType.Match(this.Type).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });
-            }
-
-
-            
-            // Offset (double) minimum
-            if(this.Offset < (double)0)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Offset, must be a value greater than or equal to 0.", new [] { "Offset" });
-            }
-
-
-            
-            // Angle (double) maximum
-            if(this.Angle > (double)90)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Angle, must be a value less than or equal to 90.", new [] { "Angle" });
-            }
-
-            // Angle (double) minimum
-            if(this.Angle < (double)-90)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Angle, must be a value greater than or equal to -90.", new [] { "Angle" });
             }
 
             yield break;

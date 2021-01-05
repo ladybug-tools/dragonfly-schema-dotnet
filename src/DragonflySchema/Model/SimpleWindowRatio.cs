@@ -28,7 +28,7 @@ namespace DragonflySchema
     /// A single window defined by an area ratio with the base surface.
     /// </summary>
     [DataContract(Name = "SimpleWindowRatio")]
-    public partial class SimpleWindowRatio : IEquatable<SimpleWindowRatio>, IValidatableObject
+    public partial class SimpleWindowRatio : OpenAPIGenBaseModel, IEquatable<SimpleWindowRatio>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleWindowRatio" /> class.
@@ -125,6 +125,14 @@ namespace DragonflySchema
             return DuplicateSimpleWindowRatio();
         }
 
+        /// <summary>
+        /// Creates a new instance with the same properties.
+        /// </summary>
+        /// <returns>OpenAPIGenBaseModel</returns>
+        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
+        {
+            return DuplicateSimpleWindowRatio();
+        }
      
         /// <summary>
         /// Returns true if objects are equal
@@ -146,16 +154,16 @@ namespace DragonflySchema
         {
             if (input == null)
                 return false;
-            return 
-                (
-                    this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
-                ) && 
+            return base.Equals(input) && 
                 (
                     this.WindowRatio == input.WindowRatio ||
                     (this.WindowRatio != null &&
                     this.WindowRatio.Equals(input.WindowRatio))
+                ) && base.Equals(input) && 
+                (
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -167,11 +175,11 @@ namespace DragonflySchema
         {
             unchecked // Overflow is fine, just wrap
             {
-                int hashCode = 41;
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                int hashCode = base.GetHashCode();
                 if (this.WindowRatio != null)
                     hashCode = hashCode * 59 + this.WindowRatio.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }
@@ -183,6 +191,7 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern
