@@ -13,6 +13,8 @@
     <FileVersion>1.6.26.0</FileVersion>
     <RepositoryUrl>https://github.com/ladybug-tools/dragonfly-schema-dotnet</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>LadybugTools.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
