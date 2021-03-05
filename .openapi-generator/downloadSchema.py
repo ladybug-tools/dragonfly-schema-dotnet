@@ -19,10 +19,12 @@ def download(url, dir):
 
 args = sys.argv[1:]
 if args == []:
-    raise ValueError("Missing base url argument. eg: python downloadSchema.sh \"https://www.ladybug.tools/honeybee-schema\"")
+    base_url = "https://www.ladybug.tools/dragonfly-schema"
+else:
+    base_url = f"https://github.com/ladybug-tools/dragonfly-schema/releases/download/{args[0]}"  # v1.17.0
 
 # base_url = "https://www.ladybug.tools/honeybee-schema"
-base_url = args[0]
+# base_url = args[0]
 
 
 saving_dir = os.path.join(os.getcwd(), '.openapi-docs')
@@ -32,10 +34,16 @@ if os.path.exists(saving_dir):
 os.mkdir(saving_dir)
 
 
-# downlaod model
-json_file = f"{base_url}/model_inheritance.json"
-download(json_file, saving_dir)
 
-# download model mapper
-mapper_json = json_file.replace("inheritance.json", "mapper.json")
-download(mapper_json, saving_dir)
+# download model
+# model
+json_file1 = f"{base_url}/model_inheritance.json"
+
+files = [
+    json_file1,
+    json_file1.replace("inheritance.json", "mapper.json")
+]
+
+for f in files:
+    download(f, saving_dir)
+
