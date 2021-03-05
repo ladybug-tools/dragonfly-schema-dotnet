@@ -9,6 +9,7 @@
 ./nuget
 nuget.exe
 package-lock.json
+.vscode
 
 # Build results
 
