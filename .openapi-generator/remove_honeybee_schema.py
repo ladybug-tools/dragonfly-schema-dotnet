@@ -38,6 +38,7 @@ def remove_honeybeeSchema(source_json):
                 os.remove(interface_tobe_removed)
             
             # remove classes from honeybee schema
+            key = key.replace('_', '', 1)
             class_tobe_removed = os.path.join(model_dir, f"{key}.cs")
             if os.path.exists(class_tobe_removed):
                 print(f"Removing {class_tobe_removed}")
