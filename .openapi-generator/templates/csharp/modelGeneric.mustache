@@ -127,7 +127,8 @@
             {{/vars}}
 
             // check if object is valid
-            this.IsValid(throwException: true);
+            if (this.GetType() == typeof({{classname}}))
+                this.IsValid(throwException: true);
         }
 
         {{#vars}}
