@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// ContextShadePropertiesAbridged
     /// </summary>
+    [Serializable]
     [DataContract(Name = "ContextShadePropertiesAbridged")]
     public partial class ContextShadePropertiesAbridged : OpenAPIGenBaseModel, IEquatable<ContextShadePropertiesAbridged>, IValidatableObject
     {

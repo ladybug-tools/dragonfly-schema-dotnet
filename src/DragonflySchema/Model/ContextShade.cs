@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// Base class for all objects requiring a identifiers acceptable for all engines.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "ContextShade")]
     public partial class ContextShade : IDdBaseModel, IEquatable<ContextShade>, IValidatableObject
     {

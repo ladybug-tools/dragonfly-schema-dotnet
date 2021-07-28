@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// A single window defined by an area ratio with the base surface.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "SimpleWindowRatio")]
     public partial class SimpleWindowRatio : OpenAPIGenBaseModel, IEquatable<SimpleWindowRatio>, IValidatableObject
     {

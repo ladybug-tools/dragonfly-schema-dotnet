@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// Base class for for a series of louvered shades over a wall.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "_LouversBase")]
     public partial class LouversBase : OpenAPIGenBaseModel, IEquatable<LouversBase>, IValidatableObject
     {

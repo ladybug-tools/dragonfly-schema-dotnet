@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// A single overhang over an entire wall.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "Overhang")]
     public partial class Overhang : OpenAPIGenBaseModel, IEquatable<Overhang>, IValidatableObject
     {

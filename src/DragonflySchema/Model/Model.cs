@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// Base class for all objects requiring a identifiers acceptable for all engines.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "Model")]
     public partial class Model : IDdBaseModel, IEquatable<Model>, IValidatableObject
     {

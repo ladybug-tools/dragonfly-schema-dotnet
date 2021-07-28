@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// StoryPropertiesAbridged
     /// </summary>
+    [Serializable]
     [DataContract(Name = "StoryPropertiesAbridged")]
     public partial class StoryPropertiesAbridged : OpenAPIGenBaseModel, IEquatable<StoryPropertiesAbridged>, IValidatableObject
     {

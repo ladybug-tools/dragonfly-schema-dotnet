@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// Several rectangular windows, defined by origin, width and height.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "RectangularWindows")]
     public partial class RectangularWindows : OpenAPIGenBaseModel, IEquatable<RectangularWindows>, IValidatableObject
     {

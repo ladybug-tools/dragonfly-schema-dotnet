@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// Base class for all objects requiring a identifiers acceptable for all engines.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "Room2D")]
     public partial class Room2D : IDdBaseModel, IEquatable<Room2D>, IValidatableObject
     {

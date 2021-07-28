@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// Room2DPropertiesAbridged
     /// </summary>
+    [Serializable]
     [DataContract(Name = "Room2DPropertiesAbridged")]
     public partial class Room2DPropertiesAbridged : OpenAPIGenBaseModel, IEquatable<Room2DPropertiesAbridged>, IValidatableObject
     {

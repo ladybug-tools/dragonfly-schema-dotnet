@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// A single window in the wall center defined by a width * height.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "SingleWindow")]
     public partial class SingleWindow : OpenAPIGenBaseModel, IEquatable<SingleWindow>, IValidatableObject
     {
