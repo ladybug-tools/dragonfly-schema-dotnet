@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// ModelProperties
     /// </summary>
+    [Serializable]
     [DataContract(Name = "ModelProperties")]
     public partial class ModelProperties : OpenAPIGenBaseModel, IEquatable<ModelProperties>, IValidatableObject
     {

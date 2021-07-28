@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// Base class for all objects that are not extensible with additional keys.  This effectively includes all objects except for the Properties classes that are assigned to geometry objects.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "BuildingEnergyPropertiesAbridged")]
     public partial class BuildingEnergyPropertiesAbridged : OpenAPIGenBaseModel, IEquatable<BuildingEnergyPropertiesAbridged>, IValidatableObject
     {

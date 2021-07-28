@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// Extruded borders over all windows in the wall.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "ExtrudedBorder")]
     public partial class ExtrudedBorder : OpenAPIGenBaseModel, IEquatable<ExtrudedBorder>, IValidatableObject
     {

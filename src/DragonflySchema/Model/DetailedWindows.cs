@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// Several detailed windows defined by 2D Polygons (lists of 2D vertices).
     /// </summary>
+    [Serializable]
     [DataContract(Name = "DetailedWindows")]
     public partial class DetailedWindows : OpenAPIGenBaseModel, IEquatable<DetailedWindows>, IValidatableObject
     {

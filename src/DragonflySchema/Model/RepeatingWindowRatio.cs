@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// Repeating windows derived from an area ratio with the base wall.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "RepeatingWindowRatio")]
     public partial class RepeatingWindowRatio : OpenAPIGenBaseModel, IEquatable<RepeatingWindowRatio>, IValidatableObject
     {

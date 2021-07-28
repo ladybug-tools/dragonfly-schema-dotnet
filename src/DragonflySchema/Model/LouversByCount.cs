@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// A specific number of louvered Shades over a wall.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "LouversByCount")]
     public partial class LouversByCount : LouversBase, IEquatable<LouversByCount>, IValidatableObject
     {

@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// A series of louvered Shades at a given distance between each louver.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "LouversByDistance")]
     public partial class LouversByDistance : LouversBase, IEquatable<LouversByDistance>, IValidatableObject
     {
