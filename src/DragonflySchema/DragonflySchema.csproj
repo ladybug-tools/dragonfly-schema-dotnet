@@ -23,12 +23,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="HoneybeeSchema" Version="1.44.2.2" />
+    <PackageReference Include="HoneybeeSchema" Version="1.44.2.10" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="ManuallyAdded\Model\" />
   </ItemGroup>
 
 </Project>
