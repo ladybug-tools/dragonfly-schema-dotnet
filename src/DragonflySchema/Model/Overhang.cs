@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// A single overhang over an entire wall.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "Overhang")]
     public partial class Overhang : OpenAPIGenBaseModel, IEquatable<Overhang>, IValidatableObject
     {
@@ -56,6 +57,10 @@ namespace DragonflySchema
 
             // Set non-required readonly properties with defaultValue
             this.Type = "Overhang";
+
+            // check if object is valid
+            if (this.GetType() == typeof(Overhang))
+                this.IsValid(throwException: true);
         }
 
         //============================================== is ReadOnly 
@@ -113,7 +118,7 @@ namespace DragonflySchema
             var obj = JsonConvert.DeserializeObject<Overhang>(json, JsonSetting.AnyOfConvertSetting);
             if (obj == null)
                 return null;
-            return obj.Type.ToLower() == obj.GetType().Name.ToLower() ? obj : null;
+            return obj.Type.ToLower() == obj.GetType().Name.ToLower() && obj.IsValid(throwException: true) ? obj : null;
         }
 
         /// <summary>
@@ -212,7 +217,7 @@ namespace DragonflySchema
             
             // Type (string) pattern
             Regex regexType = new Regex(@"^Overhang$", RegexOptions.CultureInvariant);
-            if (false == regexType.Match(this.Type).Success)
+            if (this.Type != null && false == regexType.Match(this.Type).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });
             }

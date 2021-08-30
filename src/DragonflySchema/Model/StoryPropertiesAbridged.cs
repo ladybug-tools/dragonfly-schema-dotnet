@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// StoryPropertiesAbridged
     /// </summary>
+    [Serializable]
     [DataContract(Name = "StoryPropertiesAbridged")]
     public partial class StoryPropertiesAbridged : OpenAPIGenBaseModel, IEquatable<StoryPropertiesAbridged>, IValidatableObject
     {
@@ -44,6 +45,10 @@ namespace DragonflySchema
 
             // Set non-required readonly properties with defaultValue
             this.Type = "StoryPropertiesAbridged";
+
+            // check if object is valid
+            if (this.GetType() == typeof(StoryPropertiesAbridged))
+                this.IsValid(throwException: true);
         }
 
         //============================================== is ReadOnly 
@@ -93,7 +98,7 @@ namespace DragonflySchema
             var obj = JsonConvert.DeserializeObject<StoryPropertiesAbridged>(json, JsonSetting.AnyOfConvertSetting);
             if (obj == null)
                 return null;
-            return obj.Type.ToLower() == obj.GetType().Name.ToLower() ? obj : null;
+            return obj.Type.ToLower() == obj.GetType().Name.ToLower() && obj.IsValid(throwException: true) ? obj : null;
         }
 
         /// <summary>
@@ -185,7 +190,7 @@ namespace DragonflySchema
             
             // Type (string) pattern
             Regex regexType = new Regex(@"^StoryPropertiesAbridged$", RegexOptions.CultureInvariant);
-            if (false == regexType.Match(this.Type).Success)
+            if (this.Type != null && false == regexType.Match(this.Type).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });
             }

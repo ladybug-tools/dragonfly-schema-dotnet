@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **Room2ds** | [**List&lt;Room2D&gt;**](Room2D.md) | An array of dragonfly Room2D objects that together form an entire story of a building. | 
 **Properties** | [**StoryPropertiesAbridged**](StoryPropertiesAbridged.md) | Extension properties for particular simulation engines (Radiance, EnergyPlus). | 
 **Type** | **string** |  | [optional] [readonly] [default to "Story"]
-**FloorToFloorHeight** | **double** | A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If None, this value will be the maximum floor_to_ceiling_height of the input room_2ds. | [optional] 
-**FloorHeight** | **double** | A number to indicate the height of the floor plane in the Z axis.If None, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums. | [optional] 
+**FloorToFloorHeight** | [**AnyOfAutocalculatedouble**](AnyOfAutocalculatedouble.md) | A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If Autocalculate, this value will be the maximum floor_to_ceiling_height of the input room_2ds. | [optional] 
+**FloorHeight** | [**AnyOfAutocalculatedouble**](AnyOfAutocalculatedouble.md) | A number to indicate the height of the floor plane in the Z axis.If Autocalculate, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums. | [optional] 
 **Multiplier** | **int** | An integer that denotes the number of times that this Story is repeated over the height of the building. | [optional] [default to 1]
 
 [[Back to Model list]](../README.md#documentation-for-models)

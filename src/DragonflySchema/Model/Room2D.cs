@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// Base class for all objects requiring a identifiers acceptable for all engines.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "Room2D")]
     public partial class Room2D : IDdBaseModel, IEquatable<Room2D>, IValidatableObject
     {
@@ -79,6 +80,10 @@ namespace DragonflySchema
 
             // Set non-required readonly properties with defaultValue
             this.Type = "Room2D";
+
+            // check if object is valid
+            if (this.GetType() == typeof(Room2D))
+                this.IsValid(throwException: true);
         }
 
         //============================================== is ReadOnly 
@@ -202,7 +207,7 @@ namespace DragonflySchema
             var obj = JsonConvert.DeserializeObject<Room2D>(json, JsonSetting.AnyOfConvertSetting);
             if (obj == null)
                 return null;
-            return obj.Type.ToLower() == obj.GetType().Name.ToLower() ? obj : null;
+            return obj.Type.ToLower() == obj.GetType().Name.ToLower() && obj.IsValid(throwException: true) ? obj : null;
         }
 
         /// <summary>
@@ -370,7 +375,7 @@ namespace DragonflySchema
             
             // Type (string) pattern
             Regex regexType = new Regex(@"^Room2D$", RegexOptions.CultureInvariant);
-            if (false == regexType.Match(this.Type).Success)
+            if (this.Type != null && false == regexType.Match(this.Type).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });
             }

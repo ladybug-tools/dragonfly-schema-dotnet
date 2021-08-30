@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// Room2DPropertiesAbridged
     /// </summary>
+    [Serializable]
     [DataContract(Name = "Room2DPropertiesAbridged")]
     public partial class Room2DPropertiesAbridged : OpenAPIGenBaseModel, IEquatable<Room2DPropertiesAbridged>, IValidatableObject
     {
@@ -44,6 +45,10 @@ namespace DragonflySchema
 
             // Set non-required readonly properties with defaultValue
             this.Type = "Room2DPropertiesAbridged";
+
+            // check if object is valid
+            if (this.GetType() == typeof(Room2DPropertiesAbridged))
+                this.IsValid(throwException: true);
         }
 
         //============================================== is ReadOnly 
@@ -93,7 +98,7 @@ namespace DragonflySchema
             var obj = JsonConvert.DeserializeObject<Room2DPropertiesAbridged>(json, JsonSetting.AnyOfConvertSetting);
             if (obj == null)
                 return null;
-            return obj.Type.ToLower() == obj.GetType().Name.ToLower() ? obj : null;
+            return obj.Type.ToLower() == obj.GetType().Name.ToLower() && obj.IsValid(throwException: true) ? obj : null;
         }
 
         /// <summary>
@@ -185,7 +190,7 @@ namespace DragonflySchema
             
             // Type (string) pattern
             Regex regexType = new Regex(@"^Room2DPropertiesAbridged$", RegexOptions.CultureInvariant);
-            if (false == regexType.Match(this.Type).Success)
+            if (this.Type != null && false == regexType.Match(this.Type).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });
             }

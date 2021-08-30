@@ -1,6 +1,7 @@
     /// <summary>
     /// {{#description}}{{.}}{{/description}}{{^description}}{{classname}}{{/description}}
     /// </summary>
+    [Serializable]
     [DataContract(Name = "{{{name}}}")]
     {{>visibility}} partial class {{classname}} : {{#parent}}{{{parent}}}, {{/parent}}IEquatable<{{classname}}>{{#validatable}}, IValidatableObject{{/validatable}}
     {
@@ -125,6 +126,10 @@
             {{/isEnum}}
             {{/isInherited}}
             {{/vars}}
+
+            // check if object is valid
+            if (this.GetType() == typeof({{classname}}))
+                this.IsValid(throwException: true);
         }
 
         {{#vars}}
@@ -203,7 +208,7 @@
             var obj = JsonConvert.DeserializeObject<{{classname}}>(json, JsonSetting.AnyOfConvertSetting);
             if (obj == null)
                 return null;
-            return obj.Type.ToLower() == obj.GetType().Name.ToLower() ? obj : null;
+            return obj.Type.ToLower() == obj.GetType().Name.ToLower() && obj.IsValid(throwException: true) ? obj : null;
         }
 
         /// <summary>
@@ -410,7 +415,7 @@
             {{^isByteArray}}
             // {{{name}}} ({{{dataType}}}) pattern
             Regex regex{{{name}}} = new Regex(@"{{{vendorExtensions.x-regex}}}"{{#vendorExtensions.x-modifiers}}{{#-first}}, {{/-first}}RegexOptions.{{{.}}}{{^-last}} | {{/-last}}{{/vendorExtensions.x-modifiers}});
-            if (false == regex{{{name}}}.Match(this.{{{name}}}).Success)
+            if (this.{{{name}}} != null && false == regex{{{name}}}.Match(this.{{{name}}}).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for {{{name}}}, must match a pattern of " + regex{{{name}}}, new [] { "{{{name}}}" });
             }

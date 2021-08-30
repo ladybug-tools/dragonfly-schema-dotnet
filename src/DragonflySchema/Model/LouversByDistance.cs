@@ -27,6 +27,7 @@ namespace DragonflySchema
     /// <summary>
     /// A series of louvered Shades at a given distance between each louver.
     /// </summary>
+    [Serializable]
     [DataContract(Name = "LouversByDistance")]
     public partial class LouversByDistance : LouversBase, IEquatable<LouversByDistance>, IValidatableObject
     {
@@ -59,6 +60,10 @@ namespace DragonflySchema
 
             // Set non-required readonly properties with defaultValue
             this.Type = "LouversByDistance";
+
+            // check if object is valid
+            if (this.GetType() == typeof(LouversByDistance))
+                this.IsValid(throwException: true);
         }
 
         //============================================== is ReadOnly 
@@ -114,7 +119,7 @@ namespace DragonflySchema
             var obj = JsonConvert.DeserializeObject<LouversByDistance>(json, JsonSetting.AnyOfConvertSetting);
             if (obj == null)
                 return null;
-            return obj.Type.ToLower() == obj.GetType().Name.ToLower() ? obj : null;
+            return obj.Type.ToLower() == obj.GetType().Name.ToLower() && obj.IsValid(throwException: true) ? obj : null;
         }
 
         /// <summary>
@@ -206,7 +211,7 @@ namespace DragonflySchema
             
             // Type (string) pattern
             Regex regexType = new Regex(@"^LouversByDistance$", RegexOptions.CultureInvariant);
-            if (false == regexType.Match(this.Type).Success)
+            if (this.Type != null && false == regexType.Match(this.Type).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });
             }
