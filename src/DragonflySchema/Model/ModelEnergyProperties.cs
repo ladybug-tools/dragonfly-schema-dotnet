@@ -38,19 +38,21 @@ namespace DragonflySchema
         /// <param name="constructions">A list of all unique constructions in the model. This includes constructions across all the Model construction_sets..</param>
         /// <param name="materials">A list of all unique materials in the model. This includes materials needed to make the Model constructions..</param>
         /// <param name="hvacs">List of all HVAC systems in the Model..</param>
+        /// <param name="shws">List of all Service Hot Water (SHW) systems in the Model..</param>
         /// <param name="programTypes">List of all ProgramTypes in the Model..</param>
         /// <param name="schedules">A list of all unique schedules in the model. This includes schedules across all HVAC systems, ProgramTypes and ContextShades..</param>
         /// <param name="scheduleTypeLimits">A list of all unique ScheduleTypeLimits in the model. This all ScheduleTypeLimits needed to make the Model schedules..</param>
         public ModelEnergyProperties
         (
            // Required parameters
-           List<AnyOf<ConstructionSetAbridged,ConstructionSet>> constructionSets= default, List<AnyOf<OpaqueConstructionAbridged,WindowConstructionAbridged,ShadeConstruction,AirBoundaryConstructionAbridged,OpaqueConstruction,WindowConstruction,AirBoundaryConstruction>> constructions= default, List<AnyOf<EnergyMaterial,EnergyMaterialNoMass,EnergyWindowMaterialGas,EnergyWindowMaterialGasCustom,EnergyWindowMaterialGasMixture,EnergyWindowMaterialSimpleGlazSys,EnergyWindowMaterialBlind,EnergyWindowMaterialGlazing,EnergyWindowMaterialShade>> materials= default, List<AnyOf<IdealAirSystemAbridged,VAV,PVAV,PSZ,PTAC,ForcedAirFurnace,FCUwithDOASAbridged,WSHPwithDOASAbridged,VRFwithDOASAbridged,FCU,WSHP,VRF,Baseboard,EvaporativeCooler,Residential,WindowAC,GasUnitHeater>> hvacs= default, List<AnyOf<ProgramTypeAbridged,ProgramType>> programTypes= default, List<AnyOf<ScheduleRulesetAbridged,ScheduleFixedIntervalAbridged,ScheduleRuleset,ScheduleFixedInterval>> schedules= default, List<ScheduleTypeLimit> scheduleTypeLimits= default// Optional parameters
+           List<AnyOf<ConstructionSetAbridged,ConstructionSet>> constructionSets= default, List<AnyOf<OpaqueConstructionAbridged,WindowConstructionAbridged,ShadeConstruction,AirBoundaryConstructionAbridged,OpaqueConstruction,WindowConstruction,AirBoundaryConstruction>> constructions= default, List<AnyOf<EnergyMaterial,EnergyMaterialNoMass,EnergyWindowMaterialGas,EnergyWindowMaterialGasCustom,EnergyWindowMaterialGasMixture,EnergyWindowMaterialSimpleGlazSys,EnergyWindowMaterialBlind,EnergyWindowMaterialGlazing,EnergyWindowMaterialShade>> materials= default, List<AnyOf<IdealAirSystemAbridged,VAV,PVAV,PSZ,PTAC,ForcedAirFurnace,FCUwithDOASAbridged,WSHPwithDOASAbridged,VRFwithDOASAbridged,FCU,WSHP,VRF,Baseboard,EvaporativeCooler,Residential,WindowAC,GasUnitHeater>> hvacs= default, List<SHWSystem> shws= default, List<AnyOf<ProgramTypeAbridged,ProgramType>> programTypes= default, List<AnyOf<ScheduleRulesetAbridged,ScheduleFixedIntervalAbridged,ScheduleRuleset,ScheduleFixedInterval>> schedules= default, List<ScheduleTypeLimit> scheduleTypeLimits= default// Optional parameters
         ) : base()// BaseClass
         {
             this.ConstructionSets = constructionSets;
             this.Constructions = constructions;
             this.Materials = materials;
             this.Hvacs = hvacs;
+            this.Shws = shws;
             this.ProgramTypes = programTypes;
             this.Schedules = schedules;
             this.ScheduleTypeLimits = scheduleTypeLimits;
@@ -69,6 +71,13 @@ namespace DragonflySchema
         /// </summary>
         [DataMember(Name = "type")]
         public string Type { get; protected set; }  = "ModelEnergyProperties";
+        //============================================== is ReadOnly 
+        /// <summary>
+        /// Global Energy construction set.
+        /// </summary>
+        /// <value>Global Energy construction set.</value>
+        [DataMember(Name = "global_construction_set")]
+        public GlobalConstructionSet GlobalConstructionSet { get; protected set; } 
 
         /// <summary>
         /// List of all ConstructionSets in the Model.
@@ -94,6 +103,12 @@ namespace DragonflySchema
         /// <value>List of all HVAC systems in the Model.</value>
         [DataMember(Name = "hvacs")]
         public List<AnyOf<IdealAirSystemAbridged,VAV,PVAV,PSZ,PTAC,ForcedAirFurnace,FCUwithDOASAbridged,WSHPwithDOASAbridged,VRFwithDOASAbridged,FCU,WSHP,VRF,Baseboard,EvaporativeCooler,Residential,WindowAC,GasUnitHeater>> Hvacs { get; set; } 
+        /// <summary>
+        /// List of all Service Hot Water (SHW) systems in the Model.
+        /// </summary>
+        /// <value>List of all Service Hot Water (SHW) systems in the Model.</value>
+        [DataMember(Name = "shws")]
+        public List<SHWSystem> Shws { get; set; } 
         /// <summary>
         /// List of all ProgramTypes in the Model.
         /// </summary>
@@ -134,10 +149,12 @@ namespace DragonflySchema
             var sb = new StringBuilder();
             sb.Append("ModelEnergyProperties:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  GlobalConstructionSet: ").Append(GlobalConstructionSet).Append("\n");
             sb.Append("  ConstructionSets: ").Append(ConstructionSets).Append("\n");
             sb.Append("  Constructions: ").Append(Constructions).Append("\n");
             sb.Append("  Materials: ").Append(Materials).Append("\n");
             sb.Append("  Hvacs: ").Append(Hvacs).Append("\n");
+            sb.Append("  Shws: ").Append(Shws).Append("\n");
             sb.Append("  ProgramTypes: ").Append(ProgramTypes).Append("\n");
             sb.Append("  Schedules: ").Append(Schedules).Append("\n");
             sb.Append("  ScheduleTypeLimits: ").Append(ScheduleTypeLimits).Append("\n");
@@ -210,6 +227,11 @@ namespace DragonflySchema
                     this.Type.Equals(input.Type))
                 ) && base.Equals(input) && 
                 (
+                    this.GlobalConstructionSet == input.GlobalConstructionSet ||
+                    (this.GlobalConstructionSet != null &&
+                    this.GlobalConstructionSet.Equals(input.GlobalConstructionSet))
+                ) && base.Equals(input) && 
+                (
                     this.ConstructionSets == input.ConstructionSets ||
                     this.ConstructionSets != null &&
                     input.ConstructionSets != null &&
@@ -232,6 +254,12 @@ namespace DragonflySchema
                     this.Hvacs != null &&
                     input.Hvacs != null &&
                     this.Hvacs.SequenceEqual(input.Hvacs)
+                ) && base.Equals(input) && 
+                (
+                    this.Shws == input.Shws ||
+                    this.Shws != null &&
+                    input.Shws != null &&
+                    this.Shws.SequenceEqual(input.Shws)
                 ) && base.Equals(input) && 
                 (
                     this.ProgramTypes == input.ProgramTypes ||
@@ -264,6 +292,8 @@ namespace DragonflySchema
                 int hashCode = base.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.GlobalConstructionSet != null)
+                    hashCode = hashCode * 59 + this.GlobalConstructionSet.GetHashCode();
                 if (this.ConstructionSets != null)
                     hashCode = hashCode * 59 + this.ConstructionSets.GetHashCode();
                 if (this.Constructions != null)
@@ -272,6 +302,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.Materials.GetHashCode();
                 if (this.Hvacs != null)
                     hashCode = hashCode * 59 + this.Hvacs.GetHashCode();
+                if (this.Shws != null)
+                    hashCode = hashCode * 59 + this.Shws.GetHashCode();
                 if (this.ProgramTypes != null)
                     hashCode = hashCode * 59 + this.ProgramTypes.GetHashCode();
                 if (this.Schedules != null)
