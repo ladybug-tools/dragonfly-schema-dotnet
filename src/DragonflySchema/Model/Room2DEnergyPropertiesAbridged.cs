@@ -37,17 +37,19 @@ namespace DragonflySchema
         /// <param name="constructionSet">Name of a ConstructionSet to specify all constructions for the Room2D. If None, the Room2D will use the Story or Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects..</param>
         /// <param name="programType">Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints..</param>
         /// <param name="hvac">An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned..</param>
+        /// <param name="shw">An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies..</param>
         /// <param name="windowVentControl">An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open..</param>
         /// <param name="windowVentOpening">An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open..</param>
         public Room2DEnergyPropertiesAbridged
         (
            // Required parameters
-           string constructionSet= default, string programType= default, string hvac= default, VentilationControlAbridged windowVentControl= default, VentilationOpening windowVentOpening= default// Optional parameters
+           string constructionSet= default, string programType= default, string hvac= default, string shw= default, VentilationControlAbridged windowVentControl= default, VentilationOpening windowVentOpening= default// Optional parameters
         ) : base()// BaseClass
         {
             this.ConstructionSet = constructionSet;
             this.ProgramType = programType;
             this.Hvac = hvac;
+            this.Shw = shw;
             this.WindowVentControl = windowVentControl;
             this.WindowVentOpening = windowVentOpening;
 
@@ -85,6 +87,12 @@ namespace DragonflySchema
         [DataMember(Name = "hvac")]
         public string Hvac { get; set; } 
         /// <summary>
+        /// An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies.
+        /// </summary>
+        /// <value>An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies.</value>
+        [DataMember(Name = "shw")]
+        public string Shw { get; set; } 
+        /// <summary>
         /// An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.
         /// </summary>
         /// <value>An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.</value>
@@ -121,6 +129,7 @@ namespace DragonflySchema
             sb.Append("  ConstructionSet: ").Append(ConstructionSet).Append("\n");
             sb.Append("  ProgramType: ").Append(ProgramType).Append("\n");
             sb.Append("  Hvac: ").Append(Hvac).Append("\n");
+            sb.Append("  Shw: ").Append(Shw).Append("\n");
             sb.Append("  WindowVentControl: ").Append(WindowVentControl).Append("\n");
             sb.Append("  WindowVentOpening: ").Append(WindowVentOpening).Append("\n");
             return sb.ToString();
@@ -207,6 +216,11 @@ namespace DragonflySchema
                     this.Hvac.Equals(input.Hvac))
                 ) && base.Equals(input) && 
                 (
+                    this.Shw == input.Shw ||
+                    (this.Shw != null &&
+                    this.Shw.Equals(input.Shw))
+                ) && base.Equals(input) && 
+                (
                     this.WindowVentControl == input.WindowVentControl ||
                     (this.WindowVentControl != null &&
                     this.WindowVentControl.Equals(input.WindowVentControl))
@@ -235,6 +249,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.ProgramType.GetHashCode();
                 if (this.Hvac != null)
                     hashCode = hashCode * 59 + this.Hvac.GetHashCode();
+                if (this.Shw != null)
+                    hashCode = hashCode * 59 + this.Shw.GetHashCode();
                 if (this.WindowVentControl != null)
                     hashCode = hashCode * 59 + this.WindowVentControl.GetHashCode();
                 if (this.WindowVentOpening != null)
@@ -294,6 +310,18 @@ namespace DragonflySchema
             if(this.Hvac != null && this.Hvac.Length < 1)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Hvac, length must be greater than 1.", new [] { "Hvac" });
+            }
+            
+            // Shw (string) maxLength
+            if(this.Shw != null && this.Shw.Length > 100)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Shw, length must be less than 100.", new [] { "Shw" });
+            }
+
+            // Shw (string) minLength
+            if(this.Shw != null && this.Shw.Length < 1)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Shw, length must be greater than 1.", new [] { "Shw" });
             }
             
             yield break;

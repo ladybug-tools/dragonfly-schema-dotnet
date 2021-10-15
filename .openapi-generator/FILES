@@ -35,6 +35,7 @@ docs/ContextShadeEnergyPropertiesAbridged.md
 docs/ContextShadeEnergyPropertiesAbridgedAllOf.md
 docs/ContextShadePropertiesAbridged.md
 docs/ContextShadePropertiesAbridgedAllOf.md
+docs/ControlType.md
 docs/DOASBase.md
 docs/DOASBaseAllOf.md
 docs/DatedBaseModel.md
@@ -50,6 +51,8 @@ docs/ElectricEquipment.md
 docs/ElectricEquipmentAbridged.md
 docs/ElectricEquipmentAbridgedAllOf.md
 docs/ElectricEquipmentAllOf.md
+docs/EnergyBaseModel.md
+docs/EnergyBaseModelAllOf.md
 docs/EnergyMaterial.md
 docs/EnergyMaterialAllOf.md
 docs/EnergyMaterialNoMass.md
@@ -102,6 +105,8 @@ docs/GasType.md
 docs/GasUnitHeater.md
 docs/GasUnitHeaterAllOf.md
 docs/GasUnitHeaterEquipmentType.md
+docs/GlobalConstructionSet.md
+docs/GlobalConstructionSetAllOf.md
 docs/Ground.md
 docs/GroundAllOf.md
 docs/HeatCoolBase.md
@@ -180,6 +185,9 @@ docs/Room2DEnergyPropertiesAbridgedAllOf.md
 docs/Room2DPropertiesAbridged.md
 docs/Room2DPropertiesAbridgedAllOf.md
 docs/Roughness.md
+docs/SHWEquipmentType.md
+docs/SHWSystem.md
+docs/SHWSystemAllOf.md
 docs/ScheduleDay.md
 docs/ScheduleDayAllOf.md
 docs/ScheduleFixedInterval.md
@@ -206,6 +214,7 @@ docs/SetpointAbridgedAllOf.md
 docs/SetpointAllOf.md
 docs/ShadeConstruction.md
 docs/ShadeConstructionAllOf.md
+docs/ShadeLocation.md
 docs/SimpleWindowRatio.md
 docs/SimpleWindowRatioAllOf.md
 docs/SingleWindow.md
@@ -257,6 +266,12 @@ docs/WindowConstruction.md
 docs/WindowConstructionAbridged.md
 docs/WindowConstructionAbridgedAllOf.md
 docs/WindowConstructionAllOf.md
+docs/WindowConstructionDynamic.md
+docs/WindowConstructionDynamicAllOf.md
+docs/WindowConstructionShade.md
+docs/WindowConstructionShadeAbridged.md
+docs/WindowConstructionShadeAbridgedAllOf.md
+docs/WindowConstructionShadeAllOf.md
 src/DragonflySchema.Test/Model/AdiabaticAllOfTests.cs
 src/DragonflySchema.Test/Model/AdiabaticTests.cs
 src/DragonflySchema.Test/Model/AirBoundaryConstructionAbridgedAllOfTests.cs
@@ -293,6 +308,7 @@ src/DragonflySchema.Test/Model/ContextShadeEnergyPropertiesAbridgedTests.cs
 src/DragonflySchema.Test/Model/ContextShadePropertiesAbridgedAllOfTests.cs
 src/DragonflySchema.Test/Model/ContextShadePropertiesAbridgedTests.cs
 src/DragonflySchema.Test/Model/ContextShadeTests.cs
+src/DragonflySchema.Test/Model/ControlTypeTests.cs
 src/DragonflySchema.Test/Model/DOASBaseAllOfTests.cs
 src/DragonflySchema.Test/Model/DOASBaseTests.cs
 src/DragonflySchema.Test/Model/DatedBaseModelAllOfTests.cs
@@ -308,6 +324,8 @@ src/DragonflySchema.Test/Model/ElectricEquipmentAbridgedAllOfTests.cs
 src/DragonflySchema.Test/Model/ElectricEquipmentAbridgedTests.cs
 src/DragonflySchema.Test/Model/ElectricEquipmentAllOfTests.cs
 src/DragonflySchema.Test/Model/ElectricEquipmentTests.cs
+src/DragonflySchema.Test/Model/EnergyBaseModelAllOfTests.cs
+src/DragonflySchema.Test/Model/EnergyBaseModelTests.cs
 src/DragonflySchema.Test/Model/EnergyMaterialAllOfTests.cs
 src/DragonflySchema.Test/Model/EnergyMaterialNoMassAllOfTests.cs
 src/DragonflySchema.Test/Model/EnergyMaterialNoMassTests.cs
@@ -360,6 +378,8 @@ src/DragonflySchema.Test/Model/GasTypeTests.cs
 src/DragonflySchema.Test/Model/GasUnitHeaterAllOfTests.cs
 src/DragonflySchema.Test/Model/GasUnitHeaterEquipmentTypeTests.cs
 src/DragonflySchema.Test/Model/GasUnitHeaterTests.cs
+src/DragonflySchema.Test/Model/GlobalConstructionSetAllOfTests.cs
+src/DragonflySchema.Test/Model/GlobalConstructionSetTests.cs
 src/DragonflySchema.Test/Model/GroundAllOfTests.cs
 src/DragonflySchema.Test/Model/GroundTests.cs
 src/DragonflySchema.Test/Model/HeatCoolBaseAllOfTests.cs
@@ -438,6 +458,9 @@ src/DragonflySchema.Test/Model/Room2DPropertiesAbridgedAllOfTests.cs
 src/DragonflySchema.Test/Model/Room2DPropertiesAbridgedTests.cs
 src/DragonflySchema.Test/Model/Room2DTests.cs
 src/DragonflySchema.Test/Model/RoughnessTests.cs
+src/DragonflySchema.Test/Model/SHWEquipmentTypeTests.cs
+src/DragonflySchema.Test/Model/SHWSystemAllOfTests.cs
+src/DragonflySchema.Test/Model/SHWSystemTests.cs
 src/DragonflySchema.Test/Model/ScheduleDayAllOfTests.cs
 src/DragonflySchema.Test/Model/ScheduleDayTests.cs
 src/DragonflySchema.Test/Model/ScheduleFixedIntervalAbridgedAllOfTests.cs
@@ -464,6 +487,7 @@ src/DragonflySchema.Test/Model/SetpointAllOfTests.cs
 src/DragonflySchema.Test/Model/SetpointTests.cs
 src/DragonflySchema.Test/Model/ShadeConstructionAllOfTests.cs
 src/DragonflySchema.Test/Model/ShadeConstructionTests.cs
+src/DragonflySchema.Test/Model/ShadeLocationTests.cs
 src/DragonflySchema.Test/Model/SimpleWindowRatioAllOfTests.cs
 src/DragonflySchema.Test/Model/SimpleWindowRatioTests.cs
 src/DragonflySchema.Test/Model/SingleWindowAllOfTests.cs
@@ -514,6 +538,12 @@ src/DragonflySchema.Test/Model/WindowACTests.cs
 src/DragonflySchema.Test/Model/WindowConstructionAbridgedAllOfTests.cs
 src/DragonflySchema.Test/Model/WindowConstructionAbridgedTests.cs
 src/DragonflySchema.Test/Model/WindowConstructionAllOfTests.cs
+src/DragonflySchema.Test/Model/WindowConstructionDynamicAllOfTests.cs
+src/DragonflySchema.Test/Model/WindowConstructionDynamicTests.cs
+src/DragonflySchema.Test/Model/WindowConstructionShadeAbridgedAllOfTests.cs
+src/DragonflySchema.Test/Model/WindowConstructionShadeAbridgedTests.cs
+src/DragonflySchema.Test/Model/WindowConstructionShadeAllOfTests.cs
+src/DragonflySchema.Test/Model/WindowConstructionShadeTests.cs
 src/DragonflySchema.Test/Model/WindowConstructionTests.cs
 src/DragonflySchema/Client/ApiClient.cs
 src/DragonflySchema/Client/ApiException.cs
@@ -560,6 +590,7 @@ src/DragonflySchema/Model/ContextShadeEnergyPropertiesAbridged.cs
 src/DragonflySchema/Model/ContextShadeEnergyPropertiesAbridgedAllOf.cs
 src/DragonflySchema/Model/ContextShadePropertiesAbridged.cs
 src/DragonflySchema/Model/ContextShadePropertiesAbridgedAllOf.cs
+src/DragonflySchema/Model/ControlType.cs
 src/DragonflySchema/Model/DOASBase.cs
 src/DragonflySchema/Model/DOASBaseAllOf.cs
 src/DragonflySchema/Model/DatedBaseModel.cs
@@ -575,6 +606,8 @@ src/DragonflySchema/Model/ElectricEquipment.cs
 src/DragonflySchema/Model/ElectricEquipmentAbridged.cs
 src/DragonflySchema/Model/ElectricEquipmentAbridgedAllOf.cs
 src/DragonflySchema/Model/ElectricEquipmentAllOf.cs
+src/DragonflySchema/Model/EnergyBaseModel.cs
+src/DragonflySchema/Model/EnergyBaseModelAllOf.cs
 src/DragonflySchema/Model/EnergyMaterial.cs
 src/DragonflySchema/Model/EnergyMaterialAllOf.cs
 src/DragonflySchema/Model/EnergyMaterialNoMass.cs
@@ -627,6 +660,8 @@ src/DragonflySchema/Model/GasType.cs
 src/DragonflySchema/Model/GasUnitHeater.cs
 src/DragonflySchema/Model/GasUnitHeaterAllOf.cs
 src/DragonflySchema/Model/GasUnitHeaterEquipmentType.cs
+src/DragonflySchema/Model/GlobalConstructionSet.cs
+src/DragonflySchema/Model/GlobalConstructionSetAllOf.cs
 src/DragonflySchema/Model/Ground.cs
 src/DragonflySchema/Model/GroundAllOf.cs
 src/DragonflySchema/Model/HeatCoolBase.cs
@@ -705,6 +740,9 @@ src/DragonflySchema/Model/Room2DEnergyPropertiesAbridgedAllOf.cs
 src/DragonflySchema/Model/Room2DPropertiesAbridged.cs
 src/DragonflySchema/Model/Room2DPropertiesAbridgedAllOf.cs
 src/DragonflySchema/Model/Roughness.cs
+src/DragonflySchema/Model/SHWEquipmentType.cs
+src/DragonflySchema/Model/SHWSystem.cs
+src/DragonflySchema/Model/SHWSystemAllOf.cs
 src/DragonflySchema/Model/ScheduleDay.cs
 src/DragonflySchema/Model/ScheduleDayAllOf.cs
 src/DragonflySchema/Model/ScheduleFixedInterval.cs
@@ -731,6 +769,7 @@ src/DragonflySchema/Model/SetpointAbridgedAllOf.cs
 src/DragonflySchema/Model/SetpointAllOf.cs
 src/DragonflySchema/Model/ShadeConstruction.cs
 src/DragonflySchema/Model/ShadeConstructionAllOf.cs
+src/DragonflySchema/Model/ShadeLocation.cs
 src/DragonflySchema/Model/SimpleWindowRatio.cs
 src/DragonflySchema/Model/SimpleWindowRatioAllOf.cs
 src/DragonflySchema/Model/SingleWindow.cs
@@ -782,3 +821,9 @@ src/DragonflySchema/Model/WindowConstruction.cs
 src/DragonflySchema/Model/WindowConstructionAbridged.cs
 src/DragonflySchema/Model/WindowConstructionAbridgedAllOf.cs
 src/DragonflySchema/Model/WindowConstructionAllOf.cs
+src/DragonflySchema/Model/WindowConstructionDynamic.cs
+src/DragonflySchema/Model/WindowConstructionDynamicAllOf.cs
+src/DragonflySchema/Model/WindowConstructionShade.cs
+src/DragonflySchema/Model/WindowConstructionShadeAbridged.cs
+src/DragonflySchema/Model/WindowConstructionShadeAbridgedAllOf.cs
+src/DragonflySchema/Model/WindowConstructionShadeAllOf.cs
