@@ -40,10 +40,11 @@ namespace DragonflySchema
         /// <param name="shw">An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies..</param>
         /// <param name="windowVentControl">An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open..</param>
         /// <param name="windowVentOpening">An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open..</param>
+        /// <param name="processLoads">An optional list of of Process objects for process loads within the room. These can represent kilns, manufacturing equipment, and various industrial processes. They can also be used to represent wood burning fireplaces or certain pieces of equipment to be separated from the other end uses..</param>
         public Room2DEnergyPropertiesAbridged
         (
            // Required parameters
-           string constructionSet= default, string programType= default, string hvac= default, string shw= default, VentilationControlAbridged windowVentControl= default, VentilationOpening windowVentOpening= default// Optional parameters
+           string constructionSet= default, string programType= default, string hvac= default, string shw= default, VentilationControlAbridged windowVentControl= default, VentilationOpening windowVentOpening= default, List<ProcessAbridged> processLoads= default// Optional parameters
         ) : base()// BaseClass
         {
             this.ConstructionSet = constructionSet;
@@ -52,6 +53,7 @@ namespace DragonflySchema
             this.Shw = shw;
             this.WindowVentControl = windowVentControl;
             this.WindowVentOpening = windowVentOpening;
+            this.ProcessLoads = processLoads;
 
             // Set non-required readonly properties with defaultValue
             this.Type = "Room2DEnergyPropertiesAbridged";
@@ -104,6 +106,12 @@ namespace DragonflySchema
         /// <value>An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open.</value>
         [DataMember(Name = "window_vent_opening")]
         public VentilationOpening WindowVentOpening { get; set; } 
+        /// <summary>
+        /// An optional list of of Process objects for process loads within the room. These can represent kilns, manufacturing equipment, and various industrial processes. They can also be used to represent wood burning fireplaces or certain pieces of equipment to be separated from the other end uses.
+        /// </summary>
+        /// <value>An optional list of of Process objects for process loads within the room. These can represent kilns, manufacturing equipment, and various industrial processes. They can also be used to represent wood burning fireplaces or certain pieces of equipment to be separated from the other end uses.</value>
+        [DataMember(Name = "process_loads")]
+        public List<ProcessAbridged> ProcessLoads { get; set; } 
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -132,6 +140,7 @@ namespace DragonflySchema
             sb.Append("  Shw: ").Append(Shw).Append("\n");
             sb.Append("  WindowVentControl: ").Append(WindowVentControl).Append("\n");
             sb.Append("  WindowVentOpening: ").Append(WindowVentOpening).Append("\n");
+            sb.Append("  ProcessLoads: ").Append(ProcessLoads).Append("\n");
             return sb.ToString();
         }
   
@@ -229,6 +238,12 @@ namespace DragonflySchema
                     this.WindowVentOpening == input.WindowVentOpening ||
                     (this.WindowVentOpening != null &&
                     this.WindowVentOpening.Equals(input.WindowVentOpening))
+                ) && base.Equals(input) && 
+                (
+                    this.ProcessLoads == input.ProcessLoads ||
+                    this.ProcessLoads != null &&
+                    input.ProcessLoads != null &&
+                    this.ProcessLoads.SequenceEqual(input.ProcessLoads)
                 );
         }
 
@@ -255,6 +270,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.WindowVentControl.GetHashCode();
                 if (this.WindowVentOpening != null)
                     hashCode = hashCode * 59 + this.WindowVentOpening.GetHashCode();
+                if (this.ProcessLoads != null)
+                    hashCode = hashCode * 59 + this.ProcessLoads.GetHashCode();
                 return hashCode;
             }
         }
