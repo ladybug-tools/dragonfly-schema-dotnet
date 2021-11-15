@@ -96,6 +96,7 @@ docs/FloorConstructionSetAbridgedAllOf.md
 docs/FloorConstructionSetAllOf.md
 docs/ForcedAirFurnace.md
 docs/ForcedAirFurnaceAllOf.md
+docs/FuelTypes.md
 docs/FurnaceEquipmentType.md
 docs/GasEquipment.md
 docs/GasEquipmentAbridged.md
@@ -163,6 +164,8 @@ docs/PeopleAbridgedAllOf.md
 docs/PeopleAllOf.md
 docs/Plane.md
 docs/PlaneAllOf.md
+docs/ProcessAbridged.md
+docs/ProcessAbridgedAllOf.md
 docs/ProgramType.md
 docs/ProgramTypeAbridged.md
 docs/ProgramTypeAbridgedAllOf.md
@@ -369,6 +372,7 @@ src/DragonflySchema.Test/Model/FloorConstructionSetAllOfTests.cs
 src/DragonflySchema.Test/Model/FloorConstructionSetTests.cs
 src/DragonflySchema.Test/Model/ForcedAirFurnaceAllOfTests.cs
 src/DragonflySchema.Test/Model/ForcedAirFurnaceTests.cs
+src/DragonflySchema.Test/Model/FuelTypesTests.cs
 src/DragonflySchema.Test/Model/FurnaceEquipmentTypeTests.cs
 src/DragonflySchema.Test/Model/GasEquipmentAbridgedAllOfTests.cs
 src/DragonflySchema.Test/Model/GasEquipmentAbridgedTests.cs
@@ -436,6 +440,8 @@ src/DragonflySchema.Test/Model/PeopleAllOfTests.cs
 src/DragonflySchema.Test/Model/PeopleTests.cs
 src/DragonflySchema.Test/Model/PlaneAllOfTests.cs
 src/DragonflySchema.Test/Model/PlaneTests.cs
+src/DragonflySchema.Test/Model/ProcessAbridgedAllOfTests.cs
+src/DragonflySchema.Test/Model/ProcessAbridgedTests.cs
 src/DragonflySchema.Test/Model/ProgramTypeAbridgedAllOfTests.cs
 src/DragonflySchema.Test/Model/ProgramTypeAbridgedTests.cs
 src/DragonflySchema.Test/Model/ProgramTypeAllOfTests.cs
@@ -651,6 +657,7 @@ src/DragonflySchema/Model/FloorConstructionSetAbridgedAllOf.cs
 src/DragonflySchema/Model/FloorConstructionSetAllOf.cs
 src/DragonflySchema/Model/ForcedAirFurnace.cs
 src/DragonflySchema/Model/ForcedAirFurnaceAllOf.cs
+src/DragonflySchema/Model/FuelTypes.cs
 src/DragonflySchema/Model/FurnaceEquipmentType.cs
 src/DragonflySchema/Model/GasEquipment.cs
 src/DragonflySchema/Model/GasEquipmentAbridged.cs
@@ -718,6 +725,8 @@ src/DragonflySchema/Model/PeopleAbridgedAllOf.cs
 src/DragonflySchema/Model/PeopleAllOf.cs
 src/DragonflySchema/Model/Plane.cs
 src/DragonflySchema/Model/PlaneAllOf.cs
+src/DragonflySchema/Model/ProcessAbridged.cs
+src/DragonflySchema/Model/ProcessAbridgedAllOf.cs
 src/DragonflySchema/Model/ProgramType.cs
 src/DragonflySchema/Model/ProgramTypeAbridged.cs
 src/DragonflySchema/Model/ProgramTypeAbridgedAllOf.cs
