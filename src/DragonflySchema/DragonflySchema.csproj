@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Version>1.6.57.0</Version>
     <Authors>Ladybug Tools</Authors>
@@ -23,7 +23,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="HoneybeeSchema" Version="1.47.0.0" />
+    <PackageReference Include="HoneybeeSchema" Version="1.47.0.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
