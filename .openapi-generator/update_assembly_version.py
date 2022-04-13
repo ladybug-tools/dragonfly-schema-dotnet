@@ -14,10 +14,11 @@ schema_version = config_data["packageVersion"]
 print(f'Schema_version: {schema_version}')
 new_version = f'{schema_version}.0'
 
-package_name = config_data["packageName"]
+package_name = config_data["packageName"].lower()
 
 # Check the version from nuget
 api = f'https://api.nuget.org/v3-flatcontainer/{package_name}/index.json'
+print(api)
 with urllib.request.urlopen(api) as r:
     data = json.loads(r.read())
     versions = [v for v in data['versions'] if v.startswith(schema_version)]
