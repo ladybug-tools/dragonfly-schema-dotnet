@@ -23,8 +23,7 @@ with urllib.request.urlopen(api) as r:
     data = json.loads(r.read())
     versions = [v for v in data['versions'] if v.startswith(schema_version)]
     if versions != []:
-        versions.sort(reverse=True)
-        new_version = versions[0]
+        new_version = versions[-1]
         print(f'Found latest version on Nuget: {new_version}')
 
 
