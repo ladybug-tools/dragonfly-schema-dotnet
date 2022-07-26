@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Geometry** | [**List&lt;Face3D&gt;**](Face3D.md) | An array of planar Face3Ds that together represent the context shade. | 
 **Properties** | [**ContextShadePropertiesAbridged**](ContextShadePropertiesAbridged.md) | Extension properties for particular simulation engines (Radiance, EnergyPlus). | 
 **Type** | **string** |  | [optional] [readonly] [default to "ContextShade"]
+**IsDetached** | **bool** | Boolean to note whether this shade is detached from any of the other geometry in the model. Cases where this should be True include shade representing surrounding buildings or context. | [optional] [default to true]
 
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)

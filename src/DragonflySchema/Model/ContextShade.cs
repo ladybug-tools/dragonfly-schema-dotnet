@@ -46,19 +46,21 @@ namespace DragonflySchema
         /// </summary>
         /// <param name="geometry">An array of planar Face3Ds that together represent the context shade. (required).</param>
         /// <param name="properties">Extension properties for particular simulation engines (Radiance, EnergyPlus). (required).</param>
+        /// <param name="isDetached">Boolean to note whether this shade is detached from any of the other geometry in the model. Cases where this should be True include shade representing surrounding buildings or context. (default to true).</param>
         /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. (required).</param>
         /// <param name="displayName">Display name of the object with no character restrictions..</param>
         /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
         public ContextShade
         (
             string identifier, List<Face3D> geometry, ContextShadePropertiesAbridged properties, // Required parameters
-            string displayName= default, Object userData= default // Optional parameters
+            string displayName= default, Object userData= default, bool isDetached = true// Optional parameters
         ) : base(identifier: identifier, displayName: displayName, userData: userData)// BaseClass
         {
             // to ensure "geometry" is required (not null)
             this.Geometry = geometry ?? throw new ArgumentNullException("geometry is a required property for ContextShade and cannot be null");
             // to ensure "properties" is required (not null)
             this.Properties = properties ?? throw new ArgumentNullException("properties is a required property for ContextShade and cannot be null");
+            this.IsDetached = isDetached;
 
             // Set non-required readonly properties with defaultValue
             this.Type = "ContextShade";
@@ -87,6 +89,12 @@ namespace DragonflySchema
         /// <value>Extension properties for particular simulation engines (Radiance, EnergyPlus).</value>
         [DataMember(Name = "properties", IsRequired = true)]
         public ContextShadePropertiesAbridged Properties { get; set; } 
+        /// <summary>
+        /// Boolean to note whether this shade is detached from any of the other geometry in the model. Cases where this should be True include shade representing surrounding buildings or context.
+        /// </summary>
+        /// <value>Boolean to note whether this shade is detached from any of the other geometry in the model. Cases where this should be True include shade representing surrounding buildings or context.</value>
+        [DataMember(Name = "is_detached")]
+        public bool IsDetached { get; set; }  = true;
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -114,6 +122,7 @@ namespace DragonflySchema
             sb.Append("  UserData: ").Append(UserData).Append("\n");
             sb.Append("  Geometry: ").Append(Geometry).Append("\n");
             sb.Append("  Properties: ").Append(Properties).Append("\n");
+            sb.Append("  IsDetached: ").Append(IsDetached).Append("\n");
             return sb.ToString();
         }
   
@@ -192,6 +201,11 @@ namespace DragonflySchema
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
+                ) && base.Equals(input) && 
+                (
+                    this.IsDetached == input.IsDetached ||
+                    (this.IsDetached != null &&
+                    this.IsDetached.Equals(input.IsDetached))
                 );
         }
 
@@ -210,6 +224,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.Properties.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.IsDetached != null)
+                    hashCode = hashCode * 59 + this.IsDetached.GetHashCode();
                 return hashCode;
             }
         }
