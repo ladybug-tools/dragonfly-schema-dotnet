@@ -50,7 +50,9 @@ def fix_constructor(read_data):
         r"(,\s)+(?=\s*\/\/ Optional parameters)",
         r"(,\s)+(?=\s*\/\/ Required parameters\n\s+\/\/ Optional parameters)",
         r"(,)(?=\s*\)\/\/ BaseClass)",
-        r"(?<=\(\n\s{12})\s*(,)(?=\s*\/\/ Required parameters)"  # remove "," before "//Required parameters" when there is no required
+        r"(?<=\(\n\s{12})\s*(,)(?=\s*\/\/ Required parameters)"  # remove "," before "//Required parameters" when there is no required,
+        r"    , // Required parameters"  # remove "," before "//Required parameters"
+        r"    , // Optional parameters"  # remove "," before "//Required parameters"
     ]
 
     replace_new = [
@@ -62,7 +64,9 @@ def fix_constructor(read_data):
         " ",
         "",   # remove commas before "//Required parameters" when there is no optional perameters
         "",
-        ""
+        "",
+        r"    // Required parameters",  # remove "," before "//Required parameters"
+        r"    // Optional parameters"
     ]
     data = read_data
     for i, rex in enumerate(regexs):
