@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Shw** | **string** | An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies. | [optional] 
 **WindowVentControl** | [**VentilationControlAbridged**](VentilationControlAbridged.md) | An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open. | [optional] 
 **WindowVentOpening** | [**VentilationOpening**](VentilationOpening.md) | An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open. | [optional] 
-**ProcessLoads** | [**List&lt;ProcessAbridged&gt;**](ProcessAbridged.md) | An optional list of of Process objects for process loads within the room. These can represent kilns, manufacturing equipment, and various industrial processes. They can also be used to represent wood burning fireplaces or certain pieces of equipment to be separated from the other end uses. | [optional] 
+**ProcessLoads** | [**List&lt;ProcessAbridged&gt;**](ProcessAbridged.md) | An optional list of of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)
