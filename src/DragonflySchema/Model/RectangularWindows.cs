@@ -47,10 +47,11 @@ namespace DragonflySchema
         /// <param name="origins">An array of 2D points within the plane of the wall for the origin of each window. Each point should be a list of 2 (x, y) values. The wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each origin point should be positive. (required).</param>
         /// <param name="widths">An array of positive numbers for the window widths. The length of this list must match the length of the origins. (required).</param>
         /// <param name="heights">An array of positive numbers for the window heights. The length of this list must match the length of the origins. (required).</param>
+        /// <param name="areDoors">An array of booleans that align with the origins and note whether each of the geometries represents a door (True) or a window (False). If None, it will be assumed that all geometries represent windows and they will be translated to Apertures in any resulting Honeybee model..</param>
         public RectangularWindows
         (
-           List<List<double>> origins, List<double> widths, List<double> heights// Required parameters
-           // Optional parameters
+           List<List<double>> origins, List<double> widths, List<double> heights, // Required parameters
+           List<bool> areDoors= default// Optional parameters
         ) : base()// BaseClass
         {
             // to ensure "origins" is required (not null)
@@ -59,6 +60,7 @@ namespace DragonflySchema
             this.Widths = widths ?? throw new ArgumentNullException("widths is a required property for RectangularWindows and cannot be null");
             // to ensure "heights" is required (not null)
             this.Heights = heights ?? throw new ArgumentNullException("heights is a required property for RectangularWindows and cannot be null");
+            this.AreDoors = areDoors;
 
             // Set non-required readonly properties with defaultValue
             this.Type = "RectangularWindows";
@@ -93,6 +95,12 @@ namespace DragonflySchema
         /// <value>An array of positive numbers for the window heights. The length of this list must match the length of the origins.</value>
         [DataMember(Name = "heights", IsRequired = true)]
         public List<double> Heights { get; set; } 
+        /// <summary>
+        /// An array of booleans that align with the origins and note whether each of the geometries represents a door (True) or a window (False). If None, it will be assumed that all geometries represent windows and they will be translated to Apertures in any resulting Honeybee model.
+        /// </summary>
+        /// <value>An array of booleans that align with the origins and note whether each of the geometries represents a door (True) or a window (False). If None, it will be assumed that all geometries represent windows and they will be translated to Apertures in any resulting Honeybee model.</value>
+        [DataMember(Name = "are_doors")]
+        public List<bool> AreDoors { get; set; } 
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -118,6 +126,7 @@ namespace DragonflySchema
             sb.Append("  Origins: ").Append(Origins).Append("\n");
             sb.Append("  Widths: ").Append(Widths).Append("\n");
             sb.Append("  Heights: ").Append(Heights).Append("\n");
+            sb.Append("  AreDoors: ").Append(AreDoors).Append("\n");
             return sb.ToString();
         }
   
@@ -203,6 +212,12 @@ namespace DragonflySchema
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
+                ) && base.Equals(input) && 
+                (
+                    this.AreDoors == input.AreDoors ||
+                    this.AreDoors != null &&
+                    input.AreDoors != null &&
+                    this.AreDoors.SequenceEqual(input.AreDoors)
                 );
         }
 
@@ -223,6 +238,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.Heights.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.AreDoors != null)
+                    hashCode = hashCode * 59 + this.AreDoors.GetHashCode();
                 return hashCode;
             }
         }

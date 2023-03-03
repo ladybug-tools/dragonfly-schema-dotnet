@@ -55,13 +55,14 @@ namespace DragonflySchema
         /// <param name="windowParameters">A list of WindowParameter objects that dictate how the window geometries will be generated for each of the walls. If None, no windows will exist over the entire Room2D..</param>
         /// <param name="shadingParameters">A list of ShadingParameter objects that dictate how the shade geometries will be generated for each of the walls. If None, no shades will exist over the entire Room2D..</param>
         /// <param name="airBoundaries">A list of booleans for whether each wall has an air boundary type. False values indicate a standard opaque type while True values indicate an AirBoundary type. All walls will be False by default. Note that any walls with a True air boundary must have a Surface boundary condition without any windows..</param>
+        /// <param name="skylightParameters">A SkylightParameter object describing how to generate skylights. If None, no skylights will exist on the Room2D..</param>
         /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. (required).</param>
         /// <param name="displayName">Display name of the object with no character restrictions..</param>
         /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
         public Room2D
         (
             string identifier, List<List<double>> floorBoundary, double floorHeight, double floorToCeilingHeight, Room2DPropertiesAbridged properties, // Required parameters
-            string displayName= default, Object userData= default, List<List<List<double>>> floorHoles= default, bool isGroundContact = false, bool isTopExposed = false, List<AnyOf<Ground,Outdoors,Adiabatic,Surface>> boundaryConditions= default, List<AnyOf<SingleWindow,SimpleWindowRatio,RepeatingWindowRatio,RectangularWindows,DetailedWindows>> windowParameters= default, List<AnyOf<ExtrudedBorder,Overhang,LouversByDistance,LouversByCount>> shadingParameters= default, List<bool> airBoundaries= default// Optional parameters
+            string displayName= default, Object userData= default, List<List<List<double>>> floorHoles= default, bool isGroundContact = false, bool isTopExposed = false, List<AnyOf<Ground,Outdoors,Surface,Adiabatic,OtherSideTemperature>> boundaryConditions= default, List<AnyOf<SingleWindow,SimpleWindowRatio,RepeatingWindowRatio,RectangularWindows,DetailedWindows>> windowParameters= default, List<AnyOf<ExtrudedBorder,Overhang,LouversByDistance,LouversByCount>> shadingParameters= default, List<bool> airBoundaries= default, AnyOf<GriddedSkylightRatio,DetailedSkylights> skylightParameters= default// Optional parameters
         ) : base(identifier: identifier, displayName: displayName, userData: userData)// BaseClass
         {
             // to ensure "floorBoundary" is required (not null)
@@ -77,6 +78,7 @@ namespace DragonflySchema
             this.WindowParameters = windowParameters;
             this.ShadingParameters = shadingParameters;
             this.AirBoundaries = airBoundaries;
+            this.SkylightParameters = skylightParameters;
 
             // Set non-required readonly properties with defaultValue
             this.Type = "Room2D";
@@ -140,7 +142,7 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A list of boundary conditions that match the number of segments in the input floor_geometry + floor_holes. These will be used to assign boundary conditions to each of the walls of the Room in the resulting model. Their order should align with the order of segments in the floor_boundary and then with each hole segment. If None, all boundary conditions will be Outdoors or Ground depending on whether ceiling height of the room is at or below 0 (the assumed ground plane).</value>
         [DataMember(Name = "boundary_conditions")]
-        public List<AnyOf<Ground,Outdoors,Adiabatic,Surface>> BoundaryConditions { get; set; } 
+        public List<AnyOf<Ground,Outdoors,Surface,Adiabatic,OtherSideTemperature>> BoundaryConditions { get; set; } 
         /// <summary>
         /// A list of WindowParameter objects that dictate how the window geometries will be generated for each of the walls. If None, no windows will exist over the entire Room2D.
         /// </summary>
@@ -159,6 +161,12 @@ namespace DragonflySchema
         /// <value>A list of booleans for whether each wall has an air boundary type. False values indicate a standard opaque type while True values indicate an AirBoundary type. All walls will be False by default. Note that any walls with a True air boundary must have a Surface boundary condition without any windows.</value>
         [DataMember(Name = "air_boundaries")]
         public List<bool> AirBoundaries { get; set; } 
+        /// <summary>
+        /// A SkylightParameter object describing how to generate skylights. If None, no skylights will exist on the Room2D.
+        /// </summary>
+        /// <value>A SkylightParameter object describing how to generate skylights. If None, no skylights will exist on the Room2D.</value>
+        [DataMember(Name = "skylight_parameters")]
+        public AnyOf<GriddedSkylightRatio,DetailedSkylights> SkylightParameters { get; set; } 
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -195,6 +203,7 @@ namespace DragonflySchema
             sb.Append("  WindowParameters: ").Append(WindowParameters).Append("\n");
             sb.Append("  ShadingParameters: ").Append(ShadingParameters).Append("\n");
             sb.Append("  AirBoundaries: ").Append(AirBoundaries).Append("\n");
+            sb.Append("  SkylightParameters: ").Append(SkylightParameters).Append("\n");
             return sb.ToString();
         }
   
@@ -323,6 +332,11 @@ namespace DragonflySchema
                     this.AirBoundaries != null &&
                     input.AirBoundaries != null &&
                     this.AirBoundaries.SequenceEqual(input.AirBoundaries)
+                ) && base.Equals(input) && 
+                (
+                    this.SkylightParameters == input.SkylightParameters ||
+                    (this.SkylightParameters != null &&
+                    this.SkylightParameters.Equals(input.SkylightParameters))
                 );
         }
 
@@ -359,6 +373,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.ShadingParameters.GetHashCode();
                 if (this.AirBoundaries != null)
                     hashCode = hashCode * 59 + this.AirBoundaries.GetHashCode();
+                if (this.SkylightParameters != null)
+                    hashCode = hashCode * 59 + this.SkylightParameters.GetHashCode();
                 return hashCode;
             }
         }

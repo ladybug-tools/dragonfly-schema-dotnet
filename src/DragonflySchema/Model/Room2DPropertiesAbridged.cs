@@ -35,13 +35,15 @@ namespace DragonflySchema
         /// Initializes a new instance of the <see cref="Room2DPropertiesAbridged" /> class.
         /// </summary>
         /// <param name="energy">energy.</param>
+        /// <param name="radiance">radiance.</param>
         public Room2DPropertiesAbridged
         (
            // Required parameters
-           Room2DEnergyPropertiesAbridged energy= default// Optional parameters
+           Room2DEnergyPropertiesAbridged energy= default, Room2DRadiancePropertiesAbridged radiance= default// Optional parameters
         ) : base()// BaseClass
         {
             this.Energy = energy;
+            this.Radiance = radiance;
 
             // Set non-required readonly properties with defaultValue
             this.Type = "Room2DPropertiesAbridged";
@@ -63,6 +65,11 @@ namespace DragonflySchema
         /// </summary>
         [DataMember(Name = "energy")]
         public Room2DEnergyPropertiesAbridged Energy { get; set; } 
+        /// <summary>
+        /// Gets or Sets Radiance
+        /// </summary>
+        [DataMember(Name = "radiance")]
+        public Room2DRadiancePropertiesAbridged Radiance { get; set; } 
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -86,6 +93,7 @@ namespace DragonflySchema
             sb.Append("Room2DPropertiesAbridged:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  Energy: ").Append(Energy).Append("\n");
+            sb.Append("  Radiance: ").Append(Radiance).Append("\n");
             return sb.ToString();
         }
   
@@ -158,6 +166,11 @@ namespace DragonflySchema
                     this.Energy == input.Energy ||
                     (this.Energy != null &&
                     this.Energy.Equals(input.Energy))
+                ) && base.Equals(input) && 
+                (
+                    this.Radiance == input.Radiance ||
+                    (this.Radiance != null &&
+                    this.Radiance.Equals(input.Radiance))
                 );
         }
 
@@ -174,6 +187,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Energy != null)
                     hashCode = hashCode * 59 + this.Energy.GetHashCode();
+                if (this.Radiance != null)
+                    hashCode = hashCode * 59 + this.Radiance.GetHashCode();
                 return hashCode;
             }
         }

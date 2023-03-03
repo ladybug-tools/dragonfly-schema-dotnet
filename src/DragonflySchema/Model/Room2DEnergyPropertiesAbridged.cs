@@ -40,7 +40,7 @@ namespace DragonflySchema
         /// <param name="shw">An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies..</param>
         /// <param name="windowVentControl">An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open..</param>
         /// <param name="windowVentOpening">An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open..</param>
-        /// <param name="processLoads">An optional list of of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators..</param>
+        /// <param name="processLoads">An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators..</param>
         public Room2DEnergyPropertiesAbridged
         (
            // Required parameters
@@ -107,9 +107,9 @@ namespace DragonflySchema
         [DataMember(Name = "window_vent_opening")]
         public VentilationOpening WindowVentOpening { get; set; } 
         /// <summary>
-        /// An optional list of of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.
+        /// An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.
         /// </summary>
-        /// <value>An optional list of of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.</value>
+        /// <value>An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.</value>
         [DataMember(Name = "process_loads")]
         public List<ProcessAbridged> ProcessLoads { get; set; } 
 

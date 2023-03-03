@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Widths** | **List&lt;double&gt;** | An array of positive numbers for the window widths. The length of this list must match the length of the origins. | 
 **Heights** | **List&lt;double&gt;** | An array of positive numbers for the window heights. The length of this list must match the length of the origins. | 
 **Type** | **string** |  | [optional] [readonly] [default to "RectangularWindows"]
+**AreDoors** | **List&lt;bool&gt;** | An array of booleans that align with the origins and note whether each of the geometries represents a door (True) or a window (False). If None, it will be assumed that all geometries represent windows and they will be translated to Apertures in any resulting Honeybee model. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)
