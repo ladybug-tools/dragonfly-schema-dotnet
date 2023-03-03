@@ -50,9 +50,9 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Model" /> class.
         /// </summary>
-        /// <param name="buildings">A list of Buildings in the model. (required).</param>
         /// <param name="properties">Extension properties for particular simulation engines (Radiance, EnergyPlus). (required).</param>
         /// <param name="version">Text string for the current version of the schema. (default to &quot;0.0.0&quot;).</param>
+        /// <param name="buildings">A list of Buildings in the model..</param>
         /// <param name="contextShades">A list of ContextShades in the model..</param>
         /// <param name="units">Text indicating the units in which the model geometry exists. This is used to scale the geometry to the correct units for simulation engines like EnergyPlus, which requires all geometry be in meters..</param>
         /// <param name="tolerance">The maximum difference between x, y, and z values at which vertices are considered equivalent. This value should be in the Model units and is used in a variety of checks and operations. A value of 0 will result in bypassing all checks so it is recommended that this always be a positive number when checks have not already been performed on a Model. The default of 0.01 is suitable for models in meters. (default to 0.01D).</param>
@@ -62,16 +62,15 @@ namespace DragonflySchema
         /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
         public Model
         (
-            string identifier, List<Building> buildings, ModelProperties properties, // Required parameters
-            string displayName= default, Object userData= default, string version = "0.0.0", List<ContextShade> contextShades= default, Units units= Units.Meters, double tolerance = 0.01D, double angleTolerance = 1.0D// Optional parameters
+            string identifier, ModelProperties properties, // Required parameters
+            string displayName= default, Object userData= default, string version = "0.0.0", List<Building> buildings= default, List<ContextShade> contextShades= default, Units units= Units.Meters, double tolerance = 0.01D, double angleTolerance = 1.0D// Optional parameters
         ) : base(identifier: identifier, displayName: displayName, userData: userData)// BaseClass
         {
-            // to ensure "buildings" is required (not null)
-            this.Buildings = buildings ?? throw new ArgumentNullException("buildings is a required property for Model and cannot be null");
             // to ensure "properties" is required (not null)
             this.Properties = properties ?? throw new ArgumentNullException("properties is a required property for Model and cannot be null");
             // use default value if no "version" provided
             this.Version = version ?? "0.0.0";
+            this.Buildings = buildings;
             this.ContextShades = contextShades;
             this.Units = units;
             this.Tolerance = tolerance;
@@ -93,12 +92,6 @@ namespace DragonflySchema
         public string Type { get; protected set; }  = "Model";
 
         /// <summary>
-        /// A list of Buildings in the model.
-        /// </summary>
-        /// <value>A list of Buildings in the model.</value>
-        [DataMember(Name = "buildings", IsRequired = true)]
-        public List<Building> Buildings { get; set; } 
-        /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         /// <value>Extension properties for particular simulation engines (Radiance, EnergyPlus).</value>
@@ -110,6 +103,12 @@ namespace DragonflySchema
         /// <value>Text string for the current version of the schema.</value>
         [DataMember(Name = "version")]
         public string Version { get; set; }  = "0.0.0";
+        /// <summary>
+        /// A list of Buildings in the model.
+        /// </summary>
+        /// <value>A list of Buildings in the model.</value>
+        [DataMember(Name = "buildings")]
+        public List<Building> Buildings { get; set; } 
         /// <summary>
         /// A list of ContextShades in the model.
         /// </summary>
@@ -153,9 +152,9 @@ namespace DragonflySchema
             sb.Append("  Identifier: ").Append(Identifier).Append("\n");
             sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
             sb.Append("  UserData: ").Append(UserData).Append("\n");
-            sb.Append("  Buildings: ").Append(Buildings).Append("\n");
             sb.Append("  Properties: ").Append(Properties).Append("\n");
             sb.Append("  Version: ").Append(Version).Append("\n");
+            sb.Append("  Buildings: ").Append(Buildings).Append("\n");
             sb.Append("  ContextShades: ").Append(ContextShades).Append("\n");
             sb.Append("  Units: ").Append(Units).Append("\n");
             sb.Append("  Tolerance: ").Append(Tolerance).Append("\n");
@@ -224,12 +223,6 @@ namespace DragonflySchema
                 return false;
             return base.Equals(input) && 
                 (
-                    this.Buildings == input.Buildings ||
-                    this.Buildings != null &&
-                    input.Buildings != null &&
-                    this.Buildings.SequenceEqual(input.Buildings)
-                ) && base.Equals(input) && 
-                (
                     this.Properties == input.Properties ||
                     (this.Properties != null &&
                     this.Properties.Equals(input.Properties))
@@ -243,6 +236,12 @@ namespace DragonflySchema
                     this.Version == input.Version ||
                     (this.Version != null &&
                     this.Version.Equals(input.Version))
+                ) && base.Equals(input) && 
+                (
+                    this.Buildings == input.Buildings ||
+                    this.Buildings != null &&
+                    input.Buildings != null &&
+                    this.Buildings.SequenceEqual(input.Buildings)
                 ) && base.Equals(input) && 
                 (
                     this.ContextShades == input.ContextShades ||
@@ -276,14 +275,14 @@ namespace DragonflySchema
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = base.GetHashCode();
-                if (this.Buildings != null)
-                    hashCode = hashCode * 59 + this.Buildings.GetHashCode();
                 if (this.Properties != null)
                     hashCode = hashCode * 59 + this.Properties.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Version != null)
                     hashCode = hashCode * 59 + this.Version.GetHashCode();
+                if (this.Buildings != null)
+                    hashCode = hashCode * 59 + this.Buildings.GetHashCode();
                 if (this.ContextShades != null)
                     hashCode = hashCode * 59 + this.ContextShades.GetHashCode();
                 if (this.Units != null)

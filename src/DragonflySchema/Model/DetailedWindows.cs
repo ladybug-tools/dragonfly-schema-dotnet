@@ -45,14 +45,16 @@ namespace DragonflySchema
         /// Initializes a new instance of the <see cref="DetailedWindows" /> class.
         /// </summary>
         /// <param name="polygons">An array of arrays with each sub-array representing a polygonal boundary of a window. Each sub-array should consist of arrays representing points, which can either contain 2 values (indicating they are 2D vertices within the plane of a parent wall segment) or they can contain 3 values (indicating they are 3D world coordinates). For 2D points, the wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each point in the polygon should always be positive. Some sample code to convert from 2D vertices to 2D vertices in the plane of the wall can be found here: https://www.ladybug.tools/dragonfly-core/docs/dragonfly.windowparameter.html#dragonfly.windowparameter.DetailedWindows (required).</param>
+        /// <param name="areDoors">An array of booleans that align with the polygons and note whether each of the polygons represents a door (True) or a window (False). If None, it will be assumed that all polygons represent windows and they will be translated to Apertures in any resulting Honeybee model..</param>
         public DetailedWindows
         (
-           List<List<List<double>>> polygons// Required parameters
-           // Optional parameters
+           List<List<List<double>>> polygons, // Required parameters
+           List<bool> areDoors= default// Optional parameters
         ) : base()// BaseClass
         {
             // to ensure "polygons" is required (not null)
             this.Polygons = polygons ?? throw new ArgumentNullException("polygons is a required property for DetailedWindows and cannot be null");
+            this.AreDoors = areDoors;
 
             // Set non-required readonly properties with defaultValue
             this.Type = "DetailedWindows";
@@ -75,6 +77,12 @@ namespace DragonflySchema
         /// <value>An array of arrays with each sub-array representing a polygonal boundary of a window. Each sub-array should consist of arrays representing points, which can either contain 2 values (indicating they are 2D vertices within the plane of a parent wall segment) or they can contain 3 values (indicating they are 3D world coordinates). For 2D points, the wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each point in the polygon should always be positive. Some sample code to convert from 2D vertices to 2D vertices in the plane of the wall can be found here: https://www.ladybug.tools/dragonfly-core/docs/dragonfly.windowparameter.html#dragonfly.windowparameter.DetailedWindows</value>
         [DataMember(Name = "polygons", IsRequired = true)]
         public List<List<List<double>>> Polygons { get; set; } 
+        /// <summary>
+        /// An array of booleans that align with the polygons and note whether each of the polygons represents a door (True) or a window (False). If None, it will be assumed that all polygons represent windows and they will be translated to Apertures in any resulting Honeybee model.
+        /// </summary>
+        /// <value>An array of booleans that align with the polygons and note whether each of the polygons represents a door (True) or a window (False). If None, it will be assumed that all polygons represent windows and they will be translated to Apertures in any resulting Honeybee model.</value>
+        [DataMember(Name = "are_doors")]
+        public List<bool> AreDoors { get; set; } 
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -98,6 +106,7 @@ namespace DragonflySchema
             sb.Append("DetailedWindows:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  Polygons: ").Append(Polygons).Append("\n");
+            sb.Append("  AreDoors: ").Append(AreDoors).Append("\n");
             return sb.ToString();
         }
   
@@ -171,6 +180,12 @@ namespace DragonflySchema
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
+                ) && base.Equals(input) && 
+                (
+                    this.AreDoors == input.AreDoors ||
+                    this.AreDoors != null &&
+                    input.AreDoors != null &&
+                    this.AreDoors.SequenceEqual(input.AreDoors)
                 );
         }
 
@@ -187,6 +202,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.Polygons.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.AreDoors != null)
+                    hashCode = hashCode * 59 + this.AreDoors.GetHashCode();
                 return hashCode;
             }
         }
