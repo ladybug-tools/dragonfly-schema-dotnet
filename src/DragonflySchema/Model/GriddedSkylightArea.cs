@@ -25,41 +25,41 @@ using System.ComponentModel.DataAnnotations;
 namespace DragonflySchema
 {
     /// <summary>
-    /// Gridded skylights derived from an area ratio with the roof.
+    /// Gridded skylights defined by an absolute area.
     /// </summary>
     [Serializable]
-    [DataContract(Name = "GriddedSkylightRatio")]
-    public partial class GriddedSkylightRatio : OpenAPIGenBaseModel, IEquatable<GriddedSkylightRatio>, IValidatableObject
+    [DataContract(Name = "GriddedSkylightArea")]
+    public partial class GriddedSkylightArea : OpenAPIGenBaseModel, IEquatable<GriddedSkylightArea>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GriddedSkylightRatio" /> class.
+        /// Initializes a new instance of the <see cref="GriddedSkylightArea" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected GriddedSkylightRatio() 
+        protected GriddedSkylightArea() 
         { 
             // Set non-required readonly properties with defaultValue
-            this.Type = "GriddedSkylightRatio";
+            this.Type = "GriddedSkylightArea";
         }
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="GriddedSkylightRatio" /> class.
+        /// Initializes a new instance of the <see cref="GriddedSkylightArea" /> class.
         /// </summary>
-        /// <param name="skylightRatio">A number between 0 and 1 for the ratio between the skylight area and the total Roof face area. (required).</param>
+        /// <param name="skylightArea">A number for the skylight area in current model units. If this area is larger than the area of the roof that it is applied to, the skylight will fill the parent roof at a 99 percent ratio. (required).</param>
         /// <param name="spacing">A number for the spacing between the centers of each grid cell. This should be less than a third of the dimension of the Roof geometry if multiple, evenly-spaced skylights are desired. If Autocalculate, a spacing of one third the smaller dimension of the parent Roof will be automatically assumed..</param>
-        public GriddedSkylightRatio
+        public GriddedSkylightArea
         (
-           double skylightRatio, // Required parameters
+           double skylightArea, // Required parameters
            AnyOf<Autocalculate, double> spacing= default// Optional parameters
         ) : base()// BaseClass
         {
-            this.SkylightRatio = skylightRatio;
+            this.SkylightArea = skylightArea;
             this.Spacing = spacing;
 
             // Set non-required readonly properties with defaultValue
-            this.Type = "GriddedSkylightRatio";
+            this.Type = "GriddedSkylightArea";
 
             // check if object is valid
-            if (this.GetType() == typeof(GriddedSkylightRatio))
+            if (this.GetType() == typeof(GriddedSkylightArea))
                 this.IsValid(throwException: true);
         }
 
@@ -68,14 +68,14 @@ namespace DragonflySchema
         /// Gets or Sets Type
         /// </summary>
         [DataMember(Name = "type")]
-        public string Type { get; protected set; }  = "GriddedSkylightRatio";
+        public string Type { get; protected set; }  = "GriddedSkylightArea";
 
         /// <summary>
-        /// A number between 0 and 1 for the ratio between the skylight area and the total Roof face area.
+        /// A number for the skylight area in current model units. If this area is larger than the area of the roof that it is applied to, the skylight will fill the parent roof at a 99 percent ratio.
         /// </summary>
-        /// <value>A number between 0 and 1 for the ratio between the skylight area and the total Roof face area.</value>
-        [DataMember(Name = "skylight_ratio", IsRequired = true)]
-        public double SkylightRatio { get; set; } 
+        /// <value>A number for the skylight area in current model units. If this area is larger than the area of the roof that it is applied to, the skylight will fill the parent roof at a 99 percent ratio.</value>
+        [DataMember(Name = "skylight_area", IsRequired = true)]
+        public double SkylightArea { get; set; } 
         /// <summary>
         /// A number for the spacing between the centers of each grid cell. This should be less than a third of the dimension of the Roof geometry if multiple, evenly-spaced skylights are desired. If Autocalculate, a spacing of one third the smaller dimension of the parent Roof will be automatically assumed.
         /// </summary>
@@ -89,7 +89,7 @@ namespace DragonflySchema
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return "GriddedSkylightRatio";
+            return "GriddedSkylightArea";
         }
 
         /// <summary>
@@ -102,9 +102,9 @@ namespace DragonflySchema
                 return this.ToString();
             
             var sb = new StringBuilder();
-            sb.Append("GriddedSkylightRatio:\n");
+            sb.Append("GriddedSkylightArea:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  SkylightRatio: ").Append(SkylightRatio).Append("\n");
+            sb.Append("  SkylightArea: ").Append(SkylightArea).Append("\n");
             sb.Append("  Spacing: ").Append(Spacing).Append("\n");
             return sb.ToString();
         }
@@ -112,10 +112,10 @@ namespace DragonflySchema
         /// <summary>
         /// Returns the object from JSON string
         /// </summary>
-        /// <returns>GriddedSkylightRatio object</returns>
-        public static GriddedSkylightRatio FromJson(string json)
+        /// <returns>GriddedSkylightArea object</returns>
+        public static GriddedSkylightArea FromJson(string json)
         {
-            var obj = JsonConvert.DeserializeObject<GriddedSkylightRatio>(json, JsonSetting.AnyOfConvertSetting);
+            var obj = JsonConvert.DeserializeObject<GriddedSkylightArea>(json, JsonSetting.AnyOfConvertSetting);
             if (obj == null)
                 return null;
             return obj.Type.ToLower() == obj.GetType().Name.ToLower() && obj.IsValid(throwException: true) ? obj : null;
@@ -124,8 +124,8 @@ namespace DragonflySchema
         /// <summary>
         /// Creates a new instance with the same properties.
         /// </summary>
-        /// <returns>GriddedSkylightRatio object</returns>
-        public virtual GriddedSkylightRatio DuplicateGriddedSkylightRatio()
+        /// <returns>GriddedSkylightArea object</returns>
+        public virtual GriddedSkylightArea DuplicateGriddedSkylightArea()
         {
             return FromJson(this.ToJson());
         }
@@ -136,7 +136,7 @@ namespace DragonflySchema
         /// <returns>OpenAPIGenBaseModel</returns>
         public override OpenAPIGenBaseModel Duplicate()
         {
-            return DuplicateGriddedSkylightRatio();
+            return DuplicateGriddedSkylightArea();
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace DragonflySchema
         /// <returns>OpenAPIGenBaseModel</returns>
         public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
         {
-            return DuplicateGriddedSkylightRatio();
+            return DuplicateGriddedSkylightArea();
         }
      
         /// <summary>
@@ -156,23 +156,23 @@ namespace DragonflySchema
         public override bool Equals(object input)
         {
             input = input is AnyOf anyOf ? anyOf.Obj : input;
-            return this.Equals(input as GriddedSkylightRatio);
+            return this.Equals(input as GriddedSkylightArea);
         }
 
         /// <summary>
-        /// Returns true if GriddedSkylightRatio instances are equal
+        /// Returns true if GriddedSkylightArea instances are equal
         /// </summary>
-        /// <param name="input">Instance of GriddedSkylightRatio to be compared</param>
+        /// <param name="input">Instance of GriddedSkylightArea to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(GriddedSkylightRatio input)
+        public bool Equals(GriddedSkylightArea input)
         {
             if (input == null)
                 return false;
             return base.Equals(input) && 
                 (
-                    this.SkylightRatio == input.SkylightRatio ||
-                    (this.SkylightRatio != null &&
-                    this.SkylightRatio.Equals(input.SkylightRatio))
+                    this.SkylightArea == input.SkylightArea ||
+                    (this.SkylightArea != null &&
+                    this.SkylightArea.Equals(input.SkylightArea))
                 ) && base.Equals(input) && 
                 (
                     this.Type == input.Type ||
@@ -195,8 +195,8 @@ namespace DragonflySchema
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = base.GetHashCode();
-                if (this.SkylightRatio != null)
-                    hashCode = hashCode * 59 + this.SkylightRatio.GetHashCode();
+                if (this.SkylightArea != null)
+                    hashCode = hashCode * 59 + this.SkylightArea.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Spacing != null)
@@ -216,7 +216,7 @@ namespace DragonflySchema
 
             
             // Type (string) pattern
-            Regex regexType = new Regex(@"^GriddedSkylightRatio$", RegexOptions.CultureInvariant);
+            Regex regexType = new Regex(@"^GriddedSkylightArea$", RegexOptions.CultureInvariant);
             if (this.Type != null && false == regexType.Match(this.Type).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });

@@ -11,6 +11,7 @@ namespace DragonflySchema
 	public partial class DetailedWindows: DragonflySchema.IWindow_Parameter {}
 	public partial class RectangularWindows: DragonflySchema.IWindow_Parameter {}
 	public partial class RepeatingWindowRatio: DragonflySchema.IWindow_Parameter {}
+	public partial class SimpleWindowArea: DragonflySchema.IWindow_Parameter {}
 	public partial class SimpleWindowRatio: DragonflySchema.IWindow_Parameter {}
 	public partial class SingleWindow: DragonflySchema.IWindow_Parameter {}
 }
