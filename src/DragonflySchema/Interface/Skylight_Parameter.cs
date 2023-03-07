@@ -9,5 +9,6 @@ namespace DragonflySchema
 namespace DragonflySchema
 {
 	public partial class DetailedSkylights: DragonflySchema.ISkylight_Parameter {}
+	public partial class GriddedSkylightArea: DragonflySchema.ISkylight_Parameter {}
 	public partial class GriddedSkylightRatio: DragonflySchema.ISkylight_Parameter {}
 }

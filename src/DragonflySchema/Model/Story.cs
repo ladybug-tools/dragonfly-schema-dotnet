@@ -49,13 +49,14 @@ namespace DragonflySchema
         /// <param name="floorToFloorHeight">A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If Autocalculate, this value will be the maximum floor_to_ceiling_height of the input room_2ds..</param>
         /// <param name="floorHeight">A number to indicate the height of the floor plane in the Z axis.If Autocalculate, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums..</param>
         /// <param name="multiplier">An integer that denotes the number of times that this Story is repeated over the height of the building. (default to 1).</param>
+        /// <param name="roof">An optional RoofSpecification object containing geometry for generating sloped roofs over the Story. The RoofSpecification will only affect the child Room2Ds that have a True is_top_exposed property and it will only be utilized in translation to Honeybee when the Story multiplier is 1. If None, all Room2D ceilings will be flat..</param>
         /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. (required).</param>
         /// <param name="displayName">Display name of the object with no character restrictions..</param>
         /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
         public Story
         (
             string identifier, List<Room2D> room2ds, StoryPropertiesAbridged properties, // Required parameters
-            string displayName= default, Object userData= default, AnyOf<Autocalculate,double> floorToFloorHeight= default, AnyOf<Autocalculate,double> floorHeight= default, int multiplier = 1// Optional parameters
+            string displayName= default, Object userData= default, AnyOf<Autocalculate, double> floorToFloorHeight= default, AnyOf<Autocalculate, double> floorHeight= default, int multiplier = 1, RoofSpecification roof= default// Optional parameters
         ) : base(identifier: identifier, displayName: displayName, userData: userData)// BaseClass
         {
             // to ensure "room2ds" is required (not null)
@@ -65,6 +66,7 @@ namespace DragonflySchema
             this.FloorToFloorHeight = floorToFloorHeight;
             this.FloorHeight = floorHeight;
             this.Multiplier = multiplier;
+            this.Roof = roof;
 
             // Set non-required readonly properties with defaultValue
             this.Type = "Story";
@@ -98,19 +100,25 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If Autocalculate, this value will be the maximum floor_to_ceiling_height of the input room_2ds.</value>
         [DataMember(Name = "floor_to_floor_height")]
-        public AnyOf<Autocalculate,double> FloorToFloorHeight { get; set; } 
+        public AnyOf<Autocalculate, double> FloorToFloorHeight { get; set; } 
         /// <summary>
         /// A number to indicate the height of the floor plane in the Z axis.If Autocalculate, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums.
         /// </summary>
         /// <value>A number to indicate the height of the floor plane in the Z axis.If Autocalculate, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums.</value>
         [DataMember(Name = "floor_height")]
-        public AnyOf<Autocalculate,double> FloorHeight { get; set; } 
+        public AnyOf<Autocalculate, double> FloorHeight { get; set; } 
         /// <summary>
         /// An integer that denotes the number of times that this Story is repeated over the height of the building.
         /// </summary>
         /// <value>An integer that denotes the number of times that this Story is repeated over the height of the building.</value>
         [DataMember(Name = "multiplier")]
         public int Multiplier { get; set; }  = 1;
+        /// <summary>
+        /// An optional RoofSpecification object containing geometry for generating sloped roofs over the Story. The RoofSpecification will only affect the child Room2Ds that have a True is_top_exposed property and it will only be utilized in translation to Honeybee when the Story multiplier is 1. If None, all Room2D ceilings will be flat.
+        /// </summary>
+        /// <value>An optional RoofSpecification object containing geometry for generating sloped roofs over the Story. The RoofSpecification will only affect the child Room2Ds that have a True is_top_exposed property and it will only be utilized in translation to Honeybee when the Story multiplier is 1. If None, all Room2D ceilings will be flat.</value>
+        [DataMember(Name = "roof")]
+        public RoofSpecification Roof { get; set; } 
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -141,6 +149,7 @@ namespace DragonflySchema
             sb.Append("  FloorToFloorHeight: ").Append(FloorToFloorHeight).Append("\n");
             sb.Append("  FloorHeight: ").Append(FloorHeight).Append("\n");
             sb.Append("  Multiplier: ").Append(Multiplier).Append("\n");
+            sb.Append("  Roof: ").Append(Roof).Append("\n");
             return sb.ToString();
         }
   
@@ -234,6 +243,11 @@ namespace DragonflySchema
                     this.Multiplier == input.Multiplier ||
                     (this.Multiplier != null &&
                     this.Multiplier.Equals(input.Multiplier))
+                ) && base.Equals(input) && 
+                (
+                    this.Roof == input.Roof ||
+                    (this.Roof != null &&
+                    this.Roof.Equals(input.Roof))
                 );
         }
 
@@ -258,6 +272,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.FloorHeight.GetHashCode();
                 if (this.Multiplier != null)
                     hashCode = hashCode * 59 + this.Multiplier.GetHashCode();
+                if (this.Roof != null)
+                    hashCode = hashCode * 59 + this.Roof.GetHashCode();
                 return hashCode;
             }
         }

@@ -62,7 +62,7 @@ namespace DragonflySchema
         public Room2D
         (
             string identifier, List<List<double>> floorBoundary, double floorHeight, double floorToCeilingHeight, Room2DPropertiesAbridged properties, // Required parameters
-            string displayName= default, Object userData= default, List<List<List<double>>> floorHoles= default, bool isGroundContact = false, bool isTopExposed = false, List<AnyOf<Ground,Outdoors,Surface,Adiabatic,OtherSideTemperature>> boundaryConditions= default, List<AnyOf<SingleWindow,SimpleWindowRatio,RepeatingWindowRatio,RectangularWindows,DetailedWindows>> windowParameters= default, List<AnyOf<ExtrudedBorder,Overhang,LouversByDistance,LouversByCount>> shadingParameters= default, List<bool> airBoundaries= default, AnyOf<GriddedSkylightRatio,DetailedSkylights> skylightParameters= default// Optional parameters
+            string displayName= default, Object userData= default, List<List<List<double>>> floorHoles= default, bool isGroundContact = false, bool isTopExposed = false, List<AnyOf<Ground,Outdoors,Surface,Adiabatic,OtherSideTemperature>> boundaryConditions= default, List<AnyOf<SingleWindow,SimpleWindowArea,SimpleWindowRatio,RepeatingWindowRatio,RectangularWindows,DetailedWindows>> windowParameters= default, List<AnyOf<ExtrudedBorder,Overhang,LouversByDistance,LouversByCount>> shadingParameters= default, List<bool> airBoundaries= default, AnyOf<GriddedSkylightArea,GriddedSkylightRatio,DetailedSkylights> skylightParameters= default// Optional parameters
         ) : base(identifier: identifier, displayName: displayName, userData: userData)// BaseClass
         {
             // to ensure "floorBoundary" is required (not null)
@@ -148,7 +148,7 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A list of WindowParameter objects that dictate how the window geometries will be generated for each of the walls. If None, no windows will exist over the entire Room2D.</value>
         [DataMember(Name = "window_parameters")]
-        public List<AnyOf<SingleWindow,SimpleWindowRatio,RepeatingWindowRatio,RectangularWindows,DetailedWindows>> WindowParameters { get; set; } 
+        public List<AnyOf<SingleWindow,SimpleWindowArea,SimpleWindowRatio,RepeatingWindowRatio,RectangularWindows,DetailedWindows>> WindowParameters { get; set; } 
         /// <summary>
         /// A list of ShadingParameter objects that dictate how the shade geometries will be generated for each of the walls. If None, no shades will exist over the entire Room2D.
         /// </summary>
@@ -166,7 +166,7 @@ namespace DragonflySchema
         /// </summary>
         /// <value>A SkylightParameter object describing how to generate skylights. If None, no skylights will exist on the Room2D.</value>
         [DataMember(Name = "skylight_parameters")]
-        public AnyOf<GriddedSkylightRatio,DetailedSkylights> SkylightParameters { get; set; } 
+        public AnyOf<GriddedSkylightArea,GriddedSkylightRatio,DetailedSkylights> SkylightParameters { get; set; } 
 
         /// <summary>
         /// Returns the string presentation of the object
