@@ -29,7 +29,7 @@ namespace DragonflySchema
     /// </summary>
     [Serializable]
     [DataContract(Name = "RepeatingWindowRatio")]
-    public partial class RepeatingWindowRatio : OpenAPIGenBaseModel, IEquatable<RepeatingWindowRatio>, IValidatableObject
+    public partial class RepeatingWindowRatio : WindowParameterBase, IEquatable<RepeatingWindowRatio>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RepeatingWindowRatio" /> class.
@@ -49,11 +49,12 @@ namespace DragonflySchema
         /// <param name="sillHeight">A number for the target height above the bottom edge of the wall to start the windows. Note that, if the ratio is too large for the height, the ratio will take precedence and the sill_height will be smaller than this value. (required).</param>
         /// <param name="horizontalSeparation">A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced. (required).</param>
         /// <param name="verticalSeparation">An optional number to create a single vertical separation between top and bottom windows. (default to 0D).</param>
+        /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures..</param>
         public RepeatingWindowRatio
         (
            double windowRatio, double windowHeight, double sillHeight, double horizontalSeparation, // Required parameters
-           double verticalSeparation = 0D// Optional parameters
-        ) : base()// BaseClass
+            Object userData= default, double verticalSeparation = 0D// Optional parameters
+        ) : base(userData: userData)// BaseClass
         {
             this.WindowRatio = windowRatio;
             this.WindowHeight = windowHeight;
@@ -128,6 +129,7 @@ namespace DragonflySchema
             var sb = new StringBuilder();
             sb.Append("RepeatingWindowRatio:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  UserData: ").Append(UserData).Append("\n");
             sb.Append("  WindowRatio: ").Append(WindowRatio).Append("\n");
             sb.Append("  WindowHeight: ").Append(WindowHeight).Append("\n");
             sb.Append("  SillHeight: ").Append(SillHeight).Append("\n");
@@ -170,7 +172,7 @@ namespace DragonflySchema
         /// Creates a new instance with the same properties.
         /// </summary>
         /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
+        public override WindowParameterBase DuplicateWindowParameterBase()
         {
             return DuplicateRepeatingWindowRatio();
         }

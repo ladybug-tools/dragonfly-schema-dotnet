@@ -25,40 +25,29 @@ using System.ComponentModel.DataAnnotations;
 namespace DragonflySchema
 {
     /// <summary>
-    /// A single window defined by an area ratio with the base surface.
+    /// Base class for all window parameters.
     /// </summary>
     [Serializable]
-    [DataContract(Name = "SimpleWindowRatio")]
-    public partial class SimpleWindowRatio : WindowParameterBase, IEquatable<SimpleWindowRatio>, IValidatableObject
+    [DataContract(Name = "_WindowParameterBase")]
+    public partial class WindowParameterBase : OpenAPIGenBaseModel, IEquatable<WindowParameterBase>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SimpleWindowRatio" /> class.
+        /// Initializes a new instance of the <see cref="WindowParameterBase" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected SimpleWindowRatio() 
-        { 
-            // Set non-required readonly properties with defaultValue
-            this.Type = "SimpleWindowRatio";
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SimpleWindowRatio" /> class.
-        /// </summary>
-        /// <param name="windowRatio">A number between 0 and 1 for the ratio between the window area and the parent wall surface area. (required).</param>
         /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures..</param>
-        public SimpleWindowRatio
+        public WindowParameterBase
         (
-           double windowRatio, // Required parameters
-            Object userData= default // Optional parameters
-        ) : base(userData: userData)// BaseClass
+           // Required parameters
+           Object userData= default // Optional parameters
+        ) : base()// BaseClass
         {
-            this.WindowRatio = windowRatio;
+            this.UserData = userData;
 
             // Set non-required readonly properties with defaultValue
-            this.Type = "SimpleWindowRatio";
+            this.Type = "_WindowParameterBase";
 
             // check if object is valid
-            if (this.GetType() == typeof(SimpleWindowRatio))
+            if (this.GetType() == typeof(WindowParameterBase))
                 this.IsValid(throwException: true);
         }
 
@@ -67,14 +56,14 @@ namespace DragonflySchema
         /// Gets or Sets Type
         /// </summary>
         [DataMember(Name = "type")]
-        public string Type { get; protected set; }  = "SimpleWindowRatio";
+        public string Type { get; protected set; }  = "_WindowParameterBase";
 
         /// <summary>
-        /// A number between 0 and 1 for the ratio between the window area and the parent wall surface area.
+        /// Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures.
         /// </summary>
-        /// <value>A number between 0 and 1 for the ratio between the window area and the parent wall surface area.</value>
-        [DataMember(Name = "window_ratio", IsRequired = true)]
-        public double WindowRatio { get; set; } 
+        /// <value>Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures.</value>
+        [DataMember(Name = "user_data")]
+        public Object UserData { get; set; } 
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -82,7 +71,7 @@ namespace DragonflySchema
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return "SimpleWindowRatio";
+            return "WindowParameterBase";
         }
 
         /// <summary>
@@ -95,20 +84,19 @@ namespace DragonflySchema
                 return this.ToString();
             
             var sb = new StringBuilder();
-            sb.Append("SimpleWindowRatio:\n");
+            sb.Append("WindowParameterBase:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("  UserData: ").Append(UserData).Append("\n");
-            sb.Append("  WindowRatio: ").Append(WindowRatio).Append("\n");
             return sb.ToString();
         }
   
         /// <summary>
         /// Returns the object from JSON string
         /// </summary>
-        /// <returns>SimpleWindowRatio object</returns>
-        public static SimpleWindowRatio FromJson(string json)
+        /// <returns>WindowParameterBase object</returns>
+        public static WindowParameterBase FromJson(string json)
         {
-            var obj = JsonConvert.DeserializeObject<SimpleWindowRatio>(json, JsonSetting.AnyOfConvertSetting);
+            var obj = JsonConvert.DeserializeObject<WindowParameterBase>(json, JsonSetting.AnyOfConvertSetting);
             if (obj == null)
                 return null;
             return obj.Type.ToLower() == obj.GetType().Name.ToLower() && obj.IsValid(throwException: true) ? obj : null;
@@ -117,8 +105,8 @@ namespace DragonflySchema
         /// <summary>
         /// Creates a new instance with the same properties.
         /// </summary>
-        /// <returns>SimpleWindowRatio object</returns>
-        public virtual SimpleWindowRatio DuplicateSimpleWindowRatio()
+        /// <returns>WindowParameterBase object</returns>
+        public virtual WindowParameterBase DuplicateWindowParameterBase()
         {
             return FromJson(this.ToJson());
         }
@@ -129,16 +117,16 @@ namespace DragonflySchema
         /// <returns>OpenAPIGenBaseModel</returns>
         public override OpenAPIGenBaseModel Duplicate()
         {
-            return DuplicateSimpleWindowRatio();
+            return DuplicateWindowParameterBase();
         }
 
         /// <summary>
         /// Creates a new instance with the same properties.
         /// </summary>
         /// <returns>OpenAPIGenBaseModel</returns>
-        public override WindowParameterBase DuplicateWindowParameterBase()
+        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
         {
-            return DuplicateSimpleWindowRatio();
+            return DuplicateWindowParameterBase();
         }
      
         /// <summary>
@@ -149,23 +137,23 @@ namespace DragonflySchema
         public override bool Equals(object input)
         {
             input = input is AnyOf anyOf ? anyOf.Obj : input;
-            return this.Equals(input as SimpleWindowRatio);
+            return this.Equals(input as WindowParameterBase);
         }
 
         /// <summary>
-        /// Returns true if SimpleWindowRatio instances are equal
+        /// Returns true if WindowParameterBase instances are equal
         /// </summary>
-        /// <param name="input">Instance of SimpleWindowRatio to be compared</param>
+        /// <param name="input">Instance of WindowParameterBase to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(SimpleWindowRatio input)
+        public bool Equals(WindowParameterBase input)
         {
             if (input == null)
                 return false;
             return base.Equals(input) && 
                 (
-                    this.WindowRatio == input.WindowRatio ||
-                    (this.WindowRatio != null &&
-                    this.WindowRatio.Equals(input.WindowRatio))
+                    this.UserData == input.UserData ||
+                    (this.UserData != null &&
+                    this.UserData.Equals(input.UserData))
                 ) && base.Equals(input) && 
                 (
                     this.Type == input.Type ||
@@ -183,8 +171,8 @@ namespace DragonflySchema
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = base.GetHashCode();
-                if (this.WindowRatio != null)
-                    hashCode = hashCode * 59 + this.WindowRatio.GetHashCode();
+                if (this.UserData != null)
+                    hashCode = hashCode * 59 + this.UserData.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
@@ -198,11 +186,21 @@ namespace DragonflySchema
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            return this.BaseValidate(validationContext);
+        }
+
+        /// <summary>
+        /// To validate all properties of the instance
+        /// </summary>
+        /// <param name="validationContext">Validation context</param>
+        /// <returns>Validation Result</returns>
+        protected IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> BaseValidate(ValidationContext validationContext)
+        {
             foreach(var x in base.BaseValidate(validationContext)) yield return x;
 
             
             // Type (string) pattern
-            Regex regexType = new Regex(@"^SimpleWindowRatio$", RegexOptions.CultureInvariant);
+            Regex regexType = new Regex(@"^_WindowParameterBase$", RegexOptions.CultureInvariant);
             if (this.Type != null && false == regexType.Match(this.Type).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, must match a pattern of " + regexType, new [] { "Type" });

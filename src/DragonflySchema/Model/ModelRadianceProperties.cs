@@ -43,7 +43,7 @@ namespace DragonflySchema
         ) : base()// BaseClass
         {
             this.ModifierSets = modifierSets;
-            this.Modifiers = modifiers; 
+            this.Modifiers = modifiers;
 
             // Set non-required readonly properties with defaultValue
             this.Type = "ModelRadianceProperties";
