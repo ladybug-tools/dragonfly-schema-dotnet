@@ -29,7 +29,7 @@ namespace DragonflySchema
     /// </summary>
     [Serializable]
     [DataContract(Name = "DetailedWindows")]
-    public partial class DetailedWindows : OpenAPIGenBaseModel, IEquatable<DetailedWindows>, IValidatableObject
+    public partial class DetailedWindows : WindowParameterBase, IEquatable<DetailedWindows>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailedWindows" /> class.
@@ -46,11 +46,12 @@ namespace DragonflySchema
         /// </summary>
         /// <param name="polygons">An array of arrays with each sub-array representing a polygonal boundary of a window. Each sub-array should consist of arrays representing points, which can either contain 2 values (indicating they are 2D vertices within the plane of a parent wall segment) or they can contain 3 values (indicating they are 3D world coordinates). For 2D points, the wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each point in the polygon should always be positive. Some sample code to convert from 2D vertices to 2D vertices in the plane of the wall can be found here: https://www.ladybug.tools/dragonfly-core/docs/dragonfly.windowparameter.html#dragonfly.windowparameter.DetailedWindows (required).</param>
         /// <param name="areDoors">An array of booleans that align with the polygons and note whether each of the polygons represents a door (True) or a window (False). If None, it will be assumed that all polygons represent windows and they will be translated to Apertures in any resulting Honeybee model..</param>
+        /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures..</param>
         public DetailedWindows
         (
            List<List<List<double>>> polygons, // Required parameters
-           List<bool> areDoors= default// Optional parameters
-        ) : base()// BaseClass
+            Object userData= default, List<bool> areDoors= default// Optional parameters
+        ) : base(userData: userData)// BaseClass
         {
             // to ensure "polygons" is required (not null)
             this.Polygons = polygons ?? throw new ArgumentNullException("polygons is a required property for DetailedWindows and cannot be null");
@@ -105,6 +106,7 @@ namespace DragonflySchema
             var sb = new StringBuilder();
             sb.Append("DetailedWindows:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  UserData: ").Append(UserData).Append("\n");
             sb.Append("  Polygons: ").Append(Polygons).Append("\n");
             sb.Append("  AreDoors: ").Append(AreDoors).Append("\n");
             return sb.ToString();
@@ -144,7 +146,7 @@ namespace DragonflySchema
         /// Creates a new instance with the same properties.
         /// </summary>
         /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
+        public override WindowParameterBase DuplicateWindowParameterBase()
         {
             return DuplicateDetailedWindows();
         }

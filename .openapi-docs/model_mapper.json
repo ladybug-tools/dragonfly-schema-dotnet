@@ -171,7 +171,8 @@
         "_GridParameterBase": "dragonfly_schema.radiance.gridpar",
         "_HeatCoolBase": "honeybee_schema.energy.hvac.heatcool",
         "_LouversBase": "dragonfly_schema.shading_parameter",
-        "_TemplateSystem": "honeybee_schema.energy.hvac._template"
+        "_TemplateSystem": "honeybee_schema.energy.hvac._template",
+        "_WindowParameterBase": "dragonfly_schema.window_parameter"
     },
     "enums": {
         "AllAirEconomizerType": "honeybee_schema.energy.hvac.allair",

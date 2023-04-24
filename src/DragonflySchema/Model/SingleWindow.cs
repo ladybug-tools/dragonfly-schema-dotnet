@@ -29,7 +29,7 @@ namespace DragonflySchema
     /// </summary>
     [Serializable]
     [DataContract(Name = "SingleWindow")]
-    public partial class SingleWindow : OpenAPIGenBaseModel, IEquatable<SingleWindow>, IValidatableObject
+    public partial class SingleWindow : WindowParameterBase, IEquatable<SingleWindow>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SingleWindow" /> class.
@@ -47,11 +47,12 @@ namespace DragonflySchema
         /// <param name="width">A number for the window width. Note that, if this width is applied to a wall that is too narrow for this width, the generated window will automatically be shortened when it is applied to the wall. In this way, setting the width to be &#x60;float(\&quot;inf\&quot;)&#x60; will create parameters that always generate a ribbon window. (required).</param>
         /// <param name="height">A number for the window height. Note that, if this height is applied to a wall that is too short for this height, the generated window will automatically be shortened when it is applied to the wall. (required).</param>
         /// <param name="sillHeight">A number for the window sill height. (default to 1.0D).</param>
+        /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures..</param>
         public SingleWindow
         (
            double width, double height, // Required parameters
-           double sillHeight = 1.0D// Optional parameters
-        ) : base()// BaseClass
+            Object userData= default, double sillHeight = 1.0D// Optional parameters
+        ) : base(userData: userData)// BaseClass
         {
             this.Width = width;
             this.Height = height;
@@ -112,6 +113,7 @@ namespace DragonflySchema
             var sb = new StringBuilder();
             sb.Append("SingleWindow:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  UserData: ").Append(UserData).Append("\n");
             sb.Append("  Width: ").Append(Width).Append("\n");
             sb.Append("  Height: ").Append(Height).Append("\n");
             sb.Append("  SillHeight: ").Append(SillHeight).Append("\n");
@@ -152,7 +154,7 @@ namespace DragonflySchema
         /// Creates a new instance with the same properties.
         /// </summary>
         /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
+        public override WindowParameterBase DuplicateWindowParameterBase()
         {
             return DuplicateSingleWindow();
         }

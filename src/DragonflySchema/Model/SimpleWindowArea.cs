@@ -29,7 +29,7 @@ namespace DragonflySchema
     /// </summary>
     [Serializable]
     [DataContract(Name = "SimpleWindowArea")]
-    public partial class SimpleWindowArea : OpenAPIGenBaseModel, IEquatable<SimpleWindowArea>, IValidatableObject
+    public partial class SimpleWindowArea : WindowParameterBase, IEquatable<SimpleWindowArea>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleWindowArea" /> class.
@@ -45,11 +45,12 @@ namespace DragonflySchema
         /// Initializes a new instance of the <see cref="SimpleWindowArea" /> class.
         /// </summary>
         /// <param name="windowArea">A number for the window area in current model units. If this area is larger than the area of the Wall that it is appliedto, the window will fill the parent Wall at a 99 percent ratio. (required).</param>
+        /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures..</param>
         public SimpleWindowArea
         (
-           double windowArea// Required parameters
-           // Optional parameters
-        ) : base()// BaseClass
+           double windowArea, // Required parameters
+            Object userData= default // Optional parameters
+        ) : base(userData: userData)// BaseClass
         {
             this.WindowArea = windowArea;
 
@@ -96,6 +97,7 @@ namespace DragonflySchema
             var sb = new StringBuilder();
             sb.Append("SimpleWindowArea:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  UserData: ").Append(UserData).Append("\n");
             sb.Append("  WindowArea: ").Append(WindowArea).Append("\n");
             return sb.ToString();
         }
@@ -134,7 +136,7 @@ namespace DragonflySchema
         /// Creates a new instance with the same properties.
         /// </summary>
         /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
+        public override WindowParameterBase DuplicateWindowParameterBase()
         {
             return DuplicateSimpleWindowArea();
         }

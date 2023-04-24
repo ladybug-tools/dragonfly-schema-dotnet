@@ -29,7 +29,7 @@ namespace DragonflySchema
     /// </summary>
     [Serializable]
     [DataContract(Name = "RectangularWindows")]
-    public partial class RectangularWindows : OpenAPIGenBaseModel, IEquatable<RectangularWindows>, IValidatableObject
+    public partial class RectangularWindows : WindowParameterBase, IEquatable<RectangularWindows>, IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RectangularWindows" /> class.
@@ -48,11 +48,12 @@ namespace DragonflySchema
         /// <param name="widths">An array of positive numbers for the window widths. The length of this list must match the length of the origins. (required).</param>
         /// <param name="heights">An array of positive numbers for the window heights. The length of this list must match the length of the origins. (required).</param>
         /// <param name="areDoors">An array of booleans that align with the origins and note whether each of the geometries represents a door (True) or a window (False). If None, it will be assumed that all geometries represent windows and they will be translated to Apertures in any resulting Honeybee model..</param>
+        /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures..</param>
         public RectangularWindows
         (
            List<List<double>> origins, List<double> widths, List<double> heights, // Required parameters
-           List<bool> areDoors= default// Optional parameters
-        ) : base()// BaseClass
+            Object userData= default, List<bool> areDoors= default// Optional parameters
+        ) : base(userData: userData)// BaseClass
         {
             // to ensure "origins" is required (not null)
             this.Origins = origins ?? throw new ArgumentNullException("origins is a required property for RectangularWindows and cannot be null");
@@ -123,6 +124,7 @@ namespace DragonflySchema
             var sb = new StringBuilder();
             sb.Append("RectangularWindows:\n");
             sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  UserData: ").Append(UserData).Append("\n");
             sb.Append("  Origins: ").Append(Origins).Append("\n");
             sb.Append("  Widths: ").Append(Widths).Append("\n");
             sb.Append("  Heights: ").Append(Heights).Append("\n");
@@ -164,7 +166,7 @@ namespace DragonflySchema
         /// Creates a new instance with the same properties.
         /// </summary>
         /// <returns>OpenAPIGenBaseModel</returns>
-        public override OpenAPIGenBaseModel DuplicateOpenAPIGenBaseModel()
+        public override WindowParameterBase DuplicateWindowParameterBase()
         {
             return DuplicateRectangularWindows();
         }
