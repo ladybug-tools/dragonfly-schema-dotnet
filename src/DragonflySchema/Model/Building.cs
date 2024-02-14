@@ -44,21 +44,22 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Building" /> class.
         /// </summary>
-        /// <param name="uniqueStories">An array of unique dragonfly Story objects that together form the entire building. Stories should generally be ordered from lowest floor to highest floor. Note that, if a given Story is repeated several times over the height of the building, the unique story included in this list should be the first (lowest) story of the repeated floors. (required).</param>
         /// <param name="properties">Extension properties for particular simulation engines (Radiance, EnergyPlus). (required).</param>
+        /// <param name="uniqueStories">An array of unique dragonfly Story objects that together form the entire building. Stories should generally be ordered from lowest floor to highest floor, though this is not required. Note that, if a given Story is repeated several times over the height of the building and this is represented by the multiplier, the unique story included in this list should be the first (lowest) story of the repeated floors..</param>
+        /// <param name="room3ds">An optional array of 3D Honeybee Room objects for additional Rooms that are a part of the Building but are not represented within the unique_stories. This is useful when there are parts of the Building geometry that cannot easily be represented with the extruded floor plate and sloped roof assumptions that underlie Dragonfly Room2Ds and RoofSpecification. Cases where this input is most useful include sloped walls and certain types of domed roofs that become tedious to implement with RoofSpecification. Matching the Honeybee Room.story property to the Dragonfly Story.display_name of an object within the unique_stories will effectively place the Honeybee Room on that Story for the purposes of floor_area, exterior_wall_area, etc. However, note that the Honeybee Room.multiplier property takes precedence over whatever multiplier is assigned to the Dragonfly Story that the Room.story may reference. (Default: None)..</param>
         /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. (required).</param>
         /// <param name="displayName">Display name of the object with no character restrictions..</param>
         /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
         public Building
         (
-            string identifier, List<Story> uniqueStories, BuildingPropertiesAbridged properties, // Required parameters
-            string displayName= default, Object userData= default // Optional parameters
+            string identifier, BuildingPropertiesAbridged properties, // Required parameters
+            string displayName= default, Object userData= default, List<Story> uniqueStories= default, List<Room> room3ds= default// Optional parameters
         ) : base(identifier: identifier, displayName: displayName, userData: userData)// BaseClass
         {
-            // to ensure "uniqueStories" is required (not null)
-            this.UniqueStories = uniqueStories ?? throw new ArgumentNullException("uniqueStories is a required property for Building and cannot be null");
             // to ensure "properties" is required (not null)
             this.Properties = properties ?? throw new ArgumentNullException("properties is a required property for Building and cannot be null");
+            this.UniqueStories = uniqueStories;
+            this.Room3ds = room3ds;
 
             // Set non-required readonly properties with defaultValue
             this.Type = "Building";
@@ -76,17 +77,23 @@ namespace DragonflySchema
         public string Type { get; protected set; }  = "Building";
 
         /// <summary>
-        /// An array of unique dragonfly Story objects that together form the entire building. Stories should generally be ordered from lowest floor to highest floor. Note that, if a given Story is repeated several times over the height of the building, the unique story included in this list should be the first (lowest) story of the repeated floors.
-        /// </summary>
-        /// <value>An array of unique dragonfly Story objects that together form the entire building. Stories should generally be ordered from lowest floor to highest floor. Note that, if a given Story is repeated several times over the height of the building, the unique story included in this list should be the first (lowest) story of the repeated floors.</value>
-        [DataMember(Name = "unique_stories", IsRequired = true)]
-        public List<Story> UniqueStories { get; set; } 
-        /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         /// <value>Extension properties for particular simulation engines (Radiance, EnergyPlus).</value>
         [DataMember(Name = "properties", IsRequired = true)]
         public BuildingPropertiesAbridged Properties { get; set; } 
+        /// <summary>
+        /// An array of unique dragonfly Story objects that together form the entire building. Stories should generally be ordered from lowest floor to highest floor, though this is not required. Note that, if a given Story is repeated several times over the height of the building and this is represented by the multiplier, the unique story included in this list should be the first (lowest) story of the repeated floors.
+        /// </summary>
+        /// <value>An array of unique dragonfly Story objects that together form the entire building. Stories should generally be ordered from lowest floor to highest floor, though this is not required. Note that, if a given Story is repeated several times over the height of the building and this is represented by the multiplier, the unique story included in this list should be the first (lowest) story of the repeated floors.</value>
+        [DataMember(Name = "unique_stories")]
+        public List<Story> UniqueStories { get; set; } 
+        /// <summary>
+        /// An optional array of 3D Honeybee Room objects for additional Rooms that are a part of the Building but are not represented within the unique_stories. This is useful when there are parts of the Building geometry that cannot easily be represented with the extruded floor plate and sloped roof assumptions that underlie Dragonfly Room2Ds and RoofSpecification. Cases where this input is most useful include sloped walls and certain types of domed roofs that become tedious to implement with RoofSpecification. Matching the Honeybee Room.story property to the Dragonfly Story.display_name of an object within the unique_stories will effectively place the Honeybee Room on that Story for the purposes of floor_area, exterior_wall_area, etc. However, note that the Honeybee Room.multiplier property takes precedence over whatever multiplier is assigned to the Dragonfly Story that the Room.story may reference. (Default: None).
+        /// </summary>
+        /// <value>An optional array of 3D Honeybee Room objects for additional Rooms that are a part of the Building but are not represented within the unique_stories. This is useful when there are parts of the Building geometry that cannot easily be represented with the extruded floor plate and sloped roof assumptions that underlie Dragonfly Room2Ds and RoofSpecification. Cases where this input is most useful include sloped walls and certain types of domed roofs that become tedious to implement with RoofSpecification. Matching the Honeybee Room.story property to the Dragonfly Story.display_name of an object within the unique_stories will effectively place the Honeybee Room on that Story for the purposes of floor_area, exterior_wall_area, etc. However, note that the Honeybee Room.multiplier property takes precedence over whatever multiplier is assigned to the Dragonfly Story that the Room.story may reference. (Default: None).</value>
+        [DataMember(Name = "room_3ds")]
+        public List<Room> Room3ds { get; set; } 
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -112,8 +119,9 @@ namespace DragonflySchema
             sb.Append("  Identifier: ").Append(Identifier).Append("\n");
             sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
             sb.Append("  UserData: ").Append(UserData).Append("\n");
-            sb.Append("  UniqueStories: ").Append(UniqueStories).Append("\n");
             sb.Append("  Properties: ").Append(Properties).Append("\n");
+            sb.Append("  UniqueStories: ").Append(UniqueStories).Append("\n");
+            sb.Append("  Room3ds: ").Append(Room3ds).Append("\n");
             return sb.ToString();
         }
   
@@ -178,12 +186,6 @@ namespace DragonflySchema
                 return false;
             return base.Equals(input) && 
                 (
-                    this.UniqueStories == input.UniqueStories ||
-                    this.UniqueStories != null &&
-                    input.UniqueStories != null &&
-                    this.UniqueStories.SequenceEqual(input.UniqueStories)
-                ) && base.Equals(input) && 
-                (
                     this.Properties == input.Properties ||
                     (this.Properties != null &&
                     this.Properties.Equals(input.Properties))
@@ -192,6 +194,18 @@ namespace DragonflySchema
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
+                ) && base.Equals(input) && 
+                (
+                    this.UniqueStories == input.UniqueStories ||
+                    this.UniqueStories != null &&
+                    input.UniqueStories != null &&
+                    this.UniqueStories.SequenceEqual(input.UniqueStories)
+                ) && base.Equals(input) && 
+                (
+                    this.Room3ds == input.Room3ds ||
+                    this.Room3ds != null &&
+                    input.Room3ds != null &&
+                    this.Room3ds.SequenceEqual(input.Room3ds)
                 );
         }
 
@@ -204,12 +218,14 @@ namespace DragonflySchema
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = base.GetHashCode();
-                if (this.UniqueStories != null)
-                    hashCode = hashCode * 59 + this.UniqueStories.GetHashCode();
                 if (this.Properties != null)
                     hashCode = hashCode * 59 + this.Properties.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.UniqueStories != null)
+                    hashCode = hashCode * 59 + this.UniqueStories.GetHashCode();
+                if (this.Room3ds != null)
+                    hashCode = hashCode * 59 + this.Room3ds.GetHashCode();
                 return hashCode;
             }
         }
