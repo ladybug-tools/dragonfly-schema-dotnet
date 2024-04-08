@@ -44,7 +44,7 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextShade" /> class.
         /// </summary>
-        /// <param name="geometry">An array of planar Face3Ds that together represent the context shade. (required).</param>
+        /// <param name="geometry">An array of planar Face3Ds and or Mesh3Ds that together represent the context shade. (required).</param>
         /// <param name="properties">Extension properties for particular simulation engines (Radiance, EnergyPlus). (required).</param>
         /// <param name="isDetached">Boolean to note whether this shade is detached from any of the other geometry in the model. Cases where this should be True include shade representing surrounding buildings or context. (default to true).</param>
         /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be &lt; 100 characters and not contain any spaces or special characters. (required).</param>
@@ -52,7 +52,7 @@ namespace DragonflySchema
         /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list)..</param>
         public ContextShade
         (
-            string identifier, List<Face3D> geometry, ContextShadePropertiesAbridged properties, // Required parameters
+            string identifier, List<AnyOf<Face3D,Mesh3D>> geometry, ContextShadePropertiesAbridged properties, // Required parameters
             string displayName= default, Object userData= default, bool isDetached = true// Optional parameters
         ) : base(identifier: identifier, displayName: displayName, userData: userData)// BaseClass
         {
@@ -78,11 +78,11 @@ namespace DragonflySchema
         public string Type { get; protected set; }  = "ContextShade";
 
         /// <summary>
-        /// An array of planar Face3Ds that together represent the context shade.
+        /// An array of planar Face3Ds and or Mesh3Ds that together represent the context shade.
         /// </summary>
-        /// <value>An array of planar Face3Ds that together represent the context shade.</value>
+        /// <value>An array of planar Face3Ds and or Mesh3Ds that together represent the context shade.</value>
         [DataMember(Name = "geometry", IsRequired = true)]
-        public List<Face3D> Geometry { get; set; } 
+        public List<AnyOf<Face3D,Mesh3D>> Geometry { get; set; } 
         /// <summary>
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>

@@ -47,6 +47,8 @@ docs/BuildingPropertiesAbridged.md
 docs/BuildingPropertiesAbridgedAllOf.md
 docs/BuildingRadiancePropertiesAbridged.md
 docs/BuildingRadiancePropertiesAbridgedAllOf.md
+docs/Color.md
+docs/ColorAllOf.md
 docs/ConstructionSet.md
 docs/ConstructionSetAbridged.md
 docs/ConstructionSetAbridgedAllOf.md
@@ -215,6 +217,8 @@ docs/LouversByCount.md
 docs/LouversByCountAllOf.md
 docs/LouversByDistance.md
 docs/LouversByDistanceAllOf.md
+docs/Mesh3D.md
+docs/Mesh3DAllOf.md
 docs/Metal.md
 docs/MetalAllOf.md
 docs/Mirror.md
@@ -491,6 +495,8 @@ src/DragonflySchema.Test/Model/BuildingPropertiesAbridgedTests.cs
 src/DragonflySchema.Test/Model/BuildingRadiancePropertiesAbridgedAllOfTests.cs
 src/DragonflySchema.Test/Model/BuildingRadiancePropertiesAbridgedTests.cs
 src/DragonflySchema.Test/Model/BuildingTests.cs
+src/DragonflySchema.Test/Model/ColorAllOfTests.cs
+src/DragonflySchema.Test/Model/ColorTests.cs
 src/DragonflySchema.Test/Model/ConstructionSetAbridgedAllOfTests.cs
 src/DragonflySchema.Test/Model/ConstructionSetAbridgedTests.cs
 src/DragonflySchema.Test/Model/ConstructionSetAllOfTests.cs
@@ -659,6 +665,8 @@ src/DragonflySchema.Test/Model/LouversByCountAllOfTests.cs
 src/DragonflySchema.Test/Model/LouversByCountTests.cs
 src/DragonflySchema.Test/Model/LouversByDistanceAllOfTests.cs
 src/DragonflySchema.Test/Model/LouversByDistanceTests.cs
+src/DragonflySchema.Test/Model/Mesh3DAllOfTests.cs
+src/DragonflySchema.Test/Model/Mesh3DTests.cs
 src/DragonflySchema.Test/Model/MetalAllOfTests.cs
 src/DragonflySchema.Test/Model/MetalTests.cs
 src/DragonflySchema.Test/Model/MirrorAllOfTests.cs
@@ -944,6 +952,8 @@ src/DragonflySchema/Model/BuildingPropertiesAbridged.cs
 src/DragonflySchema/Model/BuildingPropertiesAbridgedAllOf.cs
 src/DragonflySchema/Model/BuildingRadiancePropertiesAbridged.cs
 src/DragonflySchema/Model/BuildingRadiancePropertiesAbridgedAllOf.cs
+src/DragonflySchema/Model/Color.cs
+src/DragonflySchema/Model/ColorAllOf.cs
 src/DragonflySchema/Model/ConstructionSet.cs
 src/DragonflySchema/Model/ConstructionSetAbridged.cs
 src/DragonflySchema/Model/ConstructionSetAbridgedAllOf.cs
@@ -1112,6 +1122,8 @@ src/DragonflySchema/Model/LouversByCount.cs
 src/DragonflySchema/Model/LouversByCountAllOf.cs
 src/DragonflySchema/Model/LouversByDistance.cs
 src/DragonflySchema/Model/LouversByDistanceAllOf.cs
+src/DragonflySchema/Model/Mesh3D.cs
+src/DragonflySchema/Model/Mesh3DAllOf.cs
 src/DragonflySchema/Model/Metal.cs
 src/DragonflySchema/Model/MetalAllOf.cs
 src/DragonflySchema/Model/Mirror.cs
