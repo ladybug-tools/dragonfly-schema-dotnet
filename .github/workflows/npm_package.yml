@@ -6,7 +6,7 @@ on:
     branches:
       - master
     paths:
-      - src/DragonflySchemaSDK/**
+      - src/TypeScriptSDK/**
 
 jobs:
   release:
