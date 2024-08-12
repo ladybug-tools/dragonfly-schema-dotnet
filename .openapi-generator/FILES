@@ -318,6 +318,8 @@ docs/Room2DPropertiesAbridgedAllOf.md
 docs/Room2DRadiancePropertiesAbridged.md
 docs/Room2DRadiancePropertiesAbridgedAllOf.md
 docs/RoomAllOf.md
+docs/RoomDoe2Properties.md
+docs/RoomDoe2PropertiesAllOf.md
 docs/RoomEnergyPropertiesAbridged.md
 docs/RoomEnergyPropertiesAbridgedAllOf.md
 docs/RoomGridParameter.md
@@ -765,6 +767,8 @@ src/DragonflySchema.Test/Model/Room2DRadiancePropertiesAbridgedAllOfTests.cs
 src/DragonflySchema.Test/Model/Room2DRadiancePropertiesAbridgedTests.cs
 src/DragonflySchema.Test/Model/Room2DTests.cs
 src/DragonflySchema.Test/Model/RoomAllOfTests.cs
+src/DragonflySchema.Test/Model/RoomDoe2PropertiesAllOfTests.cs
+src/DragonflySchema.Test/Model/RoomDoe2PropertiesTests.cs
 src/DragonflySchema.Test/Model/RoomEnergyPropertiesAbridgedAllOfTests.cs
 src/DragonflySchema.Test/Model/RoomEnergyPropertiesAbridgedTests.cs
 src/DragonflySchema.Test/Model/RoomGridParameterAllOfTests.cs
@@ -1223,6 +1227,8 @@ src/DragonflySchema/Model/Room2DPropertiesAbridgedAllOf.cs
 src/DragonflySchema/Model/Room2DRadiancePropertiesAbridged.cs
 src/DragonflySchema/Model/Room2DRadiancePropertiesAbridgedAllOf.cs
 src/DragonflySchema/Model/RoomAllOf.cs
+src/DragonflySchema/Model/RoomDoe2Properties.cs
+src/DragonflySchema/Model/RoomDoe2PropertiesAllOf.cs
 src/DragonflySchema/Model/RoomEnergyPropertiesAbridged.cs
 src/DragonflySchema/Model/RoomEnergyPropertiesAbridgedAllOf.cs
 src/DragonflySchema/Model/RoomGridParameter.cs
