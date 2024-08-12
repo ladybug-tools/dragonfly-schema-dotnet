@@ -138,6 +138,7 @@
         "Room2DEnergyPropertiesAbridged": "dragonfly_schema.energy.properties",
         "Room2DPropertiesAbridged": "dragonfly_schema.model",
         "Room2DRadiancePropertiesAbridged": "dragonfly_schema.radiance.properties",
+        "RoomDoe2Properties": "honeybee_schema.doe2.properties",
         "RoomEnergyPropertiesAbridged": "honeybee_schema.energy.properties",
         "RoomGridParameter": "dragonfly_schema.radiance.gridpar",
         "RoomPropertiesAbridged": "honeybee_schema.model",
