@@ -1,11 +1,11 @@
 ﻿/* 
- * Honeybee Schema
+ * {{ NameSpaceName }}
  *
  * Contact: info@ladybug.tools
  */
 
 extern alias LBTNewtonSoft;
-using System;
+//using System;
 using System.Linq;
 using System.IO;
 using System.Text;
@@ -17,7 +17,7 @@ using System.Runtime.Serialization;
 using LBTNewtonSoft::Newtonsoft.Json;
 using LBTNewtonSoft::Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
-
+using HoneybeeSchema;
 
 namespace {{ NameSpaceName }}
 {
@@ -27,9 +27,9 @@ namespace {{ NameSpaceName }}
     /// </summary>
 	{%- endif -%}
     [Summary(@"{{ Description }}")]
-    [Serializable]
+    [System.Serializable]
     [DataContract(Name = "{{ ClassName }}")]
-    public partial class {{ CsClassName }} :{% if HasInheritance %} {{ Inheritance }},{% endif %} IEquatable<{{ CsClassName }}>
+    public partial class {{ CsClassName }} :{% if HasInheritance %} {{ Inheritance }},{% endif %} System.IEquatable<{{ CsClassName }}>
     {
     {%- if hasOnlyReadOnly == false -%}
         /// <summary>
@@ -67,7 +67,7 @@ namespace {{ NameSpaceName }}
             {%- if property.IsValueType -%}
             this.{{ property.CsPropertyName }} = {{ property.CsParameterName }};
             {%- else -%}
-            this.{{ property.CsPropertyName }} = {{ property.CsParameterName }}{% if property.HasDefault %} ?? {% if property.HasVeryLongDefault %}{{ property.CsPropertyName }}Default{% else %}{{ property.DefaultCodeFormat }}{% endif %}{% elsif property.IsRequired %} ?? throw new ArgumentNullException("{{ property.CsParameterName }} is a required property for {{ CsClassName }} and cannot be null"){%- endif -%};
+            this.{{ property.CsPropertyName }} = {{ property.CsParameterName }}{% if property.HasDefault %} ?? {% if property.HasVeryLongDefault %}{{ property.CsPropertyName }}Default{% else %}{{ property.DefaultCodeFormat }}{% endif %}{% elsif property.IsRequired %} ?? throw new System.ArgumentNullException("{{ property.CsParameterName }} is a required property for {{ CsClassName }} and cannot be null"){%- endif -%};
             {%- endif -%}
         {%- endif -%}
 		{%- endfor -%}
@@ -258,7 +258,7 @@ namespace {{ NameSpaceName }}
 
             var resMsgs = string.Join( "; ", res.Select(_ => _.ErrorMessage));
             if (throwException)
-                throw new ArgumentException($"This is an invalid {this.Type} object! Error: {resMsgs}");
+                throw new System.ArgumentException($"This is an invalid {this.Type} object! Error: {resMsgs}");
             else
                 return false;
         }
