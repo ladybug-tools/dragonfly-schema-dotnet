@@ -9,45 +9,98 @@ using NJsonSchema.Visitors;
 using NSwag;
 using NSwag.CodeGeneration;
 using Newtonsoft.Json.Linq;
+// using Fluid;
+// using TemplateModels;
+using System.IO;
+using NJsonSchema.CodeGeneration.TypeScript;
+using Fluid;
+using TemplateModels.CSharp;
+using TemplateModels;
 
 namespace SchemaGenerator;
 
-internal class GenDTO
+public class GenDTO
 {
-    static string _sdkName = "DragonflySchemaSDK";
-    static string workingDir = Environment.CurrentDirectory;
+    public static string TargetLanguage { get; set; } = "CSharp";
+    private static TemplateOptions _templateOptions;
+    private static TemplateOptions TemplateOptions 
+    {
+        get
+        {
+            if (_templateOptions == null)
+            {
+                var options = new TemplateOptions();
+                var tps = typeof(GenTsDTO).Assembly
+                    .GetTypes()
+                    .Where(_ => _.IsPublic)
+                    .Where(t => t.Namespace.StartsWith("TemplateModels.Base") || t.Namespace.StartsWith($"TemplateModels.{TargetLanguage}"))
+                    .ToList();
+
+                foreach (var item in tps)
+                {
+                    options.MemberAccessStrategy.Register(item);
+                }
+
+                options.Greedy = false;
+                _templateOptions = options;
+            }
+          
+            return _templateOptions;
+        }
+    }
+
+    public static string Gen(string templateSource, object model)
+    {
+        var parser = new FluidParser();
+        if (parser.TryParse(templateSource, out var template, out var error))
+        {
+            var context = new TemplateContext(model, TemplateOptions);
+            var code = template.Render(context);
+            return code;
+        }
+        else
+        {
+            return $"Error: {error}";
+        }
+    }
+}
+
+public class GenCsDTO: GenDTO
+{
+    static string _sdkName => Generator.sdkName;
+    static string workingDir => Generator.workingDir;
+    static string rootDir => Generator.rootDir;
     internal static void Execute()
     {
-
+        TargetLanguage = "CSharp";
         Console.WriteLine($"Current working dir: {workingDir}");
         //Console.WriteLine(string.Join(",", args));
 
-        var rootDir = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(workingDir));
         var outputDir = System.IO.Path.Combine(rootDir, "Output");
+        var templateDir = System.IO.Path.Combine(rootDir, "Templates");
         System.IO.Directory.CreateDirectory(outputDir);
 
 
         //var schemaFile = System.IO.Path.Combine(outputDir, "schema.json");
         var jsons = new[]
-        { 
+        {
             "model_inheritance.json",
-            //"simulation-parameter_inheritance.json",
-            //"validation-report.json",
-            //"comparison-report_inheritance.json",
-            //"sync-instructions_inheritance.json",
-            //"project-information_inheritance.json"
+            "simulation-parameter_inheritance.json",
+            "validation-report.json",
+            "comparison-report_inheritance.json",
+            "sync-instructions_inheritance.json",
+            "project-information_inheritance.json"
 
         };
 
-        var dic = @"C:\Users\mingo\Repos\pollination\dragonfly-schema-dotnet\.openapi-docs";
-      
+        var docDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(rootDir), ".openapi-docs");
 
         JObject docJson = null;
         JObject jSchemas = null;
         // combine all schema components
         foreach (var j in jsons)
         {
-            var schemaFile = System.IO.Path.Combine(dic, j);
+            var schemaFile = System.IO.Path.Combine(docDir, j);
             var json = System.IO.File.ReadAllText(schemaFile, System.Text.Encoding.UTF8);
             Console.WriteLine($"Reading schema from {schemaFile}");
             var jDocObj = JObject.Parse(json);
@@ -73,20 +126,62 @@ internal class GenDTO
         docJson["components"]["schemas"] = jSchemas;
 
         var doc = OpenApiDocument.FromJsonAsync(docJson.ToString()).Result;
+        //var tsFile = ConvertToTypeScript(doc, rootDir, outputDir);
+        //Console.WriteLine($"Generated file is added as {tsFile}");
 
 
+        // template
+        var template = System.IO.Path.Combine(templateDir, TargetLanguage);
+        var sc = doc.Components.Schemas;
+        var classModels = new List<ClassTemplateModel>();
+        var srcDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(rootDir), "src", _sdkName, "Model");
+        //if (System.IO.Directory.Exists(srcDir))
+        //    System.IO.Directory.Delete(srcDir, true);
+        //System.IO.Directory.CreateDirectory(srcDir);
+
+        ClassTemplateModel.SDKName = _sdkName;
+        EnumTemplateModel.SDKName = _sdkName;
+
+        foreach (var item in sc)
+        {
+            var key = item.Key;
+            var value = item.Value;
+            var file = string.Empty;
+            if (value.IsEnumeration)
+            {
+                var m = new EnumTemplateModel(value);
+                file = GenEnum(template, m, outputDir, ".cs");
+            }
+            else
+            {
+                //class
+                var m = new ClassTemplateModel(doc, value);
+                file = GenClass(template, m, outputDir, ".cs");
+            }
+
+            if (string.IsNullOrEmpty(file))
+                continue;
+
+            // copy to src dir
+            var targetSrcTs = System.IO.Path.Combine(srcDir, System.IO.Path.GetFileName(file));
+            System.IO.File.Copy(file, targetSrcTs, true);
+            Console.WriteLine($"Generated file is added as {targetSrcTs}");
+        }
+
+       
 
         //var csFile = ConvertToCSharp(doc, rootDir, outputDir);
         //var targetCs = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(rootDir), "CSharpSDK", "Model", System.IO.Path.GetFileName(csFile));
         //System.IO.File.Copy(csFile, targetCs, true);
         //Console.WriteLine($"Generated file is added as {targetCs}");
 
-        var tsFile = ConvertToTypeScript(doc, outputDir);
+
+
         //var dir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(rootDir), "TypeScriptSDK", "models");
         //System.IO.Directory.CreateDirectory(dir);
         //var targetTs = System.IO.Path.Combine(dir, System.IO.Path.GetFileName(tsFile));
         //System.IO.File.Copy(tsFile, targetTs, true);
-        Console.WriteLine($"Generated file is added as {tsFile}");
+
 
         // generate processors
         //GenProcessor.Execute();
@@ -124,40 +219,9 @@ internal class GenDTO
     //    return csharpFile;
     //}
 
-    private static string ConvertToTypeScript(OpenApiDocument apiDoc, string outputDir)
-    {
-        // convert it to TypeScript
-        var tsSettings = new NSwag.CodeGeneration.TypeScript.TypeScriptClientGeneratorSettings()
-        {
-            ClassName = _sdkName,
-            GenerateClientClasses = true,
-            GenerateClientInterfaces = true,
-            //ParameterNameGenerator = new UppercaseParameterNameGenerator(),
-            TypeScriptGeneratorSettings =
-            {
-                //ModuleName = 
-                //Namespace = "SnapshotEditorSDK.Model",
-                GenerateConstructorInterface= true,
-                SchemaType = SchemaType.OpenApi3,
-                TypeScriptVersion = 4.3m,
-                GenerateDefaultValues = true,
-                ConvertConstructorInterfaceData = false,
-                //EnumStyle = NJsonSchema.CodeGeneration.TypeScript.TypeScriptEnumStyle.StringLiteral,
-            }
-            //,ConfigurationClass =
-        };
-        var tsGenerator = new NSwag.CodeGeneration.TypeScript.TypeScriptClientGenerator(apiDoc, tsSettings);
-        var tsCode = tsGenerator.GenerateFile();
+   
 
-        // post process
-        tsCode = Processor.ProcessTypeScript(tsCode);
 
-        var tsFile = System.IO.Path.Combine(outputDir, $"{_sdkName}.ts");
-        System.IO.File.WriteAllText(tsFile, tsCode, System.Text.Encoding.UTF8);
-        Console.WriteLine($"Saved to {tsFile}");
-
-        return tsFile;
-    }
 
     //private static OpenApiDocument GenSdkDoc()
     //{
@@ -328,49 +392,30 @@ internal class GenDTO
         //schema.Definitions.Add(classTypeName, gblRef);
     }
 
+    private static string GenClass(string templateDir, ClassTemplateModel model, string outputDir, string fileExt = ".cs")
+    {
+        var templateSource = File.ReadAllText(Path.Combine(templateDir, "Class2.liquid"), System.Text.Encoding.UTF8);
+        var code = Gen(templateSource, model);
+        var file = System.IO.Path.Combine(outputDir, $"{model.CsClassName}{fileExt}");
+        System.IO.File.WriteAllText(file, code, System.Text.Encoding.UTF8);
+        return file;
+    }
+
+    private static string GenEnum(string templateDir, EnumTemplateModel model, string outputDir, string fileExt = ".cs")
+    {
+        var templateSource = File.ReadAllText(Path.Combine(templateDir, "Enum.liquid"), System.Text.Encoding.UTF8);
+        var code = Gen(templateSource, model);
+        var file = System.IO.Path.Combine(outputDir, $"{model.EnumName}{fileExt}");
+        System.IO.File.WriteAllText(file, code, System.Text.Encoding.UTF8);
+        return file;
+    }
+
+
+
+
     //private static 
 }
-//public class DoubleToDecimalVisitor : JsonSchemaVisitorBase
-//{
-//    public static Dictionary<string, JsonSchema> EnumTypes = new Dictionary<string, JsonSchema>();
-//    protected override NJsonSchema.JsonSchema VisitSchema(NJsonSchema.JsonSchema schema, string path, string typeNameHint)
-//    {
-//        if (schema.IsEnumeration)
-//        {
-//            if (schema.ParentSchema != null)
-//            {
-//                var aaa = schema.ToJson();
-//                var tt = "";
-
-//                var nn = new JsonSchema();
-//                nn.Title = schema.Title;
-//                nn.Description = schema.Description;
-//                nn.AllOf.Add(EnumTypes.FirstOrDefault().Value);
-//                //nn.Reference
-//                //return null;
-
-//                return nn;
-
-//            }
-//            else
-//            {
-//                EnumTypes.Add(path, schema);
-//            }
 
 
-//        }
-//        return schema;
-//    }
 
-
-//}
-//public class UppercaseParameterNameGenerator : IParameterNameGenerator
-//{
-
-//    public string Generate(OpenApiParameter parameter, IEnumerable<OpenApiParameter> allParameters)
-//    {
-
-//        return parameter.Name.ToUpperInvariant();
-//    }
-//}
 
