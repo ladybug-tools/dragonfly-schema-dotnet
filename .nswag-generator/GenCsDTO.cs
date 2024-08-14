@@ -23,7 +23,7 @@ public class GenDTO
 {
     public static string TargetLanguage { get; set; } = "CSharp";
     private static TemplateOptions _templateOptions;
-    private static TemplateOptions TemplateOptions 
+    private static TemplateOptions TemplateOptions
     {
         get
         {
@@ -44,7 +44,7 @@ public class GenDTO
                 options.Greedy = false;
                 _templateOptions = options;
             }
-          
+
             return _templateOptions;
         }
     }
@@ -65,7 +65,7 @@ public class GenDTO
     }
 }
 
-public class GenCsDTO: GenDTO
+public class GenCsDTO : GenDTO
 {
     static string _sdkName => Generator.sdkName;
     static string workingDir => Generator.workingDir;
@@ -85,11 +85,6 @@ public class GenCsDTO: GenDTO
         var jsons = new[]
         {
             "model_inheritance.json",
-            "simulation-parameter_inheritance.json",
-            "validation-report.json",
-            "comparison-report_inheritance.json",
-            "sync-instructions_inheritance.json",
-            "project-information_inheritance.json"
 
         };
 
@@ -168,7 +163,7 @@ public class GenCsDTO: GenDTO
             Console.WriteLine($"Generated file is added as {targetSrcTs}");
         }
 
-       
+
 
         //var csFile = ConvertToCSharp(doc, rootDir, outputDir);
         //var targetCs = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(rootDir), "CSharpSDK", "Model", System.IO.Path.GetFileName(csFile));
@@ -219,7 +214,7 @@ public class GenCsDTO: GenDTO
     //    return csharpFile;
     //}
 
-   
+
 
 
 
