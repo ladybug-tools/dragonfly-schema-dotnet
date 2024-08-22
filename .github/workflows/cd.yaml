@@ -1,8 +1,8 @@
 name: CD
 
-on: 
+on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
@@ -10,12 +10,17 @@ jobs:
 
     steps:
       - name: "Checkout Master Branch"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Update Assembly Version
         run: |
-          python .openapi-generator/update_assembly_version.py
-      
+          cd ./.nswag-generator
+          dotnet run --genCsModel --genCsInterface --updateVersion
+          MSG=$(dotnet run --updateVersion | grep "New version")
+          VERSION=$(echo $MSG | awk -F': ' '{print $2}')
+          echo "ReleaseVersion $VERSION"
+          echo "ReleaseVersion=$VERSION" >> $GITHUB_ENV
+
       - name: Create key pair for signing the assembly
         working-directory: src/DragonflySchema
         run: |
