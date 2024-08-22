@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SchemaGenerator;
 
-internal class Generator
+public partial class Generator
 {
     private static readonly string _generatorFolder = ".nswag-generator";
     public static string sdkName = "DragonflySchema";
