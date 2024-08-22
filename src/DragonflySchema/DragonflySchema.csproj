@@ -9,8 +9,6 @@
     <Copyright>Copyright © 2024 Ladybug Tools LLC</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://www.ladybug.tools/dragonfly-schema</PackageProjectUrl>
-    <AssemblyVersion>1.12.1-v1</AssemblyVersion>
-    <FileVersion>1.12.1-v1</FileVersion>
     <RepositoryUrl>https://github.com/ladybug-tools/dragonfly-schema-dotnet</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
@@ -26,7 +24,7 @@
     <PackageReference Include="LBT.Newtonsoft.Json" Version="12.0.3.23910">
       <Aliases>LBTNewtonSoft</Aliases>
     </PackageReference>
-    <PackageReference Include="HoneybeeSchema" Version="1.58.1-v1" />
+    <PackageReference Include="HoneybeeSchema" Version="1.58.3-v5" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
