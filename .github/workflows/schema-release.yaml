@@ -25,7 +25,7 @@ jobs:
           VERSION: ${{ github.event.client_payload.version }}
         run: |
           cd ./.nswag-generator\
-          dotnet run --download --genCsModel --genCsInterface
+          dotnet run --download --genCsModel --genCsInterface --genTsModel --updateVersion
 
       - name: "Set Commit Message"
         id: vars
