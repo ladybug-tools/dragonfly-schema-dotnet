@@ -62,6 +62,22 @@ public partial class Generator
             return $"Error: {error}";
         }
     }
+
+    public static Mapper ReadMapper(string mapperFilePath)
+    {
+        var mapperJson = System.IO.File.ReadAllText(mapperFilePath);
+        var data = JObject.Parse(mapperJson);
+        var classItems = (data["classes"] as JObject).Properties();
+        var enumItems = (data["enums"] as JObject).Properties();
+      
+
+        var cls = classItems?.Select(_ => new MapperItem(_.Name, _.Value.ToString()))?.ToList();
+        var enms = enumItems?.Select(_ => new MapperItem(_.Name, _.Value.ToString()))?.ToList();
+
+        var mapper = new Mapper(cls, enms);
+        return mapper;
+    }
+
 }
 
 public class GenCsDTO : Generator
@@ -405,9 +421,6 @@ public class GenCsDTO : Generator
     }
 
 
-
-
-    //private static 
 }
 
 

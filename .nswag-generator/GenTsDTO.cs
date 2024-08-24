@@ -18,11 +18,8 @@ using TemplateModels.TypeScript;
 
 namespace SchemaGenerator;
 
-public class GenTsDTO
+public class GenTsDTO:Generator
 {
-    static string _sdkName => Generator.sdkName;
-    static string workingDir => Generator.workingDir;
-    static string rootDir => Generator.rootDir;
     internal static void Execute()
     {
 
@@ -45,21 +42,26 @@ public class GenTsDTO
 
         JObject docJson = null;
         JObject jSchemas = null;
+        Mapper docMapper = null;
         // combine all schema components
         foreach (var j in jsons)
         {
+            // read schema
             var schemaFile = System.IO.Path.Combine(docDir, j);
             var json = System.IO.File.ReadAllText(schemaFile, System.Text.Encoding.UTF8);
             Console.WriteLine($"Reading schema from {schemaFile}");
             var jDocObj = JObject.Parse(json);
-
-
             var schemas = jDocObj["components"]["schemas"] as JObject;
-            //var arrays = JArray.Parse(schemas.Values);
+
+            // read mapper
+            var mapperFile = System.IO.Path.Combine(docDir, j.Replace("_inheritance", "_mapper"));
+            var mapper = ReadMapper(mapperFile);
+
             if (docJson == null)
             {
                 docJson = jDocObj;
                 jSchemas = schemas;
+                docMapper = mapper;
                 continue;
             }
 
@@ -67,6 +69,7 @@ public class GenTsDTO
             {
                 MergeArrayHandling = MergeArrayHandling.Union
             });
+            docMapper.Merge(mapper);
 
         }
 
@@ -95,12 +98,14 @@ public class GenTsDTO
             if (value.IsEnumeration)
             {
                 var m = new EnumTemplateModel(value);
+                m.ModuleMap = docMapper.Enums.FirstOrDefault(m => m.Name == key)?.Module;
                 tsFile = GenEnum(tsTemplate, m, outputDir, ".ts");
             }
             else
             {
                 //class
                 var m = new ClassTemplateModel(doc, value);
+                m.ModuleMap = docMapper.Enums.FirstOrDefault(m => m.Name == key)?.Module;
                 tsFile = GenClass(tsTemplate, m, outputDir, ".ts");
             }
 

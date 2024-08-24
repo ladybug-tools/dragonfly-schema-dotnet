@@ -5,6 +5,7 @@ namespace TemplateModels.Base;
 
 public class ClassTemplateModelBase
 {
+    public string ModuleMap { get; set; }
     public bool IsAbstract { get; set; }
     public string ClassName { get; set; }
     public string Inheritance { get; set; } // parent

@@ -18,8 +18,8 @@
     "vite-plugin-dts": "^3.9.1"
   },
   "dependencies": {
-    "class-validator": "^0.14.1"
-
+    "class-validator": "^0.14.1",
+    "honeybee-schema": "^1.58.3-v13"
   },
   "version": "1.12.1-v2"
 }
