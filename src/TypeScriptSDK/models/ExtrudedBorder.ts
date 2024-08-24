@@ -1,0 +1,60 @@
+﻿import { IsNumber, IsDefined, IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
+import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
+
+/** Extruded borders over all windows in the wall. */
+export class ExtrudedBorder extends _OpenAPIGenBaseModel {
+    @IsNumber()
+    @IsDefined()
+    /** A number for the depth of the border. */
+    depth!: number;
+	
+    @IsString()
+    @IsOptional()
+    type?: string;
+	
+
+    constructor() {
+        super();
+        this.type = "ExtrudedBorder";
+    }
+
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.depth = _data["depth"];
+            this.type = _data["type"] !== undefined ? _data["type"] : "ExtrudedBorder";
+        }
+    }
+
+
+    static override fromJS(data: any): ExtrudedBorder {
+        data = typeof data === 'object' ? data : {};
+
+        let result = new ExtrudedBorder();
+        result.init(data);
+        return result;
+    }
+
+	override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        for (var property in this) {
+            if (this.hasOwnProperty(property))
+                data[property] = this[property];
+        }
+
+        data["depth"] = this.depth;
+        data["type"] = this.type;
+        super.toJSON(data);
+        return data;
+    }
+
+	async validate(): Promise<boolean> {
+        const errors = await validate(this);
+        if (errors.length > 0){
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+      		throw new Error(`Validation failed: ${errorMessages}`);
+		}
+        return true;
+    }
+}

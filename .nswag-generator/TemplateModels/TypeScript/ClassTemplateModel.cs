@@ -5,9 +5,9 @@ using NSwag;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using SchemaGenerator;
 
 namespace TemplateModels.TypeScript;
-
 public class ClassTemplateModel : ClassTemplateModelBase
 {
 
@@ -15,35 +15,37 @@ public class ClassTemplateModel : ClassTemplateModelBase
 
     public bool HasProperties => Properties.Any();
     public List<PropertyTemplateModel> Properties { get; set; }
-    public List<string> TsImports { get; set; } = new List<string>();
+    public List<TsImport> TsImports { get; set; } = new List<TsImport>();
     public bool HasTsImports => TsImports.Any();
     public List<string> TsValidatorImports { get; set; }
     public string TsValidatorImportsCode { get; set; }
 
 
 
-    public ClassTemplateModel(OpenApiDocument doc, JsonSchema json) : base(doc, json)
+    public ClassTemplateModel(OpenApiDocument doc, JsonSchema json, Mapper mapper) : base(doc, json)
     {
 
         Properties = json.ActualProperties.Select(_ => new PropertyTemplateModel(_.Key, _.Value)).ToList();
 
-        DerivedClasses = json.GetDerivedSchemas(doc).Select(_ => new ClassTemplateModel(doc, _.Key)).ToList();
+        DerivedClasses = json.GetDerivedSchemas(doc).Select(_ => new ClassTemplateModel(doc, _.Key, mapper)).ToList();
 
 
         IsAbstract = DerivedClasses.Any() && InheritedSchema == null;
 
-        TsImports = Properties.SelectMany(_ => _.TsImports).ToList();
+        TsImports = Properties.SelectMany(_ => _.TsImports).Select(_=> new TsImport(_, from:mapper.TryGetModule(_))).ToList();
 
         // add base class reference
         if (!string.IsNullOrEmpty(Inheritance))
-            TsImports.Add(Inheritance);
+            TsImports.Add(new TsImport(Inheritance, from: mapper.TryGetModule(Inheritance)));
 
         // add derived class references
-        var dcs = DerivedClasses.Select(_ => _.ClassName);
+        var dcs = DerivedClasses.Select(_ => _.ClassName).Select(_ => new TsImport(_, from: mapper.TryGetModule(_))).ToList();
         TsImports?.AddRange(dcs);
         // remove importing self
-        TsImports = TsImports.Where(_ => _ != ClassName).Distinct().OrderBy(_ => _).ToList();
+        TsImports = TsImports.Where(_ => _.Name != ClassName).GroupBy(_=>_.Name).Select(_=>_.First()).OrderBy(_ => _).ToList();
 
+        // fix TsImports
+        TsImports.ForEach(_ => _.Check());
 
         var paramValidators = Properties.SelectMany(_ => _.ValidationDecorators).Select(_ => ValidationDecoratorToImport(_)).ToList();
         paramValidators.Add("validate");

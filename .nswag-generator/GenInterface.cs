@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TemplateModels.CSharp;
 //using 
 
@@ -14,7 +15,7 @@ namespace SchemaGenerator;
 
 public class GenInterface : Generator
 {
-
+  
     public static void Execute()
     {
         var docDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(rootDir), ".openapi-docs");
@@ -56,17 +57,17 @@ public class GenInterface : Generator
 
     }
 
+  
+
     public static Dictionary<string, List<string>> ReadJson(string mapperFilePath)
     {
-        var mapperJson = System.IO.File.ReadAllText(mapperFilePath);
-        var data = JObject.Parse(mapperJson);
-        var classItems = (data["classes"] as JObject).Properties();
+        var classItems = ReadMapper(mapperFilePath).Classes;
         var interfaces = new Dictionary<string, List<string>>();
 
         foreach (var item in classItems)
         {
             var className = item.Name;
-            var nameSpace = item.Value.ToString();
+            var nameSpace = item.Module;
 
             // clean up names
             className = TemplateModels.Helper.CleanName(className);
@@ -85,7 +86,5 @@ public class GenInterface : Generator
     }
 
 }
-
-
 
 
