@@ -6,7 +6,6 @@ namespace TemplateModels.Base;
 
 public class EnumTemplateModelBase
 {
-    public string ModuleMap { get; set; }
     public string Description { get; set; }
     public bool HasDescription => !string.IsNullOrEmpty(Description);
     public string EnumName { get; set; }

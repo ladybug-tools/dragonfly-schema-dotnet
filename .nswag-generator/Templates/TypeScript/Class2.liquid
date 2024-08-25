@@ -1,7 +1,7 @@
 import { {{TsValidatorImportsCode}} } from 'class-validator';
 {% if HasTsImports -%}
 {% for Import in TsImports -%}
-import { {{ Import.Name }} } from "./{{ Import.From }}";
+import { {{ Import.Name }} } from "{{ Import.From }}";
 {% endfor -%}
 {% endif -%}
 
