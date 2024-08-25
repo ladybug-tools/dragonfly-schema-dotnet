@@ -95,17 +95,20 @@ public class GenTsDTO:Generator
             var key = item.Key;
             var value = item.Value;
             var tsFile = string.Empty;
+            var module = docMapper.TryGetModule(key);
+            // skip 
+            if (!string.IsNullOrEmpty(module) && !module.StartsWith(moduleName))
+                continue;
+
             if (value.IsEnumeration)
             {
                 var m = new EnumTemplateModel(value);
-                m.ModuleMap = docMapper.Enums.FirstOrDefault(m => m.Name == key)?.Module;
                 tsFile = GenEnum(tsTemplate, m, outputDir, ".ts");
             }
             else
             {
                 //class
-                var m = new ClassTemplateModel(doc, value);
-                m.ModuleMap = docMapper.Enums.FirstOrDefault(m => m.Name == key)?.Module;
+                var m = new ClassTemplateModel(doc, value, docMapper);
                 tsFile = GenClass(tsTemplate, m, outputDir, ".ts");
             }
 
@@ -123,6 +126,8 @@ public class GenTsDTO:Generator
         indexModel.Files = names;
         GenIndex(tsTemplate, indexModel, srcDir, ".ts");
 
+        // remove files from other modules
+        CleanUp(docMapper, srcDir);
 
     }
 
@@ -284,6 +289,20 @@ public class GenTsDTO:Generator
     }
 
     //private static 
+
+    public static void CleanUp(Mapper mapper, string tsDir)
+    {
+        foreach (var item in mapper.All) 
+        {
+            if (item.Module.StartsWith("dragonfly"))
+                continue;
+            var file = System.IO.Path.Combine(tsDir, $"{item.Name}.ts");
+            if (System.IO.File.Exists(file)) 
+                System.IO.File.Delete(file);
+
+        }
+
+    }
 }
 
 

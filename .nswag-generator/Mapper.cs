@@ -13,6 +13,7 @@ public class Mapper
     {
         Classes = classes ?? new List<MapperItem>();
         Enums = enums ?? new List<MapperItem>();
+        All = Classes.Concat(Enums)?.ToList();
     }
 
     public void Merge(Mapper mapper)
@@ -38,5 +39,10 @@ public class MapperItem
     {
         Name = name;
         Module = module;
+    }
+
+    public override string ToString()
+    {
+        return $"{Name}:{Module}";
     }
 }

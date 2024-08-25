@@ -24,7 +24,6 @@ public class ClassTemplateModel : ClassTemplateModelBase
 
     public ClassTemplateModel(OpenApiDocument doc, JsonSchema json, Mapper mapper) : base(doc, json)
     {
-
         Properties = json.ActualProperties.Select(_ => new PropertyTemplateModel(_.Key, _.Value)).ToList();
 
         DerivedClasses = json.GetDerivedSchemas(doc).Select(_ => new ClassTemplateModel(doc, _.Key, mapper)).ToList();
@@ -42,7 +41,9 @@ public class ClassTemplateModel : ClassTemplateModelBase
         var dcs = DerivedClasses.Select(_ => _.ClassName).Select(_ => new TsImport(_, from: mapper.TryGetModule(_))).ToList();
         TsImports?.AddRange(dcs);
         // remove importing self
-        TsImports = TsImports.Where(_ => _.Name != ClassName).GroupBy(_=>_.Name).Select(_=>_.First()).OrderBy(_ => _).ToList();
+        var tsImports = TsImports.Where(_ => _.Name != ClassName);
+        // remove duplicates
+        TsImports = tsImports.GroupBy(_ => _.Name).Select(_ => _.First()).OrderBy(_ => _.Name).ToList();
 
         // fix TsImports
         TsImports.ForEach(_ => _.Check());
