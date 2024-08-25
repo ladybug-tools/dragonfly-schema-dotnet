@@ -27,37 +27,36 @@ public partial class Generator
         var outputDir = System.IO.Path.Combine(rootDir, "Output");
         System.IO.Directory.CreateDirectory(outputDir);
 
-        //if (args == null || !args.Any())
-        //    args = new string[] { "--download", "--genTsModel", "--genCsModel", "--genCsInterface", "--updateVersion" };
+        if (args == null || !args.Any())
+            args = new string[] { "--download", "--genTsModel", "--genCsModel", "--genCsInterface", "--updateVersion" };
 
 
-        //// download all json files
-        //if (args.Contains("--download"))
-        //{
-        //    HttpHelper.SetUp();
-        //    GetSchemaJsonFiles();
-        //}
+        // download all json files
+        if (args.Contains("--download"))
+        {
+            HttpHelper.SetUp();
+            GetSchemaJsonFiles();
+        }
 
-        //if (args.Contains("--genTsModel"))
-        //{
-        //    GenTsDTO.Execute();
-        //}
+        if (args.Contains("--genTsModel"))
+        {
+            GenTsDTO.Execute();
+        }
 
-        //if (args.Contains("--genCsModel"))
-        //{
-        //    GenCsDTO.Execute();
-        //}
+        if (args.Contains("--genCsModel"))
+        {
+            GenCsDTO.Execute();
+        }
 
-        ////Generate Interfaces
-        //if (args.Contains("--genCsInterface"))
-        //{
-        //    GenInterface.Execute();
-        //}
+        //Generate Interfaces
+        if (args.Contains("--genCsInterface"))
+        {
+            GenInterface.Execute();
+        }
 
-        //if (args.Contains("--updateVersion"))
-        //    UpdateVersions();
+        if (args.Contains("--updateVersion"))
+            UpdateVersions();
 
-        GenTsDTO.Execute();
         CleanHoneybeeSchema();
 
     }
