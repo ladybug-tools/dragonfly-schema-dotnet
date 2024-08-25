@@ -1,17 +1,17 @@
 ﻿import { IsString, IsOptional, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
-import { BSDF } from "./BSDF";
-import { Glass } from "./Glass";
-import { GlobalModifierSet } from "./GlobalModifierSet";
-import { Glow } from "./Glow";
-import { Light } from "./Light";
-import { Metal } from "./Metal";
-import { Mirror } from "./Mirror";
-import { ModifierSet } from "./ModifierSet";
-import { ModifierSetAbridged } from "./ModifierSetAbridged";
-import { Plastic } from "./Plastic";
-import { Trans } from "./Trans";
-import { Void } from "./Void";
+import { BSDF } from "honeybee-schema";
+import { Glass } from "honeybee-schema";
+import { GlobalModifierSet } from "honeybee-schema";
+import { Glow } from "honeybee-schema";
+import { Light } from "honeybee-schema";
+import { Metal } from "honeybee-schema";
+import { Mirror } from "honeybee-schema";
+import { ModifierSet } from "honeybee-schema";
+import { ModifierSetAbridged } from "honeybee-schema";
+import { Plastic } from "honeybee-schema";
+import { Trans } from "honeybee-schema";
+import { Void } from "honeybee-schema";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class ModelRadianceProperties extends _OpenAPIGenBaseModel {

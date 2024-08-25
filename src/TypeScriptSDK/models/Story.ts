@@ -1,6 +1,6 @@
 ﻿import { IsArray, ValidateNested, IsDefined, IsInstance, IsString, IsOptional, IsInt, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Autocalculate } from "./Autocalculate";
-import { IDdBaseModel } from "./IDdBaseModel";
+import { Autocalculate } from "honeybee-schema";
+import { IDdBaseModel } from "honeybee-schema";
 import { RoofSpecification } from "./RoofSpecification";
 import { Room2D } from "./Room2D";
 import { StoryPropertiesAbridged } from "./StoryPropertiesAbridged";
