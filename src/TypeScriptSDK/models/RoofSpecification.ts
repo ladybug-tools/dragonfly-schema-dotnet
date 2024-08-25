@@ -1,6 +1,6 @@
 ﻿import { IsArray, ValidateNested, IsDefined, IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
-import { Face3D } from "./Face3D";
+import { Face3D } from "honeybee-schema";
 
 /** Geometry for specifying sloped roofs over a Story. */
 export class RoofSpecification extends _OpenAPIGenBaseModel {

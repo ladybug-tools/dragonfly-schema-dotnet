@@ -1,16 +1,16 @@
 ﻿import { IsArray, ValidateNested, IsDefined, IsNumber, IsInstance, IsString, IsOptional, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Adiabatic } from "./Adiabatic";
+import { Adiabatic } from "honeybee-schema";
 import { DetailedSkylights } from "./DetailedSkylights";
 import { DetailedWindows } from "./DetailedWindows";
 import { ExtrudedBorder } from "./ExtrudedBorder";
 import { GriddedSkylightArea } from "./GriddedSkylightArea";
 import { GriddedSkylightRatio } from "./GriddedSkylightRatio";
-import { Ground } from "./Ground";
-import { IDdBaseModel } from "./IDdBaseModel";
+import { Ground } from "honeybee-schema";
+import { IDdBaseModel } from "honeybee-schema";
 import { LouversByCount } from "./LouversByCount";
 import { LouversByDistance } from "./LouversByDistance";
-import { OtherSideTemperature } from "./OtherSideTemperature";
-import { Outdoors } from "./Outdoors";
+import { OtherSideTemperature } from "honeybee-schema";
+import { Outdoors } from "honeybee-schema";
 import { Overhang } from "./Overhang";
 import { RectangularWindows } from "./RectangularWindows";
 import { RepeatingWindowRatio } from "./RepeatingWindowRatio";
@@ -18,7 +18,7 @@ import { Room2DPropertiesAbridged } from "./Room2DPropertiesAbridged";
 import { SimpleWindowArea } from "./SimpleWindowArea";
 import { SimpleWindowRatio } from "./SimpleWindowRatio";
 import { SingleWindow } from "./SingleWindow";
-import { Surface } from "./Surface";
+import { Surface } from "honeybee-schema";
 
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Room2D extends IDdBaseModel {

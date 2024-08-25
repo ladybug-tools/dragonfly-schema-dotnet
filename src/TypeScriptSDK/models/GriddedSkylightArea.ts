@@ -1,6 +1,6 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
-import { Autocalculate } from "./Autocalculate";
+import { Autocalculate } from "honeybee-schema";
 
 /** Gridded skylights defined by an absolute area. */
 export class GriddedSkylightArea extends _OpenAPIGenBaseModel {

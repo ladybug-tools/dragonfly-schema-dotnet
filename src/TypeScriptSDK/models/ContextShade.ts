@@ -1,8 +1,8 @@
 ﻿import { IsArray, ValidateNested, IsDefined, IsInstance, IsString, IsOptional, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { ContextShadePropertiesAbridged } from "./ContextShadePropertiesAbridged";
-import { Face3D } from "./Face3D";
-import { IDdBaseModel } from "./IDdBaseModel";
-import { Mesh3D } from "./Mesh3D";
+import { Face3D } from "honeybee-schema";
+import { IDdBaseModel } from "honeybee-schema";
+import { Mesh3D } from "honeybee-schema";
 
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class ContextShade extends IDdBaseModel {

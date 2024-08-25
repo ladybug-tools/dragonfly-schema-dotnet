@@ -1,5 +1,5 @@
 ﻿import { IsInt, IsOptional, IsArray, ValidateNested, IsString, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Autocalculate } from "./Autocalculate";
+import { Autocalculate } from "honeybee-schema";
 import { RoomGridParameter } from "./RoomGridParameter";
 
 /** Instructions for a SensorGrid of radial directions around positions from floors.\n\nThis type of sensor grid is particularly helpful for studies of multiple\nview directions, such as imageless glare studies. */

@@ -1,8 +1,8 @@
 ﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
 import { BuildingPropertiesAbridged } from "./BuildingPropertiesAbridged";
-// import { IDdBaseModel } from "./IDdBaseModel";
+import { IDdBaseModel } from "honeybee-schema";
 import { RoofSpecification } from "./RoofSpecification";
-import { Room ,IDdBaseModel} from "honeybee-schema";
+import { Room } from "honeybee-schema";
 import { Story } from "./Story";
 
 /** Base class for all objects requiring a identifiers acceptable for all engines. */

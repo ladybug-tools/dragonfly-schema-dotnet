@@ -1,9 +1,9 @@
 ﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, IsArray, IsEnum, IsNumber, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Building } from "./Building";
 import { ContextShade } from "./ContextShade";
-import { IDdBaseModel } from "./IDdBaseModel";
+import { IDdBaseModel } from "honeybee-schema";
 import { ModelProperties } from "./ModelProperties";
-import { Units } from "./Units";
+import { Units } from "honeybee-schema";
 
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Model extends IDdBaseModel {
