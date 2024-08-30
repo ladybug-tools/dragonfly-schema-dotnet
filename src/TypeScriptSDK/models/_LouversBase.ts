@@ -1,7 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsOptional, IsArray, ValidateNested, IsBoolean, IsString, validate, ValidationError as TsValidationError } from 'class-validator';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
-import { LouversByCount } from "./LouversByCount";
-import { LouversByDistance } from "./LouversByDistance";
 
 /** Base class for for a series of louvered shades over a wall. */
 export class _LouversBase extends _OpenAPIGenBaseModel {
@@ -62,16 +60,6 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
     static override fromJS(data: any): _LouversBase {
         data = typeof data === 'object' ? data : {};
 
-        if (data["type"] === "LouversByDistance") {
-            let result = new LouversByDistance();
-            result.init(data);
-            return result;
-        }
-        if (data["type"] === "LouversByCount") {
-            let result = new LouversByCount();
-            result.init(data);
-            return result;
-        }
         let result = new _LouversBase();
         result.init(data);
         return result;

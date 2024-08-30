@@ -1,11 +1,5 @@
 ﻿import { IsOptional, IsString, validate, ValidationError as TsValidationError } from 'class-validator';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
-import { DetailedWindows } from "./DetailedWindows";
-import { RectangularWindows } from "./RectangularWindows";
-import { RepeatingWindowRatio } from "./RepeatingWindowRatio";
-import { SimpleWindowArea } from "./SimpleWindowArea";
-import { SimpleWindowRatio } from "./SimpleWindowRatio";
-import { SingleWindow } from "./SingleWindow";
 
 /** Base class for all window parameters. */
 export class _WindowParameterBase extends _OpenAPIGenBaseModel {
@@ -36,36 +30,6 @@ export class _WindowParameterBase extends _OpenAPIGenBaseModel {
     static override fromJS(data: any): _WindowParameterBase {
         data = typeof data === 'object' ? data : {};
 
-        if (data["type"] === "SimpleWindowArea") {
-            let result = new SimpleWindowArea();
-            result.init(data);
-            return result;
-        }
-        if (data["type"] === "RectangularWindows") {
-            let result = new RectangularWindows();
-            result.init(data);
-            return result;
-        }
-        if (data["type"] === "SingleWindow") {
-            let result = new SingleWindow();
-            result.init(data);
-            return result;
-        }
-        if (data["type"] === "SimpleWindowRatio") {
-            let result = new SimpleWindowRatio();
-            result.init(data);
-            return result;
-        }
-        if (data["type"] === "RepeatingWindowRatio") {
-            let result = new RepeatingWindowRatio();
-            result.init(data);
-            return result;
-        }
-        if (data["type"] === "DetailedWindows") {
-            let result = new DetailedWindows();
-            result.init(data);
-            return result;
-        }
         let result = new _WindowParameterBase();
         result.init(data);
         return result;
