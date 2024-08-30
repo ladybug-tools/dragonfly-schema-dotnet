@@ -1,9 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsBoolean, IsOptional, IsString, validate, ValidationError as TsValidationError } from 'class-validator';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
-import { ExteriorApertureGridParameter } from "./ExteriorApertureGridParameter";
-import { ExteriorFaceGridParameter } from "./ExteriorFaceGridParameter";
-import { RoomGridParameter } from "./RoomGridParameter";
-import { RoomRadialGridParameter } from "./RoomRadialGridParameter";
 
 /** Base object for all GridParameters. */
 export class _GridParameterBase extends _OpenAPIGenBaseModel {
@@ -42,26 +38,6 @@ export class _GridParameterBase extends _OpenAPIGenBaseModel {
     static override fromJS(data: any): _GridParameterBase {
         data = typeof data === 'object' ? data : {};
 
-        if (data["type"] === "RoomGridParameter") {
-            let result = new RoomGridParameter();
-            result.init(data);
-            return result;
-        }
-        if (data["type"] === "RoomRadialGridParameter") {
-            let result = new RoomRadialGridParameter();
-            result.init(data);
-            return result;
-        }
-        if (data["type"] === "ExteriorFaceGridParameter") {
-            let result = new ExteriorFaceGridParameter();
-            result.init(data);
-            return result;
-        }
-        if (data["type"] === "ExteriorApertureGridParameter") {
-            let result = new ExteriorApertureGridParameter();
-            result.init(data);
-            return result;
-        }
         let result = new _GridParameterBase();
         result.init(data);
         return result;

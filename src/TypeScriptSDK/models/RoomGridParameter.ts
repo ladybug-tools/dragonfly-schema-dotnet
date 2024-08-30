@@ -1,6 +1,5 @@
 ﻿import { IsString, IsOptional, IsNumber, validate, ValidationError as TsValidationError } from 'class-validator';
 import { _GridParameterBase } from "./_GridParameterBase";
-import { RoomRadialGridParameter } from "./RoomRadialGridParameter";
 
 /** Instructions for a SensorGrid generated from a Room2D's floors. */
 export class RoomGridParameter extends _GridParameterBase {
@@ -40,11 +39,6 @@ export class RoomGridParameter extends _GridParameterBase {
     static override fromJS(data: any): RoomGridParameter {
         data = typeof data === 'object' ? data : {};
 
-        if (data["type"] === "RoomRadialGridParameter") {
-            let result = new RoomRadialGridParameter();
-            result.init(data);
-            return result;
-        }
         let result = new RoomGridParameter();
         result.init(data);
         return result;
