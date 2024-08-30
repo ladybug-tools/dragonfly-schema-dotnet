@@ -31,15 +31,12 @@ public class ClassTemplateModel : ClassTemplateModelBase
 
         IsAbstract = DerivedClasses.Any() && InheritedSchema == null;
 
-        TsImports = Properties.SelectMany(_ => _.TsImports).Select(_=> new TsImport(_, from:mapper.TryGetModule(_))).ToList();
+        TsImports = Properties.SelectMany(_ => _.TsImports).Select(_ => new TsImport(_, from: mapper.TryGetModule(_))).ToList();
 
         // add base class reference
         if (!string.IsNullOrEmpty(Inheritance))
             TsImports.Add(new TsImport(Inheritance, from: mapper.TryGetModule(Inheritance)));
 
-        // add derived class references
-        var dcs = DerivedClasses.Select(_ => _.ClassName).Select(_ => new TsImport(_, from: mapper.TryGetModule(_))).ToList();
-        TsImports?.AddRange(dcs);
         // remove importing self
         var tsImports = TsImports.Where(_ => _.Name != ClassName);
         // remove duplicates
