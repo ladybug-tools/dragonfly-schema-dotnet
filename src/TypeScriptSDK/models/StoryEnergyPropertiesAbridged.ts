@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Matches, MinLength, MaxLength, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
@@ -6,10 +6,13 @@ import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 export class StoryEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
+    @Matches(/^StoryEnergyPropertiesAbridged$/)
     type?: string;
 	
     @IsString()
     @IsOptional()
+    @MinLength(1)
+    @MaxLength(100)
     /** Name of a ConstructionSet to specify all constructions for the Story. If None, the Story will use the Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects. */
     construction_set?: string;
 	

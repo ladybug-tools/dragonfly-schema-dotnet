@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { StoryEnergyPropertiesAbridged } from "./StoryEnergyPropertiesAbridged";
@@ -7,6 +7,7 @@ import { StoryRadiancePropertiesAbridged } from "./StoryRadiancePropertiesAbridg
 export class StoryPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
+    @Matches(/^StoryPropertiesAbridged$/)
     type?: string;
 	
     @IsInstance(StoryEnergyPropertiesAbridged)

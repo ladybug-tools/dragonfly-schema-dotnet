@@ -1,4 +1,4 @@
-﻿import { IsArray, IsDefined, IsInstance, ValidateNested, IsString, IsOptional, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsDefined, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { ContextShadePropertiesAbridged } from "./ContextShadePropertiesAbridged";
 import { Face3D } from "honeybee-schema";
@@ -21,6 +21,7 @@ export class ContextShade extends IDdBaseModel {
 	
     @IsString()
     @IsOptional()
+    @Matches(/^ContextShade$/)
     type?: string;
 	
     @IsBoolean()

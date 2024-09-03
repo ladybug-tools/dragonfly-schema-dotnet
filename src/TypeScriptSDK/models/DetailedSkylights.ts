@@ -1,4 +1,4 @@
-﻿import { IsArray, ValidateNested, IsNumber, IsDefined, IsString, IsOptional, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, ValidateNested, IsNumber, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
@@ -18,6 +18,7 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
 	
     @IsString()
     @IsOptional()
+    @Matches(/^DetailedSkylights$/)
     type?: string;
 	
     @IsArray()

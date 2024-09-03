@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Matches, MinLength, MaxLength, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
@@ -6,10 +6,13 @@ import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 export class BuildingEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
+    @Matches(/^BuildingEnergyPropertiesAbridged$/)
     type?: string;
 	
     @IsString()
     @IsOptional()
+    @MinLength(1)
+    @MaxLength(100)
     /** Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used. */
     construction_set?: string;
 	

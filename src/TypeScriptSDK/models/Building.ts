@@ -1,4 +1,4 @@
-﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { BuildingPropertiesAbridged } from "./BuildingPropertiesAbridged";
 import { IDdBaseModel } from "honeybee-schema";
@@ -17,6 +17,7 @@ export class Building extends IDdBaseModel {
 	
     @IsString()
     @IsOptional()
+    @Matches(/^Building$/)
     type?: string;
 	
     @IsArray()

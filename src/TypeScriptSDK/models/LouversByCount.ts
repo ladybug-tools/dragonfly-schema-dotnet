@@ -1,4 +1,4 @@
-﻿import { IsInt, IsDefined, IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsInt, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _LouversBase } from "./_LouversBase";
 
@@ -11,6 +11,7 @@ export class LouversByCount extends _LouversBase {
 	
     @IsString()
     @IsOptional()
+    @Matches(/^LouversByCount$/)
     type?: string;
 	
 

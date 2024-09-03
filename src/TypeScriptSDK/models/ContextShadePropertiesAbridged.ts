@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ContextShadeEnergyPropertiesAbridged } from "./ContextShadeEnergyPropertiesAbridged";
@@ -7,6 +7,7 @@ import { ContextShadeRadiancePropertiesAbridged } from "./ContextShadeRadiancePr
 export class ContextShadePropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
+    @Matches(/^ContextShadePropertiesAbridged$/)
     type?: string;
 	
     @IsInstance(ContextShadeEnergyPropertiesAbridged)

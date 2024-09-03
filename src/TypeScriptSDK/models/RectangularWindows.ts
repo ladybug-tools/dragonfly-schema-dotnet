@@ -1,4 +1,4 @@
-﻿import { IsArray, ValidateNested, IsNumber, IsDefined, IsString, IsOptional, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, ValidateNested, IsNumber, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
@@ -27,6 +27,7 @@ export class RectangularWindows extends _WindowParameterBase {
 	
     @IsString()
     @IsOptional()
+    @Matches(/^RectangularWindows$/)
     type?: string;
 	
     @IsArray()

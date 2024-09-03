@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { AirBoundaryConstruction } from "honeybee-schema";
@@ -55,6 +55,7 @@ import { WSHPwithDOASAbridged } from "honeybee-schema";
 export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
+    @Matches(/^ModelEnergyProperties$/)
     type?: string;
 	
     @IsInstance(GlobalConstructionSet)

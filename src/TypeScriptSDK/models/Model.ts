@@ -1,4 +1,4 @@
-﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, IsArray, IsEnum, IsNumber, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsArray, IsEnum, IsNumber, Min, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { Building } from "./Building";
 import { ContextShade } from "./ContextShade";
@@ -17,10 +17,12 @@ export class Model extends IDdBaseModel {
 	
     @IsString()
     @IsOptional()
+    @Matches(/^Model$/)
     type?: string;
 	
     @IsString()
     @IsOptional()
+    @Matches(/([0-9]+)\.([0-9]+)\.([0-9]+)/)
     /** Text string for the current version of the schema. */
     version?: string;
 	
@@ -48,11 +50,13 @@ export class Model extends IDdBaseModel {
 	
     @IsNumber()
     @IsOptional()
+    @Min(0)
     /** The maximum difference between x, y, and z values at which vertices are considered equivalent. This value should be in the Model units and is used in a variety of checks and operations. A value of 0 will result in bypassing all checks so it is recommended that this always be a positive number when checks have not already been performed on a Model. The default of 0.01 is suitable for models in meters. */
     tolerance?: number;
 	
     @IsNumber()
     @IsOptional()
+    @Min(0)
     /** The max angle difference in degrees that vertices are allowed to differ from one another in order to consider them colinear. This value is used in a variety of checks and operations that can be performed on geometry. A value of 0 will result in no checks and an inability to perform certain operations so it is recommended that this always be a positive number when checks have not already been performed on a given Model. */
     angle_tolerance?: number;
 	
