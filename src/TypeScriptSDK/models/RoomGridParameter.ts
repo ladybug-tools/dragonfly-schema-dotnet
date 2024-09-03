@@ -1,4 +1,5 @@
 ﻿import { IsString, IsOptional, IsNumber, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _GridParameterBase } from "./_GridParameterBase";
 
 /** Instructions for a SensorGrid generated from a Room2D's floors. */
@@ -29,9 +30,10 @@ export class RoomGridParameter extends _GridParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.type = _data["type"] !== undefined ? _data["type"] : "RoomGridParameter";
-            this.offset = _data["offset"] !== undefined ? _data["offset"] : 1;
-            this.wall_offset = _data["wall_offset"] !== undefined ? _data["wall_offset"] : 0;
+            const obj = plainToClass(RoomGridParameter, _data);
+            this.type = obj.type;
+            this.offset = obj.offset;
+            this.wall_offset = obj.wall_offset;
         }
     }
 
@@ -61,7 +63,7 @@ export class RoomGridParameter extends _GridParameterBase {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

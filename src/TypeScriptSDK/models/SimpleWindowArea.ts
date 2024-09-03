@@ -1,4 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** A single window defined by an absolute area. */
@@ -28,9 +29,10 @@ export class SimpleWindowArea extends _WindowParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.window_area = _data["window_area"];
-            this.type = _data["type"] !== undefined ? _data["type"] : "SimpleWindowArea";
-            this.rect_split = _data["rect_split"] !== undefined ? _data["rect_split"] : true;
+            const obj = plainToClass(SimpleWindowArea, _data);
+            this.window_area = obj.window_area;
+            this.type = obj.type;
+            this.rect_split = obj.rect_split;
         }
     }
 
@@ -60,7 +62,7 @@ export class SimpleWindowArea extends _WindowParameterBase {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

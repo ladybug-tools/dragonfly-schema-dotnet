@@ -1,4 +1,5 @@
 ﻿import { IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
@@ -22,8 +23,9 @@ export class ContextShadeRadiancePropertiesAbridged extends _OpenAPIGenBaseModel
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.type = _data["type"] !== undefined ? _data["type"] : "ContextShadeRadiancePropertiesAbridged";
-            this.modifier = _data["modifier"];
+            const obj = plainToClass(ContextShadeRadiancePropertiesAbridged, _data);
+            this.type = obj.type;
+            this.modifier = obj.modifier;
         }
     }
 
@@ -52,7 +54,7 @@ export class ContextShadeRadiancePropertiesAbridged extends _OpenAPIGenBaseModel
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

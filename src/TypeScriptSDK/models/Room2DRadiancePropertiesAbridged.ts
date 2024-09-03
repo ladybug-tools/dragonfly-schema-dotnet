@@ -1,4 +1,5 @@
-﻿import { IsString, IsOptional, IsArray, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ExteriorApertureGridParameter } from "./ExteriorApertureGridParameter";
 import { ExteriorFaceGridParameter } from "./ExteriorFaceGridParameter";
@@ -17,7 +18,6 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     modifier_set?: string;
 	
     @IsArray()
-    @ValidateNested({ each: true })
     @IsOptional()
     /** An optional list of GridParameter objects to describe how sensor grids should be generated for the Room2D. */
     grid_parameters?: (RoomGridParameter | RoomRadialGridParameter | ExteriorFaceGridParameter | ExteriorApertureGridParameter) [];
@@ -32,9 +32,10 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.type = _data["type"] !== undefined ? _data["type"] : "Room2DRadiancePropertiesAbridged";
-            this.modifier_set = _data["modifier_set"];
-            this.grid_parameters = _data["grid_parameters"];
+            const obj = plainToClass(Room2DRadiancePropertiesAbridged, _data);
+            this.type = obj.type;
+            this.modifier_set = obj.modifier_set;
+            this.grid_parameters = obj.grid_parameters;
         }
     }
 
@@ -64,7 +65,7 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

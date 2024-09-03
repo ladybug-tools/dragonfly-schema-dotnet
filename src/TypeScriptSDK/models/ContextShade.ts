@@ -1,4 +1,5 @@
-﻿import { IsArray, ValidateNested, IsDefined, IsInstance, IsString, IsOptional, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsDefined, IsInstance, ValidateNested, IsString, IsOptional, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { ContextShadePropertiesAbridged } from "./ContextShadePropertiesAbridged";
 import { Face3D } from "honeybee-schema";
 import { IDdBaseModel } from "honeybee-schema";
@@ -7,12 +8,12 @@ import { Mesh3D } from "honeybee-schema";
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class ContextShade extends IDdBaseModel {
     @IsArray()
-    @ValidateNested({ each: true })
     @IsDefined()
     /** An array of planar Face3Ds and or Mesh3Ds that together represent the context shade. */
     geometry!: (Face3D | Mesh3D) [];
 	
     @IsInstance(ContextShadePropertiesAbridged)
+    @Type(() => ContextShadePropertiesAbridged)
     @ValidateNested()
     @IsDefined()
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
@@ -38,10 +39,11 @@ export class ContextShade extends IDdBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.geometry = _data["geometry"];
-            this.properties = _data["properties"];
-            this.type = _data["type"] !== undefined ? _data["type"] : "ContextShade";
-            this.is_detached = _data["is_detached"] !== undefined ? _data["is_detached"] : true;
+            const obj = plainToClass(ContextShade, _data);
+            this.geometry = obj.geometry;
+            this.properties = obj.properties;
+            this.type = obj.type;
+            this.is_detached = obj.is_detached;
         }
     }
 
@@ -72,7 +74,7 @@ export class ContextShade extends IDdBaseModel {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

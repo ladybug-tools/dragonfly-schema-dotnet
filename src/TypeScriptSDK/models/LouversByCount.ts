@@ -1,4 +1,5 @@
 ﻿import { IsInt, IsDefined, IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _LouversBase } from "./_LouversBase";
 
 /** A specific number of louvered Shades over a wall. */
@@ -22,8 +23,9 @@ export class LouversByCount extends _LouversBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.louver_count = _data["louver_count"];
-            this.type = _data["type"] !== undefined ? _data["type"] : "LouversByCount";
+            const obj = plainToClass(LouversByCount, _data);
+            this.louver_count = obj.louver_count;
+            this.type = obj.type;
         }
     }
 
@@ -52,7 +54,7 @@ export class LouversByCount extends _LouversBase {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

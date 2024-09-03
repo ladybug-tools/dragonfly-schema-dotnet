@@ -1,4 +1,5 @@
-﻿import { IsArray, ValidateNested, IsDefined, IsInstance, IsString, IsOptional, IsInt, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsInstance, ValidateNested, IsDefined, IsString, IsOptional, IsInt, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { Autocalculate } from "honeybee-schema";
 import { IDdBaseModel } from "honeybee-schema";
 import { RoofSpecification } from "./RoofSpecification";
@@ -8,12 +9,15 @@ import { StoryPropertiesAbridged } from "./StoryPropertiesAbridged";
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Story extends IDdBaseModel {
     @IsArray()
+    @IsInstance(Room2D, { each: true })
+    @Type(() => Room2D)
     @ValidateNested({ each: true })
     @IsDefined()
     /** An array of dragonfly Room2D objects that together form an entire story of a building. */
     room_2ds!: Room2D [];
 	
     @IsInstance(StoryPropertiesAbridged)
+    @Type(() => StoryPropertiesAbridged)
     @ValidateNested()
     @IsDefined()
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
@@ -37,6 +41,7 @@ export class Story extends IDdBaseModel {
     multiplier?: number;
 	
     @IsInstance(RoofSpecification)
+    @Type(() => RoofSpecification)
     @ValidateNested()
     @IsOptional()
     /** An optional RoofSpecification object containing geometry for generating sloped roofs over the Story. The RoofSpecification will only affect the child Room2Ds that have a True is_top_exposed property and it will only be utilized in translation to Honeybee when the Story multiplier is 1. If None, all Room2D ceilings will be flat. */
@@ -55,13 +60,14 @@ export class Story extends IDdBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.room_2ds = _data["room_2ds"];
-            this.properties = _data["properties"];
-            this.type = _data["type"] !== undefined ? _data["type"] : "Story";
-            this.floor_to_floor_height = _data["floor_to_floor_height"] !== undefined ? _data["floor_to_floor_height"] : new Autocalculate();
-            this.floor_height = _data["floor_height"] !== undefined ? _data["floor_height"] : new Autocalculate();
-            this.multiplier = _data["multiplier"] !== undefined ? _data["multiplier"] : 1;
-            this.roof = _data["roof"];
+            const obj = plainToClass(Story, _data);
+            this.room_2ds = obj.room_2ds;
+            this.properties = obj.properties;
+            this.type = obj.type;
+            this.floor_to_floor_height = obj.floor_to_floor_height;
+            this.floor_height = obj.floor_height;
+            this.multiplier = obj.multiplier;
+            this.roof = obj.roof;
         }
     }
 
@@ -95,7 +101,7 @@ export class Story extends IDdBaseModel {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

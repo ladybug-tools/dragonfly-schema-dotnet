@@ -1,4 +1,5 @@
 ﻿import { IsString, IsOptional, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ProcessAbridged } from "honeybee-schema";
 import { VentilationControlAbridged } from "honeybee-schema";
@@ -31,18 +32,22 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     shw?: string;
 	
     @IsInstance(VentilationControlAbridged)
+    @Type(() => VentilationControlAbridged)
     @ValidateNested()
     @IsOptional()
     /** An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open. */
     window_vent_control?: VentilationControlAbridged;
 	
     @IsInstance(VentilationOpening)
+    @Type(() => VentilationOpening)
     @ValidateNested()
     @IsOptional()
     /** An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open. */
     window_vent_opening?: VentilationOpening;
 	
     @IsArray()
+    @IsInstance(ProcessAbridged, { each: true })
+    @Type(() => ProcessAbridged)
     @ValidateNested({ each: true })
     @IsOptional()
     /** An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators. */
@@ -58,14 +63,15 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.type = _data["type"] !== undefined ? _data["type"] : "Room2DEnergyPropertiesAbridged";
-            this.construction_set = _data["construction_set"];
-            this.program_type = _data["program_type"];
-            this.hvac = _data["hvac"];
-            this.shw = _data["shw"];
-            this.window_vent_control = _data["window_vent_control"];
-            this.window_vent_opening = _data["window_vent_opening"];
-            this.process_loads = _data["process_loads"];
+            const obj = plainToClass(Room2DEnergyPropertiesAbridged, _data);
+            this.type = obj.type;
+            this.construction_set = obj.construction_set;
+            this.program_type = obj.program_type;
+            this.hvac = obj.hvac;
+            this.shw = obj.shw;
+            this.window_vent_control = obj.window_vent_control;
+            this.window_vent_opening = obj.window_vent_opening;
+            this.process_loads = obj.process_loads;
         }
     }
 
@@ -100,7 +106,7 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

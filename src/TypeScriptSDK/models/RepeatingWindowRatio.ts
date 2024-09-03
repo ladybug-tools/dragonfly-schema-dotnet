@@ -1,4 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** Repeating windows derived from an area ratio with the base wall. */
@@ -43,12 +44,13 @@ export class RepeatingWindowRatio extends _WindowParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.window_ratio = _data["window_ratio"];
-            this.window_height = _data["window_height"];
-            this.sill_height = _data["sill_height"];
-            this.horizontal_separation = _data["horizontal_separation"];
-            this.type = _data["type"] !== undefined ? _data["type"] : "RepeatingWindowRatio";
-            this.vertical_separation = _data["vertical_separation"] !== undefined ? _data["vertical_separation"] : 0;
+            const obj = plainToClass(RepeatingWindowRatio, _data);
+            this.window_ratio = obj.window_ratio;
+            this.window_height = obj.window_height;
+            this.sill_height = obj.sill_height;
+            this.horizontal_separation = obj.horizontal_separation;
+            this.type = obj.type;
+            this.vertical_separation = obj.vertical_separation;
         }
     }
 
@@ -81,7 +83,7 @@ export class RepeatingWindowRatio extends _WindowParameterBase {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

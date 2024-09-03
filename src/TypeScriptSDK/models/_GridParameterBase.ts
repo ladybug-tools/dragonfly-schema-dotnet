@@ -1,4 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsBoolean, IsOptional, IsString, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base object for all GridParameters. */
@@ -28,9 +29,10 @@ export class _GridParameterBase extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.dimension = _data["dimension"];
-            this.include_mesh = _data["include_mesh"] !== undefined ? _data["include_mesh"] : true;
-            this.type = _data["type"] !== undefined ? _data["type"] : "_GridParameterBase";
+            const obj = plainToClass(_GridParameterBase, _data);
+            this.dimension = obj.dimension;
+            this.include_mesh = obj.include_mesh;
+            this.type = obj.type;
         }
     }
 
@@ -60,7 +62,7 @@ export class _GridParameterBase extends _OpenAPIGenBaseModel {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;
