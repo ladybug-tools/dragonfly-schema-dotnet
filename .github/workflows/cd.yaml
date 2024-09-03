@@ -16,7 +16,7 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Update Assembly Version
+      - name: Generate files and update Assembly Version
         shell: bash
         run: |
           cd ./.generator/SchemaGenerator

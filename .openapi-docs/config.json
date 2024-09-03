@@ -1,0 +1,10 @@
+{
+    "sdkName": "DragonflySchema",
+    "moduleName":"dragonfly_schema",
+    "baseURL": "https://www.ladybug.tools/dragonfly-schema",
+    "files":[
+        "model_inheritance.json",
+        "model_mapper.json"
+    ]
+
+}
