@@ -1,4 +1,5 @@
 ﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, IsArray, IsEnum, IsNumber, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { Building } from "./Building";
 import { ContextShade } from "./ContextShade";
 import { IDdBaseModel } from "honeybee-schema";
@@ -8,6 +9,7 @@ import { Units } from "honeybee-schema";
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Model extends IDdBaseModel {
     @IsInstance(ModelProperties)
+    @Type(() => ModelProperties)
     @ValidateNested()
     @IsDefined()
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
@@ -23,19 +25,23 @@ export class Model extends IDdBaseModel {
     version?: string;
 	
     @IsArray()
+    @IsInstance(Building, { each: true })
+    @Type(() => Building)
     @ValidateNested({ each: true })
     @IsOptional()
     /** A list of Buildings in the model. */
     buildings?: Building [];
 	
     @IsArray()
+    @IsInstance(ContextShade, { each: true })
+    @Type(() => ContextShade)
     @ValidateNested({ each: true })
     @IsOptional()
     /** A list of ContextShades in the model. */
     context_shades?: ContextShade [];
 	
     @IsEnum(Units)
-    @ValidateNested()
+    @Type(() => String)
     @IsOptional()
     /** Text indicating the units in which the model geometry exists. This is used to scale the geometry to the correct units for simulation engines like EnergyPlus, which requires all geometry be in meters. */
     units?: Units;
@@ -64,14 +70,15 @@ export class Model extends IDdBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.properties = _data["properties"];
-            this.type = _data["type"] !== undefined ? _data["type"] : "Model";
-            this.version = _data["version"] !== undefined ? _data["version"] : "0.0.0";
-            this.buildings = _data["buildings"];
-            this.context_shades = _data["context_shades"];
-            this.units = _data["units"] !== undefined ? _data["units"] : Units.Meters;
-            this.tolerance = _data["tolerance"] !== undefined ? _data["tolerance"] : 0.01;
-            this.angle_tolerance = _data["angle_tolerance"] !== undefined ? _data["angle_tolerance"] : 1;
+            const obj = plainToClass(Model, _data);
+            this.properties = obj.properties;
+            this.type = obj.type;
+            this.version = obj.version;
+            this.buildings = obj.buildings;
+            this.context_shades = obj.context_shades;
+            this.units = obj.units;
+            this.tolerance = obj.tolerance;
+            this.angle_tolerance = obj.angle_tolerance;
         }
     }
 
@@ -106,7 +113,7 @@ export class Model extends IDdBaseModel {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

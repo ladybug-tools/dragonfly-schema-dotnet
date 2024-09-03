@@ -1,4 +1,5 @@
-﻿import { IsInt, IsOptional, IsArray, ValidateNested, IsString, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsInt, IsOptional, IsArray, IsNumber, IsString, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { Autocalculate } from "honeybee-schema";
 import { RoomGridParameter } from "./RoomGridParameter";
 
@@ -10,7 +11,7 @@ export class RoomRadialGridParameter extends RoomGridParameter {
     dir_count?: number;
 	
     @IsArray()
-    @ValidateNested({ each: true })
+    @IsNumber({},{ each: true })
     @IsOptional()
     /** A vector as 3 (x, y, z) values to set the start direction of the generated directions. This can be used to orient the resulting sensors to specific parts of the scene. It can also change the elevation of the resulting directions since this start vector will always be rotated in the XY plane to generate the resulting directions. */
     start_vector?: number [];
@@ -35,10 +36,11 @@ export class RoomRadialGridParameter extends RoomGridParameter {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.dir_count = _data["dir_count"] !== undefined ? _data["dir_count"] : 8;
-            this.start_vector = _data["start_vector"];
-            this.mesh_radius = _data["mesh_radius"] !== undefined ? _data["mesh_radius"] : new Autocalculate();
-            this.type = _data["type"] !== undefined ? _data["type"] : "RoomRadialGridParameter";
+            const obj = plainToClass(RoomRadialGridParameter, _data);
+            this.dir_count = obj.dir_count;
+            this.start_vector = obj.start_vector;
+            this.mesh_radius = obj.mesh_radius;
+            this.type = obj.type;
         }
     }
 
@@ -69,7 +71,7 @@ export class RoomRadialGridParameter extends RoomGridParameter {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

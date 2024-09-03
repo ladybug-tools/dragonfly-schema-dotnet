@@ -1,4 +1,5 @@
-﻿import { IsString, IsOptional, IsNumber, IsEnum, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, IsNumber, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _GridParameterBase } from "./_GridParameterBase";
 import { ExteriorApertureType } from "./ExteriorApertureType";
 
@@ -14,7 +15,7 @@ export class ExteriorApertureGridParameter extends _GridParameterBase {
     offset?: number;
 	
     @IsEnum(ExteriorApertureType)
-    @ValidateNested()
+    @Type(() => String)
     @IsOptional()
     /** Text to specify the type of Aperture that will be used to generate grids. Window indicates Apertures in Walls. Skylights are in parent Roof faces. */
     aperture_type?: ExteriorApertureType;
@@ -31,9 +32,10 @@ export class ExteriorApertureGridParameter extends _GridParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.type = _data["type"] !== undefined ? _data["type"] : "ExteriorApertureGridParameter";
-            this.offset = _data["offset"] !== undefined ? _data["offset"] : 0.1;
-            this.aperture_type = _data["aperture_type"] !== undefined ? _data["aperture_type"] : ExteriorApertureType.All;
+            const obj = plainToClass(ExteriorApertureGridParameter, _data);
+            this.type = obj.type;
+            this.offset = obj.offset;
+            this.aperture_type = obj.aperture_type;
         }
     }
 
@@ -63,7 +65,7 @@ export class ExteriorApertureGridParameter extends _GridParameterBase {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

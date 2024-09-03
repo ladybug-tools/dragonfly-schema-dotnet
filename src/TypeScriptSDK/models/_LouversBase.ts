@@ -1,4 +1,5 @@
-﻿import { IsNumber, IsDefined, IsOptional, IsArray, ValidateNested, IsBoolean, IsString, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsNumber, IsDefined, IsOptional, IsArray, IsBoolean, IsString, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for for a series of louvered shades over a wall. */
@@ -19,7 +20,7 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
     angle?: number;
 	
     @IsArray()
-    @ValidateNested({ each: true })
+    @IsNumber({},{ each: true })
     @IsOptional()
     /** A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours. */
     contour_vector?: number [];
@@ -47,12 +48,13 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.depth = _data["depth"];
-            this.offset = _data["offset"] !== undefined ? _data["offset"] : 0;
-            this.angle = _data["angle"] !== undefined ? _data["angle"] : 0;
-            this.contour_vector = _data["contour_vector"] !== undefined ? _data["contour_vector"] : [0, 1];
-            this.flip_start_side = _data["flip_start_side"] !== undefined ? _data["flip_start_side"] : false;
-            this.type = _data["type"] !== undefined ? _data["type"] : "_LouversBase";
+            const obj = plainToClass(_LouversBase, _data);
+            this.depth = obj.depth;
+            this.offset = obj.offset;
+            this.angle = obj.angle;
+            this.contour_vector = obj.contour_vector;
+            this.flip_start_side = obj.flip_start_side;
+            this.type = obj.type;
         }
     }
 
@@ -85,7 +87,7 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

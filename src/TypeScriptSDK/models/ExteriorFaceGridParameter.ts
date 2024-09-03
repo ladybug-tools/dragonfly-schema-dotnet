@@ -1,4 +1,5 @@
-﻿import { IsString, IsOptional, IsNumber, IsEnum, ValidateNested, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, IsNumber, IsEnum, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _GridParameterBase } from "./_GridParameterBase";
 import { ExteriorFaceType } from "./ExteriorFaceType";
 
@@ -14,7 +15,7 @@ export class ExteriorFaceGridParameter extends _GridParameterBase {
     offset?: number;
 	
     @IsEnum(ExteriorFaceType)
-    @ValidateNested()
+    @Type(() => String)
     @IsOptional()
     /** Text to specify the type of face that will be used to generate grids. Note that only Faces with Outdoors boundary conditions will be used, meaning that most Floors will typically be excluded unless they represent the underside of a cantilever. */
     face_type?: ExteriorFaceType;
@@ -37,10 +38,11 @@ export class ExteriorFaceGridParameter extends _GridParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.type = _data["type"] !== undefined ? _data["type"] : "ExteriorFaceGridParameter";
-            this.offset = _data["offset"] !== undefined ? _data["offset"] : 0.1;
-            this.face_type = _data["face_type"] !== undefined ? _data["face_type"] : ExteriorFaceType.Wall;
-            this.punched_geometry = _data["punched_geometry"] !== undefined ? _data["punched_geometry"] : false;
+            const obj = plainToClass(ExteriorFaceGridParameter, _data);
+            this.type = obj.type;
+            this.offset = obj.offset;
+            this.face_type = obj.face_type;
+            this.punched_geometry = obj.punched_geometry;
         }
     }
 
@@ -71,7 +73,7 @@ export class ExteriorFaceGridParameter extends _GridParameterBase {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

@@ -1,4 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** A single window in the wall center defined by a width * height. */
@@ -33,10 +34,11 @@ export class SingleWindow extends _WindowParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.width = _data["width"];
-            this.height = _data["height"];
-            this.type = _data["type"] !== undefined ? _data["type"] : "SingleWindow";
-            this.sill_height = _data["sill_height"] !== undefined ? _data["sill_height"] : 1;
+            const obj = plainToClass(SingleWindow, _data);
+            this.width = obj.width;
+            this.height = obj.height;
+            this.type = obj.type;
+            this.sill_height = obj.sill_height;
         }
     }
 
@@ -67,7 +69,7 @@ export class SingleWindow extends _WindowParameterBase {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

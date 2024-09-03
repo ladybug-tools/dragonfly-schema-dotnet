@@ -1,10 +1,17 @@
-﻿import { IsArray, ValidateNested, IsDefined, IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, ValidateNested, IsNumber, IsDefined, IsString, IsOptional, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Several detailed skylights defined by 2D Polygons (lists of 2D vertices). */
 export class DetailedSkylights extends _OpenAPIGenBaseModel {
     @IsArray()
-    @ValidateNested({ each: true })
+    @IsArray({ each: true })
+    @ValidateNested({each: true })
+    @Type(() => Array)
+    @IsArray({ each: true })
+    @ValidateNested({each: true })
+    @Type(() => Array)
+    @IsNumber({},{ each: true })
     @IsDefined()
     /** An array of arrays with each sub-array representing a polygonal boundary of a skylight. Each sub-array should consist of arrays representing points, which contain 2 values for 2D coordinates in the world XY system. These coordinate values should lie within the parent Room2D Polygon. */
     polygons!: number [] [] [];
@@ -14,7 +21,7 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
     type?: string;
 	
     @IsArray()
-    @ValidateNested({ each: true })
+    @IsBoolean({ each: true })
     @IsOptional()
     /** An array of booleans that align with the polygons and note whether each of the polygons represents an overhead door (True) or a skylight (False). If None, it will be assumed that all polygons represent skylights and they will be translated to Apertures in any resulting Honeybee model. */
     are_doors?: boolean [];
@@ -29,9 +36,10 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            this.polygons = _data["polygons"];
-            this.type = _data["type"] !== undefined ? _data["type"] : "DetailedSkylights";
-            this.are_doors = _data["are_doors"];
+            const obj = plainToClass(DetailedSkylights, _data);
+            this.polygons = obj.polygons;
+            this.type = obj.type;
+            this.are_doors = obj.are_doors;
         }
     }
 
@@ -61,7 +69,7 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || {}).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;
