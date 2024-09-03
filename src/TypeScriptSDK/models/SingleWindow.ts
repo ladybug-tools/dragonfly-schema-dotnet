@@ -1,4 +1,4 @@
-﻿import { IsNumber, IsDefined, IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
@@ -16,6 +16,7 @@ export class SingleWindow extends _WindowParameterBase {
 	
     @IsString()
     @IsOptional()
+    @Matches(/^SingleWindow$/)
     type?: string;
 	
     @IsNumber()

@@ -1,4 +1,4 @@
-﻿import { IsNumber, IsDefined, IsOptional, IsArray, IsBoolean, IsString, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsNumber, IsDefined, IsOptional, Min, Max, IsArray, IsBoolean, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
@@ -11,11 +11,14 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
 	
     @IsNumber()
     @IsOptional()
+    @Min(0)
     /** A number for the distance to louvers from the wall. */
     offset?: number;
 	
     @IsNumber()
     @IsOptional()
+    @Min(-90)
+    @Max(90)
     /** A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation. */
     angle?: number;
 	
@@ -32,6 +35,7 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
 	
     @IsString()
     @IsOptional()
+    @Matches(/^_LouversBase$/)
     type?: string;
 	
 

@@ -1,4 +1,4 @@
-﻿import { IsInt, IsOptional, IsArray, IsNumber, IsString, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsInt, IsOptional, IsArray, IsNumber, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { Autocalculate } from "honeybee-schema";
 import { RoomGridParameter } from "./RoomGridParameter";
@@ -22,6 +22,7 @@ export class RoomRadialGridParameter extends RoomGridParameter {
 	
     @IsString()
     @IsOptional()
+    @Matches(/^RoomRadialGridParameter$/)
     type?: string;
 	
 

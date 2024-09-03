@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, IsNumber, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Matches, IsNumber, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _GridParameterBase } from "./_GridParameterBase";
 
@@ -6,6 +6,7 @@ import { _GridParameterBase } from "./_GridParameterBase";
 export class RoomGridParameter extends _GridParameterBase {
     @IsString()
     @IsOptional()
+    @Matches(/^RoomGridParameter$/)
     type?: string;
 	
     @IsNumber()

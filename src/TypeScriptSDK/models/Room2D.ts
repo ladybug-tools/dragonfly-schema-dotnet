@@ -1,4 +1,4 @@
-﻿import { IsArray, ValidateNested, IsNumber, IsDefined, IsInstance, IsString, IsOptional, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, ValidateNested, IsNumber, IsDefined, IsInstance, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { Adiabatic } from "honeybee-schema";
 import { DetailedSkylights } from "./DetailedSkylights";
@@ -51,6 +51,7 @@ export class Room2D extends IDdBaseModel {
 	
     @IsString()
     @IsOptional()
+    @Matches(/^Room2D$/)
     type?: string;
 	
     @IsArray()

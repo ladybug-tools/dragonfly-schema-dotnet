@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, IsNumber, IsEnum, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Matches, IsNumber, IsEnum, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _GridParameterBase } from "./_GridParameterBase";
 import { ExteriorFaceType } from "./ExteriorFaceType";
@@ -7,6 +7,7 @@ import { ExteriorFaceType } from "./ExteriorFaceType";
 export class ExteriorFaceGridParameter extends _GridParameterBase {
     @IsString()
     @IsOptional()
+    @Matches(/^ExteriorFaceGridParameter$/)
     type?: string;
 	
     @IsNumber()

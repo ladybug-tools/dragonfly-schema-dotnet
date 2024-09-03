@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, IsNumber, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Matches, IsNumber, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _GridParameterBase } from "./_GridParameterBase";
 import { ExteriorApertureType } from "./ExteriorApertureType";
@@ -7,6 +7,7 @@ import { ExteriorApertureType } from "./ExteriorApertureType";
 export class ExteriorApertureGridParameter extends _GridParameterBase {
     @IsString()
     @IsOptional()
+    @Matches(/^ExteriorApertureGridParameter$/)
     type?: string;
 	
     @IsNumber()

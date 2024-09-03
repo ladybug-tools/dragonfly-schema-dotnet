@@ -1,4 +1,4 @@
-﻿import { IsNumber, IsDefined, IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsNumber, IsDefined, Min, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
@@ -21,15 +21,18 @@ export class RepeatingWindowRatio extends _WindowParameterBase {
 	
     @IsNumber()
     @IsDefined()
+    @Min(0)
     /** A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced. */
     horizontal_separation!: number;
 	
     @IsString()
     @IsOptional()
+    @Matches(/^RepeatingWindowRatio$/)
     type?: string;
 	
     @IsNumber()
     @IsOptional()
+    @Min(0)
     /** An optional number to create a single vertical separation between top and bottom windows. */
     vertical_separation?: number;
 	

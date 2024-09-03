@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { Room2DEnergyPropertiesAbridged } from "./Room2DEnergyPropertiesAbridged";
@@ -7,6 +7,7 @@ import { Room2DRadiancePropertiesAbridged } from "./Room2DRadiancePropertiesAbri
 export class Room2DPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
+    @Matches(/^Room2DPropertiesAbridged$/)
     type?: string;
 	
     @IsInstance(Room2DEnergyPropertiesAbridged)

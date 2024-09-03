@@ -1,4 +1,4 @@
-﻿import { IsArray, IsInstance, ValidateNested, IsDefined, IsString, IsOptional, IsInt, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsInt, Min, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { Autocalculate } from "honeybee-schema";
 import { IDdBaseModel } from "honeybee-schema";
@@ -25,6 +25,7 @@ export class Story extends IDdBaseModel {
 	
     @IsString()
     @IsOptional()
+    @Matches(/^Story$/)
     type?: string;
 	
     @IsOptional()
@@ -37,6 +38,7 @@ export class Story extends IDdBaseModel {
 	
     @IsInt()
     @IsOptional()
+    @Min(1)
     /** An integer that denotes the number of times that this Story is repeated over the height of the building. */
     multiplier?: number;
 	

@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ExteriorApertureGridParameter } from "./ExteriorApertureGridParameter";
@@ -10,6 +10,7 @@ import { RoomRadialGridParameter } from "./RoomRadialGridParameter";
 export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
+    @Matches(/^Room2DRadiancePropertiesAbridged$/)
     type?: string;
 	
     @IsString()
