@@ -6,8 +6,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonflySchema", "src\Drag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonflySchema.Test", "src\DragonflySchema.Tests\DragonflySchema.Test.csproj", "{AEBE9144-6F89-4A78-976C-6E608E44FA83}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator", ".nswag-generator\Generator.csproj", "{26072505-41BA-4EB4-B21D-B44B7750B1C0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
