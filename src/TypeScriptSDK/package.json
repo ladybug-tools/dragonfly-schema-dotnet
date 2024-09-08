@@ -10,12 +10,10 @@
     "compile": "tsc",
     "fix": "gts fix",
     "prepare": "tsc",
-    "pretest": "tsc",
-    "posttest": "npm.cmd run lint"
+    "pretest": "tsc"
   },
   "devDependencies": {
     "@types/node": "20.12.7",
-    "class-transformer": "^0.5.1",
     "gts": "^5.3.1",
     "typescript": "^5.4.3",
     "vite": "^5.4.1",
@@ -24,6 +22,7 @@
   "dependencies": {
     "class-validator": "^0.14.1",
     "reflect-metadata": "^0.2.2",
+    "class-transformer": "^0.5.1",
     "honeybee-schema": "^1.58.3-v13"
   }
 }
