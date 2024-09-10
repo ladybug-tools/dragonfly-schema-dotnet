@@ -1,17 +1,12 @@
-﻿import { IsArray, ValidateNested, IsNumber, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
+import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Several detailed skylights defined by 2D Polygons (lists of 2D vertices). */
 export class DetailedSkylights extends _OpenAPIGenBaseModel {
     @IsArray()
-    @IsArray({ each: true })
-    @ValidateNested({each: true })
-    @Type(() => Array)
-    @IsArray({ each: true })
-    @ValidateNested({each: true })
-    @Type(() => Array)
-    @IsNumber({},{ each: true })
+    @IsNestedNumberArray()
     @IsDefined()
     /** An array of arrays with each sub-array representing a polygonal boundary of a skylight. Each sub-array should consist of arrays representing points, which contain 2 values for 2D coordinates in the world XY system. These coordinate values should lie within the parent Room2D Polygon. */
     polygons!: number [] [] [];
@@ -70,7 +65,7 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;

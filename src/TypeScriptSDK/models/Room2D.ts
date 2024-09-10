@@ -1,5 +1,6 @@
-﻿import { IsArray, ValidateNested, IsNumber, IsDefined, IsInstance, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsDefined, IsNumber, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
+import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { Adiabatic } from "honeybee-schema";
 import { DetailedSkylights } from "./DetailedSkylights";
 import { DetailedWindows } from "./DetailedWindows";
@@ -24,10 +25,7 @@ import { Surface } from "honeybee-schema";
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Room2D extends IDdBaseModel {
     @IsArray()
-    @IsArray({ each: true })
-    @ValidateNested({each: true })
-    @Type(() => Array)
-    @IsNumber({},{ each: true })
+    @IsNestedNumberArray()
     @IsDefined()
     /** A list of 2D points representing the outer boundary vertices of the Room2D. The list should include at least 3 points and each point should be a list of 2 (x, y) values. */
     floor_boundary!: number [] [];
@@ -55,13 +53,7 @@ export class Room2D extends IDdBaseModel {
     type?: string;
 	
     @IsArray()
-    @IsArray({ each: true })
-    @ValidateNested({each: true })
-    @Type(() => Array)
-    @IsArray({ each: true })
-    @ValidateNested({each: true })
-    @Type(() => Array)
-    @IsNumber({},{ each: true })
+    @IsNestedNumberArray()
     @IsOptional()
     /** Optional list of lists with one list for each hole in the floor plate. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate. */
     floor_holes?: number [] [] [];
@@ -166,7 +158,7 @@ export class Room2D extends IDdBaseModel {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;
