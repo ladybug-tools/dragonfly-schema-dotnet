@@ -1,7 +1,7 @@
 {
   "name": "dragonfly-schema",
   "license": "MIT",
-  "version": "1.12.1-v6",
+  "version": "1.12.1-v8",
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",

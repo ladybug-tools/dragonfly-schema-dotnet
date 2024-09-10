@@ -1,17 +1,12 @@
-﻿import { IsArray, ValidateNested, IsNumber, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass } from 'class-transformer';
+import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** Several detailed windows defined by 2D Polygons (lists of 2D vertices). */
 export class DetailedWindows extends _WindowParameterBase {
     @IsArray()
-    @IsArray({ each: true })
-    @ValidateNested({each: true })
-    @Type(() => Array)
-    @IsArray({ each: true })
-    @ValidateNested({each: true })
-    @Type(() => Array)
-    @IsNumber({},{ each: true })
+    @IsNestedNumberArray()
     @IsDefined()
     /** An array of arrays with each sub-array representing a polygonal boundary of a window. Each sub-array should consist of arrays representing points, which can either contain 2 values (indicating they are 2D vertices within the plane of a parent wall segment) or they can contain 3 values (indicating they are 3D world coordinates). For 2D points, the wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each point in the polygon should always be positive. Some sample code to convert from 2D vertices to 2D vertices in the plane of the wall can be found here: https://www.ladybug.tools/dragonfly-core/docs/dragonfly.windowparameter.html#dragonfly.windowparameter.DetailedWindows */
     polygons!: number [] [] [];
@@ -70,7 +65,7 @@ export class DetailedWindows extends _WindowParameterBase {
 	async validate(): Promise<boolean> {
         const errors = await validate(this);
         if (errors.length > 0){
-			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error.property]).join(', ')).join('; ');
+			const errorMessages = errors.map((error: TsValidationError) => Object.values(error.constraints || [error]).join(', ')).join('; ');
       		throw new Error(`Validation failed: ${errorMessages}`);
 		}
         return true;
