@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsNumber, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _GridParameterBase } from "./_GridParameterBase";
 import { ExteriorApertureType } from "./ExteriorApertureType";
 
@@ -59,8 +59,8 @@ export class ExteriorApertureGridParameter extends _GridParameterBase {
         data["type"] = this.type;
         data["offset"] = this.offset;
         data["aperture_type"] = this.aperture_type;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

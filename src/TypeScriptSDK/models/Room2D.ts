@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsDefined, IsNumber, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { Adiabatic } from "honeybee-schema";
 import { DetailedSkylights } from "./DetailedSkylights";
@@ -151,8 +151,8 @@ export class Room2D extends IDdBaseModel {
         data["shading_parameters"] = this.shading_parameters;
         data["air_boundaries"] = this.air_boundaries;
         data["skylight_parameters"] = this.skylight_parameters;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

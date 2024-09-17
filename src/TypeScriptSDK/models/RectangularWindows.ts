@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsDefined, IsNumber, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
@@ -74,8 +74,8 @@ export class RectangularWindows extends _WindowParameterBase {
         data["heights"] = this.heights;
         data["type"] = this.type;
         data["are_doors"] = this.are_doors;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

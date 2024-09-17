@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ExteriorApertureGridParameter } from "./ExteriorApertureGridParameter";
 import { ExteriorFaceGridParameter } from "./ExteriorFaceGridParameter";
@@ -59,8 +59,8 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
         data["type"] = this.type;
         data["modifier_set"] = this.modifier_set;
         data["grid_parameters"] = this.grid_parameters;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

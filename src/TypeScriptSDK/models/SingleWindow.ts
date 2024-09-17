@@ -1,5 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** A single window in the wall center defined by a width * height. */
@@ -63,8 +63,8 @@ export class SingleWindow extends _WindowParameterBase {
         data["height"] = this.height;
         data["type"] = this.type;
         data["sill_height"] = this.sill_height;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

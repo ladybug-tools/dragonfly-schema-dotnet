@@ -1,5 +1,5 @@
 ﻿import { IsInt, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _LouversBase } from "./_LouversBase";
 
 /** A specific number of louvered Shades over a wall. */
@@ -48,8 +48,8 @@ export class LouversByCount extends _LouversBase {
 
         data["louver_count"] = this.louver_count;
         data["type"] = this.type;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

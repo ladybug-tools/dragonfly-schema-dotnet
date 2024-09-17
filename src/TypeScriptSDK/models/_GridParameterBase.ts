@@ -1,5 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsBoolean, IsOptional, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base object for all GridParameters. */
@@ -56,8 +56,8 @@ export class _GridParameterBase extends _OpenAPIGenBaseModel {
         data["dimension"] = this.dimension;
         data["include_mesh"] = this.include_mesh;
         data["type"] = this.type;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {
