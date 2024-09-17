@@ -1,5 +1,5 @@
 ﻿import { IsNumber, IsDefined, Min, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** Repeating windows derived from an area ratio with the base wall. */
@@ -79,8 +79,8 @@ export class RepeatingWindowRatio extends _WindowParameterBase {
         data["horizontal_separation"] = this.horizontal_separation;
         data["type"] = this.type;
         data["vertical_separation"] = this.vertical_separation;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

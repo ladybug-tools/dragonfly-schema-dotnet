@@ -1,5 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** A single window defined by an absolute area. */
@@ -56,8 +56,8 @@ export class SimpleWindowArea extends _WindowParameterBase {
         data["window_area"] = this.window_area;
         data["type"] = this.type;
         data["rect_split"] = this.rect_split;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

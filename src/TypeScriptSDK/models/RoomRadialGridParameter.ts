@@ -1,5 +1,5 @@
 ﻿import { IsInt, IsOptional, IsArray, IsNumber, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { Autocalculate } from "honeybee-schema";
 import { RoomGridParameter } from "./RoomGridParameter";
 
@@ -65,8 +65,8 @@ export class RoomRadialGridParameter extends RoomGridParameter {
         data["start_vector"] = this.start_vector;
         data["mesh_radius"] = this.mesh_radius;
         data["type"] = this.type;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

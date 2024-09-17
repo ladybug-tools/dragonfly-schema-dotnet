@@ -1,5 +1,5 @@
 ﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsArray, IsEnum, IsNumber, Min, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { Building } from "./Building";
 import { ContextShade } from "./ContextShade";
 import { IDdBaseModel } from "honeybee-schema";
@@ -110,8 +110,8 @@ export class Model extends IDdBaseModel {
         data["units"] = this.units;
         data["tolerance"] = this.tolerance;
         data["angle_tolerance"] = this.angle_tolerance;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

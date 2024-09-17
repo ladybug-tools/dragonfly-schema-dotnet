@@ -1,5 +1,5 @@
 ﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { BuildingPropertiesAbridged } from "./BuildingPropertiesAbridged";
 import { IDdBaseModel } from "honeybee-schema";
 import { RoofSpecification } from "./RoofSpecification";
@@ -83,8 +83,8 @@ export class Building extends IDdBaseModel {
         data["unique_stories"] = this.unique_stories;
         data["room_3ds"] = this.room_3ds;
         data["roof"] = this.roof;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

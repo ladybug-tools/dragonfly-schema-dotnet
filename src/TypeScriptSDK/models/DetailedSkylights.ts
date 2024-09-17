@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
@@ -58,8 +58,8 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
         data["polygons"] = this.polygons;
         data["type"] = this.type;
         data["are_doors"] = this.are_doors;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

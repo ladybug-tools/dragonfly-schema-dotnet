@@ -1,5 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Extruded borders over all windows in the wall. */
@@ -48,8 +48,8 @@ export class ExtrudedBorder extends _OpenAPIGenBaseModel {
 
         data["depth"] = this.depth;
         data["type"] = this.type;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

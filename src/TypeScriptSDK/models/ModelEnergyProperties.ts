@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { AirBoundaryConstruction } from "honeybee-schema";
 import { AirBoundaryConstructionAbridged } from "honeybee-schema";
@@ -591,8 +591,8 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
         data["program_types"] = this.program_types;
         data["schedules"] = this.schedules;
         data["schedule_type_limits"] = this.schedule_type_limits;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

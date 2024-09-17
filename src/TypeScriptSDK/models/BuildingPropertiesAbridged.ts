@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { BuildingEnergyPropertiesAbridged } from "./BuildingEnergyPropertiesAbridged";
 import { BuildingRadiancePropertiesAbridged } from "./BuildingRadiancePropertiesAbridged";
@@ -58,8 +58,8 @@ export class BuildingPropertiesAbridged extends _OpenAPIGenBaseModel {
         data["type"] = this.type;
         data["energy"] = this.energy;
         data["radiance"] = this.radiance;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

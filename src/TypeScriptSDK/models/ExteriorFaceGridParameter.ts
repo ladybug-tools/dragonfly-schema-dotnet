@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsNumber, IsEnum, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _GridParameterBase } from "./_GridParameterBase";
 import { ExteriorFaceType } from "./ExteriorFaceType";
 
@@ -67,8 +67,8 @@ export class ExteriorFaceGridParameter extends _GridParameterBase {
         data["offset"] = this.offset;
         data["face_type"] = this.face_type;
         data["punched_geometry"] = this.punched_geometry;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

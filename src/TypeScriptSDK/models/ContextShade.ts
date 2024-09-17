@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsDefined, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { ContextShadePropertiesAbridged } from "./ContextShadePropertiesAbridged";
 import { Face3D } from "honeybee-schema";
 import { IDdBaseModel } from "honeybee-schema";
@@ -68,8 +68,8 @@ export class ContextShade extends IDdBaseModel {
         data["properties"] = this.properties;
         data["type"] = this.type;
         data["is_detached"] = this.is_detached;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

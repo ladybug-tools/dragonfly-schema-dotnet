@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { BSDF } from "honeybee-schema";
 import { Glass } from "honeybee-schema";
@@ -238,8 +238,8 @@ export class ModelRadianceProperties extends _OpenAPIGenBaseModel {
         data["global_modifier_set"] = this.global_modifier_set;
         data["modifier_sets"] = this.modifier_sets;
         data["modifiers"] = this.modifiers;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {

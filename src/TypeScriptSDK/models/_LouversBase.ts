@@ -1,5 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsOptional, Min, Max, IsArray, IsBoolean, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for for a series of louvered shades over a wall. */
@@ -84,8 +84,8 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
         data["contour_vector"] = this.contour_vector;
         data["flip_start_side"] = this.flip_start_side;
         data["type"] = this.type;
-        super.toJSON(data);
-        return data;
+        data = super.toJSON(data);
+        return instanceToPlain(data);
     }
 
 	async validate(): Promise<boolean> {
