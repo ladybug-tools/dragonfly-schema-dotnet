@@ -45,11 +45,6 @@ export class RoofSpecification extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["geometry"] = this.geometry;
         data["type"] = this.type;
         data = super.toJSON(data);
@@ -65,3 +60,4 @@ export class RoofSpecification extends _OpenAPIGenBaseModel {
         return true;
     }
 }
+

@@ -133,11 +133,6 @@ export class Room2D extends IDdBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["floor_boundary"] = this.floor_boundary;
         data["floor_height"] = this.floor_height;
         data["floor_to_ceiling_height"] = this.floor_to_ceiling_height;
@@ -164,3 +159,4 @@ export class Room2D extends IDdBaseModel {
         return true;
     }
 }
+

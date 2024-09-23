@@ -41,11 +41,6 @@ export class LouversByCount extends _LouversBase {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["louver_count"] = this.louver_count;
         data["type"] = this.type;
         data = super.toJSON(data);
@@ -61,3 +56,4 @@ export class LouversByCount extends _LouversBase {
         return true;
     }
 }
+

@@ -51,11 +51,6 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["type"] = this.type;
         data["modifier_set"] = this.modifier_set;
         data["grid_parameters"] = this.grid_parameters;
@@ -72,3 +67,4 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
         return true;
     }
 }
+

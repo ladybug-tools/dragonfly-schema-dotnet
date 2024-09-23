@@ -41,11 +41,6 @@ export class ContextShadeRadiancePropertiesAbridged extends _OpenAPIGenBaseModel
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["type"] = this.type;
         data["modifier"] = this.modifier;
         data = super.toJSON(data);
@@ -61,3 +56,4 @@ export class ContextShadeRadiancePropertiesAbridged extends _OpenAPIGenBaseModel
         return true;
     }
 }
+

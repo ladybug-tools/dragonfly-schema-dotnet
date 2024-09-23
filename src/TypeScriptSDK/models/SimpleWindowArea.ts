@@ -48,11 +48,6 @@ export class SimpleWindowArea extends _WindowParameterBase {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["window_area"] = this.window_area;
         data["type"] = this.type;
         data["rect_split"] = this.rect_split;
@@ -69,3 +64,4 @@ export class SimpleWindowArea extends _WindowParameterBase {
         return true;
     }
 }
+
