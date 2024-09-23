@@ -33,7 +33,7 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Room2DRadiancePropertiesAbridged, _data);
+            const obj = plainToClass(Room2DRadiancePropertiesAbridged, _data, { enableImplicitConversion: true });
             this.type = obj.type;
             this.modifier_set = obj.modifier_set;
             this.grid_parameters = obj.grid_parameters;

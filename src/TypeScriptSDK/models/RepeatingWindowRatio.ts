@@ -47,7 +47,7 @@ export class RepeatingWindowRatio extends _WindowParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(RepeatingWindowRatio, _data);
+            const obj = plainToClass(RepeatingWindowRatio, _data, { enableImplicitConversion: true });
             this.window_ratio = obj.window_ratio;
             this.window_height = obj.window_height;
             this.sill_height = obj.sill_height;

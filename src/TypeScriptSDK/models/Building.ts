@@ -53,7 +53,7 @@ export class Building extends IDdBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Building, _data);
+            const obj = plainToClass(Building, _data, { enableImplicitConversion: true });
             this.properties = obj.properties;
             this.type = obj.type;
             this.unique_stories = obj.unique_stories;

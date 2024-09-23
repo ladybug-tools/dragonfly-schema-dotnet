@@ -32,7 +32,7 @@ export class Room2DPropertiesAbridged extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Room2DPropertiesAbridged, _data);
+            const obj = plainToClass(Room2DPropertiesAbridged, _data, { enableImplicitConversion: true });
             this.type = obj.type;
             this.energy = obj.energy;
             this.radiance = obj.radiance;

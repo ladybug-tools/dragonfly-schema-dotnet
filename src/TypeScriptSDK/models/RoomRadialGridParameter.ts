@@ -37,7 +37,7 @@ export class RoomRadialGridParameter extends RoomGridParameter {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(RoomRadialGridParameter, _data);
+            const obj = plainToClass(RoomRadialGridParameter, _data, { enableImplicitConversion: true });
             this.dir_count = obj.dir_count;
             this.start_vector = obj.start_vector;
             this.mesh_radius = obj.mesh_radius;

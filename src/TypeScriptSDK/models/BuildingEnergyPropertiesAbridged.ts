@@ -26,7 +26,7 @@ export class BuildingEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(BuildingEnergyPropertiesAbridged, _data);
+            const obj = plainToClass(BuildingEnergyPropertiesAbridged, _data, { enableImplicitConversion: true });
             this.type = obj.type;
             this.construction_set = obj.construction_set;
         }

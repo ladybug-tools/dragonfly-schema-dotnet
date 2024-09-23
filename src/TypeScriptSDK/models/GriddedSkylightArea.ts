@@ -30,7 +30,7 @@ export class GriddedSkylightArea extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(GriddedSkylightArea, _data);
+            const obj = plainToClass(GriddedSkylightArea, _data, { enableImplicitConversion: true });
             this.skylight_area = obj.skylight_area;
             this.type = obj.type;
             this.spacing = obj.spacing;

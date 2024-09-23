@@ -105,7 +105,7 @@ export class Room2D extends IDdBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Room2D, _data);
+            const obj = plainToClass(Room2D, _data, { enableImplicitConversion: true });
             this.floor_boundary = obj.floor_boundary;
             this.floor_height = obj.floor_height;
             this.floor_to_ceiling_height = obj.floor_to_ceiling_height;

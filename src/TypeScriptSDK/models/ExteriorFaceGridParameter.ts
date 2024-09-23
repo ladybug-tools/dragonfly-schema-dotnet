@@ -39,7 +39,7 @@ export class ExteriorFaceGridParameter extends _GridParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ExteriorFaceGridParameter, _data);
+            const obj = plainToClass(ExteriorFaceGridParameter, _data, { enableImplicitConversion: true });
             this.type = obj.type;
             this.offset = obj.offset;
             this.face_type = obj.face_type;

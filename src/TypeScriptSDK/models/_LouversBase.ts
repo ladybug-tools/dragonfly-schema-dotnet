@@ -52,7 +52,7 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(_LouversBase, _data);
+            const obj = plainToClass(_LouversBase, _data, { enableImplicitConversion: true });
             this.depth = obj.depth;
             this.offset = obj.offset;
             this.angle = obj.angle;

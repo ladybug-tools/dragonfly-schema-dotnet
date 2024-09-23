@@ -32,7 +32,7 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(DetailedSkylights, _data);
+            const obj = plainToClass(DetailedSkylights, _data, { enableImplicitConversion: true });
             this.polygons = obj.polygons;
             this.type = obj.type;
             this.are_doors = obj.are_doors;
