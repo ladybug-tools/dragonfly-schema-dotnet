@@ -1,6 +1,6 @@
 import { plainToClass } from "class-transformer";
 import { Model } from "../models";
-import { Face3D, GlobalModifierSet, WallModifierSetAbridged } from "honeybee-schema";
+import { Face3D, GlobalModifierSet, ModelProperties, WallModifierSetAbridged } from "honeybee-schema";
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -18,7 +18,8 @@ test('test model', () => {
   expect(model.identifier).toBe("unnamed_cb67f62e");
   expect(model.validate()).resolves.toBe(true);
 
-});
+}
+);
 
 test('test wallSet', () => {
   const data = {
@@ -34,10 +35,10 @@ test('test wallSet', () => {
   expect(jsonObj).toHaveProperty("interior_modifier");
   expect(jsonObj.hasOwnProperty("ground_construction")).toBe(false);
 
-});
+}
+);
 
-test('test wallSet', () => {
-  const data = {
+const GlobalModifierSetData = {
     "shade_set": {
         "type": "ShadeModifierSetAbridged",
         "interior_modifier": "generic_interior_shade_0.50",
@@ -189,12 +190,50 @@ test('test wallSet', () => {
     },
     "air_boundary_modifier": "air_boundary"
 };
-  const obj = GlobalModifierSet.fromJS(data);
-  expect(obj.validate()).resolves.toBe(true);
 
-  const jsonObj = obj.toJSON();
-  expect(jsonObj.type).toBe("WallModifierSetAbridged");
-  expect(jsonObj).toHaveProperty("interior_modifier");
-  expect(jsonObj.hasOwnProperty("ground_construction")).toBe(false);
+test('test GlobalModifierSet', () => {
+    const data = GlobalModifierSetData;
+    const obj = GlobalModifierSet.fromJS(data);
+    expect(obj.validate()).resolves.toBe(true);
 
-});
+    const jsonObj = obj.toJSON();
+    expect(jsonObj.type).toBe("GlobalModifierSet");
+    expect(jsonObj).toHaveProperty("wall_set");
+    expect(jsonObj.wall_set).toHaveProperty("interior_modifier");
+    expect(jsonObj.wall_set.hasOwnProperty("ground_construction")).toBe(false);
+
+}
+);
+
+test('test ModelProperties', () => {
+    const data = {
+        "radiance":
+        {
+            "global_modifier_set":GlobalModifierSetData
+        }
+    }
+    const obj = ModelProperties.fromJS(data);
+    // expect(obj.validate()).resolves.toBe(true);
+    expect(obj.radiance?.global_modifier_set?.wall_set).toBeInstanceOf(WallModifierSetAbridged);
+  
+  }
+);
+
+test('test Model2', () => {
+    const data = {
+        "properties":
+        {
+            "radiance":
+            {
+                "global_modifier_set":GlobalModifierSetData
+            }
+        }
+    }
+
+    // const model = plainToClass(Model, data, { enableImplicitConversion: true });
+    const obj = Model.fromJS(data);
+    expect(obj.properties.radiance?.global_modifier_set?.wall_set).toBeInstanceOf(WallModifierSetAbridged);
+    // expect(obj.validate()).resolves.toBe(true);
+  
+  }
+);
