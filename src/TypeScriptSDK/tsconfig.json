@@ -25,8 +25,10 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "types": ["node", "jest"],
   },
-  "include": [ "models", "helpers"],
+  "include": [ "models", "helpers", "tests"],
   "exclude": ["node_modules"]
 }
