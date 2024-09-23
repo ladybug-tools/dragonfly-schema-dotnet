@@ -56,11 +56,6 @@ export class RoomRadialGridParameter extends RoomGridParameter {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["dir_count"] = this.dir_count;
         data["start_vector"] = this.start_vector;
         data["mesh_radius"] = this.mesh_radius;
@@ -78,3 +73,4 @@ export class RoomRadialGridParameter extends RoomGridParameter {
         return true;
     }
 }
+

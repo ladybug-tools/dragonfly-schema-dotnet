@@ -48,11 +48,6 @@ export class _GridParameterBase extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["dimension"] = this.dimension;
         data["include_mesh"] = this.include_mesh;
         data["type"] = this.type;
@@ -69,3 +64,4 @@ export class _GridParameterBase extends _OpenAPIGenBaseModel {
         return true;
     }
 }
+

@@ -84,11 +84,6 @@ export class Story extends IDdBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["room_2ds"] = this.room_2ds;
         data["properties"] = this.properties;
         data["type"] = this.type;
@@ -109,3 +104,4 @@ export class Story extends IDdBaseModel {
         return true;
     }
 }
+

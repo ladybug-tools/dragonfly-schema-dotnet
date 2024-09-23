@@ -64,11 +64,6 @@ export class RectangularWindows extends _WindowParameterBase {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["origins"] = this.origins;
         data["widths"] = this.widths;
         data["heights"] = this.heights;
@@ -87,3 +82,4 @@ export class RectangularWindows extends _WindowParameterBase {
         return true;
     }
 }
+

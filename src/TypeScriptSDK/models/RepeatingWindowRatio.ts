@@ -68,11 +68,6 @@ export class RepeatingWindowRatio extends _WindowParameterBase {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["window_ratio"] = this.window_ratio;
         data["window_height"] = this.window_height;
         data["sill_height"] = this.sill_height;
@@ -92,3 +87,4 @@ export class RepeatingWindowRatio extends _WindowParameterBase {
         return true;
     }
 }
+

@@ -50,11 +50,6 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["polygons"] = this.polygons;
         data["type"] = this.type;
         data["are_doors"] = this.are_doors;
@@ -71,3 +66,4 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
         return true;
     }
 }
+

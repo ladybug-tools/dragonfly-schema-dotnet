@@ -576,11 +576,6 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["type"] = this.type;
         data["global_construction_set"] = this.global_construction_set;
         data["construction_sets"] = this.construction_sets;
@@ -604,3 +599,4 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
         return true;
     }
 }
+

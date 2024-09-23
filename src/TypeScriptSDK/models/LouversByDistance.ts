@@ -41,11 +41,6 @@ export class LouversByDistance extends _LouversBase {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["distance"] = this.distance;
         data["type"] = this.type;
         data = super.toJSON(data);
@@ -61,3 +56,4 @@ export class LouversByDistance extends _LouversBase {
         return true;
     }
 }
+

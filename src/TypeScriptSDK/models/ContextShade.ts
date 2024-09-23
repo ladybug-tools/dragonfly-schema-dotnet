@@ -59,11 +59,6 @@ export class ContextShade extends IDdBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["geometry"] = this.geometry;
         data["properties"] = this.properties;
         data["type"] = this.type;
@@ -81,3 +76,4 @@ export class ContextShade extends IDdBaseModel {
         return true;
     }
 }
+

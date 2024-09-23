@@ -49,11 +49,6 @@ export class RoomGridParameter extends _GridParameterBase {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["type"] = this.type;
         data["offset"] = this.offset;
         data["wall_offset"] = this.wall_offset;
@@ -70,3 +65,4 @@ export class RoomGridParameter extends _GridParameterBase {
         return true;
     }
 }
+

@@ -54,11 +54,6 @@ export class SingleWindow extends _WindowParameterBase {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-
         data["width"] = this.width;
         data["height"] = this.height;
         data["type"] = this.type;
@@ -76,3 +71,4 @@ export class SingleWindow extends _WindowParameterBase {
         return true;
     }
 }
+
