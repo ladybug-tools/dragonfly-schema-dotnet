@@ -24,7 +24,7 @@ export class LouversByCount extends _LouversBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(LouversByCount, _data);
+            const obj = plainToClass(LouversByCount, _data, { enableImplicitConversion: true });
             this.louver_count = obj.louver_count;
             this.type = obj.type;
         }

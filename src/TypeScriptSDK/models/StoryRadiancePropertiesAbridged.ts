@@ -24,7 +24,7 @@ export class StoryRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(StoryRadiancePropertiesAbridged, _data);
+            const obj = plainToClass(StoryRadiancePropertiesAbridged, _data, { enableImplicitConversion: true });
             this.type = obj.type;
             this.modifier_set = obj.modifier_set;
         }

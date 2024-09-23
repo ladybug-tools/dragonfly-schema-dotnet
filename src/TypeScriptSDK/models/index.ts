@@ -1,5 +1,9 @@
 ﻿// Auto-generated
 
+export * from "./_GridParameterBase";
+export * from "./_LouversBase";
+export * from "./_OpenAPIGenBaseModel";
+export * from "./_WindowParameterBase";
 export * from "./Building";
 export * from "./BuildingEnergyPropertiesAbridged";
 export * from "./BuildingPropertiesAbridged";
@@ -40,7 +44,3 @@ export * from "./Story";
 export * from "./StoryEnergyPropertiesAbridged";
 export * from "./StoryPropertiesAbridged";
 export * from "./StoryRadiancePropertiesAbridged";
-export * from "./_GridParameterBase";
-export * from "./_LouversBase";
-export * from "./_OpenAPIGenBaseModel";
-export * from "./_WindowParameterBase";

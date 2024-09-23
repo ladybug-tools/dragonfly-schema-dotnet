@@ -30,7 +30,7 @@ export class GriddedSkylightRatio extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(GriddedSkylightRatio, _data);
+            const obj = plainToClass(GriddedSkylightRatio, _data, { enableImplicitConversion: true });
             this.skylight_ratio = obj.skylight_ratio;
             this.type = obj.type;
             this.spacing = obj.spacing;
