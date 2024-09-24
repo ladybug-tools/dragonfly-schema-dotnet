@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsNumber, IsEnum, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { _GridParameterBase } from "./_GridParameterBase";
 import { ExteriorFaceType } from "./ExteriorFaceType";
 
@@ -51,6 +51,13 @@ export class ExteriorFaceGridParameter extends _GridParameterBase {
     static override fromJS(data: any): ExteriorFaceGridParameter {
         data = typeof data === 'object' ? data : {};
 
+        if (Array.isArray(data)) {
+            const obj:any = {};
+            for (var property in data) {
+                obj[property] = data[property];
+            }
+            data = obj;
+        }
         let result = new ExteriorFaceGridParameter();
         result.init(data);
         return result;

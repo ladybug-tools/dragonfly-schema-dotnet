@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsDefined, IsNumber, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { Adiabatic } from "honeybee-schema";
 import { DetailedSkylights } from "./DetailedSkylights";
@@ -70,16 +70,40 @@ export class Room2D extends IDdBaseModel {
 	
     @IsArray()
     @IsOptional()
+    @Transform(({ value }) => value.map((item: any) => {
+      if (item?.type === 'Ground') return Ground.fromJS(item);
+      else if (item?.type === 'Outdoors') return Outdoors.fromJS(item);
+      else if (item?.type === 'Surface') return Surface.fromJS(item);
+      else if (item?.type === 'Adiabatic') return Adiabatic.fromJS(item);
+      else if (item?.type === 'OtherSideTemperature') return OtherSideTemperature.fromJS(item);
+      else return item;
+    }))
     /** A list of boundary conditions that match the number of segments in the input floor_geometry + floor_holes. These will be used to assign boundary conditions to each of the walls of the Room in the resulting model. Their order should align with the order of segments in the floor_boundary and then with each hole segment. If None, all boundary conditions will be Outdoors or Ground depending on whether ceiling height of the room is at or below 0 (the assumed ground plane). */
     boundary_conditions?: (Ground | Outdoors | Surface | Adiabatic | OtherSideTemperature) [];
 	
     @IsArray()
     @IsOptional()
+    @Transform(({ value }) => value.map((item: any) => {
+      if (item?.type === 'SingleWindow') return SingleWindow.fromJS(item);
+      else if (item?.type === 'SimpleWindowArea') return SimpleWindowArea.fromJS(item);
+      else if (item?.type === 'SimpleWindowRatio') return SimpleWindowRatio.fromJS(item);
+      else if (item?.type === 'RepeatingWindowRatio') return RepeatingWindowRatio.fromJS(item);
+      else if (item?.type === 'RectangularWindows') return RectangularWindows.fromJS(item);
+      else if (item?.type === 'DetailedWindows') return DetailedWindows.fromJS(item);
+      else return item;
+    }))
     /** A list of WindowParameter objects that dictate how the window geometries will be generated for each of the walls. If None, no windows will exist over the entire Room2D. */
     window_parameters?: (SingleWindow | SimpleWindowArea | SimpleWindowRatio | RepeatingWindowRatio | RectangularWindows | DetailedWindows) [];
 	
     @IsArray()
     @IsOptional()
+    @Transform(({ value }) => value.map((item: any) => {
+      if (item?.type === 'ExtrudedBorder') return ExtrudedBorder.fromJS(item);
+      else if (item?.type === 'Overhang') return Overhang.fromJS(item);
+      else if (item?.type === 'LouversByDistance') return LouversByDistance.fromJS(item);
+      else if (item?.type === 'LouversByCount') return LouversByCount.fromJS(item);
+      else return item;
+    }))
     /** A list of ShadingParameter objects that dictate how the shade geometries will be generated for each of the walls. If None, no shades will exist over the entire Room2D. */
     shading_parameters?: (ExtrudedBorder | Overhang | LouversByDistance | LouversByCount) [];
 	
@@ -90,6 +114,13 @@ export class Room2D extends IDdBaseModel {
     air_boundaries?: boolean [];
 	
     @IsOptional()
+    @Transform(({ value }) => {
+      const item = value;
+      if (item?.type === 'GriddedSkylightArea') return GriddedSkylightArea.fromJS(item);
+      else if (item?.type === 'GriddedSkylightRatio') return GriddedSkylightRatio.fromJS(item);
+      else if (item?.type === 'DetailedSkylights') return DetailedSkylights.fromJS(item);
+      else return item;
+    })
     /** A SkylightParameter object describing how to generate skylights. If None, no skylights will exist on the Room2D. */
     skylight_parameters?: (GriddedSkylightArea | GriddedSkylightRatio | DetailedSkylights);
 	
@@ -126,6 +157,13 @@ export class Room2D extends IDdBaseModel {
     static override fromJS(data: any): Room2D {
         data = typeof data === 'object' ? data : {};
 
+        if (Array.isArray(data)) {
+            const obj:any = {};
+            for (var property in data) {
+                obj[property] = data[property];
+            }
+            data = obj;
+        }
         let result = new Room2D();
         result.init(data);
         return result;

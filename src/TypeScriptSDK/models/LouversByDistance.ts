@@ -1,5 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { _LouversBase } from "./_LouversBase";
 
 /** A series of louvered Shades at a given distance between each louver. */
@@ -34,6 +34,13 @@ export class LouversByDistance extends _LouversBase {
     static override fromJS(data: any): LouversByDistance {
         data = typeof data === 'object' ? data : {};
 
+        if (Array.isArray(data)) {
+            const obj:any = {};
+            for (var property in data) {
+                obj[property] = data[property];
+            }
+            data = obj;
+        }
         let result = new LouversByDistance();
         result.init(data);
         return result;

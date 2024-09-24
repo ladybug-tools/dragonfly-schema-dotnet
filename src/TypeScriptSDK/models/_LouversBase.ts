@@ -1,5 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsOptional, Min, Max, IsArray, IsBoolean, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for for a series of louvered shades over a wall. */
@@ -66,6 +66,13 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
     static override fromJS(data: any): _LouversBase {
         data = typeof data === 'object' ? data : {};
 
+        if (Array.isArray(data)) {
+            const obj:any = {};
+            for (var property in data) {
+                obj[property] = data[property];
+            }
+            data = obj;
+        }
         let result = new _LouversBase();
         result.init(data);
         return result;
