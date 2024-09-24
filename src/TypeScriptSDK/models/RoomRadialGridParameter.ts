@@ -1,5 +1,5 @@
 ﻿import { IsInt, IsOptional, IsArray, IsNumber, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { Autocalculate } from "honeybee-schema";
 import { RoomGridParameter } from "./RoomGridParameter";
 
@@ -49,6 +49,13 @@ export class RoomRadialGridParameter extends RoomGridParameter {
     static override fromJS(data: any): RoomRadialGridParameter {
         data = typeof data === 'object' ? data : {};
 
+        if (Array.isArray(data)) {
+            const obj:any = {};
+            for (var property in data) {
+                obj[property] = data[property];
+            }
+            data = obj;
+        }
         let result = new RoomRadialGridParameter();
         result.init(data);
         return result;

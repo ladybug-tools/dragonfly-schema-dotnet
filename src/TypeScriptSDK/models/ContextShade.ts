@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsDefined, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { ContextShadePropertiesAbridged } from "./ContextShadePropertiesAbridged";
 import { Face3D } from "honeybee-schema";
 import { IDdBaseModel } from "honeybee-schema";
@@ -9,6 +9,11 @@ import { Mesh3D } from "honeybee-schema";
 export class ContextShade extends IDdBaseModel {
     @IsArray()
     @IsDefined()
+    @Transform(({ value }) => value.map((item: any) => {
+      if (item?.type === 'Face3D') return Face3D.fromJS(item);
+      else if (item?.type === 'Mesh3D') return Mesh3D.fromJS(item);
+      else return item;
+    }))
     /** An array of planar Face3Ds and or Mesh3Ds that together represent the context shade. */
     geometry!: (Face3D | Mesh3D) [];
 	
@@ -52,6 +57,13 @@ export class ContextShade extends IDdBaseModel {
     static override fromJS(data: any): ContextShade {
         data = typeof data === 'object' ? data : {};
 
+        if (Array.isArray(data)) {
+            const obj:any = {};
+            for (var property in data) {
+                obj[property] = data[property];
+            }
+            data = obj;
+        }
         let result = new ContextShade();
         result.init(data);
         return result;

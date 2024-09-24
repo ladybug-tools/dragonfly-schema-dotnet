@@ -1,6 +1,6 @@
 import { plainToClass } from "class-transformer";
 import { Model } from "../models";
-import { Face3D, GlobalModifierSet, ModelProperties, WallModifierSetAbridged } from "honeybee-schema";
+import { Face3D, GlobalModifierSet, ModelProperties, Plastic, WallModifierSetAbridged } from "honeybee-schema";
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -195,6 +195,7 @@ test('test GlobalModifierSet', () => {
     const data = GlobalModifierSetData;
     const obj = GlobalModifierSet.fromJS(data);
     expect(obj.validate()).resolves.toBe(true);
+    expect(obj.modifiers?.at(0)).toBeInstanceOf(Plastic)
 
     const jsonObj = obj.toJSON();
     expect(jsonObj.type).toBe("GlobalModifierSet");
@@ -237,3 +238,5 @@ test('test Model2', () => {
   
   }
 );
+
+

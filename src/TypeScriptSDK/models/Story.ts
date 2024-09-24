@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsInt, Min, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { Autocalculate } from "honeybee-schema";
 import { IDdBaseModel } from "honeybee-schema";
 import { RoofSpecification } from "./RoofSpecification";
@@ -77,6 +77,13 @@ export class Story extends IDdBaseModel {
     static override fromJS(data: any): Story {
         data = typeof data === 'object' ? data : {};
 
+        if (Array.isArray(data)) {
+            const obj:any = {};
+            for (var property in data) {
+                obj[property] = data[property];
+            }
+            data = obj;
+        }
         let result = new Story();
         result.init(data);
         return result;

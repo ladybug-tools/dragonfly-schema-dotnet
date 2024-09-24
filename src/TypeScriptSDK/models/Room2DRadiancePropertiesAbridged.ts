@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ExteriorApertureGridParameter } from "./ExteriorApertureGridParameter";
 import { ExteriorFaceGridParameter } from "./ExteriorFaceGridParameter";
@@ -20,6 +20,13 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
 	
     @IsArray()
     @IsOptional()
+    @Transform(({ value }) => value.map((item: any) => {
+      if (item?.type === 'RoomGridParameter') return RoomGridParameter.fromJS(item);
+      else if (item?.type === 'RoomRadialGridParameter') return RoomRadialGridParameter.fromJS(item);
+      else if (item?.type === 'ExteriorFaceGridParameter') return ExteriorFaceGridParameter.fromJS(item);
+      else if (item?.type === 'ExteriorApertureGridParameter') return ExteriorApertureGridParameter.fromJS(item);
+      else return item;
+    }))
     /** An optional list of GridParameter objects to describe how sensor grids should be generated for the Room2D. */
     grid_parameters?: (RoomGridParameter | RoomRadialGridParameter | ExteriorFaceGridParameter | ExteriorApertureGridParameter) [];
 	
@@ -44,6 +51,13 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     static override fromJS(data: any): Room2DRadiancePropertiesAbridged {
         data = typeof data === 'object' ? data : {};
 
+        if (Array.isArray(data)) {
+            const obj:any = {};
+            for (var property in data) {
+                obj[property] = data[property];
+            }
+            data = obj;
+        }
         let result = new Room2DRadiancePropertiesAbridged();
         result.init(data);
         return result;

@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsDefined, IsNumber, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
@@ -57,6 +57,13 @@ export class RectangularWindows extends _WindowParameterBase {
     static override fromJS(data: any): RectangularWindows {
         data = typeof data === 'object' ? data : {};
 
+        if (Array.isArray(data)) {
+            const obj:any = {};
+            for (var property in data) {
+                obj[property] = data[property];
+            }
+            data = obj;
+        }
         let result = new RectangularWindows();
         result.init(data);
         return result;

@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, MinLength, MaxLength, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ProcessAbridged } from "honeybee-schema";
 import { VentilationControlAbridged } from "honeybee-schema";
@@ -88,6 +88,13 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     static override fromJS(data: any): Room2DEnergyPropertiesAbridged {
         data = typeof data === 'object' ? data : {};
 
+        if (Array.isArray(data)) {
+            const obj:any = {};
+            for (var property in data) {
+                obj[property] = data[property];
+            }
+            data = obj;
+        }
         let result = new Room2DEnergyPropertiesAbridged();
         result.init(data);
         return result;
