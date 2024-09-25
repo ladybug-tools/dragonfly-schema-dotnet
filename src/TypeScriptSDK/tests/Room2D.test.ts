@@ -210,7 +210,78 @@ test('test room2d', () => {
 
 });
 
+test('test room2d2', () => {
+  const roomData =             {
+    "type": "Room2D",
+    "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d14cc",
+    "display_name": "Laundry-104",
+    "properties": {
+      "type": "Room2DPropertiesAbridged",
+      "energy": { "type": "Room2DEnergyPropertiesAbridged" },
+      "radiance": { "type": "Room2DRadiancePropertiesAbridged" }
+    },
+    "floor_boundary": [
+      [10.001931517437631, -0.7441439785816385],
+      [8.290021124356155, -0.744143978581633],
+      [7.6424815174376315, -0.744143978581631],
+      [7.642481517437627, -3.3415939785816904],
+      [10.001931517437628, -3.3415939785816975],
+      [10.001931517437628, -2.5035939785815233]
+    ],
+    "floor_height": 0,
+    "floor_to_ceiling_height": 3,
+    "is_ground_contact": true,
+    "is_top_exposed": false,
+    "boundary_conditions": [
+      {
+        "type": "Outdoors",
+        "sun_exposure": true,
+        "wind_exposure": true,
+        "view_factor": { "type": "Autocalculate" }
+      },
+      {
+        "type": "Outdoors",
+        "sun_exposure": true,
+        "wind_exposure": true,
+        "view_factor": { "type": "Autocalculate" }
+      },
+      {
+        "type": "Outdoors",
+        "sun_exposure": true,
+        "wind_exposure": true,
+        "view_factor": { "type": "Autocalculate" }
+      },
+      {
+        "type": "Outdoors",
+        "sun_exposure": true,
+        "wind_exposure": true,
+        "view_factor": { "type": "Autocalculate" }
+      },
+      {
+        "type": "Outdoors",
+        "sun_exposure": true,
+        "wind_exposure": true,
+        "view_factor": { "type": "Autocalculate" }
+      },
+      {
+        "type": "Outdoors",
+        "sun_exposure": true,
+        "wind_exposure": true,
+        "view_factor": { "type": "Autocalculate" }
+      }
+    ],
+    "user_data": {}
+  }
+  const obj = Room2D.fromJS(roomData);
+  expect(obj.identifier).toBe("Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d14cc");
+  expect(obj.validate()).resolves.toBe(true);
 
+  const jsonObj = obj.toJSON();
+  const prop = jsonObj["properties"];
+  expect(prop["energy"].hasOwnProperty("hvac")).toBe(false);
+  expect(prop.hasOwnProperty("radiance")).toBe(true);
+
+});
 
 test('test roomProperty', () => {
   const roomData = {
