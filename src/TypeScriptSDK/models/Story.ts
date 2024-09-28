@@ -2,9 +2,9 @@
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { Autocalculate } from "honeybee-schema";
 import { IDdBaseModel } from "honeybee-schema";
-import { RoofSpecification } from "./RoofSpecification";
-import { Room2D } from "./Room2D";
-import { StoryPropertiesAbridged } from "./StoryPropertiesAbridged";
+import { RoofSpecification } from "./RoofSpecification.ts";
+import { Room2D } from "./Room2D.ts";
+import { StoryPropertiesAbridged } from "./StoryPropertiesAbridged.ts";
 
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Story extends IDdBaseModel {

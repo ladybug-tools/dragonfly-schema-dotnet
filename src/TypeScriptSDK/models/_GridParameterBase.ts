@@ -1,6 +1,6 @@
 ﻿import { IsNumber, IsDefined, IsBoolean, IsOptional, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
+import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel.ts";
 
 /** Base object for all GridParameters. */
 export class _GridParameterBase extends _OpenAPIGenBaseModel {

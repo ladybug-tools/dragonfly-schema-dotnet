@@ -1,7 +1,7 @@
 ﻿import { IsString, IsOptional, Matches, IsNumber, IsEnum, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _GridParameterBase } from "./_GridParameterBase";
-import { ExteriorFaceType } from "./ExteriorFaceType";
+import { _GridParameterBase } from "./_GridParameterBase.ts";
+import { ExteriorFaceType } from "./ExteriorFaceType.ts";
 
 /** Instructions for a SensorGrid generated from exterior Faces. */
 export class ExteriorFaceGridParameter extends _GridParameterBase {

@@ -1,10 +1,10 @@
 ﻿import { IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
-import { ExteriorApertureGridParameter } from "./ExteriorApertureGridParameter";
-import { ExteriorFaceGridParameter } from "./ExteriorFaceGridParameter";
-import { RoomGridParameter } from "./RoomGridParameter";
-import { RoomRadialGridParameter } from "./RoomRadialGridParameter";
+import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel.ts";
+import { ExteriorApertureGridParameter } from "./ExteriorApertureGridParameter.ts";
+import { ExteriorFaceGridParameter } from "./ExteriorFaceGridParameter.ts";
+import { RoomGridParameter } from "./RoomGridParameter.ts";
+import { RoomRadialGridParameter } from "./RoomRadialGridParameter.ts";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {

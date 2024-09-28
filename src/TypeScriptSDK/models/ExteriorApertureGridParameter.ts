@@ -1,7 +1,7 @@
 ﻿import { IsString, IsOptional, Matches, IsNumber, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _GridParameterBase } from "./_GridParameterBase";
-import { ExteriorApertureType } from "./ExteriorApertureType";
+import { _GridParameterBase } from "./_GridParameterBase.ts";
+import { ExteriorApertureType } from "./ExteriorApertureType.ts";
 
 /** Instructions for a SensorGrid generated from exterior Aperture. */
 export class ExteriorApertureGridParameter extends _GridParameterBase {
