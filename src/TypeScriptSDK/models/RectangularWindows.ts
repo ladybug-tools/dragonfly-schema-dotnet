@@ -1,7 +1,7 @@
 ﻿import { IsArray, IsDefined, IsNumber, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { IsNestedNumberArray } from "./../helpers/class-validator";
-import { _WindowParameterBase } from "./_WindowParameterBase";
+import { IsNestedNumberArray } from "./../helpers/class-validator.ts";
+import { _WindowParameterBase } from "./_WindowParameterBase.ts";
 
 /** Several rectangular windows, defined by origin, width and height. */
 export class RectangularWindows extends _WindowParameterBase {

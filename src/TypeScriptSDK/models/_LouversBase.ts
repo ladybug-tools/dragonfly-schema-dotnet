@@ -1,6 +1,6 @@
 ﻿import { IsNumber, IsDefined, IsOptional, Min, Max, IsArray, IsBoolean, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
+import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel.ts";
 
 /** Base class for for a series of louvered shades over a wall. */
 export class _LouversBase extends _OpenAPIGenBaseModel {

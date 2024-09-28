@@ -1,6 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, MinLength, MaxLength, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
+import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel.ts";
 import { ProcessAbridged } from "honeybee-schema";
 import { VentilationControlAbridged } from "honeybee-schema";
 import { VentilationOpening } from "honeybee-schema";

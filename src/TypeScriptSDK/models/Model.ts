@@ -1,9 +1,9 @@
 ﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsArray, IsEnum, IsNumber, Min, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { Building } from "./Building";
-import { ContextShade } from "./ContextShade";
+import { Building } from "./Building.ts";
+import { ContextShade } from "./ContextShade.ts";
 import { IDdBaseModel } from "honeybee-schema";
-import { ModelProperties } from "./ModelProperties";
+import { ModelProperties } from "./ModelProperties.ts";
 import { Units } from "honeybee-schema";
 
 /** Base class for all objects requiring a identifiers acceptable for all engines. */

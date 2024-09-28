@@ -1,8 +1,8 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
-import { ContextShadeEnergyPropertiesAbridged } from "./ContextShadeEnergyPropertiesAbridged";
-import { ContextShadeRadiancePropertiesAbridged } from "./ContextShadeRadiancePropertiesAbridged";
+import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel.ts";
+import { ContextShadeEnergyPropertiesAbridged } from "./ContextShadeEnergyPropertiesAbridged.ts";
+import { ContextShadeRadiancePropertiesAbridged } from "./ContextShadeRadiancePropertiesAbridged.ts";
 
 export class ContextShadePropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()

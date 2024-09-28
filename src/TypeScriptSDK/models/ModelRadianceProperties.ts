@@ -1,6 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
+import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel.ts";
 import { BSDF } from "honeybee-schema";
 import { Glass } from "honeybee-schema";
 import { GlobalModifierSet } from "honeybee-schema";

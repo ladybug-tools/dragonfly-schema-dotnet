@@ -1,10 +1,10 @@
 ﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { BuildingPropertiesAbridged } from "./BuildingPropertiesAbridged";
+import { BuildingPropertiesAbridged } from "./BuildingPropertiesAbridged.ts";
 import { IDdBaseModel } from "honeybee-schema";
-import { RoofSpecification } from "./RoofSpecification";
+import { RoofSpecification } from "./RoofSpecification.ts";
 import { Room } from "honeybee-schema";
-import { Story } from "./Story";
+import { Story } from "./Story.ts";
 
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Building extends IDdBaseModel {

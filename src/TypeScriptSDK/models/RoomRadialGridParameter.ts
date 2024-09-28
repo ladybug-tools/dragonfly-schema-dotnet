@@ -1,7 +1,7 @@
 ﻿import { IsInt, IsOptional, IsArray, IsNumber, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { Autocalculate } from "honeybee-schema";
-import { RoomGridParameter } from "./RoomGridParameter";
+import { RoomGridParameter } from "./RoomGridParameter.ts";
 
 /** Instructions for a SensorGrid of radial directions around positions from floors.\n\nThis type of sensor grid is particularly helpful for studies of multiple\nview directions, such as imageless glare studies. */
 export class RoomRadialGridParameter extends RoomGridParameter {

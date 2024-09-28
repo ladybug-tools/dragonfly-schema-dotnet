@@ -1,6 +1,6 @@
 ﻿import { IsOptional, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
+import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel.ts";
 
 /** Base class for all window parameters. */
 export class _WindowParameterBase extends _OpenAPIGenBaseModel {
