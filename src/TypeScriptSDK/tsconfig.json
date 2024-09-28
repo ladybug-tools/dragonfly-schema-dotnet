@@ -2,8 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "module": "ES6",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -11,13 +10,16 @@
     "outDir": "./dist",
     "incremental": true,                              /* Enable incremental compilation */
     "composite": true,                                /* Enable constraints that allow a TypeScript project to be used with project references. */
-    "sourceMap": true,
+    // "sourceMap": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
+    // "emitDeclarationOnly": true,
+    // "declaration": true,
+    // "declarationMap": true,
     "noEmit": true,
 
     /* Linting */
@@ -25,10 +27,8 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     
-    "noFallthroughCasesInSwitch": true,
-
-    "types": ["node", "jest"],
+    "noFallthroughCasesInSwitch": true
   },
-  "include": [ "models", "helpers", "tests"],
-  "exclude": ["node_modules"]
+  "include": [ "models", "helpers", "index.ts"],
+  "exclude": [ "node_modules" ]
 }
