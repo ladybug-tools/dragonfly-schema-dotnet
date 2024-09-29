@@ -1,7 +1,7 @@
 ﻿import { IsArray, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { IsNestedNumberArray } from "./../helpers/class-validator.ts";
-import { _WindowParameterBase } from "./_WindowParameterBase.ts";
+import { IsNestedNumberArray } from "./../helpers/class-validator";
+import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** Several detailed windows defined by 2D Polygons (lists of 2D vertices). */
 export class DetailedWindows extends _WindowParameterBase {

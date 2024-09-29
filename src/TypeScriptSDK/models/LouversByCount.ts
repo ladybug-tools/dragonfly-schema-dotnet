@@ -1,6 +1,6 @@
 ﻿import { IsInt, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _LouversBase } from "./_LouversBase.ts";
+import { _LouversBase } from "./_LouversBase";
 
 /** A specific number of louvered Shades over a wall. */
 export class LouversByCount extends _LouversBase {

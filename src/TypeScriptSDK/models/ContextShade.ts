@@ -1,6 +1,6 @@
 ﻿import { IsArray, IsDefined, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { ContextShadePropertiesAbridged } from "./ContextShadePropertiesAbridged.ts";
+import { ContextShadePropertiesAbridged } from "./ContextShadePropertiesAbridged";
 import { Face3D } from "honeybee-schema";
 import { IDdBaseModel } from "honeybee-schema";
 import { Mesh3D } from "honeybee-schema";

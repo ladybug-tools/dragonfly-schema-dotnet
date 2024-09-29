@@ -1,6 +1,6 @@
 ﻿import { IsNumber, IsDefined, Min, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _WindowParameterBase } from "./_WindowParameterBase.ts";
+import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** Repeating windows derived from an area ratio with the base wall. */
 export class RepeatingWindowRatio extends _WindowParameterBase {
