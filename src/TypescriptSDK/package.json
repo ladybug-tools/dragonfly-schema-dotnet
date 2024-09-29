@@ -1,0 +1,32 @@
+{
+  "name": "dragonfly-schema",
+  "license": "MIT",
+  "version": "1.1203.0",
+  "description": "Dragonfly Schema's typescript version",
+  "author": "Ladybug Tools",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "esbuild index.ts --bundle --outfile=dist/index.js --loader:.ts=ts --platform=node --target=es2015",
+    "bundle:dts": "dts-bundle-generator -o dist/index.d.ts index.ts",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "dts-bundle-generator": "^9.5.1",
+    "esbuild": "^0.24.0",
+    "gts": "^5.3.1",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "honeybee-schema": "latest"
+  }
+}
