@@ -1,6 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, IsNumber, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _GridParameterBase } from "./_GridParameterBase.ts";
+import { _GridParameterBase } from "./_GridParameterBase";
 
 /** Instructions for a SensorGrid generated from a Room2D's floors. */
 export class RoomGridParameter extends _GridParameterBase {

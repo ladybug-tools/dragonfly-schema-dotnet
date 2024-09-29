@@ -1,6 +1,6 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
-import { _WindowParameterBase } from "./_WindowParameterBase.ts";
+import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** A single window defined by an absolute area. */
 export class SimpleWindowArea extends _WindowParameterBase {
