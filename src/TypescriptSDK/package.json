@@ -4,7 +4,7 @@
   "version": "1.1203.0",
   "description": "Dragonfly Schema's typescript version",
   "author": "Ladybug Tools",
-  "type": "module",
+  "type": "commonjs",
   "files": [
     "dist"
   ],
