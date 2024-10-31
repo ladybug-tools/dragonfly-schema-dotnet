@@ -3,8 +3,8 @@ name: CI
 on: repository_dispatch
 
 jobs:
-  updateImage:
-    name: "Check Event"
+  bump_dragonfly_schema:
+    name: "Bump dragonfly_schema"
     runs-on: ubuntu-latest
     if: github.event.action == 'dragonfly_schema_release'
 
@@ -16,38 +16,29 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           submodules: recursive
 
-      - name: Set up npm
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12.x"
-
-      - name: "Run Update Script"
-        env:
-          VERSION: ${{ github.event.client_payload.version }}
+      - name: "Download new OpenApi doc"
         run: |
           cd ./.generator/SchemaGenerator
           dotnet run --download --genCsModel --genCsInterface --genTsModel --updateVersion
 
-      - name: "Set Commit Message"
-        id: vars
-        env:
-          VERSION: ${{ github.event.client_payload.version }}
+      - name: "Run build"
         run: |
-          echo ::set-output name=commit_message::"Update Schema to $VERSION"
+          cd ./src/DragonflySchema
+          dotnet build
 
       - name: "Commit and Push Changes"
         id: push
         env:
-          COMMIT_MESSAGE: ${{ steps.vars.outputs.commit_message }}
+          VERSION: ${{ github.event.client_payload.version }}
         run: |
           git config --global user.name 'ladybugbot'
           git config --global user.email 'ladybugbot@users.noreply.github.com'
           git add .
-          git commit -m "$COMMIT_MESSAGE"
+          git commit -m "fix(deps): Bump dragonfly-schema openapi doc to $VERSION"
           git push
 
   bump_honeybee_schema_dotnet:
-    name: "Check Event"
+    name: "Bump honeybee_schema_dotnet"
     runs-on: ubuntu-latest
     if: github.event.action == 'honeybee_schema_dotnet_release'
     steps:
@@ -56,11 +47,13 @@ jobs:
         with:
           ref: refs/heads/master
           token: ${{ secrets.DEPS_UPDATING }}
+
       - name: "Run Update Script"
         env:
           VERSION: ${{ github.event.client_payload.version }}
         run: |
           sed -i --regexp-extended 's/(Include="HoneybeeSchema" Version=").*(")/Include="HoneybeeSchema" Version="'"$VERSION"'"/' src/DragonflySchema/DragonflySchema.csproj
+      
       - name: "Commit and Push Changes"
         id: push
         env:
@@ -69,5 +62,5 @@ jobs:
           git config --global user.name 'ladybugbot'
           git config --global user.email 'ladybugbot@users.noreply.github.com'
           git add .
-          git commit -m "fix(deps): Bump honeybee-schema to $VERSION"
+          git commit -m "fix(deps): Bump honeybee-schema-dotnet to $VERSION"
           git push
