@@ -68,6 +68,16 @@ export class Room2D extends IDdBaseModel {
     /** A boolean noting whether this Room2D has its ceiling exposed to the outdoors. */
     is_top_exposed?: boolean;
 	
+    @IsBoolean()
+    @IsOptional()
+    /** A boolean for whether the room has a Floor (True) or an AirBoundary (False). If False, this property will only be meaningful if the model is translated to Honeybee with ceiling adjacency solved and there is a Room2D below this one with a has_ceiling property set to False. */
+    has_floor?: boolean;
+	
+    @IsBoolean()
+    @IsOptional()
+    /** A boolean for whether the room has a RoofCeiling (True) or an AirBoundary (False). If False, this property will only be meaningful if the model is translated to Honeybee with ceiling adjacency solved and there is a Room2D above this one with a has_floor property set to False. */
+    has_ceiling?: boolean;
+	
     @IsArray()
     @IsOptional()
     @Transform(({ value }) => value.map((item: any) => {
@@ -130,6 +140,8 @@ export class Room2D extends IDdBaseModel {
         this.type = "Room2D";
         this.is_ground_contact = false;
         this.is_top_exposed = false;
+        this.has_floor = true;
+        this.has_ceiling = true;
     }
 
 
@@ -145,6 +157,8 @@ export class Room2D extends IDdBaseModel {
             this.floor_holes = obj.floor_holes;
             this.is_ground_contact = obj.is_ground_contact;
             this.is_top_exposed = obj.is_top_exposed;
+            this.has_floor = obj.has_floor;
+            this.has_ceiling = obj.has_ceiling;
             this.boundary_conditions = obj.boundary_conditions;
             this.window_parameters = obj.window_parameters;
             this.shading_parameters = obj.shading_parameters;
@@ -179,6 +193,8 @@ export class Room2D extends IDdBaseModel {
         data["floor_holes"] = this.floor_holes;
         data["is_ground_contact"] = this.is_ground_contact;
         data["is_top_exposed"] = this.is_top_exposed;
+        data["has_floor"] = this.has_floor;
+        data["has_ceiling"] = this.has_ceiling;
         data["boundary_conditions"] = this.boundary_conditions;
         data["window_parameters"] = this.window_parameters;
         data["shading_parameters"] = this.shading_parameters;
