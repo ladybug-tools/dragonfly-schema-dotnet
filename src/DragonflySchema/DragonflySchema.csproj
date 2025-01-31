@@ -6,7 +6,7 @@
     <Version>1.1206.0</Version>
     <Authors>Ladybug Tools</Authors>
     <Description>This is the .Net version of Dragonfly Schema</Description>
-    <Copyright>Copyright © 2024 Ladybug Tools LLC</Copyright>
+    <Copyright>Copyright © 2025 Ladybug Tools LLC</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://www.ladybug.tools/dragonfly-schema</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ladybug-tools/dragonfly-schema-dotnet</RepositoryUrl>
