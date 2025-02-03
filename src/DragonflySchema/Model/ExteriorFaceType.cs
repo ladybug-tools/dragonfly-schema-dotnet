@@ -1,5 +1,5 @@
 ﻿/* 
- * Honeybee Schema
+ * DragonflySchema
  *
  * Contact: info@ladybug.tools
  */
