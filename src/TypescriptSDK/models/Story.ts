@@ -1,10 +1,11 @@
-﻿import { IsArray, IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsInt, Min, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsInt, Min, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { Autocalculate } from "honeybee-schema";
 import { IDdBaseModel } from "honeybee-schema";
 import { RoofSpecification } from "./RoofSpecification";
 import { Room2D } from "./Room2D";
 import { StoryPropertiesAbridged } from "./StoryPropertiesAbridged";
+import { StoryType } from "./StoryType";
 
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Story extends IDdBaseModel {
@@ -49,6 +50,12 @@ export class Story extends IDdBaseModel {
     /** An optional RoofSpecification object containing geometry for generating sloped roofs over the Story. The RoofSpecification will only affect the child Room2Ds that have a True is_top_exposed property and it will only be utilized in translation to Honeybee when the Story multiplier is 1. If None, all Room2D ceilings will be flat. */
     roof?: RoofSpecification;
 	
+    @IsEnum(StoryType)
+    @Type(() => String)
+    @IsOptional()
+    /** Text to indicate the type of story. Stories that are plenums are translated to Honeybee with excluded floor areas. */
+    story_type?: StoryType;
+	
 
     constructor() {
         super();
@@ -56,6 +63,7 @@ export class Story extends IDdBaseModel {
         this.floor_to_floor_height = new Autocalculate();
         this.floor_height = new Autocalculate();
         this.multiplier = 1;
+        this.story_type = StoryType.Standard;
     }
 
 
@@ -70,6 +78,7 @@ export class Story extends IDdBaseModel {
             this.floor_height = obj.floor_height;
             this.multiplier = obj.multiplier;
             this.roof = obj.roof;
+            this.story_type = obj.story_type;
         }
     }
 
@@ -98,6 +107,7 @@ export class Story extends IDdBaseModel {
         data["floor_height"] = this.floor_height;
         data["multiplier"] = this.multiplier;
         data["roof"] = this.roof;
+        data["story_type"] = this.story_type;
         data = super.toJSON(data);
         return instanceToPlain(data);
     }

@@ -1,4 +1,4 @@
-﻿import { IsArray, IsDefined, IsNumber, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsDefined, IsNumber, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, Min, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { Adiabatic } from "honeybee-schema";
@@ -78,6 +78,18 @@ export class Room2D extends IDdBaseModel {
     /** A boolean for whether the room has a RoofCeiling (True) or an AirBoundary (False). If False, this property will only be meaningful if the model is translated to Honeybee with ceiling adjacency solved and there is a Room2D above this one with a has_floor property set to False. */
     has_ceiling?: boolean;
 	
+    @IsNumber()
+    @IsOptional()
+    @Min(0)
+    /** A number for the depth that a ceiling plenum extends into the room. Setting this to a positive value will result in a separate plenum room being split off of the Room2D volume during translation from Dragonfly to Honeybee. The bottom of this ceiling plenum will always be at this Room2D ceiling height minus the value specified here. Setting this to zero indicates that the room has no ceiling plenum. */
+    ceiling_plenum_depth?: number;
+	
+    @IsNumber()
+    @IsOptional()
+    @Min(0)
+    /** A number for the depth that a floor plenum extends into the room. Setting this to a positive value will result in a separate plenum room being split off of the Room2D volume during translation from Dragonfly to Honeybee. The top of this floor plenum will always be at this Room2D floor height plus the value specified here. Setting this to zero indicates that the room has no floor plenum. */
+    floor_plenum_depth?: number;
+	
     @IsArray()
     @IsOptional()
     @Transform(({ value }) => value.map((item: any) => {
@@ -142,6 +154,8 @@ export class Room2D extends IDdBaseModel {
         this.is_top_exposed = false;
         this.has_floor = true;
         this.has_ceiling = true;
+        this.ceiling_plenum_depth = 0;
+        this.floor_plenum_depth = 0;
     }
 
 
@@ -159,6 +173,8 @@ export class Room2D extends IDdBaseModel {
             this.is_top_exposed = obj.is_top_exposed;
             this.has_floor = obj.has_floor;
             this.has_ceiling = obj.has_ceiling;
+            this.ceiling_plenum_depth = obj.ceiling_plenum_depth;
+            this.floor_plenum_depth = obj.floor_plenum_depth;
             this.boundary_conditions = obj.boundary_conditions;
             this.window_parameters = obj.window_parameters;
             this.shading_parameters = obj.shading_parameters;
@@ -195,6 +211,8 @@ export class Room2D extends IDdBaseModel {
         data["is_top_exposed"] = this.is_top_exposed;
         data["has_floor"] = this.has_floor;
         data["has_ceiling"] = this.has_ceiling;
+        data["ceiling_plenum_depth"] = this.ceiling_plenum_depth;
+        data["floor_plenum_depth"] = this.floor_plenum_depth;
         data["boundary_conditions"] = this.boundary_conditions;
         data["window_parameters"] = this.window_parameters;
         data["shading_parameters"] = this.shading_parameters;

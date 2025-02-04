@@ -237,6 +237,7 @@
     "ScheduleUnitType": "honeybee_schema.energy.schedule",
     "ShadeLocation": "honeybee_schema.energy.construction",
     "SlatOrientation": "honeybee_schema.energy.material",
+    "StoryType": "dragonfly_schema.model",
     "Units": "honeybee_schema.model",
     "VAVEquipmentType": "honeybee_schema.energy.hvac.allair",
     "VRFEquipmentType": "honeybee_schema.energy.hvac.heatcool",
