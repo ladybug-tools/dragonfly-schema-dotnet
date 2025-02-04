@@ -44,3 +44,4 @@ export * from "./Story";
 export * from "./StoryEnergyPropertiesAbridged";
 export * from "./StoryPropertiesAbridged";
 export * from "./StoryRadiancePropertiesAbridged";
+export * from "./StoryType";

@@ -42,12 +42,16 @@ namespace DragonflySchema
         /// Initializes a new instance of the <see cref="BuildingEnergyPropertiesAbridged" /> class.
         /// </summary>
         /// <param name="constructionSet">Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used.</param>
+        /// <param name="ceilingPlenumConstruction">Identifier of an OpaqueConstruction for the bottoms of ceiling plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple acoustic tile construction.</param>
+        /// <param name="floorPlenumConstruction">Identifier of an OpaqueConstruction for the tops of floor plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple wood plank construction.</param>
         public BuildingEnergyPropertiesAbridged
         (
-            string constructionSet = default
+            string constructionSet = default, string ceilingPlenumConstruction = default, string floorPlenumConstruction = default
         ) : base()
         {
             this.ConstructionSet = constructionSet;
+            this.CeilingPlenumConstruction = ceilingPlenumConstruction;
+            this.FloorPlenumConstruction = floorPlenumConstruction;
 
             // Set readonly properties with defaultValue
             this.Type = "BuildingEnergyPropertiesAbridged";
@@ -67,6 +71,24 @@ namespace DragonflySchema
         [MaxLength(100)]
         [DataMember(Name = "construction_set")]
         public string ConstructionSet { get; set; }
+
+        /// <summary>
+        /// Identifier of an OpaqueConstruction for the bottoms of ceiling plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple acoustic tile construction.
+        /// </summary>
+        [Summary(@"Identifier of an OpaqueConstruction for the bottoms of ceiling plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple acoustic tile construction.")]
+        [MinLength(1)]
+        [MaxLength(100)]
+        [DataMember(Name = "ceiling_plenum_construction")]
+        public string CeilingPlenumConstruction { get; set; }
+
+        /// <summary>
+        /// Identifier of an OpaqueConstruction for the tops of floor plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple wood plank construction.
+        /// </summary>
+        [Summary(@"Identifier of an OpaqueConstruction for the tops of floor plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple wood plank construction.")]
+        [MinLength(1)]
+        [MaxLength(100)]
+        [DataMember(Name = "floor_plenum_construction")]
+        public string FloorPlenumConstruction { get; set; }
 
 
         /// <summary>
@@ -92,6 +114,8 @@ namespace DragonflySchema
             sb.Append("BuildingEnergyPropertiesAbridged:\n");
             sb.Append("  Type: ").Append(this.Type).Append("\n");
             sb.Append("  ConstructionSet: ").Append(this.ConstructionSet).Append("\n");
+            sb.Append("  CeilingPlenumConstruction: ").Append(this.CeilingPlenumConstruction).Append("\n");
+            sb.Append("  FloorPlenumConstruction: ").Append(this.FloorPlenumConstruction).Append("\n");
             return sb.ToString();
         }
 
@@ -153,7 +177,9 @@ namespace DragonflySchema
             if (input == null)
                 return false;
             return base.Equals(input) && 
-                    Extension.Equals(this.ConstructionSet, input.ConstructionSet);
+                    Extension.Equals(this.ConstructionSet, input.ConstructionSet) && 
+                    Extension.Equals(this.CeilingPlenumConstruction, input.CeilingPlenumConstruction) && 
+                    Extension.Equals(this.FloorPlenumConstruction, input.FloorPlenumConstruction);
         }
 
 
@@ -168,6 +194,10 @@ namespace DragonflySchema
                 int hashCode = base.GetHashCode();
                 if (this.ConstructionSet != null)
                     hashCode = hashCode * 59 + this.ConstructionSet.GetHashCode();
+                if (this.CeilingPlenumConstruction != null)
+                    hashCode = hashCode * 59 + this.CeilingPlenumConstruction.GetHashCode();
+                if (this.FloorPlenumConstruction != null)
+                    hashCode = hashCode * 59 + this.FloorPlenumConstruction.GetHashCode();
                 return hashCode;
             }
         }

@@ -50,9 +50,10 @@ namespace DragonflySchema
         /// <param name="floorHeight">A number to indicate the height of the floor plane in the Z axis.If Autocalculate, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums.</param>
         /// <param name="multiplier">An integer that denotes the number of times that this Story is repeated over the height of the building.</param>
         /// <param name="roof">An optional RoofSpecification object containing geometry for generating sloped roofs over the Story. The RoofSpecification will only affect the child Room2Ds that have a True is_top_exposed property and it will only be utilized in translation to Honeybee when the Story multiplier is 1. If None, all Room2D ceilings will be flat.</param>
+        /// <param name="storyType">Text to indicate the type of story. Stories that are plenums are translated to Honeybee with excluded floor areas.</param>
         public Story
         (
-            string identifier, List<Room2D> room2ds, StoryPropertiesAbridged properties, string displayName = default, object userData = default, AnyOf<Autocalculate, double> floorToFloorHeight = default, AnyOf<Autocalculate, double> floorHeight = default, int multiplier = 1, RoofSpecification roof = default
+            string identifier, List<Room2D> room2ds, StoryPropertiesAbridged properties, string displayName = default, object userData = default, AnyOf<Autocalculate, double> floorToFloorHeight = default, AnyOf<Autocalculate, double> floorHeight = default, int multiplier = 1, RoofSpecification roof = default, StoryType storyType = StoryType.Standard
         ) : base(identifier: identifier, displayName: displayName, userData: userData)
         {
             this.Room2ds = room2ds ?? throw new System.ArgumentNullException("room2ds is a required property for Story and cannot be null");
@@ -61,6 +62,7 @@ namespace DragonflySchema
             this.FloorHeight = floorHeight ?? new Autocalculate();
             this.Multiplier = multiplier;
             this.Roof = roof;
+            this.StoryType = storyType;
 
             // Set readonly properties with defaultValue
             this.Type = "Story";
@@ -117,6 +119,13 @@ namespace DragonflySchema
         [DataMember(Name = "roof")]
         public RoofSpecification Roof { get; set; }
 
+        /// <summary>
+        /// Text to indicate the type of story. Stories that are plenums are translated to Honeybee with excluded floor areas.
+        /// </summary>
+        [Summary(@"Text to indicate the type of story. Stories that are plenums are translated to Honeybee with excluded floor areas.")]
+        [DataMember(Name = "story_type")]
+        public StoryType StoryType { get; set; } = StoryType.Standard;
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -149,6 +158,7 @@ namespace DragonflySchema
             sb.Append("  FloorHeight: ").Append(this.FloorHeight).Append("\n");
             sb.Append("  Multiplier: ").Append(this.Multiplier).Append("\n");
             sb.Append("  Roof: ").Append(this.Roof).Append("\n");
+            sb.Append("  StoryType: ").Append(this.StoryType).Append("\n");
             return sb.ToString();
         }
 
@@ -215,7 +225,8 @@ namespace DragonflySchema
                     Extension.Equals(this.FloorToFloorHeight, input.FloorToFloorHeight) && 
                     Extension.Equals(this.FloorHeight, input.FloorHeight) && 
                     Extension.Equals(this.Multiplier, input.Multiplier) && 
-                    Extension.Equals(this.Roof, input.Roof);
+                    Extension.Equals(this.Roof, input.Roof) && 
+                    Extension.Equals(this.StoryType, input.StoryType);
         }
 
 
@@ -240,6 +251,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.Multiplier.GetHashCode();
                 if (this.Roof != null)
                     hashCode = hashCode * 59 + this.Roof.GetHashCode();
+                if (this.StoryType != null)
+                    hashCode = hashCode * 59 + this.StoryType.GetHashCode();
                 return hashCode;
             }
         }

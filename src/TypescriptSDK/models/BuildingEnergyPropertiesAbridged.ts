@@ -16,6 +16,20 @@ export class BuildingEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used. */
     construction_set?: string;
 	
+    @IsString()
+    @IsOptional()
+    @MinLength(1)
+    @MaxLength(100)
+    /** Identifier of an OpaqueConstruction for the bottoms of ceiling plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple acoustic tile construction. */
+    ceiling_plenum_construction?: string;
+	
+    @IsString()
+    @IsOptional()
+    @MinLength(1)
+    @MaxLength(100)
+    /** Identifier of an OpaqueConstruction for the tops of floor plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple wood plank construction. */
+    floor_plenum_construction?: string;
+	
 
     constructor() {
         super();
@@ -29,6 +43,8 @@ export class BuildingEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
             const obj = plainToClass(BuildingEnergyPropertiesAbridged, _data, { enableImplicitConversion: true });
             this.type = obj.type;
             this.construction_set = obj.construction_set;
+            this.ceiling_plenum_construction = obj.ceiling_plenum_construction;
+            this.floor_plenum_construction = obj.floor_plenum_construction;
         }
     }
 
@@ -52,6 +68,8 @@ export class BuildingEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
         data = typeof data === 'object' ? data : {};
         data["type"] = this.type;
         data["construction_set"] = this.construction_set;
+        data["ceiling_plenum_construction"] = this.ceiling_plenum_construction;
+        data["floor_plenum_construction"] = this.floor_plenum_construction;
         data = super.toJSON(data);
         return instanceToPlain(data);
     }
