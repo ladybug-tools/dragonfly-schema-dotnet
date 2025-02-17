@@ -1,40 +1,40 @@
 import { plainToClass } from "class-transformer";
-import { Model } from "dragonfly-schema";
-import { DoorModifierSetAbridged, Face3D, GlobalModifierSet, ModelProperties, Plastic, WallConstructionSetAbridged, WallModifierSetAbridged } from "honeybee-schema";
+import { } from "dragonfly-schema";
+import { Model, ModelRadianceProperties, DoorModifierSetAbridged, Face3D, GlobalModifierSet, ModelProperties, Plastic, WallConstructionSetAbridged, WallModifierSetAbridged } from "honeybee-schema";
 import * as fs from 'fs';
 import * as path from 'path';
 
 test('test model', () => {
-  const dir = path.dirname(path.dirname(path.dirname(__dirname)));
-  const sampleDir = path.join(dir, 'samples');
-  console.log(sampleDir);
+    const dir = path.dirname(path.dirname(path.dirname(__dirname)));
+    const sampleDir = path.join(dir, 'samples');
+    console.log(sampleDir);
 
-  const filePath = path.join(sampleDir, 'Room_with_complex_skylights.dfjson');
-  const jsonData = fs.readFileSync(filePath, 'utf8');
-  // console.log(jsonData);
+    const filePath = path.join(sampleDir, 'Room_with_complex_skylights.dfjson');
+    const jsonData = fs.readFileSync(filePath, 'utf8');
+    // console.log(jsonData);
 
-  const json = JSON.parse(jsonData);
-  const model = Model.fromJS(json);
-  expect(model.identifier).toBe("unnamed_cb67f62e");
-//   const 
-  expect(model.validate()).resolves.toBe(true);
+    const json = JSON.parse(jsonData);
+    const model = Model.fromJS(json);
+    expect(model.identifier).toBe("unnamed_cb67f62e");
+    //   const 
+    expect(model.validate()).resolves.toBe(true);
 
 }
 );
 
 test('test wallSet', () => {
-  const data = {
-    interior_construction: "Generic Interior Wall",
-    exterior_construction: "Generic Exterior Wall",
-    type: "WallConstructionSetAbridged",
-  }
-  const obj = WallConstructionSetAbridged.fromJS(data);
-  expect(obj.validate()).resolves.toBe(true);
+    const data = {
+        interior_construction: "Generic Interior Wall",
+        exterior_construction: "Generic Exterior Wall",
+        type: "WallConstructionSetAbridged",
+    }
+    const obj = WallConstructionSetAbridged.fromJS(data);
+    expect(obj.validate()).resolves.toBe(true);
 
-  const jsonObj = obj.toJSON();
-  expect(jsonObj.type).toBe("WallConstructionSetAbridged");
-  expect(jsonObj).toHaveProperty("interior_construction");
-  expect(jsonObj.hasOwnProperty("ground_construction")).toBe(false);
+    const jsonObj = obj.toJSON();
+    expect(jsonObj.type).toBe("WallConstructionSetAbridged");
+    expect(jsonObj).toHaveProperty("interior_construction");
+    expect(jsonObj.hasOwnProperty("ground_construction")).toBe(false);
 
 }
 );
@@ -212,14 +212,14 @@ test('test ModelProperties', () => {
     const data = {
         "radiance":
         {
-            "global_modifier_set":GlobalModifierSetData
+            "global_modifier_set": GlobalModifierSetData
         }
     }
     const obj = ModelProperties.fromJS(data);
     // expect(obj.validate()).resolves.toBe(true);
     expect(obj.radiance?.global_modifier_set?.wall_set).toBeInstanceOf(WallModifierSetAbridged);
-  
-  }
+
+}
 );
 
 test('test global wall set instance', () => {
@@ -228,17 +228,21 @@ test('test global wall set instance', () => {
         {
             "radiance":
             {
-                "global_modifier_set":GlobalModifierSetData
+                "global_modifier_set": GlobalModifierSetData
             }
         }
     }
 
     // const model = plainToClass(Model, data, { enableImplicitConversion: true });
     const obj = Model.fromJS(data);
-    expect(obj.properties.radiance?.global_modifier_set?.wall_set).toBeInstanceOf(WallModifierSetAbridged);
+    const radProp = obj.properties.radiance;
+    expect(radProp).toBeInstanceOf(ModelRadianceProperties);
+
+    const wallset = obj.properties.radiance?.global_modifier_set?.wall_set;
+    expect(wallset).toBeInstanceOf(WallModifierSetAbridged);
     // expect(obj.validate()).resolves.toBe(true);
-  
-  }
+
+}
 );
 
 
