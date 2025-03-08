@@ -1,6 +1,7 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
+import { Room2DComparisonProperties } from "./Room2DComparisonProperties";
 import { Room2DEnergyPropertiesAbridged } from "./Room2DEnergyPropertiesAbridged";
 import { Room2DRadiancePropertiesAbridged } from "./Room2DRadiancePropertiesAbridged";
 
@@ -25,6 +26,13 @@ export class Room2DPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** Radiance */
     radiance?: Room2DRadiancePropertiesAbridged;
 	
+    @IsInstance(Room2DComparisonProperties)
+    @Type(() => Room2DComparisonProperties)
+    @ValidateNested()
+    @IsOptional()
+    /** Comparison */
+    comparison?: Room2DComparisonProperties;
+	
 
     constructor() {
         super();
@@ -39,6 +47,7 @@ export class Room2DPropertiesAbridged extends _OpenAPIGenBaseModel {
             this.type = obj.type;
             this.energy = obj.energy;
             this.radiance = obj.radiance;
+            this.comparison = obj.comparison;
         }
     }
 
@@ -63,6 +72,7 @@ export class Room2DPropertiesAbridged extends _OpenAPIGenBaseModel {
         data["type"] = this.type;
         data["energy"] = this.energy;
         data["radiance"] = this.radiance;
+        data["comparison"] = this.comparison;
         data = super.toJSON(data);
         return instanceToPlain(data);
     }
