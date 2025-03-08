@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: refs/heads/master
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.DEPS_UPDATING }}
           submodules: recursive
 
       - name: "Download new OpenApi doc"
@@ -53,7 +53,7 @@ jobs:
           VERSION: ${{ github.event.client_payload.version }}
         run: |
           sed -i --regexp-extended 's/(Include="HoneybeeSchema" Version=").*(")/Include="HoneybeeSchema" Version="'"$VERSION"'"/' src/DragonflySchema/DragonflySchema.csproj
-      
+
       - name: "Commit and Push Changes"
         id: push
         env:
