@@ -1,6 +1,7 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
+import { ModelComparisonProperties } from "./ModelComparisonProperties";
 import { ModelEnergyProperties } from "./ModelEnergyProperties";
 import { ModelRadianceProperties } from "./ModelRadianceProperties";
 
@@ -25,6 +26,13 @@ export class ModelProperties extends _OpenAPIGenBaseModel {
     /** Radiance */
     radiance?: ModelRadianceProperties;
 	
+    @IsInstance(ModelComparisonProperties)
+    @Type(() => ModelComparisonProperties)
+    @ValidateNested()
+    @IsOptional()
+    /** Comparison */
+    comparison?: ModelComparisonProperties;
+	
 
     constructor() {
         super();
@@ -39,6 +47,7 @@ export class ModelProperties extends _OpenAPIGenBaseModel {
             this.type = obj.type;
             this.energy = obj.energy;
             this.radiance = obj.radiance;
+            this.comparison = obj.comparison;
         }
     }
 
@@ -63,6 +72,7 @@ export class ModelProperties extends _OpenAPIGenBaseModel {
         data["type"] = this.type;
         data["energy"] = this.energy;
         data["radiance"] = this.radiance;
+        data["comparison"] = this.comparison;
         data = super.toJSON(data);
         return instanceToPlain(data);
     }
