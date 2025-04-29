@@ -37,7 +37,7 @@ export class ModelRadianceProperties extends _OpenAPIGenBaseModel {
       else return item;
     }))
     /** List of all ModifierSets in the Model. */
-    modifier_sets?: (ModifierSet | ModifierSetAbridged) [];
+    modifier_sets?: (ModifierSet | ModifierSetAbridged)[];
 	
     @IsArray()
     @IsOptional()
@@ -54,7 +54,7 @@ export class ModelRadianceProperties extends _OpenAPIGenBaseModel {
       else return item;
     }))
     /** A list of all unique modifiers in the model. This includes modifiers across all the Model modifier_sets. */
-    modifiers?: (Plastic | Glass | BSDF | Glow | Light | Trans | Metal | Void | Mirror) [];
+    modifiers?: (Plastic | Glass | BSDF | Glow | Light | Trans | Metal | Void | Mirror)[];
 	
 
     constructor() {

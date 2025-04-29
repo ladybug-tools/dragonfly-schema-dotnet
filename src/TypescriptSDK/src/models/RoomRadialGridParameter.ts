@@ -14,7 +14,7 @@ export class RoomRadialGridParameter extends RoomGridParameter {
     @IsNumber({},{ each: true })
     @IsOptional()
     /** A vector as 3 (x, y, z) values to set the start direction of the generated directions. This can be used to orient the resulting sensors to specific parts of the scene. It can also change the elevation of the resulting directions since this start vector will always be rotated in the XY plane to generate the resulting directions. */
-    start_vector?: number [];
+    start_vector?: number[];
 	
     @IsOptional()
     /** An optional number to override the radius of the meshes generated around each sensor. If Autocalculate, it will be equal to 45 percent of the grid dimension. */

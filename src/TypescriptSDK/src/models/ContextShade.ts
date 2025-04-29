@@ -15,7 +15,7 @@ export class ContextShade extends IDdBaseModel {
       else return item;
     }))
     /** An array of planar Face3Ds and or Mesh3Ds that together represent the context shade. */
-    geometry!: (Face3D | Mesh3D) [];
+    geometry!: (Face3D | Mesh3D)[];
 	
     @IsInstance(ContextShadePropertiesAbridged)
     @Type(() => ContextShadePropertiesAbridged)

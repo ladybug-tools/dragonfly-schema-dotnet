@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildingEnergyPropertiesAbridged" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected BuildingEnergyPropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -69,7 +70,8 @@ namespace DragonflySchema
         [Summary(@"Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used.")]
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "construction_set")]
+        [DataMember(Name = "construction_set")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("construction_set")] // For System.Text.Json
         public string ConstructionSet { get; set; }
 
         /// <summary>
@@ -78,7 +80,8 @@ namespace DragonflySchema
         [Summary(@"Identifier of an OpaqueConstruction for the bottoms of ceiling plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple acoustic tile construction.")]
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "ceiling_plenum_construction")]
+        [DataMember(Name = "ceiling_plenum_construction")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("ceiling_plenum_construction")] // For System.Text.Json
         public string CeilingPlenumConstruction { get; set; }
 
         /// <summary>
@@ -87,7 +90,8 @@ namespace DragonflySchema
         [Summary(@"Identifier of an OpaqueConstruction for the tops of floor plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple wood plank construction.")]
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "floor_plenum_construction")]
+        [DataMember(Name = "floor_plenum_construction")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("floor_plenum_construction")] // For System.Text.Json
         public string FloorPlenumConstruction { get; set; }
 
 

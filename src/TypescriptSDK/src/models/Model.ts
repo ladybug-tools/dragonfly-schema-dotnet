@@ -33,7 +33,7 @@ export class Model extends IDdBaseModel {
     @ValidateNested({ each: true })
     @IsOptional()
     /** A list of Buildings in the model. */
-    buildings?: Building [];
+    buildings?: Building[];
 	
     @IsArray()
     @IsInstance(ContextShade, { each: true })
@@ -41,7 +41,7 @@ export class Model extends IDdBaseModel {
     @ValidateNested({ each: true })
     @IsOptional()
     /** A list of ContextShades in the model. */
-    context_shades?: ContextShade [];
+    context_shades?: ContextShade[];
 	
     @IsEnum(Units)
     @Type(() => String)

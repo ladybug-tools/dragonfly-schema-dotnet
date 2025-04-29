@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="LouversByDistance" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected LouversByDistance() 
         { 
             // Set readonly properties with defaultValue
@@ -69,7 +70,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for the approximate distance between each louver.")]
         [Required]
-        [DataMember(Name = "distance", IsRequired = true)]
+        [DataMember(Name = "distance", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("distance")] // For System.Text.Json
         public double Distance { get; set; }
 
 

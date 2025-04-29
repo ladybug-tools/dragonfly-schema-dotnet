@@ -29,7 +29,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="StoryPropertiesAbridged" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected StoryPropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -62,14 +63,16 @@ namespace DragonflySchema
         /// Energy
         /// </summary>
         [Summary(@"Energy")]
-        [DataMember(Name = "energy")]
+        [DataMember(Name = "energy")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("energy")] // For System.Text.Json
         public StoryEnergyPropertiesAbridged Energy { get; set; }
 
         /// <summary>
         /// Radiance
         /// </summary>
         [Summary(@"Radiance")]
-        [DataMember(Name = "radiance")]
+        [DataMember(Name = "radiance")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("radiance")] // For System.Text.Json
         public StoryRadiancePropertiesAbridged Radiance { get; set; }
 
 

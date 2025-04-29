@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="RoomGridParameter" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected RoomGridParameter() 
         { 
             // Set readonly properties with defaultValue
@@ -67,14 +68,16 @@ namespace DragonflySchema
         /// A number for how far to offset the grid from the Room2D floors. (Default: 1.0, suitable for Models in Meters).
         /// </summary>
         [Summary(@"A number for how far to offset the grid from the Room2D floors. (Default: 1.0, suitable for Models in Meters).")]
-        [DataMember(Name = "offset")]
+        [DataMember(Name = "offset")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("offset")] // For System.Text.Json
         public double Offset { get; set; } = 1D;
 
         /// <summary>
         /// A number for the distance at which sensors close to walls should be removed. Note that this option has no effect unless the value is more than half of the dimension.
         /// </summary>
         [Summary(@"A number for the distance at which sensors close to walls should be removed. Note that this option has no effect unless the value is more than half of the dimension.")]
-        [DataMember(Name = "wall_offset")]
+        [DataMember(Name = "wall_offset")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("wall_offset")] // For System.Text.Json
         public double WallOffset { get; set; } = 0D;
 
 

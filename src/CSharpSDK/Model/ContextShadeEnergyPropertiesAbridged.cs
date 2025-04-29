@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextShadeEnergyPropertiesAbridged" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected ContextShadeEnergyPropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -67,7 +68,8 @@ namespace DragonflySchema
         [Summary(@"Name of a ShadeConstruction to set the reflectance and specularity of the ContextShade. If None, the the EnergyPlus default of 0.2 diffuse reflectance will be used.")]
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "construction")]
+        [DataMember(Name = "construction")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("construction")] // For System.Text.Json
         public string Construction { get; set; }
 
         /// <summary>
@@ -76,7 +78,8 @@ namespace DragonflySchema
         [Summary(@"Name of a schedule to set the transmittance of the ContextShade, which can vary throughout the simulation. If None, the ContextShade will be completely opaque.")]
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "transmittance_schedule")]
+        [DataMember(Name = "transmittance_schedule")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("transmittance_schedule")] // For System.Text.Json
         public string TransmittanceSchedule { get; set; }
 
 

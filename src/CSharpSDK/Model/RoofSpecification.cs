@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="RoofSpecification" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected RoofSpecification() 
         { 
             // Set readonly properties with defaultValue
@@ -64,7 +65,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"An array of Face3D objects representing the geometry of the Roof. None of these geometries should overlap in plan and, together, these Face3D should either completely cover or skip each Room2D of the Story to which the RoofSpecification is assigned.")]
         [Required]
-        [DataMember(Name = "geometry", IsRequired = true)]
+        [DataMember(Name = "geometry", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("geometry")] // For System.Text.Json
         public List<Face3D> Geometry { get; set; }
 
 

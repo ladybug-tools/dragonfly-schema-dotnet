@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleWindowRatio" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected SimpleWindowRatio() 
         { 
             // Set readonly properties with defaultValue
@@ -67,14 +68,16 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number between 0 and 1 for the ratio between the window area and the parent wall surface area.")]
         [Required]
-        [DataMember(Name = "window_ratio", IsRequired = true)]
+        [DataMember(Name = "window_ratio", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("window_ratio")] // For System.Text.Json
         public double WindowRatio { get; set; }
 
         /// <summary>
         /// Boolean to note whether rectangular portions of base Face should be extracted before scaling them to create apertures. For pentagonal gabled geometries, this results in one rectangle and one triangle, which can often look more realistic and is a better input for engines like EnergyPlus that cannot model windows with more than 4 vertices. However, if a single pentagonal window is desired for such a gabled shape, this input can be set to False to produce such a result.
         /// </summary>
         [Summary(@"Boolean to note whether rectangular portions of base Face should be extracted before scaling them to create apertures. For pentagonal gabled geometries, this results in one rectangle and one triangle, which can often look more realistic and is a better input for engines like EnergyPlus that cannot model windows with more than 4 vertices. However, if a single pentagonal window is desired for such a gabled shape, this input can be set to False to produce such a result.")]
-        [DataMember(Name = "rect_split")]
+        [DataMember(Name = "rect_split")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("rect_split")] // For System.Text.Json
         public bool RectSplit { get; set; } = true;
 
 

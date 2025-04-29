@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="GriddedSkylightRatio" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected GriddedSkylightRatio() 
         { 
             // Set readonly properties with defaultValue
@@ -66,14 +67,16 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number between 0 and 1 for the ratio between the skylight area and the total Roof face area.")]
         [Required]
-        [DataMember(Name = "skylight_ratio", IsRequired = true)]
+        [DataMember(Name = "skylight_ratio", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("skylight_ratio")] // For System.Text.Json
         public double SkylightRatio { get; set; }
 
         /// <summary>
         /// A number for the spacing between the centers of each grid cell. This should be less than a third of the dimension of the Roof geometry if multiple, evenly-spaced skylights are desired. If Autocalculate, a spacing of one third the smaller dimension of the parent Roof will be automatically assumed.
         /// </summary>
         [Summary(@"A number for the spacing between the centers of each grid cell. This should be less than a third of the dimension of the Roof geometry if multiple, evenly-spaced skylights are desired. If Autocalculate, a spacing of one third the smaller dimension of the parent Roof will be automatically assumed.")]
-        [DataMember(Name = "spacing")]
+        [DataMember(Name = "spacing")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("spacing")] // For System.Text.Json
         public AnyOf<Autocalculate, double> Spacing { get; set; } = new Autocalculate();
 
 

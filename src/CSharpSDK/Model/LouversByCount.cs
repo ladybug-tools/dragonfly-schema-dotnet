@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="LouversByCount" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected LouversByCount() 
         { 
             // Set readonly properties with defaultValue
@@ -69,7 +70,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A positive integer for the number of louvers to generate.")]
         [Required]
-        [DataMember(Name = "louver_count", IsRequired = true)]
+        [DataMember(Name = "louver_count", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("louver_count")] // For System.Text.Json
         public int LouverCount { get; set; }
 
 

@@ -26,7 +26,7 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
     @IsNumber({},{ each: true })
     @IsOptional()
     /** A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours. */
-    contour_vector?: number [];
+    contour_vector?: number[];
 	
     @IsBoolean()
     @IsOptional()

@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="LouversBase" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected LouversBase() 
         { 
             // Set readonly properties with defaultValue
@@ -72,7 +73,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for the depth to extrude the louvers.")]
         [Required]
-        [DataMember(Name = "depth", IsRequired = true)]
+        [DataMember(Name = "depth", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("depth")] // For System.Text.Json
         public double Depth { get; set; }
 
         /// <summary>
@@ -80,7 +82,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for the distance to louvers from the wall.")]
         [Range(0, double.MaxValue)]
-        [DataMember(Name = "offset")]
+        [DataMember(Name = "offset")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("offset")] // For System.Text.Json
         public double Offset { get; set; } = 0D;
 
         /// <summary>
@@ -88,21 +91,24 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.")]
         [Range(-90, 90)]
-        [DataMember(Name = "angle")]
+        [DataMember(Name = "angle")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("angle")] // For System.Text.Json
         public double Angle { get; set; } = 0D;
 
         /// <summary>
         /// A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours.
         /// </summary>
         [Summary(@"A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours.")]
-        [DataMember(Name = "contour_vector")]
+        [DataMember(Name = "contour_vector")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("contour_vector")] // For System.Text.Json
         public List<double> ContourVector { get; set; } = new List<double>{ 0, 1 };
 
         /// <summary>
         /// Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left.
         /// </summary>
         [Summary(@"Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left.")]
-        [DataMember(Name = "flip_start_side")]
+        [DataMember(Name = "flip_start_side")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("flip_start_side")] // For System.Text.Json
         public bool FlipStartSide { get; set; } = false;
 
 

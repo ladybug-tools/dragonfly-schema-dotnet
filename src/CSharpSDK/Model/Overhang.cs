@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Overhang" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected Overhang() 
         { 
             // Set readonly properties with defaultValue
@@ -66,7 +67,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for the overhang depth.")]
         [Required]
-        [DataMember(Name = "depth", IsRequired = true)]
+        [DataMember(Name = "depth", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("depth")] // For System.Text.Json
         public double Depth { get; set; }
 
         /// <summary>
@@ -74,7 +76,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.")]
         [Range(-90, 90)]
-        [DataMember(Name = "angle")]
+        [DataMember(Name = "angle")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("angle")] // For System.Text.Json
         public double Angle { get; set; } = 0D;
 
 

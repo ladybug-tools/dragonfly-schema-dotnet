@@ -61,7 +61,7 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     @ValidateNested({ each: true })
     @IsOptional()
     /** An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators. */
-    process_loads?: ProcessAbridged [];
+    process_loads?: ProcessAbridged[];
 	
 
     constructor() {

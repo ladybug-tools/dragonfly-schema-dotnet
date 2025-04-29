@@ -29,7 +29,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Room2DPropertiesAbridged" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected Room2DPropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -64,21 +65,24 @@ namespace DragonflySchema
         /// Energy
         /// </summary>
         [Summary(@"Energy")]
-        [DataMember(Name = "energy")]
+        [DataMember(Name = "energy")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("energy")] // For System.Text.Json
         public Room2DEnergyPropertiesAbridged Energy { get; set; }
 
         /// <summary>
         /// Radiance
         /// </summary>
         [Summary(@"Radiance")]
-        [DataMember(Name = "radiance")]
+        [DataMember(Name = "radiance")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("radiance")] // For System.Text.Json
         public Room2DRadiancePropertiesAbridged Radiance { get; set; }
 
         /// <summary>
         /// Comparison
         /// </summary>
         [Summary(@"Comparison")]
-        [DataMember(Name = "comparison")]
+        [DataMember(Name = "comparison")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("comparison")] // For System.Text.Json
         public Room2DComparisonProperties Comparison { get; set; }
 
 

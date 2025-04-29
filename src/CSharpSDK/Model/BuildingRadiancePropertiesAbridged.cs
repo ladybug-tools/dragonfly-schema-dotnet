@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildingRadiancePropertiesAbridged" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected BuildingRadiancePropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -63,7 +64,8 @@ namespace DragonflySchema
         /// Name of a ModifierSet to specify all modifiers for the Building. If None, the Model global_modifier_set will be used.
         /// </summary>
         [Summary(@"Name of a ModifierSet to specify all modifiers for the Building. If None, the Model global_modifier_set will be used.")]
-        [DataMember(Name = "modifier_set")]
+        [DataMember(Name = "modifier_set")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("modifier_set")] // For System.Text.Json
         public string ModifierSet { get; set; }
 
 

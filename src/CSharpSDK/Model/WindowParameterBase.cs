@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="WindowParameterBase" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected WindowParameterBase() 
         { 
             // Set readonly properties with defaultValue
@@ -63,7 +64,8 @@ namespace DragonflySchema
         /// Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures.
         /// </summary>
         [Summary(@"Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures.")]
-        [DataMember(Name = "user_data")]
+        [DataMember(Name = "user_data")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("user_data")] // For System.Text.Json
         public object UserData { get; set; }
 
 

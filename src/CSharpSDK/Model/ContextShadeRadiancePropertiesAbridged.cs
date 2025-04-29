@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextShadeRadiancePropertiesAbridged" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected ContextShadeRadiancePropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -63,7 +64,8 @@ namespace DragonflySchema
         /// Name of a Modifier to set the reflectance and specularity of the ContextShade. If None, the the default of 0.2 diffuse reflectance will be used.
         /// </summary>
         [Summary(@"Name of a Modifier to set the reflectance and specularity of the ContextShade. If None, the the default of 0.2 diffuse reflectance will be used.")]
-        [DataMember(Name = "modifier")]
+        [DataMember(Name = "modifier")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("modifier")] // For System.Text.Json
         public string Modifier { get; set; }
 
 

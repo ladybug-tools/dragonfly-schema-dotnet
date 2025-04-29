@@ -15,7 +15,7 @@ export class Story extends IDdBaseModel {
     @ValidateNested({ each: true })
     @IsDefined()
     /** An array of dragonfly Room2D objects that together form an entire story of a building. */
-    room_2ds!: Room2D [];
+    room_2ds!: Room2D[];
 	
     @IsInstance(StoryPropertiesAbridged)
     @Type(() => StoryPropertiesAbridged)

@@ -29,7 +29,7 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
       else return item;
     }))
     /** An optional list of GridParameter objects to describe how sensor grids should be generated for the Room2D. */
-    grid_parameters?: (RoomGridParameter | RoomRadialGridParameter | ExteriorFaceGridParameter | ExteriorApertureGridParameter) [];
+    grid_parameters?: (RoomGridParameter | RoomRadialGridParameter | ExteriorFaceGridParameter | ExteriorApertureGridParameter)[];
 	
 
     constructor() {

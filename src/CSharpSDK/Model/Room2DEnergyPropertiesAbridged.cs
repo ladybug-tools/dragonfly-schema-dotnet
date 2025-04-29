@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Room2DEnergyPropertiesAbridged" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected Room2DEnergyPropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -77,7 +78,8 @@ namespace DragonflySchema
         [Summary(@"Name of a ConstructionSet to specify all constructions for the Room2D. If None, the Room2D will use the Story or Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects.")]
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "construction_set")]
+        [DataMember(Name = "construction_set")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("construction_set")] // For System.Text.Json
         public string ConstructionSet { get; set; }
 
         /// <summary>
@@ -86,7 +88,8 @@ namespace DragonflySchema
         [Summary(@"Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints.")]
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "program_type")]
+        [DataMember(Name = "program_type")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("program_type")] // For System.Text.Json
         public string ProgramType { get; set; }
 
         /// <summary>
@@ -95,7 +98,8 @@ namespace DragonflySchema
         [Summary(@"An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned.")]
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "hvac")]
+        [DataMember(Name = "hvac")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("hvac")] // For System.Text.Json
         public string Hvac { get; set; }
 
         /// <summary>
@@ -104,28 +108,32 @@ namespace DragonflySchema
         [Summary(@"An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies.")]
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "shw")]
+        [DataMember(Name = "shw")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("shw")] // For System.Text.Json
         public string Shw { get; set; }
 
         /// <summary>
         /// An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.
         /// </summary>
         [Summary(@"An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.")]
-        [DataMember(Name = "window_vent_control")]
+        [DataMember(Name = "window_vent_control")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("window_vent_control")] // For System.Text.Json
         public VentilationControlAbridged WindowVentControl { get; set; }
 
         /// <summary>
         /// An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open.
         /// </summary>
         [Summary(@"An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open.")]
-        [DataMember(Name = "window_vent_opening")]
+        [DataMember(Name = "window_vent_opening")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("window_vent_opening")] // For System.Text.Json
         public VentilationOpening WindowVentOpening { get; set; }
 
         /// <summary>
         /// An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.
         /// </summary>
         [Summary(@"An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.")]
-        [DataMember(Name = "process_loads")]
+        [DataMember(Name = "process_loads")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("process_loads")] // For System.Text.Json
         public List<ProcessAbridged> ProcessLoads { get; set; }
 
 

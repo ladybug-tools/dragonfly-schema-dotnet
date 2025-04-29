@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="StoryEnergyPropertiesAbridged" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected StoryEnergyPropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -65,7 +66,8 @@ namespace DragonflySchema
         [Summary(@"Name of a ConstructionSet to specify all constructions for the Story. If None, the Story will use the Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects.")]
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "construction_set")]
+        [DataMember(Name = "construction_set")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("construction_set")] // For System.Text.Json
         public string ConstructionSet { get; set; }
 
 

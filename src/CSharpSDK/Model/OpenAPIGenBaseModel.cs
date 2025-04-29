@@ -29,7 +29,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenAPIGenBaseModel" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         public OpenAPIGenBaseModel
         (
             
@@ -50,7 +51,8 @@ namespace DragonflySchema
         /// A base class to use when there is no baseclass available to fall on.
         /// </summary>
         [Summary(@"A base class to use when there is no baseclass available to fall on.")]
-        [DataMember(Name = "type")]
+        [DataMember(Name = "type")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("type")] // For System.Text.Json
         public string Type { get; protected set; } = "InvalidType";
 
 

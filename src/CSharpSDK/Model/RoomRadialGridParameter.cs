@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="RoomRadialGridParameter" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected RoomRadialGridParameter() 
         { 
             // Set readonly properties with defaultValue
@@ -71,21 +72,24 @@ namespace DragonflySchema
         /// A positive integer for the number of radial directions to be generated around each position.
         /// </summary>
         [Summary(@"A positive integer for the number of radial directions to be generated around each position.")]
-        [DataMember(Name = "dir_count")]
+        [DataMember(Name = "dir_count")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("dir_count")] // For System.Text.Json
         public int DirCount { get; set; } = 8;
 
         /// <summary>
         /// A vector as 3 (x, y, z) values to set the start direction of the generated directions. This can be used to orient the resulting sensors to specific parts of the scene. It can also change the elevation of the resulting directions since this start vector will always be rotated in the XY plane to generate the resulting directions.
         /// </summary>
         [Summary(@"A vector as 3 (x, y, z) values to set the start direction of the generated directions. This can be used to orient the resulting sensors to specific parts of the scene. It can also change the elevation of the resulting directions since this start vector will always be rotated in the XY plane to generate the resulting directions.")]
-        [DataMember(Name = "start_vector")]
+        [DataMember(Name = "start_vector")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("start_vector")] // For System.Text.Json
         public List<double> StartVector { get; set; }
 
         /// <summary>
         /// An optional number to override the radius of the meshes generated around each sensor. If Autocalculate, it will be equal to 45 percent of the grid dimension.
         /// </summary>
         [Summary(@"An optional number to override the radius of the meshes generated around each sensor. If Autocalculate, it will be equal to 45 percent of the grid dimension.")]
-        [DataMember(Name = "mesh_radius")]
+        [DataMember(Name = "mesh_radius")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("mesh_radius")] // For System.Text.Json
         public AnyOf<Autocalculate, double> MeshRadius { get; set; } = new Autocalculate();
 
 

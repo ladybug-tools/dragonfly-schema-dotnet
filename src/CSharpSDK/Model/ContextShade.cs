@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextShade" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected ContextShade() 
         { 
             // Set readonly properties with defaultValue
@@ -71,7 +72,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"An array of planar Face3Ds and or Mesh3Ds that together represent the context shade.")]
         [Required]
-        [DataMember(Name = "geometry", IsRequired = true)]
+        [DataMember(Name = "geometry", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("geometry")] // For System.Text.Json
         public List<AnyOf<Face3D, Mesh3D>> Geometry { get; set; }
 
         /// <summary>
@@ -79,14 +81,16 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"Extension properties for particular simulation engines (Radiance, EnergyPlus).")]
         [Required]
-        [DataMember(Name = "properties", IsRequired = true)]
+        [DataMember(Name = "properties", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("properties")] // For System.Text.Json
         public ContextShadePropertiesAbridged Properties { get; set; }
 
         /// <summary>
         /// Boolean to note whether this shade is detached from any of the other geometry in the model. Cases where this should be True include shade representing surrounding buildings or context.
         /// </summary>
         [Summary(@"Boolean to note whether this shade is detached from any of the other geometry in the model. Cases where this should be True include shade representing surrounding buildings or context.")]
-        [DataMember(Name = "is_detached")]
+        [DataMember(Name = "is_detached")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("is_detached")] // For System.Text.Json
         public bool IsDetached { get; set; } = true;
 
 

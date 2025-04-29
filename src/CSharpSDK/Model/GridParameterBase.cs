@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="GridParameterBase" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected GridParameterBase() 
         { 
             // Set readonly properties with defaultValue
@@ -66,14 +67,16 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"The dimension of the grid cells as a number.")]
         [Required]
-        [DataMember(Name = "dimension", IsRequired = true)]
+        [DataMember(Name = "dimension", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("dimension")] // For System.Text.Json
         public double Dimension { get; set; }
 
         /// <summary>
         /// A boolean to note whether the resulting SensorGrid should include the mesh.
         /// </summary>
         [Summary(@"A boolean to note whether the resulting SensorGrid should include the mesh.")]
-        [DataMember(Name = "include_mesh")]
+        [DataMember(Name = "include_mesh")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("include_mesh")] // For System.Text.Json
         public bool IncludeMesh { get; set; } = true;
 
 

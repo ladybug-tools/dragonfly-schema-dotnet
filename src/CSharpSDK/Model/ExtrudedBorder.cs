@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtrudedBorder" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected ExtrudedBorder() 
         { 
             // Set readonly properties with defaultValue
@@ -64,7 +65,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for the depth of the border.")]
         [Required]
-        [DataMember(Name = "depth", IsRequired = true)]
+        [DataMember(Name = "depth", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("depth")] // For System.Text.Json
         public double Depth { get; set; }
 
 

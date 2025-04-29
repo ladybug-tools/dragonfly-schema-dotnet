@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="RepeatingWindowRatio" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected RepeatingWindowRatio() 
         { 
             // Set readonly properties with defaultValue
@@ -73,7 +74,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number between 0 and 1 for the ratio between the window area and the parent wall surface area.")]
         [Required]
-        [DataMember(Name = "window_ratio", IsRequired = true)]
+        [DataMember(Name = "window_ratio", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("window_ratio")] // For System.Text.Json
         public double WindowRatio { get; set; }
 
         /// <summary>
@@ -81,7 +83,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for the target height of the windows. Note that, if the window ratio is too large for the height, the ratio will take precedence and the actual window_height will be larger than this value.")]
         [Required]
-        [DataMember(Name = "window_height", IsRequired = true)]
+        [DataMember(Name = "window_height", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("window_height")] // For System.Text.Json
         public double WindowHeight { get; set; }
 
         /// <summary>
@@ -89,7 +92,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for the target height above the bottom edge of the wall to start the windows. Note that, if the ratio is too large for the height, the ratio will take precedence and the sill_height will be smaller than this value.")]
         [Required]
-        [DataMember(Name = "sill_height", IsRequired = true)]
+        [DataMember(Name = "sill_height", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("sill_height")] // For System.Text.Json
         public double SillHeight { get; set; }
 
         /// <summary>
@@ -98,7 +102,8 @@ namespace DragonflySchema
         [Summary(@"A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced.")]
         [Required]
         [Range(0, double.MaxValue)]
-        [DataMember(Name = "horizontal_separation", IsRequired = true)]
+        [DataMember(Name = "horizontal_separation", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("horizontal_separation")] // For System.Text.Json
         public double HorizontalSeparation { get; set; }
 
         /// <summary>
@@ -106,7 +111,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"An optional number to create a single vertical separation between top and bottom windows.")]
         [Range(0, double.MaxValue)]
-        [DataMember(Name = "vertical_separation")]
+        [DataMember(Name = "vertical_separation")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("vertical_separation")] // For System.Text.Json
         public double VerticalSeparation { get; set; } = 0D;
 
 

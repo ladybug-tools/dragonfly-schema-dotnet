@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="StoryRadiancePropertiesAbridged" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected StoryRadiancePropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -63,7 +64,8 @@ namespace DragonflySchema
         /// Name of a ModifierSet to specify all modifiers for the Story. If None, the Story will use the Building modifier_set or the Model global_modifier_set. Any ModifierSet assigned here will override those assigned to the parent objects.
         /// </summary>
         [Summary(@"Name of a ModifierSet to specify all modifiers for the Story. If None, the Story will use the Building modifier_set or the Model global_modifier_set. Any ModifierSet assigned here will override those assigned to the parent objects.")]
-        [DataMember(Name = "modifier_set")]
+        [DataMember(Name = "modifier_set")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("modifier_set")] // For System.Text.Json
         public string ModifierSet { get; set; }
 
 

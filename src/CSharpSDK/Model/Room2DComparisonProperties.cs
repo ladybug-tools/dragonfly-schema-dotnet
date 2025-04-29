@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Room2DComparisonProperties" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected Room2DComparisonProperties() 
         { 
             // Set readonly properties with defaultValue
@@ -69,28 +70,32 @@ namespace DragonflySchema
         /// A list of 2D points representing the outer boundary vertices of the Room2D to which the host Room2D is being compared. The list should include at least 3 points and each point should be a list of 2 (x, y) values.
         /// </summary>
         [Summary(@"A list of 2D points representing the outer boundary vertices of the Room2D to which the host Room2D is being compared. The list should include at least 3 points and each point should be a list of 2 (x, y) values.")]
-        [DataMember(Name = "floor_boundary")]
+        [DataMember(Name = "floor_boundary")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("floor_boundary")] // For System.Text.Json
         public List<List<double>> FloorBoundary { get; set; }
 
         /// <summary>
         /// Optional list of lists with one list for each hole in the floor plate of the Room2D to which the host Room2D is being compared. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate.
         /// </summary>
         [Summary(@"Optional list of lists with one list for each hole in the floor plate of the Room2D to which the host Room2D is being compared. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate.")]
-        [DataMember(Name = "floor_holes")]
+        [DataMember(Name = "floor_holes")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("floor_holes")] // For System.Text.Json
         public List<List<List<double>>> FloorHoles { get; set; }
 
         /// <summary>
         /// A list of WindowParameter objects that dictate the window geometries of the Room2D to which the host Room2D is being compared.
         /// </summary>
         [Summary(@"A list of WindowParameter objects that dictate the window geometries of the Room2D to which the host Room2D is being compared.")]
-        [DataMember(Name = "comparison_windows")]
+        [DataMember(Name = "comparison_windows")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("comparison_windows")] // For System.Text.Json
         public List<AnyOf<SingleWindow, SimpleWindowArea, SimpleWindowRatio, RepeatingWindowRatio, RectangularWindows, DetailedWindows>> ComparisonWindows { get; set; }
 
         /// <summary>
         /// A SkylightParameter object for the Room2D to which the host Room2D is being compared.
         /// </summary>
         [Summary(@"A SkylightParameter object for the Room2D to which the host Room2D is being compared.")]
-        [DataMember(Name = "comparison_skylight")]
+        [DataMember(Name = "comparison_skylight")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("comparison_skylight")] // For System.Text.Json
         public AnyOf<GriddedSkylightArea, GriddedSkylightRatio, DetailedSkylights> ComparisonSkylight { get; set; }
 
 

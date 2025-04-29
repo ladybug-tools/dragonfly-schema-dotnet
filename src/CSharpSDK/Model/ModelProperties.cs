@@ -29,7 +29,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="ModelProperties" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected ModelProperties() 
         { 
             // Set readonly properties with defaultValue
@@ -64,21 +65,24 @@ namespace DragonflySchema
         /// Energy
         /// </summary>
         [Summary(@"Energy")]
-        [DataMember(Name = "energy")]
+        [DataMember(Name = "energy")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("energy")] // For System.Text.Json
         public ModelEnergyProperties Energy { get; set; }
 
         /// <summary>
         /// Radiance
         /// </summary>
         [Summary(@"Radiance")]
-        [DataMember(Name = "radiance")]
+        [DataMember(Name = "radiance")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("radiance")] // For System.Text.Json
         public ModelRadianceProperties Radiance { get; set; }
 
         /// <summary>
         /// Comparison
         /// </summary>
         [Summary(@"Comparison")]
-        [DataMember(Name = "comparison")]
+        [DataMember(Name = "comparison")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("comparison")] // For System.Text.Json
         public ModelComparisonProperties Comparison { get; set; }
 
 

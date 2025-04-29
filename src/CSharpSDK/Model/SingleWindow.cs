@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="SingleWindow" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected SingleWindow() 
         { 
             // Set readonly properties with defaultValue
@@ -69,7 +70,8 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for the window width. Note that, if this width is applied to a wall that is too narrow for this width, the generated window will automatically be shortened when it is applied to the wall. In this way, setting the width to be `float(""inf"")` will create parameters that always generate a ribbon window.")]
         [Required]
-        [DataMember(Name = "width", IsRequired = true)]
+        [DataMember(Name = "width", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("width")] // For System.Text.Json
         public double Width { get; set; }
 
         /// <summary>
@@ -77,14 +79,16 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for the window height. Note that, if this height is applied to a wall that is too short for this height, the generated window will automatically be shortened when it is applied to the wall.")]
         [Required]
-        [DataMember(Name = "height", IsRequired = true)]
+        [DataMember(Name = "height", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("height")] // For System.Text.Json
         public double Height { get; set; }
 
         /// <summary>
         /// A number for the window sill height.
         /// </summary>
         [Summary(@"A number for the window sill height.")]
-        [DataMember(Name = "sill_height")]
+        [DataMember(Name = "sill_height")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("sill_height")] // For System.Text.Json
         public double SillHeight { get; set; } = 1D;
 
 

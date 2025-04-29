@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="ExteriorApertureGridParameter" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected ExteriorApertureGridParameter() 
         { 
             // Set readonly properties with defaultValue
@@ -67,14 +68,16 @@ namespace DragonflySchema
         /// A number for how far to offset the grid from the Apertures. (Default: 0.1, suitable for Models in Meters).
         /// </summary>
         [Summary(@"A number for how far to offset the grid from the Apertures. (Default: 0.1, suitable for Models in Meters).")]
-        [DataMember(Name = "offset")]
+        [DataMember(Name = "offset")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("offset")] // For System.Text.Json
         public double Offset { get; set; } = 0.1D;
 
         /// <summary>
         /// Text to specify the type of Aperture that will be used to generate grids. Window indicates Apertures in Walls. Skylights are in parent Roof faces.
         /// </summary>
         [Summary(@"Text to specify the type of Aperture that will be used to generate grids. Window indicates Apertures in Walls. Skylights are in parent Roof faces.")]
-        [DataMember(Name = "aperture_type")]
+        [DataMember(Name = "aperture_type")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("aperture_type")] // For System.Text.Json
         public ExteriorApertureType ApertureType { get; set; } = ExteriorApertureType.All;
 
 

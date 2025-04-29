@@ -32,7 +32,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="DetailedWindows" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
+        [System.Text.Json.Serialization.JsonConstructor]
         protected DetailedWindows() 
         { 
             // Set readonly properties with defaultValue
@@ -67,14 +68,16 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"An array of arrays with each sub-array representing a polygonal boundary of a window. Each sub-array should consist of arrays representing points, which can either contain 2 values (indicating they are 2D vertices within the plane of a parent wall segment) or they can contain 3 values (indicating they are 3D world coordinates). For 2D points, the wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each point in the polygon should always be positive. Some sample code to convert from 2D vertices to 2D vertices in the plane of the wall can be found here: https://www.ladybug.tools/dragonfly-core/docs/dragonfly.windowparameter.html#dragonfly.windowparameter.DetailedWindows")]
         [Required]
-        [DataMember(Name = "polygons", IsRequired = true)]
+        [DataMember(Name = "polygons", IsRequired = true)] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("polygons")] // For System.Text.Json
         public List<List<List<double>>> Polygons { get; set; }
 
         /// <summary>
         /// An array of booleans that align with the polygons and note whether each of the polygons represents a door (True) or a window (False). If None, it will be assumed that all polygons represent windows and they will be translated to Apertures in any resulting Honeybee model.
         /// </summary>
         [Summary(@"An array of booleans that align with the polygons and note whether each of the polygons represents a door (True) or a window (False). If None, it will be assumed that all polygons represent windows and they will be translated to Apertures in any resulting Honeybee model.")]
-        [DataMember(Name = "are_doors")]
+        [DataMember(Name = "are_doors")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("are_doors")] // For System.Text.Json
         public List<bool> AreDoors { get; set; }
 
 
