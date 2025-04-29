@@ -18,12 +18,11 @@ jobs:
 
       - name: "Download new OpenApi doc"
         run: |
-          cd ./.generator/SchemaGenerator
-          dotnet run --download --genCsModel --genCsInterface --genTsModel --updateVersion
+          make sdk
 
       - name: "Run build"
         run: |
-          cd ./src/DragonflySchema
+          cd ./src/CSharpSDK
           dotnet build
 
       - name: "Commit and Push Changes"
@@ -52,7 +51,7 @@ jobs:
         env:
           VERSION: ${{ github.event.client_payload.version }}
         run: |
-          sed -i --regexp-extended 's/(Include="HoneybeeSchema" Version=").*(")/Include="HoneybeeSchema" Version="'"$VERSION"'"/' src/DragonflySchema/DragonflySchema.csproj
+          sed -i --regexp-extended 's/(Include="HoneybeeSchema" Version=").*(")/Include="HoneybeeSchema" Version="'"$VERSION"'"/' src/CSharpSDK/DragonflySchema.csproj
 
       - name: "Commit and Push Changes"
         id: push

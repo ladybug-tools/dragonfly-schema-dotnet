@@ -41,8 +41,7 @@ jobs:
       - name: Generate files
         shell: bash
         run: |
-          cd ./.generator/SchemaGenerator
-          dotnet run --genCsModel --genCsInterface --updateVersion
+          make cs-sdk
 
       - name: Create key pair for signing the assembly
         if: github.ref == 'refs/heads/master'
@@ -92,8 +91,7 @@ jobs:
 
       - name: generate files
         run: |
-          cd ./.generator/SchemaGenerator
-          dotnet run --genTsModel --updateVersion
+          make ts-sdk
 
       - name: Install dependencies
         working-directory: src/TypescriptSDK
