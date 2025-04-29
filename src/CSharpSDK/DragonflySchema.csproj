@@ -24,7 +24,7 @@
     <PackageReference Include="LBT.Newtonsoft.Json" Version="12.0.3.23910">
       <Aliases>LBTNewtonSoft</Aliases>
     </PackageReference>
-    <PackageReference Include="HoneybeeSchema" Version="1.5804.16" />
+    <PackageReference Include="HoneybeeSchema" Version="1.5900.3" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="9.0.4" />
   </ItemGroup>
