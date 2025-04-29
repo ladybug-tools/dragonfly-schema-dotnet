@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonflySchema", "src\DragonflySchema\DragonflySchema.csproj", "{F538E302-ABB3-49D6-BBB5-9ACB4C70001B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonflySchema", "src\CSharpSDK\DragonflySchema.csproj", "{F538E302-ABB3-49D6-BBB5-9ACB4C70001B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonflySchema.Test", "src\DragonflySchema.Tests\DragonflySchema.Test.csproj", "{AEBE9144-6F89-4A78-976C-6E608E44FA83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonflySchema.Test", "src\CSharpSDK.Tests\DragonflySchema.Test.csproj", "{AEBE9144-6F89-4A78-976C-6E608E44FA83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

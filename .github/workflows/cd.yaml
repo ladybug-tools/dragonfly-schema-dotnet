@@ -46,7 +46,7 @@ jobs:
 
       - name: Create key pair for signing the assembly
         if: github.ref == 'refs/heads/master'
-        working-directory: src/DragonflySchema
+        working-directory: src/CSharpSDK
         run: |
           "C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\sn.exe" -k LadybugTools.snk
           ls
@@ -58,11 +58,11 @@ jobs:
           dotnet build --configuration Release
 
       - name: Run Unit Tests
-        working-directory: src/DragonflySchema.Tests
+        working-directory: src/CSharpSDK.Tests
         run: dotnet test --configuration Release
 
       - name: Release CSharp
-        working-directory: src/DragonflySchema
+        working-directory: src/CSharpSDK
         run: dotnet pack --configuration Release --output ./../../
 
       - name: Upload artifact
