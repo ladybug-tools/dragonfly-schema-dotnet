@@ -2,6 +2,7 @@
 import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ModelComparisonProperties } from "./ModelComparisonProperties";
+import { ModelDoe2Properties } from "./ModelDoe2Properties";
 import { ModelEnergyProperties } from "./ModelEnergyProperties";
 import { ModelRadianceProperties } from "./ModelRadianceProperties";
 
@@ -26,6 +27,13 @@ export class ModelProperties extends _OpenAPIGenBaseModel {
     /** Radiance */
     radiance?: ModelRadianceProperties;
 	
+    @IsInstance(ModelDoe2Properties)
+    @Type(() => ModelDoe2Properties)
+    @ValidateNested()
+    @IsOptional()
+    /** Doe2 */
+    doe2?: ModelDoe2Properties;
+	
     @IsInstance(ModelComparisonProperties)
     @Type(() => ModelComparisonProperties)
     @ValidateNested()
@@ -47,6 +55,7 @@ export class ModelProperties extends _OpenAPIGenBaseModel {
             this.type = obj.type;
             this.energy = obj.energy;
             this.radiance = obj.radiance;
+            this.doe2 = obj.doe2;
             this.comparison = obj.comparison;
         }
     }
@@ -72,6 +81,7 @@ export class ModelProperties extends _OpenAPIGenBaseModel {
         data["type"] = this.type;
         data["energy"] = this.energy;
         data["radiance"] = this.radiance;
+        data["doe2"] = this.doe2;
         data["comparison"] = this.comparison;
         data = super.toJSON(data);
         return instanceToPlain(data);

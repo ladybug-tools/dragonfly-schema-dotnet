@@ -41,14 +41,16 @@ namespace DragonflySchema
         /// </summary>
         /// <param name="energy">Energy</param>
         /// <param name="radiance">Radiance</param>
+        /// <param name="doe2">Doe2</param>
         /// <param name="comparison">Comparison</param>
         public ModelProperties
         (
-            ModelEnergyProperties energy = default, ModelRadianceProperties radiance = default, ModelComparisonProperties comparison = default
+            ModelEnergyProperties energy = default, ModelRadianceProperties radiance = default, ModelDoe2Properties doe2 = default, ModelComparisonProperties comparison = default
         ) : base()
         {
             this.Energy = energy;
             this.Radiance = radiance;
+            this.Doe2 = doe2;
             this.Comparison = comparison;
 
             // Set readonly properties with defaultValue
@@ -76,6 +78,14 @@ namespace DragonflySchema
         [DataMember(Name = "radiance")] // For Newtonsoft.Json
         [System.Text.Json.Serialization.JsonPropertyName("radiance")] // For System.Text.Json
         public ModelRadianceProperties Radiance { get; set; }
+
+        /// <summary>
+        /// Doe2
+        /// </summary>
+        [Summary(@"Doe2")]
+        [DataMember(Name = "doe2")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("doe2")] // For System.Text.Json
+        public ModelDoe2Properties Doe2 { get; set; }
 
         /// <summary>
         /// Comparison
@@ -110,6 +120,7 @@ namespace DragonflySchema
             sb.Append("  Type: ").Append(this.Type).Append("\n");
             sb.Append("  Energy: ").Append(this.Energy).Append("\n");
             sb.Append("  Radiance: ").Append(this.Radiance).Append("\n");
+            sb.Append("  Doe2: ").Append(this.Doe2).Append("\n");
             sb.Append("  Comparison: ").Append(this.Comparison).Append("\n");
             return sb.ToString();
         }
@@ -174,6 +185,7 @@ namespace DragonflySchema
             return base.Equals(input) && 
                     Extension.Equals(this.Energy, input.Energy) && 
                     Extension.Equals(this.Radiance, input.Radiance) && 
+                    Extension.Equals(this.Doe2, input.Doe2) && 
                     Extension.Equals(this.Comparison, input.Comparison);
         }
 
@@ -191,6 +203,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.Energy.GetHashCode();
                 if (this.Radiance != null)
                     hashCode = hashCode * 59 + this.Radiance.GetHashCode();
+                if (this.Doe2 != null)
+                    hashCode = hashCode * 59 + this.Doe2.GetHashCode();
                 if (this.Comparison != null)
                     hashCode = hashCode * 59 + this.Comparison.GetHashCode();
                 return hashCode;
