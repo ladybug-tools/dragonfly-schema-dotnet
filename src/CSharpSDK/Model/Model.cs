@@ -52,9 +52,10 @@ namespace DragonflySchema
         /// <param name="units">Text indicating the units in which the model geometry exists. This is used to scale the geometry to the correct units for simulation engines like EnergyPlus, which requires all geometry be in meters.</param>
         /// <param name="tolerance">The maximum difference between x, y, and z values at which vertices are considered equivalent. This value should be in the Model units and is used in a variety of checks and operations. A value of 0 will result in bypassing all checks so it is recommended that this always be a positive number when checks have not already been performed on a Model. The default of 0.01 is suitable for models in meters.</param>
         /// <param name="angleTolerance">The max angle difference in degrees that vertices are allowed to differ from one another in order to consider them colinear. This value is used in a variety of checks and operations that can be performed on geometry. A value of 0 will result in no checks and an inability to perform certain operations so it is recommended that this always be a positive number when checks have not already been performed on a given Model.</param>
+        /// <param name="referenceVector">A n optional list of 3 (x, y, z) values that describe a Vector3D relating the model to an original source coordinate system. Setting a value here is useful if the model has been moved from its original location and there may be future operations of merging geometry from the original source system.</param>
         public Model
         (
-            string identifier, ModelProperties properties, string displayName = default, object userData = default, string version = "0.0.0", List<Building> buildings = default, List<ContextShade> contextShades = default, Units units = Units.Meters, double tolerance = 0.01D, double angleTolerance = 1D
+            string identifier, ModelProperties properties, string displayName = default, object userData = default, string version = "0.0.0", List<Building> buildings = default, List<ContextShade> contextShades = default, Units units = Units.Meters, double tolerance = 0.01D, double angleTolerance = 1D, List<double> referenceVector = default
         ) : base(identifier: identifier, displayName: displayName, userData: userData)
         {
             this.Properties = properties ?? throw new System.ArgumentNullException("properties is a required property for Model and cannot be null");
@@ -64,6 +65,7 @@ namespace DragonflySchema
             this.Units = units;
             this.Tolerance = tolerance;
             this.AngleTolerance = angleTolerance;
+            this.ReferenceVector = referenceVector;
 
             // Set readonly properties with defaultValue
             this.Type = "Model";
@@ -135,6 +137,14 @@ namespace DragonflySchema
         [System.Text.Json.Serialization.JsonPropertyName("angle_tolerance")] // For System.Text.Json
         public double AngleTolerance { get; set; } = 1D;
 
+        /// <summary>
+        /// A n optional list of 3 (x, y, z) values that describe a Vector3D relating the model to an original source coordinate system. Setting a value here is useful if the model has been moved from its original location and there may be future operations of merging geometry from the original source system.
+        /// </summary>
+        [Summary(@"A n optional list of 3 (x, y, z) values that describe a Vector3D relating the model to an original source coordinate system. Setting a value here is useful if the model has been moved from its original location and there may be future operations of merging geometry from the original source system.")]
+        [DataMember(Name = "reference_vector")] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonPropertyName("reference_vector")] // For System.Text.Json
+        public List<double> ReferenceVector { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -168,6 +178,7 @@ namespace DragonflySchema
             sb.Append("  Units: ").Append(this.Units).Append("\n");
             sb.Append("  Tolerance: ").Append(this.Tolerance).Append("\n");
             sb.Append("  AngleTolerance: ").Append(this.AngleTolerance).Append("\n");
+            sb.Append("  ReferenceVector: ").Append(this.ReferenceVector).Append("\n");
             return sb.ToString();
         }
 
@@ -235,7 +246,8 @@ namespace DragonflySchema
                     Extension.AllEquals(this.ContextShades, input.ContextShades) && 
                     Extension.Equals(this.Units, input.Units) && 
                     Extension.Equals(this.Tolerance, input.Tolerance) && 
-                    Extension.Equals(this.AngleTolerance, input.AngleTolerance);
+                    Extension.Equals(this.AngleTolerance, input.AngleTolerance) && 
+                    Extension.AllEquals(this.ReferenceVector, input.ReferenceVector);
         }
 
 
@@ -262,6 +274,8 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.Tolerance.GetHashCode();
                 if (this.AngleTolerance != null)
                     hashCode = hashCode * 59 + this.AngleTolerance.GetHashCode();
+                if (this.ReferenceVector != null)
+                    hashCode = hashCode * 59 + this.ReferenceVector.GetHashCode();
                 return hashCode;
             }
         }

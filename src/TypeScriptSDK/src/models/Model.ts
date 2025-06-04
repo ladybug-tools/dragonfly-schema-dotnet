@@ -61,6 +61,12 @@ export class Model extends IDdBaseModel {
     /** The max angle difference in degrees that vertices are allowed to differ from one another in order to consider them colinear. This value is used in a variety of checks and operations that can be performed on geometry. A value of 0 will result in no checks and an inability to perform certain operations so it is recommended that this always be a positive number when checks have not already been performed on a given Model. */
     angle_tolerance?: number;
 	
+    @IsArray()
+    @IsNumber({},{ each: true })
+    @IsOptional()
+    /** A n optional list of 3 (x, y, z) values that describe a Vector3D relating the model to an original source coordinate system. Setting a value here is useful if the model has been moved from its original location and there may be future operations of merging geometry from the original source system. */
+    reference_vector?: number[];
+	
 
     constructor() {
         super();
@@ -84,6 +90,7 @@ export class Model extends IDdBaseModel {
             this.units = obj.units;
             this.tolerance = obj.tolerance;
             this.angle_tolerance = obj.angle_tolerance;
+            this.reference_vector = obj.reference_vector;
         }
     }
 
@@ -113,6 +120,7 @@ export class Model extends IDdBaseModel {
         data["units"] = this.units;
         data["tolerance"] = this.tolerance;
         data["angle_tolerance"] = this.angle_tolerance;
+        data["reference_vector"] = this.reference_vector;
         data = super.toJSON(data);
         return instanceToPlain(data);
     }
