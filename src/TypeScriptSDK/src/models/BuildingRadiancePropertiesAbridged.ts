@@ -8,17 +8,17 @@ export class BuildingRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^BuildingRadiancePropertiesAbridged$/)
     /** Type */
-    type?: string;
+    Type: string = "BuildingRadiancePropertiesAbridged";
 	
     @IsString()
     @IsOptional()
     /** Name of a ModifierSet to specify all modifiers for the Building. If None, the Model global_modifier_set will be used. */
-    modifier_set?: string;
+    ModifierSet?: string;
 	
 
     constructor() {
         super();
-        this.type = "BuildingRadiancePropertiesAbridged";
+        this.Type = "BuildingRadiancePropertiesAbridged";
     }
 
 
@@ -64,4 +64,3 @@ export class BuildingRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

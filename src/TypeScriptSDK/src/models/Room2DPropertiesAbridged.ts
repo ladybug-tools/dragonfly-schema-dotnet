@@ -11,40 +11,40 @@ export class Room2DPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^Room2DPropertiesAbridged$/)
     /** Type */
-    type?: string;
+    Type: string = "Room2DPropertiesAbridged";
 	
     @IsInstance(Room2DEnergyPropertiesAbridged)
     @Type(() => Room2DEnergyPropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     /** Energy */
-    energy?: Room2DEnergyPropertiesAbridged;
+    Energy?: Room2DEnergyPropertiesAbridged;
 	
     @IsInstance(Room2DRadiancePropertiesAbridged)
     @Type(() => Room2DRadiancePropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     /** Radiance */
-    radiance?: Room2DRadiancePropertiesAbridged;
+    Radiance?: Room2DRadiancePropertiesAbridged;
 	
     @IsInstance(Room2DDoe2Properties)
     @Type(() => Room2DDoe2Properties)
     @ValidateNested()
     @IsOptional()
     /** Doe2 */
-    doe2?: Room2DDoe2Properties;
+    Doe2?: Room2DDoe2Properties;
 	
     @IsInstance(Room2DComparisonProperties)
     @Type(() => Room2DComparisonProperties)
     @ValidateNested()
     @IsOptional()
     /** Comparison */
-    comparison?: Room2DComparisonProperties;
+    Comparison?: Room2DComparisonProperties;
 	
 
     constructor() {
         super();
-        this.type = "Room2DPropertiesAbridged";
+        this.Type = "Room2DPropertiesAbridged";
     }
 
 
@@ -96,4 +96,3 @@ export class Room2DPropertiesAbridged extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

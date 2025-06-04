@@ -8,12 +8,12 @@ export class ModelComparisonProperties extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^ModelComparisonProperties$/)
     /** Type */
-    type?: string;
+    Type: string = "ModelComparisonProperties";
 	
 
     constructor() {
         super();
-        this.type = "ModelComparisonProperties";
+        this.Type = "ModelComparisonProperties";
     }
 
 
@@ -57,4 +57,3 @@ export class ModelComparisonProperties extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

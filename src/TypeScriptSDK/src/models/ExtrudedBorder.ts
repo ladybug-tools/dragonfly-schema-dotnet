@@ -7,18 +7,18 @@ export class ExtrudedBorder extends _OpenAPIGenBaseModel {
     @IsNumber()
     @IsDefined()
     /** A number for the depth of the border. */
-    depth!: number;
+    Depth!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^ExtrudedBorder$/)
     /** Type */
-    type?: string;
+    Type: string = "ExtrudedBorder";
 	
 
     constructor() {
         super();
-        this.type = "ExtrudedBorder";
+        this.Type = "ExtrudedBorder";
     }
 
 
@@ -64,4 +64,3 @@ export class ExtrudedBorder extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

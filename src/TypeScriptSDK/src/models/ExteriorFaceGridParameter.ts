@@ -9,31 +9,31 @@ export class ExteriorFaceGridParameter extends _GridParameterBase {
     @IsOptional()
     @Matches(/^ExteriorFaceGridParameter$/)
     /** Type */
-    type?: string;
+    Type: string = "ExteriorFaceGridParameter";
 	
     @IsNumber()
     @IsOptional()
     /** A number for how far to offset the grid from the Faces. (Default: 0.1, suitable for Models in Meters). */
-    offset?: number;
+    Offset: number = 0.1;
 	
     @IsEnum(ExteriorFaceType)
     @Type(() => String)
     @IsOptional()
     /** Text to specify the type of face that will be used to generate grids. Note that only Faces with Outdoors boundary conditions will be used, meaning that most Floors will typically be excluded unless they represent the underside of a cantilever. */
-    face_type?: ExteriorFaceType;
+    FaceType: ExteriorFaceType = ExteriorFaceType.Wall;
 	
     @IsBoolean()
     @IsOptional()
     /** A boolean to note whether the punched_geometry of the faces should be used (True) with the areas of sub-faces removed from the grid or the full geometry should be used (False). */
-    punched_geometry?: boolean;
+    PunchedGeometry: boolean = false;
 	
 
     constructor() {
         super();
-        this.type = "ExteriorFaceGridParameter";
-        this.offset = 0.1;
-        this.face_type = ExteriorFaceType.Wall;
-        this.punched_geometry = false;
+        this.Type = "ExteriorFaceGridParameter";
+        this.Offset = 0.1;
+        this.FaceType = ExteriorFaceType.Wall;
+        this.PunchedGeometry = false;
     }
 
 
@@ -83,4 +83,3 @@ export class ExteriorFaceGridParameter extends _GridParameterBase {
         return true;
     }
 }
-

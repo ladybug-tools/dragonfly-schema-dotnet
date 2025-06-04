@@ -13,19 +13,19 @@ export class Model extends IDdBaseModel {
     @ValidateNested()
     @IsDefined()
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
-    properties!: ModelProperties;
+    Properties!: ModelProperties;
 	
     @IsString()
     @IsOptional()
     @Matches(/^Model$/)
     /** Type */
-    type?: string;
+    Type: string = "Model";
 	
     @IsString()
     @IsOptional()
     @Matches(/([0-9]+)\.([0-9]+)\.([0-9]+)/)
     /** Text string for the current version of the schema. */
-    version?: string;
+    Version: string = "0.0.0";
 	
     @IsArray()
     @IsInstance(Building, { each: true })
@@ -33,7 +33,7 @@ export class Model extends IDdBaseModel {
     @ValidateNested({ each: true })
     @IsOptional()
     /** A list of Buildings in the model. */
-    buildings?: Building[];
+    Buildings?: Building[];
 	
     @IsArray()
     @IsInstance(ContextShade, { each: true })
@@ -41,40 +41,40 @@ export class Model extends IDdBaseModel {
     @ValidateNested({ each: true })
     @IsOptional()
     /** A list of ContextShades in the model. */
-    context_shades?: ContextShade[];
+    ContextShades?: ContextShade[];
 	
     @IsEnum(Units)
     @Type(() => String)
     @IsOptional()
     /** Text indicating the units in which the model geometry exists. This is used to scale the geometry to the correct units for simulation engines like EnergyPlus, which requires all geometry be in meters. */
-    units?: Units;
+    Units: Units = Units.Meters;
 	
     @IsNumber()
     @IsOptional()
     @Min(0)
     /** The maximum difference between x, y, and z values at which vertices are considered equivalent. This value should be in the Model units and is used in a variety of checks and operations. A value of 0 will result in bypassing all checks so it is recommended that this always be a positive number when checks have not already been performed on a Model. The default of 0.01 is suitable for models in meters. */
-    tolerance?: number;
+    Tolerance: number = 0.01;
 	
     @IsNumber()
     @IsOptional()
     @Min(0)
     /** The max angle difference in degrees that vertices are allowed to differ from one another in order to consider them colinear. This value is used in a variety of checks and operations that can be performed on geometry. A value of 0 will result in no checks and an inability to perform certain operations so it is recommended that this always be a positive number when checks have not already been performed on a given Model. */
-    angle_tolerance?: number;
+    AngleTolerance: number = 1;
 	
     @IsArray()
     @IsNumber({},{ each: true })
     @IsOptional()
     /** A n optional list of 3 (x, y, z) values that describe a Vector3D relating the model to an original source coordinate system. Setting a value here is useful if the model has been moved from its original location and there may be future operations of merging geometry from the original source system. */
-    reference_vector?: number[];
+    ReferenceVector?: number[];
 	
 
     constructor() {
         super();
-        this.type = "Model";
-        this.version = "0.0.0";
-        this.units = Units.Meters;
-        this.tolerance = 0.01;
-        this.angle_tolerance = 1;
+        this.Type = "Model";
+        this.Version = "0.0.0";
+        this.Units = Units.Meters;
+        this.Tolerance = 0.01;
+        this.AngleTolerance = 1;
     }
 
 
@@ -134,4 +134,3 @@ export class Model extends IDdBaseModel {
         return true;
     }
 }
-

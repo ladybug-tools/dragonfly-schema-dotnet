@@ -8,26 +8,26 @@ export class ContextShadeEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^ContextShadeEnergyPropertiesAbridged$/)
     /** Type */
-    type?: string;
+    Type: string = "ContextShadeEnergyPropertiesAbridged";
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
     /** Name of a ShadeConstruction to set the reflectance and specularity of the ContextShade. If None, the the EnergyPlus default of 0.2 diffuse reflectance will be used. */
-    construction?: string;
+    Construction?: string;
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
     /** Name of a schedule to set the transmittance of the ContextShade, which can vary throughout the simulation. If None, the ContextShade will be completely opaque. */
-    transmittance_schedule?: string;
+    TransmittanceSchedule?: string;
 	
 
     constructor() {
         super();
-        this.type = "ContextShadeEnergyPropertiesAbridged";
+        this.Type = "ContextShadeEnergyPropertiesAbridged";
     }
 
 
@@ -75,4 +75,3 @@ export class ContextShadeEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

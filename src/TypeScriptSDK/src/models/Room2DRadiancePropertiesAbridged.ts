@@ -12,12 +12,12 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^Room2DRadiancePropertiesAbridged$/)
     /** Type */
-    type?: string;
+    Type: string = "Room2DRadiancePropertiesAbridged";
 	
     @IsString()
     @IsOptional()
     /** Identifier of a ModifierSet to specify all modifiers for the Room2D. If None, the Room2D will use the Story or Building modifier_set or the Model global_modifier_set. Any ModifierSet assigned here will override those assigned to the parent objects. */
-    modifier_set?: string;
+    ModifierSet?: string;
 	
     @IsArray()
     @IsOptional()
@@ -29,12 +29,12 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
       else return item;
     }))
     /** An optional list of GridParameter objects to describe how sensor grids should be generated for the Room2D. */
-    grid_parameters?: (RoomGridParameter | RoomRadialGridParameter | ExteriorFaceGridParameter | ExteriorApertureGridParameter)[];
+    GridParameters?: (RoomGridParameter | RoomRadialGridParameter | ExteriorFaceGridParameter | ExteriorApertureGridParameter)[];
 	
 
     constructor() {
         super();
-        this.type = "Room2DRadiancePropertiesAbridged";
+        this.Type = "Room2DRadiancePropertiesAbridged";
     }
 
 
@@ -82,4 +82,3 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

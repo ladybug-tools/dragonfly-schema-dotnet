@@ -8,17 +8,17 @@ export class ContextShadeRadiancePropertiesAbridged extends _OpenAPIGenBaseModel
     @IsOptional()
     @Matches(/^ContextShadeRadiancePropertiesAbridged$/)
     /** Type */
-    type?: string;
+    Type: string = "ContextShadeRadiancePropertiesAbridged";
 	
     @IsString()
     @IsOptional()
     /** Name of a Modifier to set the reflectance and specularity of the ContextShade. If None, the the default of 0.2 diffuse reflectance will be used. */
-    modifier?: string;
+    Modifier?: string;
 	
 
     constructor() {
         super();
-        this.type = "ContextShadeRadiancePropertiesAbridged";
+        this.Type = "ContextShadeRadiancePropertiesAbridged";
     }
 
 
@@ -64,4 +64,3 @@ export class ContextShadeRadiancePropertiesAbridged extends _OpenAPIGenBaseModel
         return true;
     }
 }
-

@@ -15,31 +15,31 @@ export class ContextShade extends IDdBaseModel {
       else return item;
     }))
     /** An array of planar Face3Ds and or Mesh3Ds that together represent the context shade. */
-    geometry!: (Face3D | Mesh3D)[];
+    Geometry!: (Face3D | Mesh3D)[];
 	
     @IsInstance(ContextShadePropertiesAbridged)
     @Type(() => ContextShadePropertiesAbridged)
     @ValidateNested()
     @IsDefined()
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
-    properties!: ContextShadePropertiesAbridged;
+    Properties!: ContextShadePropertiesAbridged;
 	
     @IsString()
     @IsOptional()
     @Matches(/^ContextShade$/)
     /** Type */
-    type?: string;
+    Type: string = "ContextShade";
 	
     @IsBoolean()
     @IsOptional()
     /** Boolean to note whether this shade is detached from any of the other geometry in the model. Cases where this should be True include shade representing surrounding buildings or context. */
-    is_detached?: boolean;
+    IsDetached: boolean = true;
 	
 
     constructor() {
         super();
-        this.type = "ContextShade";
-        this.is_detached = true;
+        this.Type = "ContextShade";
+        this.IsDetached = true;
     }
 
 
@@ -89,4 +89,3 @@ export class ContextShade extends IDdBaseModel {
         return true;
     }
 }
-

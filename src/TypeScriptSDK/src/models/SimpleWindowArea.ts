@@ -7,24 +7,24 @@ export class SimpleWindowArea extends _WindowParameterBase {
     @IsNumber()
     @IsDefined()
     /** A number for the window area in current model units. If this area is larger than the area of the Wall that it is appliedto, the window will fill the parent Wall at a 99 percent ratio. */
-    window_area!: number;
+    WindowArea!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^SimpleWindowArea$/)
     /** Type */
-    type?: string;
+    Type: string = "SimpleWindowArea";
 	
     @IsBoolean()
     @IsOptional()
     /** Boolean to note whether rectangular portions of base Face should be extracted before scaling them to create apertures. For pentagonal gabled geometries, this results in one rectangle and one triangle, which can often look more realistic and is a better input for engines like EnergyPlus that cannot model windows with more than 4 vertices. However, if a single pentagonal window is desired for such a gabled shape, this input can be set to False to produce such a result. */
-    rect_split?: boolean;
+    RectSplit: boolean = true;
 	
 
     constructor() {
         super();
-        this.type = "SimpleWindowArea";
-        this.rect_split = true;
+        this.Type = "SimpleWindowArea";
+        this.RectSplit = true;
     }
 
 
@@ -72,4 +72,3 @@ export class SimpleWindowArea extends _WindowParameterBase {
         return true;
     }
 }
-

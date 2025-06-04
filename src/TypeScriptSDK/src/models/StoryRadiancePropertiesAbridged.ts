@@ -8,17 +8,17 @@ export class StoryRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^StoryRadiancePropertiesAbridged$/)
     /** Type */
-    type?: string;
+    Type: string = "StoryRadiancePropertiesAbridged";
 	
     @IsString()
     @IsOptional()
     /** Name of a ModifierSet to specify all modifiers for the Story. If None, the Story will use the Building modifier_set or the Model global_modifier_set. Any ModifierSet assigned here will override those assigned to the parent objects. */
-    modifier_set?: string;
+    ModifierSet?: string;
 	
 
     constructor() {
         super();
-        this.type = "StoryRadiancePropertiesAbridged";
+        this.Type = "StoryRadiancePropertiesAbridged";
     }
 
 
@@ -64,4 +64,3 @@ export class StoryRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

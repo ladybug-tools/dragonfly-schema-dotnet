@@ -7,41 +7,41 @@ export class RepeatingWindowRatio extends _WindowParameterBase {
     @IsNumber()
     @IsDefined()
     /** A number between 0 and 1 for the ratio between the window area and the parent wall surface area. */
-    window_ratio!: number;
+    WindowRatio!: number;
 	
     @IsNumber()
     @IsDefined()
     /** A number for the target height of the windows. Note that, if the window ratio is too large for the height, the ratio will take precedence and the actual window_height will be larger than this value. */
-    window_height!: number;
+    WindowHeight!: number;
 	
     @IsNumber()
     @IsDefined()
     /** A number for the target height above the bottom edge of the wall to start the windows. Note that, if the ratio is too large for the height, the ratio will take precedence and the sill_height will be smaller than this value. */
-    sill_height!: number;
+    SillHeight!: number;
 	
     @IsNumber()
     @IsDefined()
     @Min(0)
     /** A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced. */
-    horizontal_separation!: number;
+    HorizontalSeparation!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^RepeatingWindowRatio$/)
     /** Type */
-    type?: string;
+    Type: string = "RepeatingWindowRatio";
 	
     @IsNumber()
     @IsOptional()
     @Min(0)
     /** An optional number to create a single vertical separation between top and bottom windows. */
-    vertical_separation?: number;
+    VerticalSeparation: number = 0;
 	
 
     constructor() {
         super();
-        this.type = "RepeatingWindowRatio";
-        this.vertical_separation = 0;
+        this.Type = "RepeatingWindowRatio";
+        this.VerticalSeparation = 0;
     }
 
 
@@ -95,4 +95,3 @@ export class RepeatingWindowRatio extends _WindowParameterBase {
         return true;
     }
 }
-

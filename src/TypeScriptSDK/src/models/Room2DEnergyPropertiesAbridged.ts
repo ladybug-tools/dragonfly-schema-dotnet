@@ -11,49 +11,49 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^Room2DEnergyPropertiesAbridged$/)
     /** Type */
-    type?: string;
+    Type: string = "Room2DEnergyPropertiesAbridged";
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
     /** Name of a ConstructionSet to specify all constructions for the Room2D. If None, the Room2D will use the Story or Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects. */
-    construction_set?: string;
+    ConstructionSet?: string;
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
     /** Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints. */
-    program_type?: string;
+    ProgramType?: string;
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
     /** An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned. */
-    hvac?: string;
+    Hvac?: string;
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
     /** An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies. */
-    shw?: string;
+    Shw?: string;
 	
     @IsInstance(VentilationControlAbridged)
     @Type(() => VentilationControlAbridged)
     @ValidateNested()
     @IsOptional()
     /** An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open. */
-    window_vent_control?: VentilationControlAbridged;
+    WindowVentControl?: VentilationControlAbridged;
 	
     @IsInstance(VentilationOpening)
     @Type(() => VentilationOpening)
     @ValidateNested()
     @IsOptional()
     /** An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open. */
-    window_vent_opening?: VentilationOpening;
+    WindowVentOpening?: VentilationOpening;
 	
     @IsArray()
     @IsInstance(ProcessAbridged, { each: true })
@@ -61,12 +61,12 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     @ValidateNested({ each: true })
     @IsOptional()
     /** An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators. */
-    process_loads?: ProcessAbridged[];
+    ProcessLoads?: ProcessAbridged[];
 	
 
     constructor() {
         super();
-        this.type = "Room2DEnergyPropertiesAbridged";
+        this.Type = "Room2DEnergyPropertiesAbridged";
     }
 
 
@@ -124,4 +124,3 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

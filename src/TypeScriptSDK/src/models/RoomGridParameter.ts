@@ -8,24 +8,24 @@ export class RoomGridParameter extends _GridParameterBase {
     @IsOptional()
     @Matches(/^RoomGridParameter$/)
     /** Type */
-    type?: string;
+    Type: string = "RoomGridParameter";
 	
     @IsNumber()
     @IsOptional()
     /** A number for how far to offset the grid from the Room2D floors. (Default: 1.0, suitable for Models in Meters). */
-    offset?: number;
+    Offset: number = 1;
 	
     @IsNumber()
     @IsOptional()
     /** A number for the distance at which sensors close to walls should be removed. Note that this option has no effect unless the value is more than half of the dimension. */
-    wall_offset?: number;
+    WallOffset: number = 0;
 	
 
     constructor() {
         super();
-        this.type = "RoomGridParameter";
-        this.offset = 1;
-        this.wall_offset = 0;
+        this.Type = "RoomGridParameter";
+        this.Offset = 1;
+        this.WallOffset = 0;
     }
 
 
@@ -73,4 +73,3 @@ export class RoomGridParameter extends _GridParameterBase {
         return true;
     }
 }
-

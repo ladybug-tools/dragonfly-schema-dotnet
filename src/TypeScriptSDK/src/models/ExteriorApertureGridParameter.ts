@@ -9,25 +9,25 @@ export class ExteriorApertureGridParameter extends _GridParameterBase {
     @IsOptional()
     @Matches(/^ExteriorApertureGridParameter$/)
     /** Type */
-    type?: string;
+    Type: string = "ExteriorApertureGridParameter";
 	
     @IsNumber()
     @IsOptional()
     /** A number for how far to offset the grid from the Apertures. (Default: 0.1, suitable for Models in Meters). */
-    offset?: number;
+    Offset: number = 0.1;
 	
     @IsEnum(ExteriorApertureType)
     @Type(() => String)
     @IsOptional()
     /** Text to specify the type of Aperture that will be used to generate grids. Window indicates Apertures in Walls. Skylights are in parent Roof faces. */
-    aperture_type?: ExteriorApertureType;
+    ApertureType: ExteriorApertureType = ExteriorApertureType.All;
 	
 
     constructor() {
         super();
-        this.type = "ExteriorApertureGridParameter";
-        this.offset = 0.1;
-        this.aperture_type = ExteriorApertureType.All;
+        this.Type = "ExteriorApertureGridParameter";
+        this.Offset = 0.1;
+        this.ApertureType = ExteriorApertureType.All;
     }
 
 
@@ -75,4 +75,3 @@ export class ExteriorApertureGridParameter extends _GridParameterBase {
         return true;
     }
 }
-

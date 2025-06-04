@@ -8,23 +8,23 @@ export class GriddedSkylightRatio extends _OpenAPIGenBaseModel {
     @IsNumber()
     @IsDefined()
     /** A number between 0 and 1 for the ratio between the skylight area and the total Roof face area. */
-    skylight_ratio!: number;
+    SkylightRatio!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^GriddedSkylightRatio$/)
     /** Type */
-    type?: string;
+    Type: string = "GriddedSkylightRatio";
 	
     @IsOptional()
     /** A number for the spacing between the centers of each grid cell. This should be less than a third of the dimension of the Roof geometry if multiple, evenly-spaced skylights are desired. If Autocalculate, a spacing of one third the smaller dimension of the parent Roof will be automatically assumed. */
-    spacing?: (Autocalculate | number);
+    Spacing: (Autocalculate | number) = new Autocalculate();
 	
 
     constructor() {
         super();
-        this.type = "GriddedSkylightRatio";
-        this.spacing = new Autocalculate();
+        this.Type = "GriddedSkylightRatio";
+        this.Spacing = new Autocalculate();
     }
 
 
@@ -72,4 +72,3 @@ export class GriddedSkylightRatio extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

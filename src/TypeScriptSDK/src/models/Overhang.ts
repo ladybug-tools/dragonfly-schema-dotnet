@@ -7,26 +7,26 @@ export class Overhang extends _OpenAPIGenBaseModel {
     @IsNumber()
     @IsDefined()
     /** A number for the overhang depth. */
-    depth!: number;
+    Depth!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^Overhang$/)
     /** Type */
-    type?: string;
+    Type: string = "Overhang";
 	
     @IsNumber()
     @IsOptional()
     @Min(-90)
     @Max(90)
     /** A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation. */
-    angle?: number;
+    Angle: number = 0;
 	
 
     constructor() {
         super();
-        this.type = "Overhang";
-        this.angle = 0;
+        this.Type = "Overhang";
+        this.Angle = 0;
     }
 
 
@@ -74,4 +74,3 @@ export class Overhang extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

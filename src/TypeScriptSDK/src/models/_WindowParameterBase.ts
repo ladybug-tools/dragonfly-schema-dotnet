@@ -6,18 +6,18 @@ import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 export class _WindowParameterBase extends _OpenAPIGenBaseModel {
     @IsOptional()
     /** Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures. */
-    user_data?: Object;
+    UserData?: Object;
 	
     @IsString()
     @IsOptional()
     @Matches(/^_WindowParameterBase$/)
     /** Type */
-    type?: string;
+    Type: string = "_WindowParameterBase";
 	
 
     constructor() {
         super();
-        this.type = "_WindowParameterBase";
+        this.Type = "_WindowParameterBase";
     }
 
 
@@ -63,4 +63,3 @@ export class _WindowParameterBase extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

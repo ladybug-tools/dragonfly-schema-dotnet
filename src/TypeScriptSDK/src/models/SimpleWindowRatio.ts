@@ -7,24 +7,24 @@ export class SimpleWindowRatio extends _WindowParameterBase {
     @IsNumber()
     @IsDefined()
     /** A number between 0 and 1 for the ratio between the window area and the parent wall surface area. */
-    window_ratio!: number;
+    WindowRatio!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^SimpleWindowRatio$/)
     /** Type */
-    type?: string;
+    Type: string = "SimpleWindowRatio";
 	
     @IsBoolean()
     @IsOptional()
     /** Boolean to note whether rectangular portions of base Face should be extracted before scaling them to create apertures. For pentagonal gabled geometries, this results in one rectangle and one triangle, which can often look more realistic and is a better input for engines like EnergyPlus that cannot model windows with more than 4 vertices. However, if a single pentagonal window is desired for such a gabled shape, this input can be set to False to produce such a result. */
-    rect_split?: boolean;
+    RectSplit: boolean = true;
 	
 
     constructor() {
         super();
-        this.type = "SimpleWindowRatio";
-        this.rect_split = true;
+        this.Type = "SimpleWindowRatio";
+        this.RectSplit = true;
     }
 
 
@@ -72,4 +72,3 @@ export class SimpleWindowRatio extends _WindowParameterBase {
         return true;
     }
 }
-

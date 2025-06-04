@@ -7,24 +7,24 @@ export class _GridParameterBase extends _OpenAPIGenBaseModel {
     @IsNumber()
     @IsDefined()
     /** The dimension of the grid cells as a number. */
-    dimension!: number;
+    Dimension!: number;
 	
     @IsBoolean()
     @IsOptional()
     /** A boolean to note whether the resulting SensorGrid should include the mesh. */
-    include_mesh?: boolean;
+    IncludeMesh: boolean = true;
 	
     @IsString()
     @IsOptional()
     @Matches(/^_GridParameterBase$/)
     /** Type */
-    type?: string;
+    Type: string = "_GridParameterBase";
 	
 
     constructor() {
         super();
-        this.include_mesh = true;
-        this.type = "_GridParameterBase";
+        this.IncludeMesh = true;
+        this.Type = "_GridParameterBase";
     }
 
 
@@ -72,4 +72,3 @@ export class _GridParameterBase extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

@@ -11,40 +11,40 @@ export class ModelProperties extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^ModelProperties$/)
     /** Type */
-    type?: string;
+    Type: string = "ModelProperties";
 	
     @IsInstance(ModelEnergyProperties)
     @Type(() => ModelEnergyProperties)
     @ValidateNested()
     @IsOptional()
     /** Energy */
-    energy?: ModelEnergyProperties;
+    Energy?: ModelEnergyProperties;
 	
     @IsInstance(ModelRadianceProperties)
     @Type(() => ModelRadianceProperties)
     @ValidateNested()
     @IsOptional()
     /** Radiance */
-    radiance?: ModelRadianceProperties;
+    Radiance?: ModelRadianceProperties;
 	
     @IsInstance(ModelDoe2Properties)
     @Type(() => ModelDoe2Properties)
     @ValidateNested()
     @IsOptional()
     /** Doe2 */
-    doe2?: ModelDoe2Properties;
+    Doe2?: ModelDoe2Properties;
 	
     @IsInstance(ModelComparisonProperties)
     @Type(() => ModelComparisonProperties)
     @ValidateNested()
     @IsOptional()
     /** Comparison */
-    comparison?: ModelComparisonProperties;
+    Comparison?: ModelComparisonProperties;
 	
 
     constructor() {
         super();
-        this.type = "ModelProperties";
+        this.Type = "ModelProperties";
     }
 
 
@@ -96,4 +96,3 @@ export class ModelProperties extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

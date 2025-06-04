@@ -7,46 +7,46 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
     @IsNumber()
     @IsDefined()
     /** A number for the depth to extrude the louvers. */
-    depth!: number;
+    Depth!: number;
 	
     @IsNumber()
     @IsOptional()
     @Min(0)
     /** A number for the distance to louvers from the wall. */
-    offset?: number;
+    Offset: number = 0;
 	
     @IsNumber()
     @IsOptional()
     @Min(-90)
     @Max(90)
     /** A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation. */
-    angle?: number;
+    Angle: number = 0;
 	
     @IsArray()
     @IsNumber({},{ each: true })
     @IsOptional()
     /** A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours. */
-    contour_vector?: number[];
+    ContourVector: number[] = [0, 1];
 	
     @IsBoolean()
     @IsOptional()
     /** Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left. */
-    flip_start_side?: boolean;
+    FlipStartSide: boolean = false;
 	
     @IsString()
     @IsOptional()
     @Matches(/^_LouversBase$/)
     /** Type */
-    type?: string;
+    Type: string = "_LouversBase";
 	
 
     constructor() {
         super();
-        this.offset = 0;
-        this.angle = 0;
-        this.contour_vector = [0, 1];
-        this.flip_start_side = false;
-        this.type = "_LouversBase";
+        this.Offset = 0;
+        this.Angle = 0;
+        this.ContourVector = [0, 1];
+        this.FlipStartSide = false;
+        this.Type = "_LouversBase";
     }
 
 
@@ -100,4 +100,3 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

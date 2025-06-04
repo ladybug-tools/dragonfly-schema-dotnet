@@ -7,29 +7,29 @@ export class SingleWindow extends _WindowParameterBase {
     @IsNumber()
     @IsDefined()
     /** A number for the window width. Note that, if this width is applied to a wall that is too narrow for this width, the generated window will automatically be shortened when it is applied to the wall. In this way, setting the width to be `float(""inf"")` will create parameters that always generate a ribbon window. */
-    width!: number;
+    Width!: number;
 	
     @IsNumber()
     @IsDefined()
     /** A number for the window height. Note that, if this height is applied to a wall that is too short for this height, the generated window will automatically be shortened when it is applied to the wall. */
-    height!: number;
+    Height!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^SingleWindow$/)
     /** Type */
-    type?: string;
+    Type: string = "SingleWindow";
 	
     @IsNumber()
     @IsOptional()
     /** A number for the window sill height. */
-    sill_height?: number;
+    SillHeight: number = 1;
 	
 
     constructor() {
         super();
-        this.type = "SingleWindow";
-        this.sill_height = 1;
+        this.Type = "SingleWindow";
+        this.SillHeight = 1;
     }
 
 
@@ -79,4 +79,3 @@ export class SingleWindow extends _WindowParameterBase {
         return true;
     }
 }
-

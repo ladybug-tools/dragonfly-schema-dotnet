@@ -9,26 +9,26 @@ export class ContextShadePropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^ContextShadePropertiesAbridged$/)
     /** Type */
-    type?: string;
+    Type: string = "ContextShadePropertiesAbridged";
 	
     @IsInstance(ContextShadeEnergyPropertiesAbridged)
     @Type(() => ContextShadeEnergyPropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     /** Energy */
-    energy?: ContextShadeEnergyPropertiesAbridged;
+    Energy?: ContextShadeEnergyPropertiesAbridged;
 	
     @IsInstance(ContextShadeRadiancePropertiesAbridged)
     @Type(() => ContextShadeRadiancePropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     /** Radiance */
-    radiance?: ContextShadeRadiancePropertiesAbridged;
+    Radiance?: ContextShadeRadiancePropertiesAbridged;
 	
 
     constructor() {
         super();
-        this.type = "ContextShadePropertiesAbridged";
+        this.Type = "ContextShadePropertiesAbridged";
     }
 
 
@@ -76,4 +76,3 @@ export class ContextShadePropertiesAbridged extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

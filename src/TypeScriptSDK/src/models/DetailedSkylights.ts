@@ -9,24 +9,24 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
     @IsNestedNumberArray()
     @IsDefined()
     /** An array of arrays with each sub-array representing a polygonal boundary of a skylight. Each sub-array should consist of arrays representing points, which contain 2 values for 2D coordinates in the world XY system. These coordinate values should lie within the parent Room2D Polygon. */
-    polygons!: number[][][];
+    Polygons!: number[][][];
 	
     @IsString()
     @IsOptional()
     @Matches(/^DetailedSkylights$/)
     /** Type */
-    type?: string;
+    Type: string = "DetailedSkylights";
 	
     @IsArray()
     @IsBoolean({ each: true })
     @IsOptional()
     /** An array of booleans that align with the polygons and note whether each of the polygons represents an overhead door (True) or a skylight (False). If None, it will be assumed that all polygons represent skylights and they will be translated to Apertures in any resulting Honeybee model. */
-    are_doors?: boolean[];
+    AreDoors?: boolean[];
 	
 
     constructor() {
         super();
-        this.type = "DetailedSkylights";
+        this.Type = "DetailedSkylights";
     }
 
 
@@ -74,4 +74,3 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

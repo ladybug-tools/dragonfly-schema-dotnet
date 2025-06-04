@@ -8,19 +8,19 @@ export class StoryEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^StoryEnergyPropertiesAbridged$/)
     /** Type */
-    type?: string;
+    Type: string = "StoryEnergyPropertiesAbridged";
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
     /** Name of a ConstructionSet to specify all constructions for the Story. If None, the Story will use the Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects. */
-    construction_set?: string;
+    ConstructionSet?: string;
 	
 
     constructor() {
         super();
-        this.type = "StoryEnergyPropertiesAbridged";
+        this.Type = "StoryEnergyPropertiesAbridged";
     }
 
 
@@ -66,4 +66,3 @@ export class StoryEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

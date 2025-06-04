@@ -7,18 +7,18 @@ export class LouversByDistance extends _LouversBase {
     @IsNumber()
     @IsDefined()
     /** A number for the approximate distance between each louver. */
-    distance!: number;
+    Distance!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^LouversByDistance$/)
     /** Type */
-    type?: string;
+    Type: string = "LouversByDistance";
 	
 
     constructor() {
         super();
-        this.type = "LouversByDistance";
+        this.Type = "LouversByDistance";
     }
 
 
@@ -64,4 +64,3 @@ export class LouversByDistance extends _LouversBase {
         return true;
     }
 }
-

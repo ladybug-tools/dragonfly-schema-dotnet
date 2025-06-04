@@ -8,12 +8,12 @@ export class ModelDoe2Properties extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^ModelDoe2Properties$/)
     /** Type */
-    type?: string;
+    Type: string = "ModelDoe2Properties";
 	
 
     constructor() {
         super();
-        this.type = "ModelDoe2Properties";
+        this.Type = "ModelDoe2Properties";
     }
 
 
@@ -57,4 +57,3 @@ export class ModelDoe2Properties extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

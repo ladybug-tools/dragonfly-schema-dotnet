@@ -7,18 +7,18 @@ export class LouversByCount extends _LouversBase {
     @IsInt()
     @IsDefined()
     /** A positive integer for the number of louvers to generate. */
-    louver_count!: number;
+    LouverCount!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^LouversByCount$/)
     /** Type */
-    type?: string;
+    Type: string = "LouversByCount";
 	
 
     constructor() {
         super();
-        this.type = "LouversByCount";
+        this.Type = "LouversByCount";
     }
 
 
@@ -64,4 +64,3 @@ export class LouversByCount extends _LouversBase {
         return true;
     }
 }
-

@@ -9,26 +9,26 @@ export class StoryPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^StoryPropertiesAbridged$/)
     /** Type */
-    type?: string;
+    Type: string = "StoryPropertiesAbridged";
 	
     @IsInstance(StoryEnergyPropertiesAbridged)
     @Type(() => StoryEnergyPropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     /** Energy */
-    energy?: StoryEnergyPropertiesAbridged;
+    Energy?: StoryEnergyPropertiesAbridged;
 	
     @IsInstance(StoryRadiancePropertiesAbridged)
     @Type(() => StoryRadiancePropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     /** Radiance */
-    radiance?: StoryRadiancePropertiesAbridged;
+    Radiance?: StoryRadiancePropertiesAbridged;
 	
 
     constructor() {
         super();
-        this.type = "StoryPropertiesAbridged";
+        this.Type = "StoryPropertiesAbridged";
     }
 
 
@@ -76,4 +76,3 @@ export class StoryPropertiesAbridged extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-

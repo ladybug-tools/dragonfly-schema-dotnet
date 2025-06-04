@@ -28,73 +28,73 @@ export class Room2D extends IDdBaseModel {
     @IsNestedNumberArray()
     @IsDefined()
     /** A list of 2D points representing the outer boundary vertices of the Room2D. The list should include at least 3 points and each point should be a list of 2 (x, y) values. */
-    floor_boundary!: number[][];
+    FloorBoundary!: number[][];
 	
     @IsNumber()
     @IsDefined()
     /** A number to indicate the height of the floor plane in the Z axis. */
-    floor_height!: number;
+    FloorHeight!: number;
 	
     @IsNumber()
     @IsDefined()
     /** A number for the distance between the floor and the ceiling. */
-    floor_to_ceiling_height!: number;
+    FloorToCeilingHeight!: number;
 	
     @IsInstance(Room2DPropertiesAbridged)
     @Type(() => Room2DPropertiesAbridged)
     @ValidateNested()
     @IsDefined()
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
-    properties!: Room2DPropertiesAbridged;
+    Properties!: Room2DPropertiesAbridged;
 	
     @IsString()
     @IsOptional()
     @Matches(/^Room2D$/)
     /** Type */
-    type?: string;
+    Type: string = "Room2D";
 	
     @IsArray()
     @IsNestedNumberArray()
     @IsOptional()
     /** Optional list of lists with one list for each hole in the floor plate. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate. */
-    floor_holes?: number[][][];
+    FloorHoles?: number[][][];
 	
     @IsBoolean()
     @IsOptional()
     /** A boolean noting whether this Room2D has its floor in contact with the ground. */
-    is_ground_contact?: boolean;
+    IsGroundContact: boolean = false;
 	
     @IsBoolean()
     @IsOptional()
     /** A boolean noting whether this Room2D has its ceiling exposed to the outdoors. */
-    is_top_exposed?: boolean;
+    IsTopExposed: boolean = false;
 	
     @IsBoolean()
     @IsOptional()
     /** A boolean for whether the room has a Floor (True) or an AirBoundary (False). If False, this property will only be meaningful if the model is translated to Honeybee with ceiling adjacency solved and there is a Room2D below this one with a has_ceiling property set to False. */
-    has_floor?: boolean;
+    HasFloor: boolean = true;
 	
     @IsBoolean()
     @IsOptional()
     /** A boolean for whether the room has a RoofCeiling (True) or an AirBoundary (False). If False, this property will only be meaningful if the model is translated to Honeybee with ceiling adjacency solved and there is a Room2D above this one with a has_floor property set to False. */
-    has_ceiling?: boolean;
+    HasCeiling: boolean = true;
 	
     @IsNumber()
     @IsOptional()
     @Min(0)
     /** A number for the depth that a ceiling plenum extends into the room. Setting this to a positive value will result in a separate plenum room being split off of the Room2D volume during translation from Dragonfly to Honeybee. The bottom of this ceiling plenum will always be at this Room2D ceiling height minus the value specified here. Setting this to zero indicates that the room has no ceiling plenum. */
-    ceiling_plenum_depth?: number;
+    CeilingPlenumDepth: number = 0;
 	
     @IsNumber()
     @IsOptional()
     @Min(0)
     /** A number for the depth that a floor plenum extends into the room. Setting this to a positive value will result in a separate plenum room being split off of the Room2D volume during translation from Dragonfly to Honeybee. The top of this floor plenum will always be at this Room2D floor height plus the value specified here. Setting this to zero indicates that the room has no floor plenum. */
-    floor_plenum_depth?: number;
+    FloorPlenumDepth: number = 0;
 	
     @IsString()
     @IsOptional()
     /** Text string for for the zone identifier to which this Room2D  belongs. Room2Ds sharing the same zone identifier are considered part of the same zone in a Building. If the zone identifier has not been specified, it will be the same as the Room2D identifier in the destination engine. Note that this property has no character restrictions. */
-    zone?: string;
+    Zone?: string;
 	
     @IsArray()
     @IsOptional()
@@ -107,7 +107,7 @@ export class Room2D extends IDdBaseModel {
       else return item;
     }))
     /** A list of boundary conditions that match the number of segments in the input floor_geometry + floor_holes. These will be used to assign boundary conditions to each of the walls of the Room in the resulting model. Their order should align with the order of segments in the floor_boundary and then with each hole segment. If None, all boundary conditions will be Outdoors or Ground depending on whether ceiling height of the room is at or below 0 (the assumed ground plane). */
-    boundary_conditions?: (Ground | Outdoors | Surface | Adiabatic | OtherSideTemperature)[];
+    BoundaryConditions?: (Ground | Outdoors | Surface | Adiabatic | OtherSideTemperature)[];
 	
     @IsArray()
     @IsOptional()
@@ -121,7 +121,7 @@ export class Room2D extends IDdBaseModel {
       else return item;
     }))
     /** A list of WindowParameter objects that dictate how the window geometries will be generated for each of the walls. If None, no windows will exist over the entire Room2D. */
-    window_parameters?: (SingleWindow | SimpleWindowArea | SimpleWindowRatio | RepeatingWindowRatio | RectangularWindows | DetailedWindows)[];
+    WindowParameters?: (SingleWindow | SimpleWindowArea | SimpleWindowRatio | RepeatingWindowRatio | RectangularWindows | DetailedWindows)[];
 	
     @IsArray()
     @IsOptional()
@@ -133,13 +133,13 @@ export class Room2D extends IDdBaseModel {
       else return item;
     }))
     /** A list of ShadingParameter objects that dictate how the shade geometries will be generated for each of the walls. If None, no shades will exist over the entire Room2D. */
-    shading_parameters?: (ExtrudedBorder | Overhang | LouversByDistance | LouversByCount)[];
+    ShadingParameters?: (ExtrudedBorder | Overhang | LouversByDistance | LouversByCount)[];
 	
     @IsArray()
     @IsBoolean({ each: true })
     @IsOptional()
     /** A list of booleans for whether each wall has an air boundary type. False values indicate a standard opaque type while True values indicate an AirBoundary type. All walls will be False by default. Note that any walls with a True air boundary must have a Surface boundary condition without any windows. */
-    air_boundaries?: boolean[];
+    AirBoundaries?: boolean[];
 	
     @IsOptional()
     @Transform(({ value }) => {
@@ -150,18 +150,18 @@ export class Room2D extends IDdBaseModel {
       else return item;
     })
     /** A SkylightParameter object describing how to generate skylights. If None, no skylights will exist on the Room2D. */
-    skylight_parameters?: (GriddedSkylightArea | GriddedSkylightRatio | DetailedSkylights);
+    SkylightParameters?: (GriddedSkylightArea | GriddedSkylightRatio | DetailedSkylights);
 	
 
     constructor() {
         super();
-        this.type = "Room2D";
-        this.is_ground_contact = false;
-        this.is_top_exposed = false;
-        this.has_floor = true;
-        this.has_ceiling = true;
-        this.ceiling_plenum_depth = 0;
-        this.floor_plenum_depth = 0;
+        this.Type = "Room2D";
+        this.IsGroundContact = false;
+        this.IsTopExposed = false;
+        this.HasFloor = true;
+        this.HasCeiling = true;
+        this.CeilingPlenumDepth = 0;
+        this.FloorPlenumDepth = 0;
     }
 
 
@@ -239,4 +239,3 @@ export class Room2D extends IDdBaseModel {
         return true;
     }
 }
-

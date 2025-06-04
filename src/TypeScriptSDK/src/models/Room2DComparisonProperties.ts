@@ -18,19 +18,19 @@ export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
     @IsOptional()
     @Matches(/^Room2DComparisonProperties$/)
     /** Type */
-    type?: string;
+    Type: string = "Room2DComparisonProperties";
 	
     @IsArray()
     @IsNestedNumberArray()
     @IsOptional()
     /** A list of 2D points representing the outer boundary vertices of the Room2D to which the host Room2D is being compared. The list should include at least 3 points and each point should be a list of 2 (x, y) values. */
-    floor_boundary?: number[][];
+    FloorBoundary?: number[][];
 	
     @IsArray()
     @IsNestedNumberArray()
     @IsOptional()
     /** Optional list of lists with one list for each hole in the floor plate of the Room2D to which the host Room2D is being compared. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate. */
-    floor_holes?: number[][][];
+    FloorHoles?: number[][][];
 	
     @IsArray()
     @IsOptional()
@@ -44,7 +44,7 @@ export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
       else return item;
     }))
     /** A list of WindowParameter objects that dictate the window geometries of the Room2D to which the host Room2D is being compared. */
-    comparison_windows?: (SingleWindow | SimpleWindowArea | SimpleWindowRatio | RepeatingWindowRatio | RectangularWindows | DetailedWindows)[];
+    ComparisonWindows?: (SingleWindow | SimpleWindowArea | SimpleWindowRatio | RepeatingWindowRatio | RectangularWindows | DetailedWindows)[];
 	
     @IsOptional()
     @Transform(({ value }) => {
@@ -55,12 +55,12 @@ export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
       else return item;
     })
     /** A SkylightParameter object for the Room2D to which the host Room2D is being compared. */
-    comparison_skylight?: (GriddedSkylightArea | GriddedSkylightRatio | DetailedSkylights);
+    ComparisonSkylight?: (GriddedSkylightArea | GriddedSkylightRatio | DetailedSkylights);
 	
 
     constructor() {
         super();
-        this.type = "Room2DComparisonProperties";
+        this.Type = "Room2DComparisonProperties";
     }
 
 
@@ -112,4 +112,3 @@ export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
         return true;
     }
 }
-
