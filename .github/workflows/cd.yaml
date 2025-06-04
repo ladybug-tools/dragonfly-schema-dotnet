@@ -94,19 +94,19 @@ jobs:
           make ts-sdk
 
       - name: Install dependencies
-        working-directory: src/TypescriptSDK
+        working-directory: src/TypeScriptSDK
         run: npm i
 
       - name: Build and pack package
-        working-directory: src/TypescriptSDK
+        working-directory: src/TypeScriptSDK
         run: |
           npm run custom-pack
           cp ./*.tgz ./../../
 
       - name: Unit tests
-        working-directory: src/TypescriptSDK.Tests
+        working-directory: src/TypeScriptSDK.Tests
         run: |
-          npm i ./../TypescriptSDK/dragonfly-schema-${{env.RELEASE_VERSION}}.tgz
+          npm i ./../TypeScriptSDK/dragonfly-schema-${{env.RELEASE_VERSION}}.tgz
           npm i honeybee-schema
           npm run test
 
