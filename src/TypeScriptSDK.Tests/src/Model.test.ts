@@ -27,7 +27,7 @@ test('test wallSet', () => {
         interior_construction: "Generic Interior Wall",
         exterior_construction: "Generic Exterior Wall",
         type: "WallConstructionSetAbridged",
-    }
+    };
     const obj = WallConstructionSetAbridged.fromJS(data);
     expect(obj.validate()).resolves.toBe(true);
 
@@ -196,8 +196,8 @@ test('test GlobalModifierSet', () => {
     const data = GlobalModifierSetData;
     const obj = GlobalModifierSet.fromJS(data);
     expect(obj.validate()).resolves.toBe(true);
-    expect(obj.modifiers?.at(0)).toBeInstanceOf(Plastic)
-    expect(obj.door_set).toBeInstanceOf(DoorModifierSetAbridged);
+    expect(obj.modifiers?.at(0)).toBeInstanceOf(Plastic);
+    expect(obj.doorSet).toBeInstanceOf(DoorModifierSetAbridged);
 
     const jsonObj = obj.toJSON();
     expect(jsonObj.type).toBe("GlobalModifierSet");
@@ -214,10 +214,10 @@ test('test ModelProperties', () => {
         {
             "global_modifier_set": GlobalModifierSetData
         }
-    }
+    };
     const obj = ModelProperties.fromJS(data);
     // expect(obj.validate()).resolves.toBe(true);
-    expect(obj.radiance?.global_modifier_set?.wall_set).toBeInstanceOf(WallModifierSetAbridged);
+    expect(obj.radiance?.globalModifierSet?.wallSet).toBeInstanceOf(WallModifierSetAbridged);
 
 }
 );
@@ -231,14 +231,14 @@ test('test global wall set instance', () => {
                 "global_modifier_set": GlobalModifierSetData
             }
         }
-    }
+    };
 
     // const model = plainToClass(Model, data, { enableImplicitConversion: true });
     const obj = Model.fromJS(data);
     const radProp = obj.properties.radiance;
     expect(radProp).toBeInstanceOf(ModelRadianceProperties);
 
-    const wallset = obj.properties.radiance?.global_modifier_set?.wall_set;
+    const wallset = obj.properties.radiance?.globalModifierSet?.wallSet;
     expect(wallset).toBeInstanceOf(WallModifierSetAbridged);
     // expect(obj.validate()).resolves.toBe(true);
 
