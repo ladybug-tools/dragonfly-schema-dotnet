@@ -36,7 +36,7 @@ export class Overhang extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Overhang, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(Overhang, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.depth = obj.depth;
             this.type = obj.type ?? "Overhang";
             this.angle = obj.angle ?? 0;

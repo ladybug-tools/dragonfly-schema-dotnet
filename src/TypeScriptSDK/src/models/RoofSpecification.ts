@@ -31,7 +31,7 @@ export class RoofSpecification extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(RoofSpecification, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(RoofSpecification, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.geometry = obj.geometry;
             this.type = obj.type ?? "RoofSpecification";
         }

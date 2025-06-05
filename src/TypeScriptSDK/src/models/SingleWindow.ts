@@ -40,7 +40,7 @@ export class SingleWindow extends _WindowParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(SingleWindow, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(SingleWindow, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.width = obj.width;
             this.height = obj.height;
             this.type = obj.type ?? "SingleWindow";

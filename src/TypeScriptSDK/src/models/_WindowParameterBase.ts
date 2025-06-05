@@ -26,7 +26,7 @@ export class _WindowParameterBase extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(_WindowParameterBase, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(_WindowParameterBase, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.userData = obj.userData;
             this.type = obj.type ?? "_WindowParameterBase";
         }

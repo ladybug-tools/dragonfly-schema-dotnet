@@ -10,7 +10,7 @@ export class ContextShade extends IDdBaseModel {
     @IsArray()
     @IsDefined()
     @Expose({ name: "geometry" })
-    @Transform(({ value }) => value.map((item: any) => {
+    @Transform(({ value }) => value?.map((item: any) => {
       if (item?.type === 'Face3D') return Face3D.fromJS(item);
       else if (item?.type === 'Mesh3D') return Mesh3D.fromJS(item);
       else return item;
@@ -50,7 +50,7 @@ export class ContextShade extends IDdBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ContextShade, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(ContextShade, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.geometry = obj.geometry;
             this.properties = obj.properties;
             this.type = obj.type ?? "ContextShade";

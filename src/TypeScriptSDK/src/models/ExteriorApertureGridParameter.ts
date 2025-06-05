@@ -37,7 +37,7 @@ export class ExteriorApertureGridParameter extends _GridParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ExteriorApertureGridParameter, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(ExteriorApertureGridParameter, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.type = obj.type ?? "ExteriorApertureGridParameter";
             this.offset = obj.offset ?? 0.1;
             this.apertureType = obj.apertureType ?? ExteriorApertureType.All;

@@ -35,7 +35,7 @@ export class RoomGridParameter extends _GridParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(RoomGridParameter, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(RoomGridParameter, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.type = obj.type ?? "RoomGridParameter";
             this.offset = obj.offset ?? 1;
             this.wallOffset = obj.wallOffset ?? 0;

@@ -24,7 +24,7 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsArray()
     @IsOptional()
     @Expose({ name: "grid_parameters" })
-    @Transform(({ value }) => value.map((item: any) => {
+    @Transform(({ value }) => value?.map((item: any) => {
       if (item?.type === 'RoomGridParameter') return RoomGridParameter.fromJS(item);
       else if (item?.type === 'RoomRadialGridParameter') return RoomRadialGridParameter.fromJS(item);
       else if (item?.type === 'ExteriorFaceGridParameter') return ExteriorFaceGridParameter.fromJS(item);
@@ -44,7 +44,7 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Room2DRadiancePropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(Room2DRadiancePropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.type = obj.type ?? "Room2DRadiancePropertiesAbridged";
             this.modifierSet = obj.modifierSet;
             this.gridParameters = obj.gridParameters;

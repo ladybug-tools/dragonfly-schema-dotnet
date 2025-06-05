@@ -34,7 +34,7 @@ export class SimpleWindowRatio extends _WindowParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(SimpleWindowRatio, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(SimpleWindowRatio, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.windowRatio = obj.windowRatio;
             this.type = obj.type ?? "SimpleWindowRatio";
             this.rectSplit = obj.rectSplit ?? true;

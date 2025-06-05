@@ -34,7 +34,7 @@ export class _GridParameterBase extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(_GridParameterBase, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(_GridParameterBase, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.dimension = obj.dimension;
             this.includeMesh = obj.includeMesh ?? true;
             this.type = obj.type ?? "_GridParameterBase";

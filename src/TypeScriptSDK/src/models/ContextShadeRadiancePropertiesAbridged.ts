@@ -27,7 +27,7 @@ export class ContextShadeRadiancePropertiesAbridged extends _OpenAPIGenBaseModel
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ContextShadeRadiancePropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(ContextShadeRadiancePropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.type = obj.type ?? "ContextShadeRadiancePropertiesAbridged";
             this.modifier = obj.modifier;
         }

@@ -112,7 +112,7 @@ export class Room2D extends IDdBaseModel {
     @IsArray()
     @IsOptional()
     @Expose({ name: "boundary_conditions" })
-    @Transform(({ value }) => value.map((item: any) => {
+    @Transform(({ value }) => value?.map((item: any) => {
       if (item?.type === 'Ground') return Ground.fromJS(item);
       else if (item?.type === 'Outdoors') return Outdoors.fromJS(item);
       else if (item?.type === 'Surface') return Surface.fromJS(item);
@@ -126,7 +126,7 @@ export class Room2D extends IDdBaseModel {
     @IsArray()
     @IsOptional()
     @Expose({ name: "window_parameters" })
-    @Transform(({ value }) => value.map((item: any) => {
+    @Transform(({ value }) => value?.map((item: any) => {
       if (item?.type === 'SingleWindow') return SingleWindow.fromJS(item);
       else if (item?.type === 'SimpleWindowArea') return SimpleWindowArea.fromJS(item);
       else if (item?.type === 'SimpleWindowRatio') return SimpleWindowRatio.fromJS(item);
@@ -141,7 +141,7 @@ export class Room2D extends IDdBaseModel {
     @IsArray()
     @IsOptional()
     @Expose({ name: "shading_parameters" })
-    @Transform(({ value }) => value.map((item: any) => {
+    @Transform(({ value }) => value?.map((item: any) => {
       if (item?.type === 'ExtrudedBorder') return ExtrudedBorder.fromJS(item);
       else if (item?.type === 'Overhang') return Overhang.fromJS(item);
       else if (item?.type === 'LouversByDistance') return LouversByDistance.fromJS(item);
@@ -186,7 +186,7 @@ export class Room2D extends IDdBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Room2D, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(Room2D, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.floorBoundary = obj.floorBoundary;
             this.floorHeight = obj.floorHeight;
             this.floorToCeilingHeight = obj.floorToCeilingHeight;

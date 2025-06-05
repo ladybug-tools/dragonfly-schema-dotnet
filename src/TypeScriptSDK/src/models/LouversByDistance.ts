@@ -27,7 +27,7 @@ export class LouversByDistance extends _LouversBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(LouversByDistance, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(LouversByDistance, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.distance = obj.distance;
             this.type = obj.type ?? "LouversByDistance";
         }

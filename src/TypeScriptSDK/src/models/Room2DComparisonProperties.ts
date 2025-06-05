@@ -38,7 +38,7 @@ export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
     @IsArray()
     @IsOptional()
     @Expose({ name: "comparison_windows" })
-    @Transform(({ value }) => value.map((item: any) => {
+    @Transform(({ value }) => value?.map((item: any) => {
       if (item?.type === 'SingleWindow') return SingleWindow.fromJS(item);
       else if (item?.type === 'SimpleWindowArea') return SimpleWindowArea.fromJS(item);
       else if (item?.type === 'SimpleWindowRatio') return SimpleWindowRatio.fromJS(item);
@@ -72,7 +72,7 @@ export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Room2DComparisonProperties, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(Room2DComparisonProperties, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.type = obj.type ?? "Room2DComparisonProperties";
             this.floorBoundary = obj.floorBoundary;
             this.floorHoles = obj.floorHoles;

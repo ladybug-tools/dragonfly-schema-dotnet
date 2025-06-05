@@ -36,7 +36,7 @@ export class DetailedWindows extends _WindowParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(DetailedWindows, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(DetailedWindows, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.polygons = obj.polygons;
             this.type = obj.type ?? "DetailedWindows";
             this.areDoors = obj.areDoors;
