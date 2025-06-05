@@ -1,42 +1,45 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, Min, Max, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** A single overhang over an entire wall. */
 export class Overhang extends _OpenAPIGenBaseModel {
     @IsNumber()
     @IsDefined()
+    @Expose({ name: "depth" })
     /** A number for the overhang depth. */
-    Depth!: number;
+    depth!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^Overhang$/)
-    /** Type */
-    Type: string = "Overhang";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "Overhang";
 	
     @IsNumber()
     @IsOptional()
     @Min(-90)
     @Max(90)
+    @Expose({ name: "angle" })
     /** A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation. */
-    Angle: number = 0;
+    angle: number = 0;
 	
 
     constructor() {
         super();
-        this.Type = "Overhang";
-        this.Angle = 0;
+        this.type = "Overhang";
+        this.angle = 0;
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Overhang, _data, { enableImplicitConversion: true });
+            const obj = plainToClass(Overhang, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
             this.depth = obj.depth;
-            this.type = obj.type;
-            this.angle = obj.angle;
+            this.type = obj.type ?? "Overhang";
+            this.angle = obj.angle ?? 0;
         }
     }
 
@@ -59,10 +62,10 @@ export class Overhang extends _OpenAPIGenBaseModel {
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["depth"] = this.depth;
-        data["type"] = this.type;
-        data["angle"] = this.angle;
+        data["type"] = this.type ?? "Overhang";
+        data["angle"] = this.angle ?? 0;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

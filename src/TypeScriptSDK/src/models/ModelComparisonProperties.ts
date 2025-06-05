@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
@@ -7,21 +7,22 @@ export class ModelComparisonProperties extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
     @Matches(/^ModelComparisonProperties$/)
-    /** Type */
-    Type: string = "ModelComparisonProperties";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "ModelComparisonProperties";
 	
 
     constructor() {
         super();
-        this.Type = "ModelComparisonProperties";
+        this.type = "ModelComparisonProperties";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ModelComparisonProperties, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
+            const obj = plainToClass(ModelComparisonProperties, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "ModelComparisonProperties";
         }
     }
 
@@ -43,9 +44,9 @@ export class ModelComparisonProperties extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
+        data["type"] = this.type ?? "ModelComparisonProperties";
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

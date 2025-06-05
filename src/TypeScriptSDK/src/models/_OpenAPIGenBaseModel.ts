@@ -1,15 +1,16 @@
 ﻿import { IsString, IsOptional, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 
 export abstract class _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
+    @Expose({ name: "type" })
     /** A base class to use when there is no baseclass available to fall on. */
-    Type: string = "InvalidType";
+    type: string = "InvalidType";
 	
 
     constructor() {
-        this.Type = "InvalidType";
+        this.type = "InvalidType";
     }
 
 
@@ -25,8 +26,8 @@ export abstract class _OpenAPIGenBaseModel {
 
 	toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
-        return instanceToPlain(data);
+        data["type"] = this.type ?? "InvalidType";
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

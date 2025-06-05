@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ContextShadeEnergyPropertiesAbridged } from "./ContextShadeEnergyPropertiesAbridged";
 import { ContextShadeRadiancePropertiesAbridged } from "./ContextShadeRadiancePropertiesAbridged";
@@ -8,35 +8,38 @@ export class ContextShadePropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
     @Matches(/^ContextShadePropertiesAbridged$/)
-    /** Type */
-    Type: string = "ContextShadePropertiesAbridged";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "ContextShadePropertiesAbridged";
 	
     @IsInstance(ContextShadeEnergyPropertiesAbridged)
     @Type(() => ContextShadeEnergyPropertiesAbridged)
     @ValidateNested()
     @IsOptional()
-    /** Energy */
-    Energy?: ContextShadeEnergyPropertiesAbridged;
+    @Expose({ name: "energy" })
+    /** energy */
+    energy?: ContextShadeEnergyPropertiesAbridged;
 	
     @IsInstance(ContextShadeRadiancePropertiesAbridged)
     @Type(() => ContextShadeRadiancePropertiesAbridged)
     @ValidateNested()
     @IsOptional()
-    /** Radiance */
-    Radiance?: ContextShadeRadiancePropertiesAbridged;
+    @Expose({ name: "radiance" })
+    /** radiance */
+    radiance?: ContextShadeRadiancePropertiesAbridged;
 	
 
     constructor() {
         super();
-        this.Type = "ContextShadePropertiesAbridged";
+        this.type = "ContextShadePropertiesAbridged";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ContextShadePropertiesAbridged, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
+            const obj = plainToClass(ContextShadePropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "ContextShadePropertiesAbridged";
             this.energy = obj.energy;
             this.radiance = obj.radiance;
         }
@@ -60,11 +63,11 @@ export class ContextShadePropertiesAbridged extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
+        data["type"] = this.type ?? "ContextShadePropertiesAbridged";
         data["energy"] = this.energy;
         data["radiance"] = this.radiance;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

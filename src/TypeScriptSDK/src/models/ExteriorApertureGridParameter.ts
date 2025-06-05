@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsNumber, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _GridParameterBase } from "./_GridParameterBase";
 import { ExteriorApertureType } from "./ExteriorApertureType";
 
@@ -8,36 +8,39 @@ export class ExteriorApertureGridParameter extends _GridParameterBase {
     @IsString()
     @IsOptional()
     @Matches(/^ExteriorApertureGridParameter$/)
-    /** Type */
-    Type: string = "ExteriorApertureGridParameter";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "ExteriorApertureGridParameter";
 	
     @IsNumber()
     @IsOptional()
+    @Expose({ name: "offset" })
     /** A number for how far to offset the grid from the Apertures. (Default: 0.1, suitable for Models in Meters). */
-    Offset: number = 0.1;
+    offset: number = 0.1;
 	
     @IsEnum(ExteriorApertureType)
     @Type(() => String)
     @IsOptional()
+    @Expose({ name: "aperture_type" })
     /** Text to specify the type of Aperture that will be used to generate grids. Window indicates Apertures in Walls. Skylights are in parent Roof faces. */
-    ApertureType: ExteriorApertureType = ExteriorApertureType.All;
+    apertureType: ExteriorApertureType = ExteriorApertureType.All;
 	
 
     constructor() {
         super();
-        this.Type = "ExteriorApertureGridParameter";
-        this.Offset = 0.1;
-        this.ApertureType = ExteriorApertureType.All;
+        this.type = "ExteriorApertureGridParameter";
+        this.offset = 0.1;
+        this.apertureType = ExteriorApertureType.All;
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ExteriorApertureGridParameter, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
-            this.offset = obj.offset;
-            this.aperture_type = obj.aperture_type;
+            const obj = plainToClass(ExteriorApertureGridParameter, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "ExteriorApertureGridParameter";
+            this.offset = obj.offset ?? 0.1;
+            this.apertureType = obj.apertureType ?? ExteriorApertureType.All;
         }
     }
 
@@ -59,11 +62,11 @@ export class ExteriorApertureGridParameter extends _GridParameterBase {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
-        data["offset"] = this.offset;
-        data["aperture_type"] = this.aperture_type;
+        data["type"] = this.type ?? "ExteriorApertureGridParameter";
+        data["offset"] = this.offset ?? 0.1;
+        data["aperture_type"] = this.apertureType ?? ExteriorApertureType.All;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

@@ -1,46 +1,50 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** A single window in the wall center defined by a width * height. */
 export class SingleWindow extends _WindowParameterBase {
     @IsNumber()
     @IsDefined()
+    @Expose({ name: "width" })
     /** A number for the window width. Note that, if this width is applied to a wall that is too narrow for this width, the generated window will automatically be shortened when it is applied to the wall. In this way, setting the width to be `float(""inf"")` will create parameters that always generate a ribbon window. */
-    Width!: number;
+    width!: number;
 	
     @IsNumber()
     @IsDefined()
+    @Expose({ name: "height" })
     /** A number for the window height. Note that, if this height is applied to a wall that is too short for this height, the generated window will automatically be shortened when it is applied to the wall. */
-    Height!: number;
+    height!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^SingleWindow$/)
-    /** Type */
-    Type: string = "SingleWindow";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "SingleWindow";
 	
     @IsNumber()
     @IsOptional()
+    @Expose({ name: "sill_height" })
     /** A number for the window sill height. */
-    SillHeight: number = 1;
+    sillHeight: number = 1;
 	
 
     constructor() {
         super();
-        this.Type = "SingleWindow";
-        this.SillHeight = 1;
+        this.type = "SingleWindow";
+        this.sillHeight = 1;
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(SingleWindow, _data, { enableImplicitConversion: true });
+            const obj = plainToClass(SingleWindow, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
             this.width = obj.width;
             this.height = obj.height;
-            this.type = obj.type;
-            this.sill_height = obj.sill_height;
+            this.type = obj.type ?? "SingleWindow";
+            this.sillHeight = obj.sillHeight ?? 1;
         }
     }
 
@@ -64,10 +68,10 @@ export class SingleWindow extends _WindowParameterBase {
         data = typeof data === 'object' ? data : {};
         data["width"] = this.width;
         data["height"] = this.height;
-        data["type"] = this.type;
-        data["sill_height"] = this.sill_height;
+        data["type"] = this.type ?? "SingleWindow";
+        data["sill_height"] = this.sillHeight ?? 1;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

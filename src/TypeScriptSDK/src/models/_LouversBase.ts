@@ -1,65 +1,71 @@
 ﻿import { IsNumber, IsDefined, IsOptional, Min, Max, IsArray, IsBoolean, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for for a series of louvered shades over a wall. */
 export class _LouversBase extends _OpenAPIGenBaseModel {
     @IsNumber()
     @IsDefined()
+    @Expose({ name: "depth" })
     /** A number for the depth to extrude the louvers. */
-    Depth!: number;
+    depth!: number;
 	
     @IsNumber()
     @IsOptional()
     @Min(0)
+    @Expose({ name: "offset" })
     /** A number for the distance to louvers from the wall. */
-    Offset: number = 0;
+    offset: number = 0;
 	
     @IsNumber()
     @IsOptional()
     @Min(-90)
     @Max(90)
+    @Expose({ name: "angle" })
     /** A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation. */
-    Angle: number = 0;
+    angle: number = 0;
 	
     @IsArray()
     @IsNumber({},{ each: true })
     @IsOptional()
+    @Expose({ name: "contour_vector" })
     /** A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours. */
-    ContourVector: number[] = [0, 1];
+    contourVector: number[] = [0, 1];
 	
     @IsBoolean()
     @IsOptional()
+    @Expose({ name: "flip_start_side" })
     /** Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left. */
-    FlipStartSide: boolean = false;
+    flipStartSide: boolean = false;
 	
     @IsString()
     @IsOptional()
     @Matches(/^_LouversBase$/)
-    /** Type */
-    Type: string = "_LouversBase";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "_LouversBase";
 	
 
     constructor() {
         super();
-        this.Offset = 0;
-        this.Angle = 0;
-        this.ContourVector = [0, 1];
-        this.FlipStartSide = false;
-        this.Type = "_LouversBase";
+        this.offset = 0;
+        this.angle = 0;
+        this.contourVector = [0, 1];
+        this.flipStartSide = false;
+        this.type = "_LouversBase";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(_LouversBase, _data, { enableImplicitConversion: true });
+            const obj = plainToClass(_LouversBase, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
             this.depth = obj.depth;
-            this.offset = obj.offset;
-            this.angle = obj.angle;
-            this.contour_vector = obj.contour_vector;
-            this.flip_start_side = obj.flip_start_side;
-            this.type = obj.type;
+            this.offset = obj.offset ?? 0;
+            this.angle = obj.angle ?? 0;
+            this.contourVector = obj.contourVector ?? [0, 1];
+            this.flipStartSide = obj.flipStartSide ?? false;
+            this.type = obj.type ?? "_LouversBase";
         }
     }
 
@@ -82,13 +88,13 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["depth"] = this.depth;
-        data["offset"] = this.offset;
-        data["angle"] = this.angle;
-        data["contour_vector"] = this.contour_vector;
-        data["flip_start_side"] = this.flip_start_side;
-        data["type"] = this.type;
+        data["offset"] = this.offset ?? 0;
+        data["angle"] = this.angle ?? 0;
+        data["contour_vector"] = this.contourVector ?? [0, 1];
+        data["flip_start_side"] = this.flipStartSide ?? false;
+        data["type"] = this.type ?? "_LouversBase";
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

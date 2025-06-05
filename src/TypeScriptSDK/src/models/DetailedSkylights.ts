@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
@@ -8,35 +8,38 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
     @IsArray()
     @IsNestedNumberArray()
     @IsDefined()
+    @Expose({ name: "polygons" })
     /** An array of arrays with each sub-array representing a polygonal boundary of a skylight. Each sub-array should consist of arrays representing points, which contain 2 values for 2D coordinates in the world XY system. These coordinate values should lie within the parent Room2D Polygon. */
-    Polygons!: number[][][];
+    polygons!: number[][][];
 	
     @IsString()
     @IsOptional()
     @Matches(/^DetailedSkylights$/)
-    /** Type */
-    Type: string = "DetailedSkylights";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "DetailedSkylights";
 	
     @IsArray()
     @IsBoolean({ each: true })
     @IsOptional()
+    @Expose({ name: "are_doors" })
     /** An array of booleans that align with the polygons and note whether each of the polygons represents an overhead door (True) or a skylight (False). If None, it will be assumed that all polygons represent skylights and they will be translated to Apertures in any resulting Honeybee model. */
-    AreDoors?: boolean[];
+    areDoors?: boolean[];
 	
 
     constructor() {
         super();
-        this.Type = "DetailedSkylights";
+        this.type = "DetailedSkylights";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(DetailedSkylights, _data, { enableImplicitConversion: true });
+            const obj = plainToClass(DetailedSkylights, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
             this.polygons = obj.polygons;
-            this.type = obj.type;
-            this.are_doors = obj.are_doors;
+            this.type = obj.type ?? "DetailedSkylights";
+            this.areDoors = obj.areDoors;
         }
     }
 
@@ -59,10 +62,10 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["polygons"] = this.polygons;
-        data["type"] = this.type;
-        data["are_doors"] = this.are_doors;
+        data["type"] = this.type ?? "DetailedSkylights";
+        data["are_doors"] = this.areDoors;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

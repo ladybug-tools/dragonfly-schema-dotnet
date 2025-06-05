@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
@@ -7,26 +7,28 @@ export class ContextShadeRadiancePropertiesAbridged extends _OpenAPIGenBaseModel
     @IsString()
     @IsOptional()
     @Matches(/^ContextShadeRadiancePropertiesAbridged$/)
-    /** Type */
-    Type: string = "ContextShadeRadiancePropertiesAbridged";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "ContextShadeRadiancePropertiesAbridged";
 	
     @IsString()
     @IsOptional()
+    @Expose({ name: "modifier" })
     /** Name of a Modifier to set the reflectance and specularity of the ContextShade. If None, the the default of 0.2 diffuse reflectance will be used. */
-    Modifier?: string;
+    modifier?: string;
 	
 
     constructor() {
         super();
-        this.Type = "ContextShadeRadiancePropertiesAbridged";
+        this.type = "ContextShadeRadiancePropertiesAbridged";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ContextShadeRadiancePropertiesAbridged, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
+            const obj = plainToClass(ContextShadeRadiancePropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "ContextShadeRadiancePropertiesAbridged";
             this.modifier = obj.modifier;
         }
     }
@@ -49,10 +51,10 @@ export class ContextShadeRadiancePropertiesAbridged extends _OpenAPIGenBaseModel
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
+        data["type"] = this.type ?? "ContextShadeRadiancePropertiesAbridged";
         data["modifier"] = this.modifier;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

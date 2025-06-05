@@ -1,33 +1,35 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _LouversBase } from "./_LouversBase";
 
 /** A series of louvered Shades at a given distance between each louver. */
 export class LouversByDistance extends _LouversBase {
     @IsNumber()
     @IsDefined()
+    @Expose({ name: "distance" })
     /** A number for the approximate distance between each louver. */
-    Distance!: number;
+    distance!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^LouversByDistance$/)
-    /** Type */
-    Type: string = "LouversByDistance";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "LouversByDistance";
 	
 
     constructor() {
         super();
-        this.Type = "LouversByDistance";
+        this.type = "LouversByDistance";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(LouversByDistance, _data, { enableImplicitConversion: true });
+            const obj = plainToClass(LouversByDistance, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
             this.distance = obj.distance;
-            this.type = obj.type;
+            this.type = obj.type ?? "LouversByDistance";
         }
     }
 
@@ -50,9 +52,9 @@ export class LouversByDistance extends _LouversBase {
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["distance"] = this.distance;
-        data["type"] = this.type;
+        data["type"] = this.type ?? "LouversByDistance";
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

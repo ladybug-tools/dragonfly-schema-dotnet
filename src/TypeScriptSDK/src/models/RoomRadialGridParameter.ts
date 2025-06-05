@@ -1,5 +1,5 @@
 ﻿import { IsInt, IsOptional, IsArray, IsNumber, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { Autocalculate } from "honeybee-schema";
 import { RoomGridParameter } from "./RoomGridParameter";
 
@@ -7,42 +7,46 @@ import { RoomGridParameter } from "./RoomGridParameter";
 export class RoomRadialGridParameter extends RoomGridParameter {
     @IsInt()
     @IsOptional()
+    @Expose({ name: "dir_count" })
     /** A positive integer for the number of radial directions to be generated around each position. */
-    DirCount: number = 8;
+    dirCount: number = 8;
 	
     @IsArray()
     @IsNumber({},{ each: true })
     @IsOptional()
+    @Expose({ name: "start_vector" })
     /** A vector as 3 (x, y, z) values to set the start direction of the generated directions. This can be used to orient the resulting sensors to specific parts of the scene. It can also change the elevation of the resulting directions since this start vector will always be rotated in the XY plane to generate the resulting directions. */
-    StartVector?: number[];
+    startVector?: number[];
 	
     @IsOptional()
+    @Expose({ name: "mesh_radius" })
     /** An optional number to override the radius of the meshes generated around each sensor. If Autocalculate, it will be equal to 45 percent of the grid dimension. */
-    MeshRadius: (Autocalculate | number) = new Autocalculate();
+    meshRadius: (Autocalculate | number) = new Autocalculate();
 	
     @IsString()
     @IsOptional()
     @Matches(/^RoomRadialGridParameter$/)
-    /** Type */
-    Type: string = "RoomRadialGridParameter";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "RoomRadialGridParameter";
 	
 
     constructor() {
         super();
-        this.DirCount = 8;
-        this.MeshRadius = new Autocalculate();
-        this.Type = "RoomRadialGridParameter";
+        this.dirCount = 8;
+        this.meshRadius = new Autocalculate();
+        this.type = "RoomRadialGridParameter";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(RoomRadialGridParameter, _data, { enableImplicitConversion: true });
-            this.dir_count = obj.dir_count;
-            this.start_vector = obj.start_vector;
-            this.mesh_radius = obj.mesh_radius;
-            this.type = obj.type;
+            const obj = plainToClass(RoomRadialGridParameter, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.dirCount = obj.dirCount ?? 8;
+            this.startVector = obj.startVector;
+            this.meshRadius = obj.meshRadius ?? new Autocalculate();
+            this.type = obj.type ?? "RoomRadialGridParameter";
         }
     }
 
@@ -64,12 +68,12 @@ export class RoomRadialGridParameter extends RoomGridParameter {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["dir_count"] = this.dir_count;
-        data["start_vector"] = this.start_vector;
-        data["mesh_radius"] = this.mesh_radius;
-        data["type"] = this.type;
+        data["dir_count"] = this.dirCount ?? 8;
+        data["start_vector"] = this.startVector;
+        data["mesh_radius"] = this.meshRadius ?? new Autocalculate();
+        data["type"] = this.type ?? "RoomRadialGridParameter";
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

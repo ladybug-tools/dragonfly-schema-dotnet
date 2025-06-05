@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsDefined, IsNumber, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
@@ -8,49 +8,54 @@ export class RectangularWindows extends _WindowParameterBase {
     @IsArray()
     @IsNestedNumberArray()
     @IsDefined()
+    @Expose({ name: "origins" })
     /** An array of 2D points within the plane of the wall for the origin of each window. Each point should be a list of 2 (x, y) values. The wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each origin point should be positive. */
-    Origins!: number[][];
+    origins!: number[][];
 	
     @IsArray()
     @IsNumber({},{ each: true })
     @IsDefined()
+    @Expose({ name: "widths" })
     /** An array of positive numbers for the window widths. The length of this list must match the length of the origins. */
-    Widths!: number[];
+    widths!: number[];
 	
     @IsArray()
     @IsNumber({},{ each: true })
     @IsDefined()
+    @Expose({ name: "heights" })
     /** An array of positive numbers for the window heights. The length of this list must match the length of the origins. */
-    Heights!: number[];
+    heights!: number[];
 	
     @IsString()
     @IsOptional()
     @Matches(/^RectangularWindows$/)
-    /** Type */
-    Type: string = "RectangularWindows";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "RectangularWindows";
 	
     @IsArray()
     @IsBoolean({ each: true })
     @IsOptional()
+    @Expose({ name: "are_doors" })
     /** An array of booleans that align with the origins and note whether each of the geometries represents a door (True) or a window (False). If None, it will be assumed that all geometries represent windows and they will be translated to Apertures in any resulting Honeybee model. */
-    AreDoors?: boolean[];
+    areDoors?: boolean[];
 	
 
     constructor() {
         super();
-        this.Type = "RectangularWindows";
+        this.type = "RectangularWindows";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(RectangularWindows, _data, { enableImplicitConversion: true });
+            const obj = plainToClass(RectangularWindows, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
             this.origins = obj.origins;
             this.widths = obj.widths;
             this.heights = obj.heights;
-            this.type = obj.type;
-            this.are_doors = obj.are_doors;
+            this.type = obj.type ?? "RectangularWindows";
+            this.areDoors = obj.areDoors;
         }
     }
 
@@ -75,10 +80,10 @@ export class RectangularWindows extends _WindowParameterBase {
         data["origins"] = this.origins;
         data["widths"] = this.widths;
         data["heights"] = this.heights;
-        data["type"] = this.type;
-        data["are_doors"] = this.are_doors;
+        data["type"] = this.type ?? "RectangularWindows";
+        data["are_doors"] = this.areDoors;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

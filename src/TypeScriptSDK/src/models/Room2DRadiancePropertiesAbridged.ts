@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ExteriorApertureGridParameter } from "./ExteriorApertureGridParameter";
 import { ExteriorFaceGridParameter } from "./ExteriorFaceGridParameter";
@@ -11,16 +11,19 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
     @Matches(/^Room2DRadiancePropertiesAbridged$/)
-    /** Type */
-    Type: string = "Room2DRadiancePropertiesAbridged";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "Room2DRadiancePropertiesAbridged";
 	
     @IsString()
     @IsOptional()
+    @Expose({ name: "modifier_set" })
     /** Identifier of a ModifierSet to specify all modifiers for the Room2D. If None, the Room2D will use the Story or Building modifier_set or the Model global_modifier_set. Any ModifierSet assigned here will override those assigned to the parent objects. */
-    ModifierSet?: string;
+    modifierSet?: string;
 	
     @IsArray()
     @IsOptional()
+    @Expose({ name: "grid_parameters" })
     @Transform(({ value }) => value.map((item: any) => {
       if (item?.type === 'RoomGridParameter') return RoomGridParameter.fromJS(item);
       else if (item?.type === 'RoomRadialGridParameter') return RoomRadialGridParameter.fromJS(item);
@@ -29,22 +32,22 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
       else return item;
     }))
     /** An optional list of GridParameter objects to describe how sensor grids should be generated for the Room2D. */
-    GridParameters?: (RoomGridParameter | RoomRadialGridParameter | ExteriorFaceGridParameter | ExteriorApertureGridParameter)[];
+    gridParameters?: (RoomGridParameter | RoomRadialGridParameter | ExteriorFaceGridParameter | ExteriorApertureGridParameter)[];
 	
 
     constructor() {
         super();
-        this.Type = "Room2DRadiancePropertiesAbridged";
+        this.type = "Room2DRadiancePropertiesAbridged";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Room2DRadiancePropertiesAbridged, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
-            this.modifier_set = obj.modifier_set;
-            this.grid_parameters = obj.grid_parameters;
+            const obj = plainToClass(Room2DRadiancePropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "Room2DRadiancePropertiesAbridged";
+            this.modifierSet = obj.modifierSet;
+            this.gridParameters = obj.gridParameters;
         }
     }
 
@@ -66,11 +69,11 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
-        data["modifier_set"] = this.modifier_set;
-        data["grid_parameters"] = this.grid_parameters;
+        data["type"] = this.type ?? "Room2DRadiancePropertiesAbridged";
+        data["modifier_set"] = this.modifierSet;
+        data["grid_parameters"] = this.gridParameters;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

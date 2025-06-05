@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, MinLength, MaxLength, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ProcessAbridged } from "honeybee-schema";
 import { VentilationControlAbridged } from "honeybee-schema";
@@ -10,78 +10,86 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
     @Matches(/^Room2DEnergyPropertiesAbridged$/)
-    /** Type */
-    Type: string = "Room2DEnergyPropertiesAbridged";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "Room2DEnergyPropertiesAbridged";
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
+    @Expose({ name: "construction_set" })
     /** Name of a ConstructionSet to specify all constructions for the Room2D. If None, the Room2D will use the Story or Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects. */
-    ConstructionSet?: string;
+    constructionSet?: string;
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
+    @Expose({ name: "program_type" })
     /** Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints. */
-    ProgramType?: string;
+    programType?: string;
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
+    @Expose({ name: "hvac" })
     /** An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned. */
-    Hvac?: string;
+    hvac?: string;
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
+    @Expose({ name: "shw" })
     /** An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies. */
-    Shw?: string;
+    shw?: string;
 	
     @IsInstance(VentilationControlAbridged)
     @Type(() => VentilationControlAbridged)
     @ValidateNested()
     @IsOptional()
+    @Expose({ name: "window_vent_control" })
     /** An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open. */
-    WindowVentControl?: VentilationControlAbridged;
+    windowVentControl?: VentilationControlAbridged;
 	
     @IsInstance(VentilationOpening)
     @Type(() => VentilationOpening)
     @ValidateNested()
     @IsOptional()
+    @Expose({ name: "window_vent_opening" })
     /** An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open. */
-    WindowVentOpening?: VentilationOpening;
+    windowVentOpening?: VentilationOpening;
 	
     @IsArray()
     @IsInstance(ProcessAbridged, { each: true })
     @Type(() => ProcessAbridged)
     @ValidateNested({ each: true })
     @IsOptional()
+    @Expose({ name: "process_loads" })
     /** An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators. */
-    ProcessLoads?: ProcessAbridged[];
+    processLoads?: ProcessAbridged[];
 	
 
     constructor() {
         super();
-        this.Type = "Room2DEnergyPropertiesAbridged";
+        this.type = "Room2DEnergyPropertiesAbridged";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Room2DEnergyPropertiesAbridged, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
-            this.construction_set = obj.construction_set;
-            this.program_type = obj.program_type;
+            const obj = plainToClass(Room2DEnergyPropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "Room2DEnergyPropertiesAbridged";
+            this.constructionSet = obj.constructionSet;
+            this.programType = obj.programType;
             this.hvac = obj.hvac;
             this.shw = obj.shw;
-            this.window_vent_control = obj.window_vent_control;
-            this.window_vent_opening = obj.window_vent_opening;
-            this.process_loads = obj.process_loads;
+            this.windowVentControl = obj.windowVentControl;
+            this.windowVentOpening = obj.windowVentOpening;
+            this.processLoads = obj.processLoads;
         }
     }
 
@@ -103,16 +111,16 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
-        data["construction_set"] = this.construction_set;
-        data["program_type"] = this.program_type;
+        data["type"] = this.type ?? "Room2DEnergyPropertiesAbridged";
+        data["construction_set"] = this.constructionSet;
+        data["program_type"] = this.programType;
         data["hvac"] = this.hvac;
         data["shw"] = this.shw;
-        data["window_vent_control"] = this.window_vent_control;
-        data["window_vent_opening"] = this.window_vent_opening;
-        data["process_loads"] = this.process_loads;
+        data["window_vent_control"] = this.windowVentControl;
+        data["window_vent_opening"] = this.windowVentOpening;
+        data["process_loads"] = this.processLoads;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {
