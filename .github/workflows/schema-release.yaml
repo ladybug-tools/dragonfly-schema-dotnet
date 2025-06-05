@@ -22,8 +22,11 @@ jobs:
 
       - name: "Run build"
         run: |
-          cd ./src/CSharpSDK
-          dotnet build
+          make build
+
+      - name: "Run tests"
+        run: |
+          make test
 
       - name: "Commit and Push Changes"
         id: push
