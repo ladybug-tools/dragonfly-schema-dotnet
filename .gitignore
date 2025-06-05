@@ -10,6 +10,7 @@
 nuget.exe
 package-lock.json
 .vscode
+*.tgz
 
 # Build results
 
