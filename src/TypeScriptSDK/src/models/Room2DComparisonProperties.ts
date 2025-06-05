@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { DetailedSkylights } from "./DetailedSkylights";
@@ -17,23 +17,27 @@ export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
     @Matches(/^Room2DComparisonProperties$/)
-    /** Type */
-    Type: string = "Room2DComparisonProperties";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "Room2DComparisonProperties";
 	
     @IsArray()
     @IsNestedNumberArray()
     @IsOptional()
+    @Expose({ name: "floor_boundary" })
     /** A list of 2D points representing the outer boundary vertices of the Room2D to which the host Room2D is being compared. The list should include at least 3 points and each point should be a list of 2 (x, y) values. */
-    FloorBoundary?: number[][];
+    floorBoundary?: number[][];
 	
     @IsArray()
     @IsNestedNumberArray()
     @IsOptional()
+    @Expose({ name: "floor_holes" })
     /** Optional list of lists with one list for each hole in the floor plate of the Room2D to which the host Room2D is being compared. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate. */
-    FloorHoles?: number[][][];
+    floorHoles?: number[][][];
 	
     @IsArray()
     @IsOptional()
+    @Expose({ name: "comparison_windows" })
     @Transform(({ value }) => value.map((item: any) => {
       if (item?.type === 'SingleWindow') return SingleWindow.fromJS(item);
       else if (item?.type === 'SimpleWindowArea') return SimpleWindowArea.fromJS(item);
@@ -44,9 +48,10 @@ export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
       else return item;
     }))
     /** A list of WindowParameter objects that dictate the window geometries of the Room2D to which the host Room2D is being compared. */
-    ComparisonWindows?: (SingleWindow | SimpleWindowArea | SimpleWindowRatio | RepeatingWindowRatio | RectangularWindows | DetailedWindows)[];
+    comparisonWindows?: (SingleWindow | SimpleWindowArea | SimpleWindowRatio | RepeatingWindowRatio | RectangularWindows | DetailedWindows)[];
 	
     @IsOptional()
+    @Expose({ name: "comparison_skylight" })
     @Transform(({ value }) => {
       const item = value;
       if (item?.type === 'GriddedSkylightArea') return GriddedSkylightArea.fromJS(item);
@@ -55,24 +60,24 @@ export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
       else return item;
     })
     /** A SkylightParameter object for the Room2D to which the host Room2D is being compared. */
-    ComparisonSkylight?: (GriddedSkylightArea | GriddedSkylightRatio | DetailedSkylights);
+    comparisonSkylight?: (GriddedSkylightArea | GriddedSkylightRatio | DetailedSkylights);
 	
 
     constructor() {
         super();
-        this.Type = "Room2DComparisonProperties";
+        this.type = "Room2DComparisonProperties";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Room2DComparisonProperties, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
-            this.floor_boundary = obj.floor_boundary;
-            this.floor_holes = obj.floor_holes;
-            this.comparison_windows = obj.comparison_windows;
-            this.comparison_skylight = obj.comparison_skylight;
+            const obj = plainToClass(Room2DComparisonProperties, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "Room2DComparisonProperties";
+            this.floorBoundary = obj.floorBoundary;
+            this.floorHoles = obj.floorHoles;
+            this.comparisonWindows = obj.comparisonWindows;
+            this.comparisonSkylight = obj.comparisonSkylight;
         }
     }
 
@@ -94,13 +99,13 @@ export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
-        data["floor_boundary"] = this.floor_boundary;
-        data["floor_holes"] = this.floor_holes;
-        data["comparison_windows"] = this.comparison_windows;
-        data["comparison_skylight"] = this.comparison_skylight;
+        data["type"] = this.type ?? "Room2DComparisonProperties";
+        data["floor_boundary"] = this.floorBoundary;
+        data["floor_holes"] = this.floorHoles;
+        data["comparison_windows"] = this.comparisonWindows;
+        data["comparison_skylight"] = this.comparisonSkylight;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

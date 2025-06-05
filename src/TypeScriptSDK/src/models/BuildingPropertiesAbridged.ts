@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { BuildingEnergyPropertiesAbridged } from "./BuildingEnergyPropertiesAbridged";
 import { BuildingRadiancePropertiesAbridged } from "./BuildingRadiancePropertiesAbridged";
@@ -8,35 +8,38 @@ export class BuildingPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
     @Matches(/^BuildingPropertiesAbridged$/)
-    /** Type */
-    Type: string = "BuildingPropertiesAbridged";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "BuildingPropertiesAbridged";
 	
     @IsInstance(BuildingEnergyPropertiesAbridged)
     @Type(() => BuildingEnergyPropertiesAbridged)
     @ValidateNested()
     @IsOptional()
-    /** Energy */
-    Energy?: BuildingEnergyPropertiesAbridged;
+    @Expose({ name: "energy" })
+    /** energy */
+    energy?: BuildingEnergyPropertiesAbridged;
 	
     @IsInstance(BuildingRadiancePropertiesAbridged)
     @Type(() => BuildingRadiancePropertiesAbridged)
     @ValidateNested()
     @IsOptional()
-    /** Radiance */
-    Radiance?: BuildingRadiancePropertiesAbridged;
+    @Expose({ name: "radiance" })
+    /** radiance */
+    radiance?: BuildingRadiancePropertiesAbridged;
 	
 
     constructor() {
         super();
-        this.Type = "BuildingPropertiesAbridged";
+        this.type = "BuildingPropertiesAbridged";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(BuildingPropertiesAbridged, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
+            const obj = plainToClass(BuildingPropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "BuildingPropertiesAbridged";
             this.energy = obj.energy;
             this.radiance = obj.radiance;
         }
@@ -60,11 +63,11 @@ export class BuildingPropertiesAbridged extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
+        data["type"] = this.type ?? "BuildingPropertiesAbridged";
         data["energy"] = this.energy;
         data["radiance"] = this.radiance;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

@@ -1,5 +1,5 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { Autocalculate } from "honeybee-schema";
 
@@ -7,34 +7,37 @@ import { Autocalculate } from "honeybee-schema";
 export class GriddedSkylightRatio extends _OpenAPIGenBaseModel {
     @IsNumber()
     @IsDefined()
+    @Expose({ name: "skylight_ratio" })
     /** A number between 0 and 1 for the ratio between the skylight area and the total Roof face area. */
-    SkylightRatio!: number;
+    skylightRatio!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^GriddedSkylightRatio$/)
-    /** Type */
-    Type: string = "GriddedSkylightRatio";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "GriddedSkylightRatio";
 	
     @IsOptional()
+    @Expose({ name: "spacing" })
     /** A number for the spacing between the centers of each grid cell. This should be less than a third of the dimension of the Roof geometry if multiple, evenly-spaced skylights are desired. If Autocalculate, a spacing of one third the smaller dimension of the parent Roof will be automatically assumed. */
-    Spacing: (Autocalculate | number) = new Autocalculate();
+    spacing: (Autocalculate | number) = new Autocalculate();
 	
 
     constructor() {
         super();
-        this.Type = "GriddedSkylightRatio";
-        this.Spacing = new Autocalculate();
+        this.type = "GriddedSkylightRatio";
+        this.spacing = new Autocalculate();
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(GriddedSkylightRatio, _data, { enableImplicitConversion: true });
-            this.skylight_ratio = obj.skylight_ratio;
-            this.type = obj.type;
-            this.spacing = obj.spacing;
+            const obj = plainToClass(GriddedSkylightRatio, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.skylightRatio = obj.skylightRatio;
+            this.type = obj.type ?? "GriddedSkylightRatio";
+            this.spacing = obj.spacing ?? new Autocalculate();
         }
     }
 
@@ -56,11 +59,11 @@ export class GriddedSkylightRatio extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["skylight_ratio"] = this.skylight_ratio;
-        data["type"] = this.type;
-        data["spacing"] = this.spacing;
+        data["skylight_ratio"] = this.skylightRatio;
+        data["type"] = this.type ?? "GriddedSkylightRatio";
+        data["spacing"] = this.spacing ?? new Autocalculate();
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

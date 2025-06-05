@@ -1,40 +1,43 @@
 ﻿import { IsNumber, IsDefined, IsBoolean, IsOptional, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base object for all GridParameters. */
 export class _GridParameterBase extends _OpenAPIGenBaseModel {
     @IsNumber()
     @IsDefined()
+    @Expose({ name: "dimension" })
     /** The dimension of the grid cells as a number. */
-    Dimension!: number;
+    dimension!: number;
 	
     @IsBoolean()
     @IsOptional()
+    @Expose({ name: "include_mesh" })
     /** A boolean to note whether the resulting SensorGrid should include the mesh. */
-    IncludeMesh: boolean = true;
+    includeMesh: boolean = true;
 	
     @IsString()
     @IsOptional()
     @Matches(/^_GridParameterBase$/)
-    /** Type */
-    Type: string = "_GridParameterBase";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "_GridParameterBase";
 	
 
     constructor() {
         super();
-        this.IncludeMesh = true;
-        this.Type = "_GridParameterBase";
+        this.includeMesh = true;
+        this.type = "_GridParameterBase";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(_GridParameterBase, _data, { enableImplicitConversion: true });
+            const obj = plainToClass(_GridParameterBase, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
             this.dimension = obj.dimension;
-            this.include_mesh = obj.include_mesh;
-            this.type = obj.type;
+            this.includeMesh = obj.includeMesh ?? true;
+            this.type = obj.type ?? "_GridParameterBase";
         }
     }
 
@@ -57,10 +60,10 @@ export class _GridParameterBase extends _OpenAPIGenBaseModel {
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["dimension"] = this.dimension;
-        data["include_mesh"] = this.include_mesh;
-        data["type"] = this.type;
+        data["include_mesh"] = this.includeMesh ?? true;
+        data["type"] = this.type ?? "_GridParameterBase";
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

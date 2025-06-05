@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
@@ -7,27 +7,29 @@ export class BuildingRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
     @Matches(/^BuildingRadiancePropertiesAbridged$/)
-    /** Type */
-    Type: string = "BuildingRadiancePropertiesAbridged";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "BuildingRadiancePropertiesAbridged";
 	
     @IsString()
     @IsOptional()
+    @Expose({ name: "modifier_set" })
     /** Name of a ModifierSet to specify all modifiers for the Building. If None, the Model global_modifier_set will be used. */
-    ModifierSet?: string;
+    modifierSet?: string;
 	
 
     constructor() {
         super();
-        this.Type = "BuildingRadiancePropertiesAbridged";
+        this.type = "BuildingRadiancePropertiesAbridged";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(BuildingRadiancePropertiesAbridged, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
-            this.modifier_set = obj.modifier_set;
+            const obj = plainToClass(BuildingRadiancePropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "BuildingRadiancePropertiesAbridged";
+            this.modifierSet = obj.modifierSet;
         }
     }
 
@@ -49,10 +51,10 @@ export class BuildingRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
-        data["modifier_set"] = this.modifier_set;
+        data["type"] = this.type ?? "BuildingRadiancePropertiesAbridged";
+        data["modifier_set"] = this.modifierSet;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

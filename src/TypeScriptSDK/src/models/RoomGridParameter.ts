@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsNumber, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _GridParameterBase } from "./_GridParameterBase";
 
 /** Instructions for a SensorGrid generated from a Room2D's floors. */
@@ -7,35 +7,38 @@ export class RoomGridParameter extends _GridParameterBase {
     @IsString()
     @IsOptional()
     @Matches(/^RoomGridParameter$/)
-    /** Type */
-    Type: string = "RoomGridParameter";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "RoomGridParameter";
 	
     @IsNumber()
     @IsOptional()
+    @Expose({ name: "offset" })
     /** A number for how far to offset the grid from the Room2D floors. (Default: 1.0, suitable for Models in Meters). */
-    Offset: number = 1;
+    offset: number = 1;
 	
     @IsNumber()
     @IsOptional()
+    @Expose({ name: "wall_offset" })
     /** A number for the distance at which sensors close to walls should be removed. Note that this option has no effect unless the value is more than half of the dimension. */
-    WallOffset: number = 0;
+    wallOffset: number = 0;
 	
 
     constructor() {
         super();
-        this.Type = "RoomGridParameter";
-        this.Offset = 1;
-        this.WallOffset = 0;
+        this.type = "RoomGridParameter";
+        this.offset = 1;
+        this.wallOffset = 0;
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(RoomGridParameter, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
-            this.offset = obj.offset;
-            this.wall_offset = obj.wall_offset;
+            const obj = plainToClass(RoomGridParameter, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "RoomGridParameter";
+            this.offset = obj.offset ?? 1;
+            this.wallOffset = obj.wallOffset ?? 0;
         }
     }
 
@@ -57,11 +60,11 @@ export class RoomGridParameter extends _GridParameterBase {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
-        data["offset"] = this.offset;
-        data["wall_offset"] = this.wall_offset;
+        data["type"] = this.type ?? "RoomGridParameter";
+        data["offset"] = this.offset ?? 1;
+        data["wall_offset"] = this.wallOffset ?? 0;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

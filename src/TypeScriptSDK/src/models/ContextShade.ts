@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsDefined, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { ContextShadePropertiesAbridged } from "./ContextShadePropertiesAbridged";
 import { Face3D } from "honeybee-schema";
 import { IDdBaseModel } from "honeybee-schema";
@@ -9,48 +9,52 @@ import { Mesh3D } from "honeybee-schema";
 export class ContextShade extends IDdBaseModel {
     @IsArray()
     @IsDefined()
+    @Expose({ name: "geometry" })
     @Transform(({ value }) => value.map((item: any) => {
       if (item?.type === 'Face3D') return Face3D.fromJS(item);
       else if (item?.type === 'Mesh3D') return Mesh3D.fromJS(item);
       else return item;
     }))
     /** An array of planar Face3Ds and or Mesh3Ds that together represent the context shade. */
-    Geometry!: (Face3D | Mesh3D)[];
+    geometry!: (Face3D | Mesh3D)[];
 	
     @IsInstance(ContextShadePropertiesAbridged)
     @Type(() => ContextShadePropertiesAbridged)
     @ValidateNested()
     @IsDefined()
+    @Expose({ name: "properties" })
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
-    Properties!: ContextShadePropertiesAbridged;
+    properties!: ContextShadePropertiesAbridged;
 	
     @IsString()
     @IsOptional()
     @Matches(/^ContextShade$/)
-    /** Type */
-    Type: string = "ContextShade";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "ContextShade";
 	
     @IsBoolean()
     @IsOptional()
+    @Expose({ name: "is_detached" })
     /** Boolean to note whether this shade is detached from any of the other geometry in the model. Cases where this should be True include shade representing surrounding buildings or context. */
-    IsDetached: boolean = true;
+    isDetached: boolean = true;
 	
 
     constructor() {
         super();
-        this.Type = "ContextShade";
-        this.IsDetached = true;
+        this.type = "ContextShade";
+        this.isDetached = true;
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ContextShade, _data, { enableImplicitConversion: true });
+            const obj = plainToClass(ContextShade, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
             this.geometry = obj.geometry;
             this.properties = obj.properties;
-            this.type = obj.type;
-            this.is_detached = obj.is_detached;
+            this.type = obj.type ?? "ContextShade";
+            this.isDetached = obj.isDetached ?? true;
         }
     }
 
@@ -74,10 +78,10 @@ export class ContextShade extends IDdBaseModel {
         data = typeof data === 'object' ? data : {};
         data["geometry"] = this.geometry;
         data["properties"] = this.properties;
-        data["type"] = this.type;
-        data["is_detached"] = this.is_detached;
+        data["type"] = this.type ?? "ContextShade";
+        data["is_detached"] = this.isDetached ?? true;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { AirBoundaryConstruction } from "honeybee-schema";
 import { AirBoundaryConstructionAbridged } from "honeybee-schema";
@@ -56,15 +56,17 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
     @Matches(/^ModelEnergyProperties$/)
-    /** Type */
-    Type: string = "ModelEnergyProperties";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "ModelEnergyProperties";
 	
     @IsInstance(GlobalConstructionSet)
     @Type(() => GlobalConstructionSet)
     @ValidateNested()
     @IsOptional()
+    @Expose({ name: "global_construction_set" })
     /** Global Energy construction set. */
-    GlobalConstructionSet: GlobalConstructionSet = GlobalConstructionSet.fromJS({
+    globalConstructionSet: GlobalConstructionSet = GlobalConstructionSet.fromJS({
   "type": "GlobalConstructionSet",
   "materials": [
     {
@@ -497,16 +499,18 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
 	
     @IsArray()
     @IsOptional()
+    @Expose({ name: "construction_sets" })
     @Transform(({ value }) => value.map((item: any) => {
       if (item?.type === 'ConstructionSetAbridged') return ConstructionSetAbridged.fromJS(item);
       else if (item?.type === 'ConstructionSet') return ConstructionSet.fromJS(item);
       else return item;
     }))
     /** List of all ConstructionSets in the Model. */
-    ConstructionSets?: (ConstructionSetAbridged | ConstructionSet)[];
+    constructionSets?: (ConstructionSetAbridged | ConstructionSet)[];
 	
     @IsArray()
     @IsOptional()
+    @Expose({ name: "constructions" })
     @Transform(({ value }) => value.map((item: any) => {
       if (item?.type === 'OpaqueConstructionAbridged') return OpaqueConstructionAbridged.fromJS(item);
       else if (item?.type === 'WindowConstructionAbridged') return WindowConstructionAbridged.fromJS(item);
@@ -518,10 +522,11 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
       else return item;
     }))
     /** A list of all unique constructions in the model. This includes constructions across all the Model construction_sets. */
-    Constructions?: (OpaqueConstructionAbridged | WindowConstructionAbridged | ShadeConstruction | AirBoundaryConstructionAbridged | OpaqueConstruction | WindowConstruction | AirBoundaryConstruction)[];
+    constructions?: (OpaqueConstructionAbridged | WindowConstructionAbridged | ShadeConstruction | AirBoundaryConstructionAbridged | OpaqueConstruction | WindowConstruction | AirBoundaryConstruction)[];
 	
     @IsArray()
     @IsOptional()
+    @Expose({ name: "materials" })
     @Transform(({ value }) => value.map((item: any) => {
       if (item?.type === 'EnergyMaterial') return EnergyMaterial.fromJS(item);
       else if (item?.type === 'EnergyMaterialNoMass') return EnergyMaterialNoMass.fromJS(item);
@@ -537,10 +542,11 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
       else return item;
     }))
     /** A list of all unique materials in the model. This includes materials needed to make the Model constructions. */
-    Materials?: (EnergyMaterial | EnergyMaterialNoMass | EnergyMaterialVegetation | EnergyWindowMaterialGlazing | EnergyWindowMaterialSimpleGlazSys | EnergyWindowMaterialGas | EnergyWindowMaterialGasMixture | EnergyWindowMaterialGasCustom | EnergyWindowFrame | EnergyWindowMaterialBlind | EnergyWindowMaterialShade)[];
+    materials?: (EnergyMaterial | EnergyMaterialNoMass | EnergyMaterialVegetation | EnergyWindowMaterialGlazing | EnergyWindowMaterialSimpleGlazSys | EnergyWindowMaterialGas | EnergyWindowMaterialGasMixture | EnergyWindowMaterialGasCustom | EnergyWindowFrame | EnergyWindowMaterialBlind | EnergyWindowMaterialShade)[];
 	
     @IsArray()
     @IsOptional()
+    @Expose({ name: "hvacs" })
     @Transform(({ value }) => value.map((item: any) => {
       if (item?.type === 'IdealAirSystemAbridged') return IdealAirSystemAbridged.fromJS(item);
       else if (item?.type === 'VAV') return VAV.fromJS(item);
@@ -565,28 +571,31 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
       else return item;
     }))
     /** List of all HVAC systems in the Model. */
-    Hvacs?: (IdealAirSystemAbridged | VAV | PVAV | PSZ | PTAC | ForcedAirFurnace | FCUwithDOASAbridged | WSHPwithDOASAbridged | VRFwithDOASAbridged | RadiantwithDOASAbridged | FCU | WSHP | VRF | Baseboard | EvaporativeCooler | Residential | WindowAC | GasUnitHeater | Radiant | DetailedHVAC)[];
+    hvacs?: (IdealAirSystemAbridged | VAV | PVAV | PSZ | PTAC | ForcedAirFurnace | FCUwithDOASAbridged | WSHPwithDOASAbridged | VRFwithDOASAbridged | RadiantwithDOASAbridged | FCU | WSHP | VRF | Baseboard | EvaporativeCooler | Residential | WindowAC | GasUnitHeater | Radiant | DetailedHVAC)[];
 	
     @IsArray()
     @IsInstance(SHWSystem, { each: true })
     @Type(() => SHWSystem)
     @ValidateNested({ each: true })
     @IsOptional()
+    @Expose({ name: "shws" })
     /** List of all Service Hot Water (SHW) systems in the Model. */
-    Shws?: SHWSystem[];
+    shws?: SHWSystem[];
 	
     @IsArray()
     @IsOptional()
+    @Expose({ name: "program_types" })
     @Transform(({ value }) => value.map((item: any) => {
       if (item?.type === 'ProgramTypeAbridged') return ProgramTypeAbridged.fromJS(item);
       else if (item?.type === 'ProgramType') return ProgramType.fromJS(item);
       else return item;
     }))
     /** List of all ProgramTypes in the Model. */
-    ProgramTypes?: (ProgramTypeAbridged | ProgramType)[];
+    programTypes?: (ProgramTypeAbridged | ProgramType)[];
 	
     @IsArray()
     @IsOptional()
+    @Expose({ name: "schedules" })
     @Transform(({ value }) => value.map((item: any) => {
       if (item?.type === 'ScheduleRulesetAbridged') return ScheduleRulesetAbridged.fromJS(item);
       else if (item?.type === 'ScheduleFixedIntervalAbridged') return ScheduleFixedIntervalAbridged.fromJS(item);
@@ -595,21 +604,22 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
       else return item;
     }))
     /** A list of all unique schedules in the model. This includes schedules across all HVAC systems, ProgramTypes and ContextShades. */
-    Schedules?: (ScheduleRulesetAbridged | ScheduleFixedIntervalAbridged | ScheduleRuleset | ScheduleFixedInterval)[];
+    schedules?: (ScheduleRulesetAbridged | ScheduleFixedIntervalAbridged | ScheduleRuleset | ScheduleFixedInterval)[];
 	
     @IsArray()
     @IsInstance(ScheduleTypeLimit, { each: true })
     @Type(() => ScheduleTypeLimit)
     @ValidateNested({ each: true })
     @IsOptional()
+    @Expose({ name: "schedule_type_limits" })
     /** A list of all unique ScheduleTypeLimits in the model. This all ScheduleTypeLimits needed to make the Model schedules. */
-    ScheduleTypeLimits?: ScheduleTypeLimit[];
+    scheduleTypeLimits?: ScheduleTypeLimit[];
 	
 
     constructor() {
         super();
-        this.Type = "ModelEnergyProperties";
-        this.GlobalConstructionSet = GlobalConstructionSet.fromJS({
+        this.type = "ModelEnergyProperties";
+        this.globalConstructionSet = GlobalConstructionSet.fromJS({
   "type": "GlobalConstructionSet",
   "materials": [
     {
@@ -1045,17 +1055,446 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ModelEnergyProperties, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
-            this.global_construction_set = obj.global_construction_set;
-            this.construction_sets = obj.construction_sets;
+            const obj = plainToClass(ModelEnergyProperties, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "ModelEnergyProperties";
+            this.globalConstructionSet = obj.globalConstructionSet ?? GlobalConstructionSet.fromJS({
+  "type": "GlobalConstructionSet",
+  "materials": [
+    {
+      "identifier": "Generic Roof Membrane",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumRough",
+      "thickness": 0.01,
+      "conductivity": 0.16,
+      "density": 1120.0,
+      "specific_heat": 1460.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.65,
+      "visible_absorptance": 0.65
+    },
+    {
+      "identifier": "Generic Acoustic Tile",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumSmooth",
+      "thickness": 0.02,
+      "conductivity": 0.06,
+      "density": 368.0,
+      "specific_heat": 590.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.2,
+      "visible_absorptance": 0.2
+    },
+    {
+      "identifier": "Generic 25mm Wood",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumSmooth",
+      "thickness": 0.0254,
+      "conductivity": 0.15,
+      "density": 608.0,
+      "specific_heat": 1630.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.5,
+      "visible_absorptance": 0.5
+    },
+    {
+      "identifier": "Generic HW Concrete",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumRough",
+      "thickness": 0.2,
+      "conductivity": 1.95,
+      "density": 2240.0,
+      "specific_heat": 900.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.8,
+      "visible_absorptance": 0.8
+    },
+    {
+      "identifier": "Generic Window Air Gap",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyWindowMaterialGas",
+      "thickness": 0.0127,
+      "gas_type": "Air"
+    },
+    {
+      "identifier": "Generic Gypsum Board",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumSmooth",
+      "thickness": 0.0127,
+      "conductivity": 0.16,
+      "density": 800.0,
+      "specific_heat": 1090.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.5,
+      "visible_absorptance": 0.5
+    },
+    {
+      "identifier": "Generic Wall Air Gap",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "Smooth",
+      "thickness": 0.1,
+      "conductivity": 0.667,
+      "density": 1.28,
+      "specific_heat": 1000.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.7,
+      "visible_absorptance": 0.7
+    },
+    {
+      "identifier": "Generic Ceiling Air Gap",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "Smooth",
+      "thickness": 0.1,
+      "conductivity": 0.556,
+      "density": 1.28,
+      "specific_heat": 1000.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.7,
+      "visible_absorptance": 0.7
+    },
+    {
+      "identifier": "Generic Brick",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumRough",
+      "thickness": 0.1,
+      "conductivity": 0.9,
+      "density": 1920.0,
+      "specific_heat": 790.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.65,
+      "visible_absorptance": 0.65
+    },
+    {
+      "identifier": "Generic 50mm Insulation",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumRough",
+      "thickness": 0.05,
+      "conductivity": 0.03,
+      "density": 43.0,
+      "specific_heat": 1210.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.7,
+      "visible_absorptance": 0.7
+    },
+    {
+      "identifier": "Generic Low-e Glass",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyWindowMaterialGlazing",
+      "thickness": 0.006,
+      "solar_transmittance": 0.45,
+      "solar_reflectance": 0.36,
+      "solar_reflectance_back": 0.36,
+      "visible_transmittance": 0.71,
+      "visible_reflectance": 0.21,
+      "visible_reflectance_back": 0.21,
+      "infrared_transmittance": 0.0,
+      "emissivity": 0.84,
+      "emissivity_back": 0.047,
+      "conductivity": 1.0,
+      "dirt_correction": 1.0,
+      "solar_diffusing": false
+    },
+    {
+      "identifier": "Generic Painted Metal",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "Smooth",
+      "thickness": 0.0015,
+      "conductivity": 45.0,
+      "density": 7690.0,
+      "specific_heat": 410.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.5,
+      "visible_absorptance": 0.5
+    },
+    {
+      "identifier": "Generic LW Concrete",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumRough",
+      "thickness": 0.1,
+      "conductivity": 0.53,
+      "density": 1280.0,
+      "specific_heat": 840.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.8,
+      "visible_absorptance": 0.8
+    },
+    {
+      "identifier": "Generic 25mm Insulation",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumRough",
+      "thickness": 0.025,
+      "conductivity": 0.03,
+      "density": 43.0,
+      "specific_heat": 1210.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.7,
+      "visible_absorptance": 0.7
+    },
+    {
+      "identifier": "Generic Clear Glass",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyWindowMaterialGlazing",
+      "thickness": 0.006,
+      "solar_transmittance": 0.77,
+      "solar_reflectance": 0.07,
+      "solar_reflectance_back": 0.07,
+      "visible_transmittance": 0.88,
+      "visible_reflectance": 0.08,
+      "visible_reflectance_back": 0.08,
+      "infrared_transmittance": 0.0,
+      "emissivity": 0.84,
+      "emissivity_back": 0.84,
+      "conductivity": 1.0,
+      "dirt_correction": 1.0,
+      "solar_diffusing": false
+    }
+  ],
+  "constructions": [
+    {
+      "identifier": "Generic Interior Door",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic 25mm Wood"
+      ]
+    },
+    {
+      "identifier": "Generic Single Pane",
+      "display_name": null,
+      "user_data": null,
+      "type": "WindowConstructionAbridged",
+      "materials": [
+        "Generic Clear Glass"
+      ],
+      "frame": null
+    },
+    {
+      "identifier": "Generic Shade",
+      "display_name": null,
+      "user_data": null,
+      "type": "ShadeConstruction",
+      "solar_reflectance": 0.35,
+      "visible_reflectance": 0.35,
+      "is_specular": false
+    },
+    {
+      "identifier": "Generic Context",
+      "display_name": null,
+      "user_data": null,
+      "type": "ShadeConstruction",
+      "solar_reflectance": 0.2,
+      "visible_reflectance": 0.2,
+      "is_specular": false
+    },
+    {
+      "identifier": "Generic Interior Ceiling",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic LW Concrete",
+        "Generic Ceiling Air Gap",
+        "Generic Acoustic Tile"
+      ]
+    },
+    {
+      "identifier": "Generic Interior Wall",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic Gypsum Board",
+        "Generic Wall Air Gap",
+        "Generic Gypsum Board"
+      ]
+    },
+    {
+      "identifier": "Generic Exposed Floor",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic Painted Metal",
+        "Generic Ceiling Air Gap",
+        "Generic 50mm Insulation",
+        "Generic LW Concrete"
+      ]
+    },
+    {
+      "identifier": "Generic Interior Floor",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic Acoustic Tile",
+        "Generic Ceiling Air Gap",
+        "Generic LW Concrete"
+      ]
+    },
+    {
+      "identifier": "Generic Ground Slab",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic 50mm Insulation",
+        "Generic HW Concrete"
+      ]
+    },
+    {
+      "identifier": "Generic Roof",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic Roof Membrane",
+        "Generic 50mm Insulation",
+        "Generic LW Concrete",
+        "Generic Ceiling Air Gap",
+        "Generic Acoustic Tile"
+      ]
+    },
+    {
+      "identifier": "Generic Exterior Wall",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic Brick",
+        "Generic LW Concrete",
+        "Generic 50mm Insulation",
+        "Generic Wall Air Gap",
+        "Generic Gypsum Board"
+      ]
+    },
+    {
+      "identifier": "Generic Underground Wall",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic 50mm Insulation",
+        "Generic HW Concrete",
+        "Generic Wall Air Gap",
+        "Generic Gypsum Board"
+      ]
+    },
+    {
+      "identifier": "Generic Air Boundary",
+      "display_name": null,
+      "user_data": null,
+      "type": "AirBoundaryConstructionAbridged",
+      "air_mixing_per_area": 0.1,
+      "air_mixing_schedule": "Always On"
+    },
+    {
+      "identifier": "Generic Underground Roof",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic 50mm Insulation",
+        "Generic HW Concrete",
+        "Generic Ceiling Air Gap",
+        "Generic Acoustic Tile"
+      ]
+    },
+    {
+      "identifier": "Generic Double Pane",
+      "display_name": null,
+      "user_data": null,
+      "type": "WindowConstructionAbridged",
+      "materials": [
+        "Generic Low-e Glass",
+        "Generic Window Air Gap",
+        "Generic Clear Glass"
+      ],
+      "frame": null
+    },
+    {
+      "identifier": "Generic Exterior Door",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic Painted Metal",
+        "Generic 25mm Insulation",
+        "Generic Painted Metal"
+      ]
+    }
+  ],
+  "wall_set": {
+    "interior_construction": "Generic Interior Wall",
+    "exterior_construction": "Generic Exterior Wall",
+    "ground_construction": "Generic Underground Wall",
+    "type": "WallConstructionSetAbridged"
+  },
+  "floor_set": {
+    "interior_construction": "Generic Interior Floor",
+    "exterior_construction": "Generic Exposed Floor",
+    "ground_construction": "Generic Ground Slab",
+    "type": "FloorConstructionSetAbridged"
+  },
+  "roof_ceiling_set": {
+    "interior_construction": "Generic Interior Ceiling",
+    "exterior_construction": "Generic Roof",
+    "ground_construction": "Generic Underground Roof",
+    "type": "RoofCeilingConstructionSetAbridged"
+  },
+  "aperture_set": {
+    "type": "ApertureConstructionSetAbridged",
+    "interior_construction": "Generic Single Pane",
+    "window_construction": "Generic Double Pane",
+    "skylight_construction": "Generic Double Pane",
+    "operable_construction": "Generic Double Pane"
+  },
+  "door_set": {
+    "type": "DoorConstructionSetAbridged",
+    "interior_construction": "Generic Interior Door",
+    "exterior_construction": "Generic Exterior Door",
+    "overhead_construction": "Generic Exterior Door",
+    "exterior_glass_construction": "Generic Double Pane",
+    "interior_glass_construction": "Generic Single Pane"
+  },
+  "shade_construction": "Generic Shade",
+  "context_construction": "Generic Context",
+  "air_boundary_construction": "Generic Air Boundary"
+});
+            this.constructionSets = obj.constructionSets;
             this.constructions = obj.constructions;
             this.materials = obj.materials;
             this.hvacs = obj.hvacs;
             this.shws = obj.shws;
-            this.program_types = obj.program_types;
+            this.programTypes = obj.programTypes;
             this.schedules = obj.schedules;
-            this.schedule_type_limits = obj.schedule_type_limits;
+            this.scheduleTypeLimits = obj.scheduleTypeLimits;
         }
     }
 
@@ -1077,18 +1516,447 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
-        data["global_construction_set"] = this.global_construction_set;
-        data["construction_sets"] = this.construction_sets;
+        data["type"] = this.type ?? "ModelEnergyProperties";
+        data["global_construction_set"] = this.globalConstructionSet ?? GlobalConstructionSet.fromJS({
+  "type": "GlobalConstructionSet",
+  "materials": [
+    {
+      "identifier": "Generic Roof Membrane",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumRough",
+      "thickness": 0.01,
+      "conductivity": 0.16,
+      "density": 1120.0,
+      "specific_heat": 1460.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.65,
+      "visible_absorptance": 0.65
+    },
+    {
+      "identifier": "Generic Acoustic Tile",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumSmooth",
+      "thickness": 0.02,
+      "conductivity": 0.06,
+      "density": 368.0,
+      "specific_heat": 590.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.2,
+      "visible_absorptance": 0.2
+    },
+    {
+      "identifier": "Generic 25mm Wood",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumSmooth",
+      "thickness": 0.0254,
+      "conductivity": 0.15,
+      "density": 608.0,
+      "specific_heat": 1630.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.5,
+      "visible_absorptance": 0.5
+    },
+    {
+      "identifier": "Generic HW Concrete",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumRough",
+      "thickness": 0.2,
+      "conductivity": 1.95,
+      "density": 2240.0,
+      "specific_heat": 900.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.8,
+      "visible_absorptance": 0.8
+    },
+    {
+      "identifier": "Generic Window Air Gap",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyWindowMaterialGas",
+      "thickness": 0.0127,
+      "gas_type": "Air"
+    },
+    {
+      "identifier": "Generic Gypsum Board",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumSmooth",
+      "thickness": 0.0127,
+      "conductivity": 0.16,
+      "density": 800.0,
+      "specific_heat": 1090.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.5,
+      "visible_absorptance": 0.5
+    },
+    {
+      "identifier": "Generic Wall Air Gap",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "Smooth",
+      "thickness": 0.1,
+      "conductivity": 0.667,
+      "density": 1.28,
+      "specific_heat": 1000.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.7,
+      "visible_absorptance": 0.7
+    },
+    {
+      "identifier": "Generic Ceiling Air Gap",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "Smooth",
+      "thickness": 0.1,
+      "conductivity": 0.556,
+      "density": 1.28,
+      "specific_heat": 1000.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.7,
+      "visible_absorptance": 0.7
+    },
+    {
+      "identifier": "Generic Brick",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumRough",
+      "thickness": 0.1,
+      "conductivity": 0.9,
+      "density": 1920.0,
+      "specific_heat": 790.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.65,
+      "visible_absorptance": 0.65
+    },
+    {
+      "identifier": "Generic 50mm Insulation",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumRough",
+      "thickness": 0.05,
+      "conductivity": 0.03,
+      "density": 43.0,
+      "specific_heat": 1210.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.7,
+      "visible_absorptance": 0.7
+    },
+    {
+      "identifier": "Generic Low-e Glass",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyWindowMaterialGlazing",
+      "thickness": 0.006,
+      "solar_transmittance": 0.45,
+      "solar_reflectance": 0.36,
+      "solar_reflectance_back": 0.36,
+      "visible_transmittance": 0.71,
+      "visible_reflectance": 0.21,
+      "visible_reflectance_back": 0.21,
+      "infrared_transmittance": 0.0,
+      "emissivity": 0.84,
+      "emissivity_back": 0.047,
+      "conductivity": 1.0,
+      "dirt_correction": 1.0,
+      "solar_diffusing": false
+    },
+    {
+      "identifier": "Generic Painted Metal",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "Smooth",
+      "thickness": 0.0015,
+      "conductivity": 45.0,
+      "density": 7690.0,
+      "specific_heat": 410.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.5,
+      "visible_absorptance": 0.5
+    },
+    {
+      "identifier": "Generic LW Concrete",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumRough",
+      "thickness": 0.1,
+      "conductivity": 0.53,
+      "density": 1280.0,
+      "specific_heat": 840.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.8,
+      "visible_absorptance": 0.8
+    },
+    {
+      "identifier": "Generic 25mm Insulation",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyMaterial",
+      "roughness": "MediumRough",
+      "thickness": 0.025,
+      "conductivity": 0.03,
+      "density": 43.0,
+      "specific_heat": 1210.0,
+      "thermal_absorptance": 0.9,
+      "solar_absorptance": 0.7,
+      "visible_absorptance": 0.7
+    },
+    {
+      "identifier": "Generic Clear Glass",
+      "display_name": null,
+      "user_data": null,
+      "type": "EnergyWindowMaterialGlazing",
+      "thickness": 0.006,
+      "solar_transmittance": 0.77,
+      "solar_reflectance": 0.07,
+      "solar_reflectance_back": 0.07,
+      "visible_transmittance": 0.88,
+      "visible_reflectance": 0.08,
+      "visible_reflectance_back": 0.08,
+      "infrared_transmittance": 0.0,
+      "emissivity": 0.84,
+      "emissivity_back": 0.84,
+      "conductivity": 1.0,
+      "dirt_correction": 1.0,
+      "solar_diffusing": false
+    }
+  ],
+  "constructions": [
+    {
+      "identifier": "Generic Interior Door",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic 25mm Wood"
+      ]
+    },
+    {
+      "identifier": "Generic Single Pane",
+      "display_name": null,
+      "user_data": null,
+      "type": "WindowConstructionAbridged",
+      "materials": [
+        "Generic Clear Glass"
+      ],
+      "frame": null
+    },
+    {
+      "identifier": "Generic Shade",
+      "display_name": null,
+      "user_data": null,
+      "type": "ShadeConstruction",
+      "solar_reflectance": 0.35,
+      "visible_reflectance": 0.35,
+      "is_specular": false
+    },
+    {
+      "identifier": "Generic Context",
+      "display_name": null,
+      "user_data": null,
+      "type": "ShadeConstruction",
+      "solar_reflectance": 0.2,
+      "visible_reflectance": 0.2,
+      "is_specular": false
+    },
+    {
+      "identifier": "Generic Interior Ceiling",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic LW Concrete",
+        "Generic Ceiling Air Gap",
+        "Generic Acoustic Tile"
+      ]
+    },
+    {
+      "identifier": "Generic Interior Wall",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic Gypsum Board",
+        "Generic Wall Air Gap",
+        "Generic Gypsum Board"
+      ]
+    },
+    {
+      "identifier": "Generic Exposed Floor",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic Painted Metal",
+        "Generic Ceiling Air Gap",
+        "Generic 50mm Insulation",
+        "Generic LW Concrete"
+      ]
+    },
+    {
+      "identifier": "Generic Interior Floor",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic Acoustic Tile",
+        "Generic Ceiling Air Gap",
+        "Generic LW Concrete"
+      ]
+    },
+    {
+      "identifier": "Generic Ground Slab",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic 50mm Insulation",
+        "Generic HW Concrete"
+      ]
+    },
+    {
+      "identifier": "Generic Roof",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic Roof Membrane",
+        "Generic 50mm Insulation",
+        "Generic LW Concrete",
+        "Generic Ceiling Air Gap",
+        "Generic Acoustic Tile"
+      ]
+    },
+    {
+      "identifier": "Generic Exterior Wall",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic Brick",
+        "Generic LW Concrete",
+        "Generic 50mm Insulation",
+        "Generic Wall Air Gap",
+        "Generic Gypsum Board"
+      ]
+    },
+    {
+      "identifier": "Generic Underground Wall",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic 50mm Insulation",
+        "Generic HW Concrete",
+        "Generic Wall Air Gap",
+        "Generic Gypsum Board"
+      ]
+    },
+    {
+      "identifier": "Generic Air Boundary",
+      "display_name": null,
+      "user_data": null,
+      "type": "AirBoundaryConstructionAbridged",
+      "air_mixing_per_area": 0.1,
+      "air_mixing_schedule": "Always On"
+    },
+    {
+      "identifier": "Generic Underground Roof",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic 50mm Insulation",
+        "Generic HW Concrete",
+        "Generic Ceiling Air Gap",
+        "Generic Acoustic Tile"
+      ]
+    },
+    {
+      "identifier": "Generic Double Pane",
+      "display_name": null,
+      "user_data": null,
+      "type": "WindowConstructionAbridged",
+      "materials": [
+        "Generic Low-e Glass",
+        "Generic Window Air Gap",
+        "Generic Clear Glass"
+      ],
+      "frame": null
+    },
+    {
+      "identifier": "Generic Exterior Door",
+      "display_name": null,
+      "user_data": null,
+      "type": "OpaqueConstructionAbridged",
+      "materials": [
+        "Generic Painted Metal",
+        "Generic 25mm Insulation",
+        "Generic Painted Metal"
+      ]
+    }
+  ],
+  "wall_set": {
+    "interior_construction": "Generic Interior Wall",
+    "exterior_construction": "Generic Exterior Wall",
+    "ground_construction": "Generic Underground Wall",
+    "type": "WallConstructionSetAbridged"
+  },
+  "floor_set": {
+    "interior_construction": "Generic Interior Floor",
+    "exterior_construction": "Generic Exposed Floor",
+    "ground_construction": "Generic Ground Slab",
+    "type": "FloorConstructionSetAbridged"
+  },
+  "roof_ceiling_set": {
+    "interior_construction": "Generic Interior Ceiling",
+    "exterior_construction": "Generic Roof",
+    "ground_construction": "Generic Underground Roof",
+    "type": "RoofCeilingConstructionSetAbridged"
+  },
+  "aperture_set": {
+    "type": "ApertureConstructionSetAbridged",
+    "interior_construction": "Generic Single Pane",
+    "window_construction": "Generic Double Pane",
+    "skylight_construction": "Generic Double Pane",
+    "operable_construction": "Generic Double Pane"
+  },
+  "door_set": {
+    "type": "DoorConstructionSetAbridged",
+    "interior_construction": "Generic Interior Door",
+    "exterior_construction": "Generic Exterior Door",
+    "overhead_construction": "Generic Exterior Door",
+    "exterior_glass_construction": "Generic Double Pane",
+    "interior_glass_construction": "Generic Single Pane"
+  },
+  "shade_construction": "Generic Shade",
+  "context_construction": "Generic Context",
+  "air_boundary_construction": "Generic Air Boundary"
+});
+        data["construction_sets"] = this.constructionSets;
         data["constructions"] = this.constructions;
         data["materials"] = this.materials;
         data["hvacs"] = this.hvacs;
         data["shws"] = this.shws;
-        data["program_types"] = this.program_types;
+        data["program_types"] = this.programTypes;
         data["schedules"] = this.schedules;
-        data["schedule_type_limits"] = this.schedule_type_limits;
+        data["schedule_type_limits"] = this.scheduleTypeLimits;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsInt, Min, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { Autocalculate } from "honeybee-schema";
 import { IDdBaseModel } from "honeybee-schema";
 import { RoofSpecification } from "./RoofSpecification";
@@ -14,72 +14,80 @@ export class Story extends IDdBaseModel {
     @Type(() => Room2D)
     @ValidateNested({ each: true })
     @IsDefined()
+    @Expose({ name: "room_2ds" })
     /** An array of dragonfly Room2D objects that together form an entire story of a building. */
-    Room2ds!: Room2D[];
+    room2ds!: Room2D[];
 	
     @IsInstance(StoryPropertiesAbridged)
     @Type(() => StoryPropertiesAbridged)
     @ValidateNested()
     @IsDefined()
+    @Expose({ name: "properties" })
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
-    Properties!: StoryPropertiesAbridged;
+    properties!: StoryPropertiesAbridged;
 	
     @IsString()
     @IsOptional()
     @Matches(/^Story$/)
-    /** Type */
-    Type: string = "Story";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "Story";
 	
     @IsOptional()
+    @Expose({ name: "floor_to_floor_height" })
     /** A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If Autocalculate, this value will be the maximum floor_to_ceiling_height of the input room_2ds. */
-    FloorToFloorHeight: (Autocalculate | number) = new Autocalculate();
+    floorToFloorHeight: (Autocalculate | number) = new Autocalculate();
 	
     @IsOptional()
+    @Expose({ name: "floor_height" })
     /** A number to indicate the height of the floor plane in the Z axis.If Autocalculate, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums. */
-    FloorHeight: (Autocalculate | number) = new Autocalculate();
+    floorHeight: (Autocalculate | number) = new Autocalculate();
 	
     @IsInt()
     @IsOptional()
     @Min(1)
+    @Expose({ name: "multiplier" })
     /** An integer that denotes the number of times that this Story is repeated over the height of the building. */
-    Multiplier: number = 1;
+    multiplier: number = 1;
 	
     @IsInstance(RoofSpecification)
     @Type(() => RoofSpecification)
     @ValidateNested()
     @IsOptional()
+    @Expose({ name: "roof" })
     /** An optional RoofSpecification object containing geometry for generating sloped roofs over the Story. The RoofSpecification will only affect the child Room2Ds that have a True is_top_exposed property and it will only be utilized in translation to Honeybee when the Story multiplier is 1. If None, all Room2D ceilings will be flat. */
-    Roof?: RoofSpecification;
+    roof?: RoofSpecification;
 	
     @IsEnum(StoryType)
     @Type(() => String)
     @IsOptional()
+    @Expose({ name: "story_type" })
     /** Text to indicate the type of story. Stories that are plenums are translated to Honeybee with excluded floor areas. */
-    StoryType: StoryType = StoryType.Standard;
+    storyType: StoryType = StoryType.Standard;
 	
 
     constructor() {
         super();
-        this.Type = "Story";
-        this.FloorToFloorHeight = new Autocalculate();
-        this.FloorHeight = new Autocalculate();
-        this.Multiplier = 1;
-        this.StoryType = StoryType.Standard;
+        this.type = "Story";
+        this.floorToFloorHeight = new Autocalculate();
+        this.floorHeight = new Autocalculate();
+        this.multiplier = 1;
+        this.storyType = StoryType.Standard;
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Story, _data, { enableImplicitConversion: true });
-            this.room_2ds = obj.room_2ds;
+            const obj = plainToClass(Story, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.room2ds = obj.room2ds;
             this.properties = obj.properties;
-            this.type = obj.type;
-            this.floor_to_floor_height = obj.floor_to_floor_height;
-            this.floor_height = obj.floor_height;
-            this.multiplier = obj.multiplier;
+            this.type = obj.type ?? "Story";
+            this.floorToFloorHeight = obj.floorToFloorHeight ?? new Autocalculate();
+            this.floorHeight = obj.floorHeight ?? new Autocalculate();
+            this.multiplier = obj.multiplier ?? 1;
             this.roof = obj.roof;
-            this.story_type = obj.story_type;
+            this.storyType = obj.storyType ?? StoryType.Standard;
         }
     }
 
@@ -101,16 +109,16 @@ export class Story extends IDdBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["room_2ds"] = this.room_2ds;
+        data["room_2ds"] = this.room2ds;
         data["properties"] = this.properties;
-        data["type"] = this.type;
-        data["floor_to_floor_height"] = this.floor_to_floor_height;
-        data["floor_height"] = this.floor_height;
-        data["multiplier"] = this.multiplier;
+        data["type"] = this.type ?? "Story";
+        data["floor_to_floor_height"] = this.floorToFloorHeight ?? new Autocalculate();
+        data["floor_height"] = this.floorHeight ?? new Autocalculate();
+        data["multiplier"] = this.multiplier ?? 1;
         data["roof"] = this.roof;
-        data["story_type"] = this.story_type;
+        data["story_type"] = this.storyType ?? StoryType.Standard;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

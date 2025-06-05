@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, MinLength, MaxLength, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
@@ -7,37 +7,40 @@ export class ContextShadeEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
     @Matches(/^ContextShadeEnergyPropertiesAbridged$/)
-    /** Type */
-    Type: string = "ContextShadeEnergyPropertiesAbridged";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "ContextShadeEnergyPropertiesAbridged";
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
+    @Expose({ name: "construction" })
     /** Name of a ShadeConstruction to set the reflectance and specularity of the ContextShade. If None, the the EnergyPlus default of 0.2 diffuse reflectance will be used. */
-    Construction?: string;
+    construction?: string;
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
+    @Expose({ name: "transmittance_schedule" })
     /** Name of a schedule to set the transmittance of the ContextShade, which can vary throughout the simulation. If None, the ContextShade will be completely opaque. */
-    TransmittanceSchedule?: string;
+    transmittanceSchedule?: string;
 	
 
     constructor() {
         super();
-        this.Type = "ContextShadeEnergyPropertiesAbridged";
+        this.type = "ContextShadeEnergyPropertiesAbridged";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ContextShadeEnergyPropertiesAbridged, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
+            const obj = plainToClass(ContextShadeEnergyPropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "ContextShadeEnergyPropertiesAbridged";
             this.construction = obj.construction;
-            this.transmittance_schedule = obj.transmittance_schedule;
+            this.transmittanceSchedule = obj.transmittanceSchedule;
         }
     }
 
@@ -59,11 +62,11 @@ export class ContextShadeEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
+        data["type"] = this.type ?? "ContextShadeEnergyPropertiesAbridged";
         data["construction"] = this.construction;
-        data["transmittance_schedule"] = this.transmittance_schedule;
+        data["transmittance_schedule"] = this.transmittanceSchedule;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

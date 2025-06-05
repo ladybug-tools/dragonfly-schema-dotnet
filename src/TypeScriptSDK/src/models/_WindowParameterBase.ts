@@ -1,32 +1,34 @@
 ﻿import { IsOptional, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for all window parameters. */
 export class _WindowParameterBase extends _OpenAPIGenBaseModel {
     @IsOptional()
+    @Expose({ name: "user_data" })
     /** Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures. */
-    UserData?: Object;
+    userData?: Object;
 	
     @IsString()
     @IsOptional()
     @Matches(/^_WindowParameterBase$/)
-    /** Type */
-    Type: string = "_WindowParameterBase";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "_WindowParameterBase";
 	
 
     constructor() {
         super();
-        this.Type = "_WindowParameterBase";
+        this.type = "_WindowParameterBase";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(_WindowParameterBase, _data, { enableImplicitConversion: true });
-            this.user_data = obj.user_data;
-            this.type = obj.type;
+            const obj = plainToClass(_WindowParameterBase, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.userData = obj.userData;
+            this.type = obj.type ?? "_WindowParameterBase";
         }
     }
 
@@ -48,10 +50,10 @@ export class _WindowParameterBase extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["user_data"] = this.user_data;
-        data["type"] = this.type;
+        data["user_data"] = this.userData;
+        data["type"] = this.type ?? "_WindowParameterBase";
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

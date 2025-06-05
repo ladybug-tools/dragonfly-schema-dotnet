@@ -1,33 +1,35 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Extruded borders over all windows in the wall. */
 export class ExtrudedBorder extends _OpenAPIGenBaseModel {
     @IsNumber()
     @IsDefined()
+    @Expose({ name: "depth" })
     /** A number for the depth of the border. */
-    Depth!: number;
+    depth!: number;
 	
     @IsString()
     @IsOptional()
     @Matches(/^ExtrudedBorder$/)
-    /** Type */
-    Type: string = "ExtrudedBorder";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "ExtrudedBorder";
 	
 
     constructor() {
         super();
-        this.Type = "ExtrudedBorder";
+        this.type = "ExtrudedBorder";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ExtrudedBorder, _data, { enableImplicitConversion: true });
+            const obj = plainToClass(ExtrudedBorder, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
             this.depth = obj.depth;
-            this.type = obj.type;
+            this.type = obj.type ?? "ExtrudedBorder";
         }
     }
 
@@ -50,9 +52,9 @@ export class ExtrudedBorder extends _OpenAPIGenBaseModel {
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["depth"] = this.depth;
-        data["type"] = this.type;
+        data["type"] = this.type ?? "ExtrudedBorder";
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

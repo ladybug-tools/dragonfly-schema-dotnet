@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, MinLength, MaxLength, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
@@ -7,45 +7,49 @@ export class BuildingEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
     @Matches(/^BuildingEnergyPropertiesAbridged$/)
-    /** Type */
-    Type: string = "BuildingEnergyPropertiesAbridged";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "BuildingEnergyPropertiesAbridged";
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
+    @Expose({ name: "construction_set" })
     /** Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used. */
-    ConstructionSet?: string;
+    constructionSet?: string;
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
+    @Expose({ name: "ceiling_plenum_construction" })
     /** Identifier of an OpaqueConstruction for the bottoms of ceiling plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple acoustic tile construction. */
-    CeilingPlenumConstruction?: string;
+    ceilingPlenumConstruction?: string;
 	
     @IsString()
     @IsOptional()
     @MinLength(1)
     @MaxLength(100)
+    @Expose({ name: "floor_plenum_construction" })
     /** Identifier of an OpaqueConstruction for the tops of floor plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple wood plank construction. */
-    FloorPlenumConstruction?: string;
+    floorPlenumConstruction?: string;
 	
 
     constructor() {
         super();
-        this.Type = "BuildingEnergyPropertiesAbridged";
+        this.type = "BuildingEnergyPropertiesAbridged";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(BuildingEnergyPropertiesAbridged, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
-            this.construction_set = obj.construction_set;
-            this.ceiling_plenum_construction = obj.ceiling_plenum_construction;
-            this.floor_plenum_construction = obj.floor_plenum_construction;
+            const obj = plainToClass(BuildingEnergyPropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "BuildingEnergyPropertiesAbridged";
+            this.constructionSet = obj.constructionSet;
+            this.ceilingPlenumConstruction = obj.ceilingPlenumConstruction;
+            this.floorPlenumConstruction = obj.floorPlenumConstruction;
         }
     }
 
@@ -67,12 +71,12 @@ export class BuildingEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
-        data["construction_set"] = this.construction_set;
-        data["ceiling_plenum_construction"] = this.ceiling_plenum_construction;
-        data["floor_plenum_construction"] = this.floor_plenum_construction;
+        data["type"] = this.type ?? "BuildingEnergyPropertiesAbridged";
+        data["construction_set"] = this.constructionSet;
+        data["ceiling_plenum_construction"] = this.ceilingPlenumConstruction;
+        data["floor_plenum_construction"] = this.floorPlenumConstruction;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

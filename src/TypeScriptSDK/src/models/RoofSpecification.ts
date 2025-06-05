@@ -1,5 +1,5 @@
 ﻿import { IsArray, IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { Face3D } from "honeybee-schema";
 
@@ -10,28 +10,30 @@ export class RoofSpecification extends _OpenAPIGenBaseModel {
     @Type(() => Face3D)
     @ValidateNested({ each: true })
     @IsDefined()
+    @Expose({ name: "geometry" })
     /** An array of Face3D objects representing the geometry of the Roof. None of these geometries should overlap in plan and, together, these Face3D should either completely cover or skip each Room2D of the Story to which the RoofSpecification is assigned. */
-    Geometry!: Face3D[];
+    geometry!: Face3D[];
 	
     @IsString()
     @IsOptional()
     @Matches(/^RoofSpecification$/)
-    /** Type */
-    Type: string = "RoofSpecification";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "RoofSpecification";
 	
 
     constructor() {
         super();
-        this.Type = "RoofSpecification";
+        this.type = "RoofSpecification";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(RoofSpecification, _data, { enableImplicitConversion: true });
+            const obj = plainToClass(RoofSpecification, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
             this.geometry = obj.geometry;
-            this.type = obj.type;
+            this.type = obj.type ?? "RoofSpecification";
         }
     }
 
@@ -54,9 +56,9 @@ export class RoofSpecification extends _OpenAPIGenBaseModel {
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["geometry"] = this.geometry;
-        data["type"] = this.type;
+        data["type"] = this.type ?? "RoofSpecification";
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

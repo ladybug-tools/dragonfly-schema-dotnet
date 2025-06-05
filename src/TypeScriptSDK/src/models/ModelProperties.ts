@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ModelComparisonProperties } from "./ModelComparisonProperties";
 import { ModelDoe2Properties } from "./ModelDoe2Properties";
@@ -10,49 +10,54 @@ export class ModelProperties extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
     @Matches(/^ModelProperties$/)
-    /** Type */
-    Type: string = "ModelProperties";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "ModelProperties";
 	
     @IsInstance(ModelEnergyProperties)
     @Type(() => ModelEnergyProperties)
     @ValidateNested()
     @IsOptional()
-    /** Energy */
-    Energy?: ModelEnergyProperties;
+    @Expose({ name: "energy" })
+    /** energy */
+    energy?: ModelEnergyProperties;
 	
     @IsInstance(ModelRadianceProperties)
     @Type(() => ModelRadianceProperties)
     @ValidateNested()
     @IsOptional()
-    /** Radiance */
-    Radiance?: ModelRadianceProperties;
+    @Expose({ name: "radiance" })
+    /** radiance */
+    radiance?: ModelRadianceProperties;
 	
     @IsInstance(ModelDoe2Properties)
     @Type(() => ModelDoe2Properties)
     @ValidateNested()
     @IsOptional()
-    /** Doe2 */
-    Doe2?: ModelDoe2Properties;
+    @Expose({ name: "doe2" })
+    /** doe2 */
+    doe2?: ModelDoe2Properties;
 	
     @IsInstance(ModelComparisonProperties)
     @Type(() => ModelComparisonProperties)
     @ValidateNested()
     @IsOptional()
-    /** Comparison */
-    Comparison?: ModelComparisonProperties;
+    @Expose({ name: "comparison" })
+    /** comparison */
+    comparison?: ModelComparisonProperties;
 	
 
     constructor() {
         super();
-        this.Type = "ModelProperties";
+        this.type = "ModelProperties";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ModelProperties, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
+            const obj = plainToClass(ModelProperties, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "ModelProperties";
             this.energy = obj.energy;
             this.radiance = obj.radiance;
             this.doe2 = obj.doe2;
@@ -78,13 +83,13 @@ export class ModelProperties extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
+        data["type"] = this.type ?? "ModelProperties";
         data["energy"] = this.energy;
         data["radiance"] = this.radiance;
         data["doe2"] = this.doe2;
         data["comparison"] = this.comparison;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {

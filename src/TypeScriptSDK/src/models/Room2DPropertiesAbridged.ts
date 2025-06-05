@@ -1,5 +1,5 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Transform } from 'class-transformer';
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { Room2DComparisonProperties } from "./Room2DComparisonProperties";
 import { Room2DDoe2Properties } from "./Room2DDoe2Properties";
@@ -10,49 +10,54 @@ export class Room2DPropertiesAbridged extends _OpenAPIGenBaseModel {
     @IsString()
     @IsOptional()
     @Matches(/^Room2DPropertiesAbridged$/)
-    /** Type */
-    Type: string = "Room2DPropertiesAbridged";
+    @Expose({ name: "type" })
+    /** type */
+    type: string = "Room2DPropertiesAbridged";
 	
     @IsInstance(Room2DEnergyPropertiesAbridged)
     @Type(() => Room2DEnergyPropertiesAbridged)
     @ValidateNested()
     @IsOptional()
-    /** Energy */
-    Energy?: Room2DEnergyPropertiesAbridged;
+    @Expose({ name: "energy" })
+    /** energy */
+    energy?: Room2DEnergyPropertiesAbridged;
 	
     @IsInstance(Room2DRadiancePropertiesAbridged)
     @Type(() => Room2DRadiancePropertiesAbridged)
     @ValidateNested()
     @IsOptional()
-    /** Radiance */
-    Radiance?: Room2DRadiancePropertiesAbridged;
+    @Expose({ name: "radiance" })
+    /** radiance */
+    radiance?: Room2DRadiancePropertiesAbridged;
 	
     @IsInstance(Room2DDoe2Properties)
     @Type(() => Room2DDoe2Properties)
     @ValidateNested()
     @IsOptional()
-    /** Doe2 */
-    Doe2?: Room2DDoe2Properties;
+    @Expose({ name: "doe2" })
+    /** doe2 */
+    doe2?: Room2DDoe2Properties;
 	
     @IsInstance(Room2DComparisonProperties)
     @Type(() => Room2DComparisonProperties)
     @ValidateNested()
     @IsOptional()
-    /** Comparison */
-    Comparison?: Room2DComparisonProperties;
+    @Expose({ name: "comparison" })
+    /** comparison */
+    comparison?: Room2DComparisonProperties;
 	
 
     constructor() {
         super();
-        this.Type = "Room2DPropertiesAbridged";
+        this.type = "Room2DPropertiesAbridged";
     }
 
 
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Room2DPropertiesAbridged, _data, { enableImplicitConversion: true });
-            this.type = obj.type;
+            const obj = plainToClass(Room2DPropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            this.type = obj.type ?? "Room2DPropertiesAbridged";
             this.energy = obj.energy;
             this.radiance = obj.radiance;
             this.doe2 = obj.doe2;
@@ -78,13 +83,13 @@ export class Room2DPropertiesAbridged extends _OpenAPIGenBaseModel {
 
 	override toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["type"] = this.type;
+        data["type"] = this.type ?? "Room2DPropertiesAbridged";
         data["energy"] = this.energy;
         data["radiance"] = this.radiance;
         data["doe2"] = this.doe2;
         data["comparison"] = this.comparison;
         data = super.toJSON(data);
-        return instanceToPlain(data);
+        return instanceToPlain(data, { exposeUnsetFields: false });
     }
 
 	async validate(): Promise<boolean> {
