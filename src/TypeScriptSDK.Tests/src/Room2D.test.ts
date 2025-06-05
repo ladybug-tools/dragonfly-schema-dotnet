@@ -1,8 +1,14 @@
-import { plainToClass } from "class-transformer";
-import { Model, Room2D, Room2DPropertiesAbridged } from "dragonfly-schema";
-import { Face3D } from "honeybee-schema";
-import * as fs from 'fs';
-import * as path from 'path';
+import { Room2D, Room2DPropertiesAbridged } from "dragonfly-schema";
+import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+test('test room2d simple', () => {
+  const room2d = new Room2D();
+
+  const jsonObj = room2d.toJSON();
+  const obj = Room2D.fromJS(jsonObj);
+  obj.validate().catch(error => {
+    expect(error.message.startsWith("Validation failed: floorBoundary should not be null or undefined,")).toBe(true);
+  });
+});
 
 test('test room2d', () => {
   const roomData = {
@@ -197,10 +203,11 @@ test('test room2d', () => {
       null
     ],
     "user_data": {}
-  }
+  };
   const obj = Room2D.fromJS(roomData);
   expect(obj.identifier).toBe("Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d1467");
   expect(obj.validate()).resolves.toBe(true);
+
 
   const jsonObj = obj.toJSON();
   const prop = jsonObj["properties"];
@@ -211,7 +218,7 @@ test('test room2d', () => {
 });
 
 test('test room2d2', () => {
-  const roomData =             {
+  const roomData = {
     "type": "Room2D",
     "identifier": "Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d14cc",
     "display_name": "Laundry-104",
@@ -271,7 +278,7 @@ test('test room2d2', () => {
       }
     ],
     "user_data": {}
-  }
+  };
   const obj = Room2D.fromJS(roomData);
   expect(obj.identifier).toBe("Room_e6ac360b-aaed-4c3b-a130-36b4c2ac9d13-000d14cc");
   expect(obj.validate()).resolves.toBe(true);
@@ -297,3 +304,4 @@ test('test roomProperty', () => {
   expect(jsonObj.hasOwnProperty("radiance")).toBe(false);
 
 });
+
