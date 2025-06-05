@@ -52,7 +52,7 @@ export class Room2DDoe2Properties extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(Room2DDoe2Properties, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(Room2DDoe2Properties, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.type = obj.type ?? "Room2DDoe2Properties";
             this.assignedFlow = obj.assignedFlow ?? new Autocalculate();
             this.flowPerArea = obj.flowPerArea ?? new Autocalculate();

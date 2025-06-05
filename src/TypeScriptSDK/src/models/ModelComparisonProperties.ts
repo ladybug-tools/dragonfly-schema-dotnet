@@ -21,7 +21,7 @@ export class ModelComparisonProperties extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ModelComparisonProperties, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(ModelComparisonProperties, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.type = obj.type ?? "ModelComparisonProperties";
         }
     }

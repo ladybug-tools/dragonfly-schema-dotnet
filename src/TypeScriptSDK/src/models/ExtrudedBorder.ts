@@ -27,7 +27,7 @@ export class ExtrudedBorder extends _OpenAPIGenBaseModel {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(ExtrudedBorder, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(ExtrudedBorder, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.depth = obj.depth;
             this.type = obj.type ?? "ExtrudedBorder";
         }

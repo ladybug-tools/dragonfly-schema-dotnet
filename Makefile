@@ -29,6 +29,7 @@ ts-sdk:
 
 ts-build:
 	cd ./src/TypeScriptSDK && npm i
+	cd ./src/TypeScriptSDK && npm i honeybee-schema
 	cd ./src/TypeScriptSDK && npm version $(NEW_RELEASE_VERSION) --allow-same-version && npm run custom-pack
 	cp ./src/TypeScriptSDK/*.tgz ./
 

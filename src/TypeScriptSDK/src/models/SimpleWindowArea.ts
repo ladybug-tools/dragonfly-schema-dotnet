@@ -34,7 +34,7 @@ export class SimpleWindowArea extends _WindowParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(SimpleWindowArea, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(SimpleWindowArea, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.windowArea = obj.windowArea;
             this.type = obj.type ?? "SimpleWindowArea";
             this.rectSplit = obj.rectSplit ?? true;

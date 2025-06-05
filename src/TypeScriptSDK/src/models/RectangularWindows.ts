@@ -50,7 +50,7 @@ export class RectangularWindows extends _WindowParameterBase {
     override init(_data?: any) {
         super.init(_data);
         if (_data) {
-            const obj = plainToClass(RectangularWindows, _data, { enableImplicitConversion: true, exposeUnsetFields: false });
+            const obj = plainToClass(RectangularWindows, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
             this.origins = obj.origins;
             this.widths = obj.widths;
             this.heights = obj.heights;
