@@ -7,8 +7,22 @@ download:
 sdk:
 	cd ./.generator/SchemaGenerator && dotnet run --download --genCsModel --genCsInterface --genTsModel --updateVersion
 
+build:
+	make cs-build
+	make ts-build
+
+test:
+	make cs-test
+	make ts-test
+
 cs-sdk:
 	cd ./.generator/SchemaGenerator && dotnet run --genCsModel --genCsInterface --updateVersion
+
+cs-build:
+	cd ./src/CSharpSDK && dotnet build
+
+cs-test:
+	cd ./src/CSharpSDK.Tests && dotnet test
 
 ts-sdk:
 	cd ./.generator/SchemaGenerator && dotnet run --genTsModel --updateVersion
