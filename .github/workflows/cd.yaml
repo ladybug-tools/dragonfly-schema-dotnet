@@ -95,11 +95,11 @@ jobs:
 
       - name: Build and pack package
         run: |
-          make ts-build
+          make ts-build NEW_RELEASE_VERSION=${{ env.RELEASE_VERSION }}
 
       - name: Unit tests
         run: |
-          make ts-test
+          make ts-test NEW_RELEASE_VERSION=${{ env.RELEASE_VERSION }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
