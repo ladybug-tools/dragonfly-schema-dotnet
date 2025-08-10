@@ -1,5 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { Room2DComparisonProperties } from "./Room2DComparisonProperties";
 import { Room2DDoe2Properties } from "./Room2DDoe2Properties";
@@ -54,9 +55,9 @@ export class Room2DPropertiesAbridged extends _OpenAPIGenBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(Room2DPropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(Room2DPropertiesAbridged, _data);
             this.type = obj.type ?? "Room2DPropertiesAbridged";
             this.energy = obj.energy;
             this.radiance = obj.radiance;

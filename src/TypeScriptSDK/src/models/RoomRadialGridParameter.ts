@@ -1,5 +1,6 @@
 ﻿import { IsInt, IsOptional, IsArray, IsNumber, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { Autocalculate } from "honeybee-schema";
 import { RoomGridParameter } from "./RoomGridParameter";
 
@@ -40,13 +41,17 @@ export class RoomRadialGridParameter extends RoomGridParameter {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(RoomRadialGridParameter, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(RoomRadialGridParameter, _data);
             this.dirCount = obj.dirCount ?? 8;
             this.startVector = obj.startVector;
             this.meshRadius = obj.meshRadius ?? new Autocalculate();
             this.type = obj.type ?? "RoomRadialGridParameter";
+            this.offset = obj.offset ?? 1;
+            this.wallOffset = obj.wallOffset ?? 0;
+            this.dimension = obj.dimension;
+            this.includeMesh = obj.includeMesh ?? true;
         }
     }
 

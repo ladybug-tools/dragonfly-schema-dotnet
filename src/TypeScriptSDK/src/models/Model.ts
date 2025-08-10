@@ -1,5 +1,6 @@
 ﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsArray, IsEnum, IsNumber, Min, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { Building } from "./Building";
 import { ContextShade } from "./ContextShade";
 import { IDdBaseModel } from "honeybee-schema";
@@ -88,9 +89,9 @@ export class Model extends IDdBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(Model, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(Model, _data);
             this.properties = obj.properties;
             this.type = obj.type ?? "Model";
             this.version = obj.version ?? "0.0.0";
@@ -100,6 +101,9 @@ export class Model extends IDdBaseModel {
             this.tolerance = obj.tolerance ?? 0.01;
             this.angleTolerance = obj.angleTolerance ?? 1;
             this.referenceVector = obj.referenceVector;
+            this.identifier = obj.identifier;
+            this.displayName = obj.displayName;
+            this.userData = obj.userData;
         }
     }
 

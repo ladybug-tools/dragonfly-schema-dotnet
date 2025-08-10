@@ -1,5 +1,6 @@
 ﻿import { IsArray, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
@@ -34,12 +35,13 @@ export class DetailedWindows extends _WindowParameterBase {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(DetailedWindows, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(DetailedWindows, _data);
             this.polygons = obj.polygons;
             this.type = obj.type ?? "DetailedWindows";
             this.areDoors = obj.areDoors;
+            this.userData = obj.userData;
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** A single window in the wall center defined by a width * height. */
@@ -38,13 +39,14 @@ export class SingleWindow extends _WindowParameterBase {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(SingleWindow, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(SingleWindow, _data);
             this.width = obj.width;
             this.height = obj.height;
             this.type = obj.type ?? "SingleWindow";
             this.sillHeight = obj.sillHeight ?? 1;
+            this.userData = obj.userData;
         }
     }
 

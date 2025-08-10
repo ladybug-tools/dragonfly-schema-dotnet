@@ -1,5 +1,6 @@
 ﻿import { IsArray, IsDefined, IsNumber, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, Min, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { Adiabatic } from "honeybee-schema";
 import { DetailedSkylights } from "./DetailedSkylights";
@@ -184,9 +185,9 @@ export class Room2D extends IDdBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(Room2D, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(Room2D, _data);
             this.floorBoundary = obj.floorBoundary;
             this.floorHeight = obj.floorHeight;
             this.floorToCeilingHeight = obj.floorToCeilingHeight;
@@ -205,6 +206,9 @@ export class Room2D extends IDdBaseModel {
             this.shadingParameters = obj.shadingParameters;
             this.airBoundaries = obj.airBoundaries;
             this.skylightParameters = obj.skylightParameters;
+            this.identifier = obj.identifier;
+            this.displayName = obj.displayName;
+            this.userData = obj.userData;
         }
     }
 

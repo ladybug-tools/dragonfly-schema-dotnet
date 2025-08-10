@@ -1,5 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ExteriorApertureGridParameter } from "./ExteriorApertureGridParameter";
 import { ExteriorFaceGridParameter } from "./ExteriorFaceGridParameter";
@@ -42,9 +43,9 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(Room2DRadiancePropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(Room2DRadiancePropertiesAbridged, _data);
             this.type = obj.type ?? "Room2DRadiancePropertiesAbridged";
             this.modifierSet = obj.modifierSet;
             this.gridParameters = obj.gridParameters;

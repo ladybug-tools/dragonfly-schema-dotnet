@@ -1,5 +1,6 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** A single window defined by an absolute area. */
@@ -32,12 +33,13 @@ export class SimpleWindowArea extends _WindowParameterBase {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(SimpleWindowArea, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(SimpleWindowArea, _data);
             this.windowArea = obj.windowArea;
             this.type = obj.type ?? "SimpleWindowArea";
             this.rectSplit = obj.rectSplit ?? true;
+            this.userData = obj.userData;
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { AirBoundaryConstruction } from "honeybee-schema";
 import { AirBoundaryConstructionAbridged } from "honeybee-schema";
@@ -1053,9 +1054,9 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(ModelEnergyProperties, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(ModelEnergyProperties, _data);
             this.type = obj.type ?? "ModelEnergyProperties";
             this.globalConstructionSet = obj.globalConstructionSet ?? GlobalConstructionSet.fromJS({
   "type": "GlobalConstructionSet",
