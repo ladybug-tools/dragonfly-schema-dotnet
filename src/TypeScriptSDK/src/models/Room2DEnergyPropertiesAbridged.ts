@@ -1,5 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, MinLength, MaxLength, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ProcessAbridged } from "honeybee-schema";
 import { VentilationControlAbridged } from "honeybee-schema";
@@ -79,9 +80,9 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(Room2DEnergyPropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(Room2DEnergyPropertiesAbridged, _data);
             this.type = obj.type ?? "Room2DEnergyPropertiesAbridged";
             this.constructionSet = obj.constructionSet;
             this.programType = obj.programType;

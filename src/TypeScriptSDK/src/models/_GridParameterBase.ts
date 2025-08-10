@@ -1,5 +1,6 @@
 ﻿import { IsNumber, IsDefined, IsBoolean, IsOptional, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base object for all GridParameters. */
@@ -32,9 +33,9 @@ export class _GridParameterBase extends _OpenAPIGenBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(_GridParameterBase, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(_GridParameterBase, _data);
             this.dimension = obj.dimension;
             this.includeMesh = obj.includeMesh ?? true;
             this.type = obj.type ?? "_GridParameterBase";

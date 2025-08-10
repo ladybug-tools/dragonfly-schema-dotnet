@@ -24,7 +24,7 @@ namespace DragonflySchema
     [Summary(@"")]
     [System.Serializable]
     [DataContract(Name = "_OpenAPIGenBaseModel")]
-    public partial class OpenAPIGenBaseModel : System.IEquatable<OpenAPIGenBaseModel>
+    public abstract partial class OpenAPIGenBaseModel : System.IEquatable<OpenAPIGenBaseModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenAPIGenBaseModel" /> class.

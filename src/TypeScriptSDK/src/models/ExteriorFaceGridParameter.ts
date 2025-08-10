@@ -1,5 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, IsNumber, IsEnum, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _GridParameterBase } from "./_GridParameterBase";
 import { ExteriorFaceType } from "./ExteriorFaceType";
 
@@ -42,13 +43,15 @@ export class ExteriorFaceGridParameter extends _GridParameterBase {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(ExteriorFaceGridParameter, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(ExteriorFaceGridParameter, _data);
             this.type = obj.type ?? "ExteriorFaceGridParameter";
             this.offset = obj.offset ?? 0.1;
             this.faceType = obj.faceType ?? ExteriorFaceType.Wall;
             this.punchedGeometry = obj.punchedGeometry ?? false;
+            this.dimension = obj.dimension;
+            this.includeMesh = obj.includeMesh ?? true;
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿import { IsOptional, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for all window parameters. */
@@ -24,9 +25,9 @@ export class _WindowParameterBase extends _OpenAPIGenBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(_WindowParameterBase, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(_WindowParameterBase, _data);
             this.userData = obj.userData;
             this.type = obj.type ?? "_WindowParameterBase";
         }

@@ -1,5 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { DetailedSkylights } from "./DetailedSkylights";
@@ -70,9 +71,9 @@ export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(Room2DComparisonProperties, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(Room2DComparisonProperties, _data);
             this.type = obj.type ?? "Room2DComparisonProperties";
             this.floorBoundary = obj.floorBoundary;
             this.floorHoles = obj.floorHoles;

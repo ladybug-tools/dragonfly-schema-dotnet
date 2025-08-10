@@ -1,5 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { ContextShadeEnergyPropertiesAbridged } from "./ContextShadeEnergyPropertiesAbridged";
 import { ContextShadeRadiancePropertiesAbridged } from "./ContextShadeRadiancePropertiesAbridged";
@@ -36,9 +37,9 @@ export class ContextShadePropertiesAbridged extends _OpenAPIGenBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(ContextShadePropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(ContextShadePropertiesAbridged, _data);
             this.type = obj.type ?? "ContextShadePropertiesAbridged";
             this.energy = obj.energy;
             this.radiance = obj.radiance;

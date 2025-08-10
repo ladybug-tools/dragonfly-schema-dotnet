@@ -1,5 +1,6 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { Autocalculate } from "honeybee-schema";
 
@@ -32,9 +33,9 @@ export class GriddedSkylightRatio extends _OpenAPIGenBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(GriddedSkylightRatio, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(GriddedSkylightRatio, _data);
             this.skylightRatio = obj.skylightRatio;
             this.type = obj.type ?? "GriddedSkylightRatio";
             this.spacing = obj.spacing ?? new Autocalculate();

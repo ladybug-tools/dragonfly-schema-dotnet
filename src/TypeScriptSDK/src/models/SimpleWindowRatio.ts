@@ -1,5 +1,6 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** A single window defined by an area ratio with the base surface. */
@@ -32,12 +33,13 @@ export class SimpleWindowRatio extends _WindowParameterBase {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(SimpleWindowRatio, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(SimpleWindowRatio, _data);
             this.windowRatio = obj.windowRatio;
             this.type = obj.type ?? "SimpleWindowRatio";
             this.rectSplit = obj.rectSplit ?? true;
+            this.userData = obj.userData;
         }
     }
 

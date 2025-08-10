@@ -1,5 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
@@ -25,9 +26,9 @@ export class ContextShadeRadiancePropertiesAbridged extends _OpenAPIGenBaseModel
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(ContextShadeRadiancePropertiesAbridged, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(ContextShadeRadiancePropertiesAbridged, _data);
             this.type = obj.type ?? "ContextShadeRadiancePropertiesAbridged";
             this.modifier = obj.modifier;
         }

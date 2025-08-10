@@ -1,5 +1,6 @@
 ﻿import { IsNumber, IsDefined, Min, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** Repeating windows derived from an area ratio with the base wall. */
@@ -52,15 +53,16 @@ export class RepeatingWindowRatio extends _WindowParameterBase {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(RepeatingWindowRatio, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(RepeatingWindowRatio, _data);
             this.windowRatio = obj.windowRatio;
             this.windowHeight = obj.windowHeight;
             this.sillHeight = obj.sillHeight;
             this.horizontalSeparation = obj.horizontalSeparation;
             this.type = obj.type ?? "RepeatingWindowRatio";
             this.verticalSeparation = obj.verticalSeparation ?? 0;
+            this.userData = obj.userData;
         }
     }
 

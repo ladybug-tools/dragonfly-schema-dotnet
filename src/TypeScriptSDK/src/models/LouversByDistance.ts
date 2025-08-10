@@ -1,5 +1,6 @@
 ﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _LouversBase } from "./_LouversBase";
 
 /** A series of louvered Shades at a given distance between each louver. */
@@ -25,11 +26,16 @@ export class LouversByDistance extends _LouversBase {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(LouversByDistance, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(LouversByDistance, _data);
             this.distance = obj.distance;
             this.type = obj.type ?? "LouversByDistance";
+            this.depth = obj.depth;
+            this.offset = obj.offset ?? 0;
+            this.angle = obj.angle ?? 0;
+            this.contourVector = obj.contourVector ?? [0, 1];
+            this.flipStartSide = obj.flipStartSide ?? false;
         }
     }
 

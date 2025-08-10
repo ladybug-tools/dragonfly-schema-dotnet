@@ -1,5 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, IsNumber, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _GridParameterBase } from "./_GridParameterBase";
 import { ExteriorApertureType } from "./ExteriorApertureType";
 
@@ -35,12 +36,14 @@ export class ExteriorApertureGridParameter extends _GridParameterBase {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(ExteriorApertureGridParameter, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(ExteriorApertureGridParameter, _data);
             this.type = obj.type ?? "ExteriorApertureGridParameter";
             this.offset = obj.offset ?? 0.1;
             this.apertureType = obj.apertureType ?? ExteriorApertureType.All;
+            this.dimension = obj.dimension;
+            this.includeMesh = obj.includeMesh ?? true;
         }
     }
 

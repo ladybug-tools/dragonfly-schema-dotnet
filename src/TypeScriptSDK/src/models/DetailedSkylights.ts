@@ -1,5 +1,6 @@
 ﻿import { IsArray, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
@@ -34,9 +35,9 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(DetailedSkylights, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(DetailedSkylights, _data);
             this.polygons = obj.polygons;
             this.type = obj.type ?? "DetailedSkylights";
             this.areDoors = obj.areDoors;

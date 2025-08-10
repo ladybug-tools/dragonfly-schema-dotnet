@@ -1,5 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, IsNumber, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _GridParameterBase } from "./_GridParameterBase";
 
 /** Instructions for a SensorGrid generated from a Room2D's floors. */
@@ -33,12 +34,14 @@ export class RoomGridParameter extends _GridParameterBase {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(RoomGridParameter, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(RoomGridParameter, _data);
             this.type = obj.type ?? "RoomGridParameter";
             this.offset = obj.offset ?? 1;
             this.wallOffset = obj.wallOffset ?? 0;
+            this.dimension = obj.dimension;
+            this.includeMesh = obj.includeMesh ?? true;
         }
     }
 

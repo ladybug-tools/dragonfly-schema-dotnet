@@ -1,5 +1,6 @@
 ﻿import { IsString, IsOptional, Matches, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
-import { Type, plainToClass, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
+import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { BSDF } from "honeybee-schema";
 import { Glass } from "honeybee-schema";
@@ -391,9 +392,9 @@ export class ModelRadianceProperties extends _OpenAPIGenBaseModel {
 
 
     override init(_data?: any) {
-        super.init(_data);
+
         if (_data) {
-            const obj = plainToClass(ModelRadianceProperties, _data, { enableImplicitConversion: true, exposeUnsetFields: false, exposeDefaultValues: true });
+            const obj = deepTransform(ModelRadianceProperties, _data);
             this.type = obj.type ?? "ModelRadianceProperties";
             this.globalModifierSet = obj.globalModifierSet ?? GlobalModifierSet.fromJS({
   "type": "GlobalModifierSet",
