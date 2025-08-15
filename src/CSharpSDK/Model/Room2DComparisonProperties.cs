@@ -96,6 +96,8 @@ namespace DragonflySchema
         [Summary(@"A SkylightParameter object for the Room2D to which the host Room2D is being compared.")]
         [DataMember(Name = "comparison_skylight")] // For Newtonsoft.Json
         [System.Text.Json.Serialization.JsonPropertyName("comparison_skylight")] // For System.Text.Json
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConverter(typeof(AnyOfJsonConverter))] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonConverter(typeof(AnyOfSystemJsonConverter))] // For System.Text.Json
         public AnyOf<GriddedSkylightArea, GriddedSkylightRatio, DetailedSkylights> ComparisonSkylight { get; set; }
 
 

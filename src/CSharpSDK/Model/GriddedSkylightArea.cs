@@ -77,6 +77,8 @@ namespace DragonflySchema
         [Summary(@"A number for the spacing between the centers of each grid cell. This should be less than a third of the dimension of the Roof geometry if multiple, evenly-spaced skylights are desired. If Autocalculate, a spacing of one third the smaller dimension of the parent Roof will be automatically assumed.")]
         [DataMember(Name = "spacing")] // For Newtonsoft.Json
         [System.Text.Json.Serialization.JsonPropertyName("spacing")] // For System.Text.Json
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConverter(typeof(AnyOfJsonConverter))] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonConverter(typeof(AnyOfSystemJsonConverter))] // For System.Text.Json
         public AnyOf<Autocalculate, double> Spacing { get; set; } = new Autocalculate();
 
 
