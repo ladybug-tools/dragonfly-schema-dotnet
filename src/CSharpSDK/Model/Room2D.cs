@@ -235,6 +235,8 @@ namespace DragonflySchema
         [Summary(@"A SkylightParameter object describing how to generate skylights. If None, no skylights will exist on the Room2D.")]
         [DataMember(Name = "skylight_parameters")] // For Newtonsoft.Json
         [System.Text.Json.Serialization.JsonPropertyName("skylight_parameters")] // For System.Text.Json
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConverter(typeof(AnyOfJsonConverter))] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonConverter(typeof(AnyOfSystemJsonConverter))] // For System.Text.Json
         public AnyOf<GriddedSkylightArea, GriddedSkylightRatio, DetailedSkylights> SkylightParameters { get; set; }
 
 

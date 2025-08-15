@@ -90,6 +90,8 @@ namespace DragonflySchema
         [Summary(@"An optional number to override the radius of the meshes generated around each sensor. If Autocalculate, it will be equal to 45 percent of the grid dimension.")]
         [DataMember(Name = "mesh_radius")] // For Newtonsoft.Json
         [System.Text.Json.Serialization.JsonPropertyName("mesh_radius")] // For System.Text.Json
+        [LBTNewtonSoft.Newtonsoft.Json.JsonConverter(typeof(AnyOfJsonConverter))] // For Newtonsoft.Json
+        [System.Text.Json.Serialization.JsonConverter(typeof(AnyOfSystemJsonConverter))] // For System.Text.Json
         public AnyOf<Autocalculate, double> MeshRadius { get; set; } = new Autocalculate();
 
 
