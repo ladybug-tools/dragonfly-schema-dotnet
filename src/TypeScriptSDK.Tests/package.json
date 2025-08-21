@@ -12,7 +12,7 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "honeybee-schema": "latest",
-    "dragonfly-schema": "latest"
+    "dragonfly-schema": "file:../TypeScriptSDK/dragonfly-schema-0.0.1.tgz",
+    "honeybee-schema": "^1.5900.8"
   }
 }
