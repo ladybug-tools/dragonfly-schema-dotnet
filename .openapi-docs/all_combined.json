@@ -4933,7 +4933,7 @@
               },
               "end_use_category": {
                 "title": "End Use Category",
-                "description": "Text to indicate the end-use subcategory, which will identify the process load in the end use output. For example, \u201cCooking\u201d, \u201cClothes Drying\u201d, etc. A new meter for reporting is created for each unique subcategory.",
+                "description": "Text to indicate the end-use subcategory, which will identify the process load in the end use output. For example, “Cooking”, “Clothes Drying”, etc. A new meter for reporting is created for each unique subcategory.",
                 "default": "Process",
                 "maxLength": 100,
                 "minLength": 1,
@@ -4959,7 +4959,7 @@
               },
               "lost_fraction": {
                 "title": "Lost Fraction",
-                "description": "Number for the amount of \u201clost\u201d heat being given off by the process load. The default value is 0.",
+                "description": "Number for the amount of “lost” heat being given off by the process load. The default value is 0.",
                 "default": 0,
                 "minimum": 0,
                 "maximum": 1,
@@ -11537,7 +11537,7 @@
               },
               "diffuse_visible_transmittance": {
                 "title": "Diffuse Visible Transmittance",
-                "description": "The slat transmittance for hemispherically diffuse visible radiation. This value should equal \u201cSlat Beam Visible Transmittance.\u201d",
+                "description": "The slat transmittance for hemispherically diffuse visible radiation. This value should equal “Slat Beam Visible Transmittance.”",
                 "default": 0,
                 "exclusiveMaximum": 1,
                 "minimum": 0,
@@ -11546,7 +11546,7 @@
               },
               "diffuse_visible_reflectance": {
                 "title": "Diffuse Visible Reflectance",
-                "description": "The front-side slat reflectance for hemispherically diffuse visible radiation. This value should equal \u201cFront Side Slat Beam Visible Reflectance.\u201d Default: 0.5.",
+                "description": "The front-side slat reflectance for hemispherically diffuse visible radiation. This value should equal “Front Side Slat Beam Visible Reflectance.” Default: 0.5.",
                 "default": 0.5,
                 "exclusiveMaximum": 1,
                 "minimum": 0,
@@ -11555,7 +11555,7 @@
               },
               "diffuse_visible_reflectance_back": {
                 "title": "Diffuse Visible Reflectance Back",
-                "description": "The back-side slat reflectance for hemispherically diffuse visible radiation. This value should equal \u201cBack Side Slat Beam Visible Reflectance. Default: 0.5.\u201d",
+                "description": "The back-side slat reflectance for hemispherically diffuse visible radiation. This value should equal “Back Side Slat Beam Visible Reflectance. Default: 0.5.”",
                 "default": 0.5,
                 "exclusiveMaximum": 1,
                 "minimum": 0,
@@ -11723,7 +11723,7 @@
                 ]
               },
               "control_type": {
-                "description": "Text to indicate how the shading device is controlled, which determines when the shading is \u201con\u201d or \u201coff.\u201d",
+                "description": "Text to indicate how the shading device is controlled, which determines when the shading is “on” or “off.”",
                 "default": "AlwaysOn",
                 "allOf": [
                   {
@@ -13725,7 +13725,7 @@
               },
               "lost_fraction": {
                 "title": "Lost Fraction",
-                "description": "Number for the amount of \u201clost\u201d heat being given off by equipment. The default value is 0.",
+                "description": "Number for the amount of “lost” heat being given off by equipment. The default value is 0.",
                 "default": 0,
                 "minimum": 0,
                 "maximum": 1,
@@ -13800,7 +13800,7 @@
               },
               "lost_fraction": {
                 "title": "Lost Fraction",
-                "description": "Number for the amount of \u201clost\u201d heat being given off by equipment. The default value is 0.",
+                "description": "Number for the amount of “lost” heat being given off by equipment. The default value is 0.",
                 "default": 0,
                 "minimum": 0,
                 "maximum": 1,
@@ -16985,7 +16985,7 @@
                 ]
               },
               "control_type": {
-                "description": "Text to indicate how the shading device is controlled, which determines when the shading is \u201con\u201d or \u201coff.\u201d",
+                "description": "Text to indicate how the shading device is controlled, which determines when the shading is “on” or “off.”",
                 "default": "AlwaysOn",
                 "allOf": [
                   {
@@ -17062,7 +17062,7 @@
               },
               "lost_fraction": {
                 "title": "Lost Fraction",
-                "description": "Number for the amount of \u201clost\u201d heat being given off by equipment. The default value is 0.",
+                "description": "Number for the amount of “lost” heat being given off by equipment. The default value is 0.",
                 "default": 0,
                 "minimum": 0,
                 "maximum": 1,

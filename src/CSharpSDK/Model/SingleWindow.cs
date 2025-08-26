@@ -4,7 +4,6 @@
  * Contact: info@ladybug.tools
  */
 
-extern alias LBTNewtonSoft;
 //using System;
 using System.Linq;
 using System.IO;
@@ -14,8 +13,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using LBTNewtonSoft::Newtonsoft.Json;
-using LBTNewtonSoft::Newtonsoft.Json.Converters;
+using LBT.Newtonsoft.Json;
+using LBT.Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 using HoneybeeSchema;
 
@@ -32,8 +31,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="SingleWindow" /> class.
         /// </summary>
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
-        [System.Text.Json.Serialization.JsonConstructor]
+        [LBT.Newtonsoft.Json.JsonConstructorAttribute]
+        // [System.Text.Json.Serialization.JsonConstructor] // for future switching to System.Text.Json
         protected SingleWindow() 
         { 
             // Set readonly properties with defaultValue
@@ -71,7 +70,7 @@ namespace DragonflySchema
         [Summary(@"A number for the window width. Note that, if this width is applied to a wall that is too narrow for this width, the generated window will automatically be shortened when it is applied to the wall. In this way, setting the width to be `float(""inf"")` will create parameters that always generate a ribbon window.")]
         [Required]
         [DataMember(Name = "width", IsRequired = true)] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("width")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("width")] // For System.Text.Json
         public double Width { get; set; }
 
         /// <summary>
@@ -80,7 +79,7 @@ namespace DragonflySchema
         [Summary(@"A number for the window height. Note that, if this height is applied to a wall that is too short for this height, the generated window will automatically be shortened when it is applied to the wall.")]
         [Required]
         [DataMember(Name = "height", IsRequired = true)] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("height")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("height")] // For System.Text.Json
         public double Height { get; set; }
 
         /// <summary>
@@ -88,7 +87,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for the window sill height.")]
         [DataMember(Name = "sill_height")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("sill_height")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("sill_height")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double SillHeight { get; set; } = 1D;
 
 

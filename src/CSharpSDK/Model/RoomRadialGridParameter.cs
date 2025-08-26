@@ -4,7 +4,6 @@
  * Contact: info@ladybug.tools
  */
 
-extern alias LBTNewtonSoft;
 //using System;
 using System.Linq;
 using System.IO;
@@ -14,8 +13,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using LBTNewtonSoft::Newtonsoft.Json;
-using LBTNewtonSoft::Newtonsoft.Json.Converters;
+using LBT.Newtonsoft.Json;
+using LBT.Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 using HoneybeeSchema;
 
@@ -32,8 +31,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="RoomRadialGridParameter" /> class.
         /// </summary>
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
-        [System.Text.Json.Serialization.JsonConstructor]
+        [LBT.Newtonsoft.Json.JsonConstructorAttribute]
+        // [System.Text.Json.Serialization.JsonConstructor] // for future switching to System.Text.Json
         protected RoomRadialGridParameter() 
         { 
             // Set readonly properties with defaultValue
@@ -73,7 +72,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A positive integer for the number of radial directions to be generated around each position.")]
         [DataMember(Name = "dir_count")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("dir_count")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("dir_count")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public int DirCount { get; set; } = 8;
 
         /// <summary>
@@ -81,7 +82,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A vector as 3 (x, y, z) values to set the start direction of the generated directions. This can be used to orient the resulting sensors to specific parts of the scene. It can also change the elevation of the resulting directions since this start vector will always be rotated in the XY plane to generate the resulting directions.")]
         [DataMember(Name = "start_vector")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("start_vector")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("start_vector")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<double> StartVector { get; set; }
 
         /// <summary>
@@ -89,9 +92,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"An optional number to override the radius of the meshes generated around each sensor. If Autocalculate, it will be equal to 45 percent of the grid dimension.")]
         [DataMember(Name = "mesh_radius")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("mesh_radius")] // For System.Text.Json
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConverter(typeof(AnyOfJsonConverter))] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonConverter(typeof(AnyOfSystemJsonConverter))] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("mesh_radius")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public AnyOf<Autocalculate, double> MeshRadius { get; set; } = new Autocalculate();
 
 

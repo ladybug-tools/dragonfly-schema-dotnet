@@ -4,7 +4,6 @@
  * Contact: info@ladybug.tools
  */
 
-extern alias LBTNewtonSoft;
 //using System;
 using System.Linq;
 using System.IO;
@@ -14,8 +13,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using LBTNewtonSoft::Newtonsoft.Json;
-using LBTNewtonSoft::Newtonsoft.Json.Converters;
+using LBT.Newtonsoft.Json;
+using LBT.Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 using HoneybeeSchema;
 
@@ -32,8 +31,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="ExteriorApertureGridParameter" /> class.
         /// </summary>
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
-        [System.Text.Json.Serialization.JsonConstructor]
+        [LBT.Newtonsoft.Json.JsonConstructorAttribute]
+        // [System.Text.Json.Serialization.JsonConstructor] // for future switching to System.Text.Json
         protected ExteriorApertureGridParameter() 
         { 
             // Set readonly properties with defaultValue
@@ -69,7 +68,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for how far to offset the grid from the Apertures. (Default: 0.1, suitable for Models in Meters).")]
         [DataMember(Name = "offset")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("offset")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("offset")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double Offset { get; set; } = 0.1D;
 
         /// <summary>
@@ -77,7 +78,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"Text to specify the type of Aperture that will be used to generate grids. Window indicates Apertures in Walls. Skylights are in parent Roof faces.")]
         [DataMember(Name = "aperture_type")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("aperture_type")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("aperture_type")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public ExteriorApertureType ApertureType { get; set; } = ExteriorApertureType.All;
 
 

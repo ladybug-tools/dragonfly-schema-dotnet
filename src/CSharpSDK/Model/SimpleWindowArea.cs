@@ -4,7 +4,6 @@
  * Contact: info@ladybug.tools
  */
 
-extern alias LBTNewtonSoft;
 //using System;
 using System.Linq;
 using System.IO;
@@ -14,8 +13,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using LBTNewtonSoft::Newtonsoft.Json;
-using LBTNewtonSoft::Newtonsoft.Json.Converters;
+using LBT.Newtonsoft.Json;
+using LBT.Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 using HoneybeeSchema;
 
@@ -32,8 +31,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleWindowArea" /> class.
         /// </summary>
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
-        [System.Text.Json.Serialization.JsonConstructor]
+        [LBT.Newtonsoft.Json.JsonConstructorAttribute]
+        // [System.Text.Json.Serialization.JsonConstructor] // for future switching to System.Text.Json
         protected SimpleWindowArea() 
         { 
             // Set readonly properties with defaultValue
@@ -69,7 +68,7 @@ namespace DragonflySchema
         [Summary(@"A number for the window area in current model units. If this area is larger than the area of the Wall that it is appliedto, the window will fill the parent Wall at a 99 percent ratio.")]
         [Required]
         [DataMember(Name = "window_area", IsRequired = true)] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("window_area")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("window_area")] // For System.Text.Json
         public double WindowArea { get; set; }
 
         /// <summary>
@@ -77,7 +76,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"Boolean to note whether rectangular portions of base Face should be extracted before scaling them to create apertures. For pentagonal gabled geometries, this results in one rectangle and one triangle, which can often look more realistic and is a better input for engines like EnergyPlus that cannot model windows with more than 4 vertices. However, if a single pentagonal window is desired for such a gabled shape, this input can be set to False to produce such a result.")]
         [DataMember(Name = "rect_split")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("rect_split")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("rect_split")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public bool RectSplit { get; set; } = true;
 
 

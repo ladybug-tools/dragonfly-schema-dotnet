@@ -4,7 +4,6 @@
  * Contact: info@ladybug.tools
  */
 
-extern alias LBTNewtonSoft;
 //using System;
 using System.Linq;
 using System.IO;
@@ -14,8 +13,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using LBTNewtonSoft::Newtonsoft.Json;
-using LBTNewtonSoft::Newtonsoft.Json.Converters;
+using LBT.Newtonsoft.Json;
+using LBT.Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 using HoneybeeSchema;
 
@@ -32,8 +31,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Room2DRadiancePropertiesAbridged" /> class.
         /// </summary>
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
-        [System.Text.Json.Serialization.JsonConstructor]
+        [LBT.Newtonsoft.Json.JsonConstructorAttribute]
+        // [System.Text.Json.Serialization.JsonConstructor] // for future switching to System.Text.Json
         protected Room2DRadiancePropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -67,7 +66,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"Identifier of a ModifierSet to specify all modifiers for the Room2D. If None, the Room2D will use the Story or Building modifier_set or the Model global_modifier_set. Any ModifierSet assigned here will override those assigned to the parent objects.")]
         [DataMember(Name = "modifier_set")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("modifier_set")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("modifier_set")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string ModifierSet { get; set; }
 
         /// <summary>
@@ -75,7 +76,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"An optional list of GridParameter objects to describe how sensor grids should be generated for the Room2D.")]
         [DataMember(Name = "grid_parameters")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("grid_parameters")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("grid_parameters")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<RoomGridParameter, RoomRadialGridParameter, ExteriorFaceGridParameter, ExteriorApertureGridParameter>> GridParameters { get; set; }
 
 

@@ -4,7 +4,6 @@
  * Contact: info@ladybug.tools
  */
 
-extern alias LBTNewtonSoft;
 //using System;
 using System.Linq;
 using System.IO;
@@ -14,8 +13,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using LBTNewtonSoft::Newtonsoft.Json;
-using LBTNewtonSoft::Newtonsoft.Json.Converters;
+using LBT.Newtonsoft.Json;
+using LBT.Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 using HoneybeeSchema;
 
@@ -29,8 +28,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Room2DPropertiesAbridged" /> class.
         /// </summary>
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
-        [System.Text.Json.Serialization.JsonConstructor]
+        [LBT.Newtonsoft.Json.JsonConstructorAttribute]
+        // [System.Text.Json.Serialization.JsonConstructor] // for future switching to System.Text.Json
         protected Room2DPropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -68,7 +67,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"Energy")]
         [DataMember(Name = "energy")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("energy")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("energy")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public Room2DEnergyPropertiesAbridged Energy { get; set; }
 
         /// <summary>
@@ -76,7 +77,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"Radiance")]
         [DataMember(Name = "radiance")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("radiance")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("radiance")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public Room2DRadiancePropertiesAbridged Radiance { get; set; }
 
         /// <summary>
@@ -84,7 +87,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"Doe2")]
         [DataMember(Name = "doe2")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("doe2")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("doe2")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public Room2DDoe2Properties Doe2 { get; set; }
 
         /// <summary>
@@ -92,7 +97,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"Comparison")]
         [DataMember(Name = "comparison")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("comparison")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("comparison")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public Room2DComparisonProperties Comparison { get; set; }
 
 

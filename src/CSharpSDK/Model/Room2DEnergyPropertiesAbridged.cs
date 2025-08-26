@@ -4,7 +4,6 @@
  * Contact: info@ladybug.tools
  */
 
-extern alias LBTNewtonSoft;
 //using System;
 using System.Linq;
 using System.IO;
@@ -14,8 +13,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using LBTNewtonSoft::Newtonsoft.Json;
-using LBTNewtonSoft::Newtonsoft.Json.Converters;
+using LBT.Newtonsoft.Json;
+using LBT.Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 using HoneybeeSchema;
 
@@ -32,8 +31,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Room2DEnergyPropertiesAbridged" /> class.
         /// </summary>
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
-        [System.Text.Json.Serialization.JsonConstructor]
+        [LBT.Newtonsoft.Json.JsonConstructorAttribute]
+        // [System.Text.Json.Serialization.JsonConstructor] // for future switching to System.Text.Json
         protected Room2DEnergyPropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -79,7 +78,9 @@ namespace DragonflySchema
         [MinLength(1)]
         [MaxLength(100)]
         [DataMember(Name = "construction_set")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("construction_set")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("construction_set")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string ConstructionSet { get; set; }
 
         /// <summary>
@@ -89,7 +90,9 @@ namespace DragonflySchema
         [MinLength(1)]
         [MaxLength(100)]
         [DataMember(Name = "program_type")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("program_type")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("program_type")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string ProgramType { get; set; }
 
         /// <summary>
@@ -99,7 +102,9 @@ namespace DragonflySchema
         [MinLength(1)]
         [MaxLength(100)]
         [DataMember(Name = "hvac")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("hvac")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("hvac")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string Hvac { get; set; }
 
         /// <summary>
@@ -109,7 +114,9 @@ namespace DragonflySchema
         [MinLength(1)]
         [MaxLength(100)]
         [DataMember(Name = "shw")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("shw")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("shw")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string Shw { get; set; }
 
         /// <summary>
@@ -117,7 +124,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.")]
         [DataMember(Name = "window_vent_control")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("window_vent_control")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("window_vent_control")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public VentilationControlAbridged WindowVentControl { get; set; }
 
         /// <summary>
@@ -125,7 +134,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open.")]
         [DataMember(Name = "window_vent_opening")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("window_vent_opening")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("window_vent_opening")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public VentilationOpening WindowVentOpening { get; set; }
 
         /// <summary>
@@ -133,7 +144,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.")]
         [DataMember(Name = "process_loads")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("process_loads")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("process_loads")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<ProcessAbridged> ProcessLoads { get; set; }
 
 

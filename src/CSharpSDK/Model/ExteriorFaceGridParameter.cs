@@ -4,7 +4,6 @@
  * Contact: info@ladybug.tools
  */
 
-extern alias LBTNewtonSoft;
 //using System;
 using System.Linq;
 using System.IO;
@@ -14,8 +13,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using LBTNewtonSoft::Newtonsoft.Json;
-using LBTNewtonSoft::Newtonsoft.Json.Converters;
+using LBT.Newtonsoft.Json;
+using LBT.Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 using HoneybeeSchema;
 
@@ -32,8 +31,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="ExteriorFaceGridParameter" /> class.
         /// </summary>
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
-        [System.Text.Json.Serialization.JsonConstructor]
+        [LBT.Newtonsoft.Json.JsonConstructorAttribute]
+        // [System.Text.Json.Serialization.JsonConstructor] // for future switching to System.Text.Json
         protected ExteriorFaceGridParameter() 
         { 
             // Set readonly properties with defaultValue
@@ -71,7 +70,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for how far to offset the grid from the Faces. (Default: 0.1, suitable for Models in Meters).")]
         [DataMember(Name = "offset")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("offset")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("offset")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double Offset { get; set; } = 0.1D;
 
         /// <summary>
@@ -79,7 +80,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"Text to specify the type of face that will be used to generate grids. Note that only Faces with Outdoors boundary conditions will be used, meaning that most Floors will typically be excluded unless they represent the underside of a cantilever.")]
         [DataMember(Name = "face_type")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("face_type")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("face_type")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public ExteriorFaceType FaceType { get; set; } = ExteriorFaceType.Wall;
 
         /// <summary>
@@ -87,7 +90,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A boolean to note whether the punched_geometry of the faces should be used (True) with the areas of sub-faces removed from the grid or the full geometry should be used (False).")]
         [DataMember(Name = "punched_geometry")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("punched_geometry")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("punched_geometry")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public bool PunchedGeometry { get; set; } = false;
 
 

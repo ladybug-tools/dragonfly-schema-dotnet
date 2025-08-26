@@ -4,7 +4,6 @@
  * Contact: info@ladybug.tools
  */
 
-extern alias LBTNewtonSoft;
 //using System;
 using System.Linq;
 using System.IO;
@@ -14,8 +13,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using LBTNewtonSoft::Newtonsoft.Json;
-using LBTNewtonSoft::Newtonsoft.Json.Converters;
+using LBT.Newtonsoft.Json;
+using LBT.Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 using HoneybeeSchema;
 
@@ -32,8 +31,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Model" /> class.
         /// </summary>
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
-        [System.Text.Json.Serialization.JsonConstructor]
+        [LBT.Newtonsoft.Json.JsonConstructorAttribute]
+        // [System.Text.Json.Serialization.JsonConstructor] // for future switching to System.Text.Json
         protected Model() 
         { 
             // Set readonly properties with defaultValue
@@ -83,7 +82,7 @@ namespace DragonflySchema
         [Summary(@"Extension properties for particular simulation engines (Radiance, EnergyPlus).")]
         [Required]
         [DataMember(Name = "properties", IsRequired = true)] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("properties")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("properties")] // For System.Text.Json
         public ModelProperties Properties { get; set; }
 
         /// <summary>
@@ -92,7 +91,9 @@ namespace DragonflySchema
         [Summary(@"Text string for the current version of the schema.")]
         [RegularExpression(@"([0-9]+)\.([0-9]+)\.([0-9]+)")]
         [DataMember(Name = "version")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("version")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("version")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string Version { get; set; } = "0.0.0";
 
         /// <summary>
@@ -100,7 +101,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A list of Buildings in the model.")]
         [DataMember(Name = "buildings")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("buildings")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("buildings")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<Building> Buildings { get; set; }
 
         /// <summary>
@@ -108,7 +111,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A list of ContextShades in the model.")]
         [DataMember(Name = "context_shades")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("context_shades")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("context_shades")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<ContextShade> ContextShades { get; set; }
 
         /// <summary>
@@ -116,7 +121,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"Text indicating the units in which the model geometry exists. This is used to scale the geometry to the correct units for simulation engines like EnergyPlus, which requires all geometry be in meters.")]
         [DataMember(Name = "units")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("units")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("units")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public Units Units { get; set; } = Units.Meters;
 
         /// <summary>
@@ -125,7 +132,9 @@ namespace DragonflySchema
         [Summary(@"The maximum difference between x, y, and z values at which vertices are considered equivalent. This value should be in the Model units and is used in a variety of checks and operations. A value of 0 will result in bypassing all checks so it is recommended that this always be a positive number when checks have not already been performed on a Model. The default of 0.01 is suitable for models in meters.")]
         [Range(0, double.MaxValue)]
         [DataMember(Name = "tolerance")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("tolerance")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("tolerance")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double Tolerance { get; set; } = 0.01D;
 
         /// <summary>
@@ -134,7 +143,9 @@ namespace DragonflySchema
         [Summary(@"The max angle difference in degrees that vertices are allowed to differ from one another in order to consider them colinear. This value is used in a variety of checks and operations that can be performed on geometry. A value of 0 will result in no checks and an inability to perform certain operations so it is recommended that this always be a positive number when checks have not already been performed on a given Model.")]
         [Range(0, double.MaxValue)]
         [DataMember(Name = "angle_tolerance")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("angle_tolerance")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("angle_tolerance")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double AngleTolerance { get; set; } = 1D;
 
         /// <summary>
@@ -142,7 +153,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A n optional list of 3 (x, y, z) values that describe a Vector3D relating the model to an original source coordinate system. Setting a value here is useful if the model has been moved from its original location and there may be future operations of merging geometry from the original source system.")]
         [DataMember(Name = "reference_vector")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("reference_vector")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("reference_vector")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<double> ReferenceVector { get; set; }
 
 
