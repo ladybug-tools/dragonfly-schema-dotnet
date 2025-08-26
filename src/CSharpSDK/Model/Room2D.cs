@@ -4,7 +4,6 @@
  * Contact: info@ladybug.tools
  */
 
-extern alias LBTNewtonSoft;
 //using System;
 using System.Linq;
 using System.IO;
@@ -14,8 +13,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using LBTNewtonSoft::Newtonsoft.Json;
-using LBTNewtonSoft::Newtonsoft.Json.Converters;
+using LBT.Newtonsoft.Json;
+using LBT.Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 using HoneybeeSchema;
 
@@ -32,8 +31,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="Room2D" /> class.
         /// </summary>
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
-        [System.Text.Json.Serialization.JsonConstructor]
+        [LBT.Newtonsoft.Json.JsonConstructorAttribute]
+        // [System.Text.Json.Serialization.JsonConstructor] // for future switching to System.Text.Json
         protected Room2D() 
         { 
             // Set readonly properties with defaultValue
@@ -101,7 +100,7 @@ namespace DragonflySchema
         [Summary(@"A list of 2D points representing the outer boundary vertices of the Room2D. The list should include at least 3 points and each point should be a list of 2 (x, y) values.")]
         [Required]
         [DataMember(Name = "floor_boundary", IsRequired = true)] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("floor_boundary")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("floor_boundary")] // For System.Text.Json
         public List<List<double>> FloorBoundary { get; set; }
 
         /// <summary>
@@ -110,7 +109,7 @@ namespace DragonflySchema
         [Summary(@"A number to indicate the height of the floor plane in the Z axis.")]
         [Required]
         [DataMember(Name = "floor_height", IsRequired = true)] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("floor_height")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("floor_height")] // For System.Text.Json
         public double FloorHeight { get; set; }
 
         /// <summary>
@@ -119,7 +118,7 @@ namespace DragonflySchema
         [Summary(@"A number for the distance between the floor and the ceiling.")]
         [Required]
         [DataMember(Name = "floor_to_ceiling_height", IsRequired = true)] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("floor_to_ceiling_height")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("floor_to_ceiling_height")] // For System.Text.Json
         public double FloorToCeilingHeight { get; set; }
 
         /// <summary>
@@ -128,7 +127,7 @@ namespace DragonflySchema
         [Summary(@"Extension properties for particular simulation engines (Radiance, EnergyPlus).")]
         [Required]
         [DataMember(Name = "properties", IsRequired = true)] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("properties")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("properties")] // For System.Text.Json
         public Room2DPropertiesAbridged Properties { get; set; }
 
         /// <summary>
@@ -136,7 +135,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"Optional list of lists with one list for each hole in the floor plate. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate.")]
         [DataMember(Name = "floor_holes")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("floor_holes")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("floor_holes")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<List<List<double>>> FloorHoles { get; set; }
 
         /// <summary>
@@ -144,7 +145,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A boolean noting whether this Room2D has its floor in contact with the ground.")]
         [DataMember(Name = "is_ground_contact")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("is_ground_contact")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("is_ground_contact")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public bool IsGroundContact { get; set; } = false;
 
         /// <summary>
@@ -152,7 +155,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A boolean noting whether this Room2D has its ceiling exposed to the outdoors.")]
         [DataMember(Name = "is_top_exposed")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("is_top_exposed")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("is_top_exposed")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public bool IsTopExposed { get; set; } = false;
 
         /// <summary>
@@ -160,7 +165,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A boolean for whether the room has a Floor (True) or an AirBoundary (False). If False, this property will only be meaningful if the model is translated to Honeybee with ceiling adjacency solved and there is a Room2D below this one with a has_ceiling property set to False.")]
         [DataMember(Name = "has_floor")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("has_floor")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("has_floor")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public bool HasFloor { get; set; } = true;
 
         /// <summary>
@@ -168,7 +175,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A boolean for whether the room has a RoofCeiling (True) or an AirBoundary (False). If False, this property will only be meaningful if the model is translated to Honeybee with ceiling adjacency solved and there is a Room2D above this one with a has_floor property set to False.")]
         [DataMember(Name = "has_ceiling")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("has_ceiling")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("has_ceiling")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public bool HasCeiling { get; set; } = true;
 
         /// <summary>
@@ -177,7 +186,9 @@ namespace DragonflySchema
         [Summary(@"A number for the depth that a ceiling plenum extends into the room. Setting this to a positive value will result in a separate plenum room being split off of the Room2D volume during translation from Dragonfly to Honeybee. The bottom of this ceiling plenum will always be at this Room2D ceiling height minus the value specified here. Setting this to zero indicates that the room has no ceiling plenum.")]
         [Range(0, double.MaxValue)]
         [DataMember(Name = "ceiling_plenum_depth")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("ceiling_plenum_depth")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("ceiling_plenum_depth")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double CeilingPlenumDepth { get; set; } = 0D;
 
         /// <summary>
@@ -186,7 +197,9 @@ namespace DragonflySchema
         [Summary(@"A number for the depth that a floor plenum extends into the room. Setting this to a positive value will result in a separate plenum room being split off of the Room2D volume during translation from Dragonfly to Honeybee. The top of this floor plenum will always be at this Room2D floor height plus the value specified here. Setting this to zero indicates that the room has no floor plenum.")]
         [Range(0, double.MaxValue)]
         [DataMember(Name = "floor_plenum_depth")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("floor_plenum_depth")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("floor_plenum_depth")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double FloorPlenumDepth { get; set; } = 0D;
 
         /// <summary>
@@ -194,7 +207,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"Text string for for the zone identifier to which this Room2D  belongs. Room2Ds sharing the same zone identifier are considered part of the same zone in a Building. If the zone identifier has not been specified, it will be the same as the Room2D identifier in the destination engine. Note that this property has no character restrictions.")]
         [DataMember(Name = "zone")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("zone")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("zone")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string Zone { get; set; }
 
         /// <summary>
@@ -202,7 +217,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A list of boundary conditions that match the number of segments in the input floor_geometry + floor_holes. These will be used to assign boundary conditions to each of the walls of the Room in the resulting model. Their order should align with the order of segments in the floor_boundary and then with each hole segment. If None, all boundary conditions will be Outdoors or Ground depending on whether ceiling height of the room is at or below 0 (the assumed ground plane).")]
         [DataMember(Name = "boundary_conditions")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("boundary_conditions")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("boundary_conditions")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<Ground, Outdoors, Surface, Adiabatic, OtherSideTemperature>> BoundaryConditions { get; set; }
 
         /// <summary>
@@ -210,7 +227,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A list of WindowParameter objects that dictate how the window geometries will be generated for each of the walls. If None, no windows will exist over the entire Room2D.")]
         [DataMember(Name = "window_parameters")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("window_parameters")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("window_parameters")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<SingleWindow, SimpleWindowArea, SimpleWindowRatio, RepeatingWindowRatio, RectangularWindows, DetailedWindows>> WindowParameters { get; set; }
 
         /// <summary>
@@ -218,7 +237,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A list of ShadingParameter objects that dictate how the shade geometries will be generated for each of the walls. If None, no shades will exist over the entire Room2D.")]
         [DataMember(Name = "shading_parameters")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("shading_parameters")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("shading_parameters")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<ExtrudedBorder, Overhang, LouversByDistance, LouversByCount>> ShadingParameters { get; set; }
 
         /// <summary>
@@ -226,7 +247,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A list of booleans for whether each wall has an air boundary type. False values indicate a standard opaque type while True values indicate an AirBoundary type. All walls will be False by default. Note that any walls with a True air boundary must have a Surface boundary condition without any windows.")]
         [DataMember(Name = "air_boundaries")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("air_boundaries")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("air_boundaries")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<bool> AirBoundaries { get; set; }
 
         /// <summary>
@@ -234,9 +257,9 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A SkylightParameter object describing how to generate skylights. If None, no skylights will exist on the Room2D.")]
         [DataMember(Name = "skylight_parameters")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("skylight_parameters")] // For System.Text.Json
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConverter(typeof(AnyOfJsonConverter))] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonConverter(typeof(AnyOfSystemJsonConverter))] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("skylight_parameters")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public AnyOf<GriddedSkylightArea, GriddedSkylightRatio, DetailedSkylights> SkylightParameters { get; set; }
 
 

@@ -4,7 +4,6 @@
  * Contact: info@ladybug.tools
  */
 
-extern alias LBTNewtonSoft;
 //using System;
 using System.Linq;
 using System.IO;
@@ -14,8 +13,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
-using LBTNewtonSoft::Newtonsoft.Json;
-using LBTNewtonSoft::Newtonsoft.Json.Converters;
+using LBT.Newtonsoft.Json;
+using LBT.Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
 using HoneybeeSchema;
 
@@ -32,8 +31,8 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildingEnergyPropertiesAbridged" /> class.
         /// </summary>
-        [LBTNewtonSoft.Newtonsoft.Json.JsonConstructorAttribute]
-        [System.Text.Json.Serialization.JsonConstructor]
+        [LBT.Newtonsoft.Json.JsonConstructorAttribute]
+        // [System.Text.Json.Serialization.JsonConstructor] // for future switching to System.Text.Json
         protected BuildingEnergyPropertiesAbridged() 
         { 
             // Set readonly properties with defaultValue
@@ -71,7 +70,9 @@ namespace DragonflySchema
         [MinLength(1)]
         [MaxLength(100)]
         [DataMember(Name = "construction_set")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("construction_set")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("construction_set")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string ConstructionSet { get; set; }
 
         /// <summary>
@@ -81,7 +82,9 @@ namespace DragonflySchema
         [MinLength(1)]
         [MaxLength(100)]
         [DataMember(Name = "ceiling_plenum_construction")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("ceiling_plenum_construction")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("ceiling_plenum_construction")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string CeilingPlenumConstruction { get; set; }
 
         /// <summary>
@@ -91,7 +94,9 @@ namespace DragonflySchema
         [MinLength(1)]
         [MaxLength(100)]
         [DataMember(Name = "floor_plenum_construction")] // For Newtonsoft.Json
-        [System.Text.Json.Serialization.JsonPropertyName("floor_plenum_construction")] // For System.Text.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("floor_plenum_construction")] // For System.Text.Json
+        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string FloorPlenumConstruction { get; set; }
 
 
