@@ -50,11 +50,11 @@ jobs:
           ref: refs/heads/master
           token: ${{ secrets.DEPS_UPDATING }}
 
-      - name: "Run Update Script"
+      - name: "Update Versions"
         env:
           VERSION: ${{ github.event.client_payload.version }}
         run: |
-          sed -i --regexp-extended 's/(Include="HoneybeeSchema" Version=").*(")/Include="HoneybeeSchema" Version="'"$VERSION"'"/' src/CSharpSDK/DragonflySchema.csproj
+          make update HB_VERSION=$VERSION
 
       - name: "Commit and Push Changes"
         id: push

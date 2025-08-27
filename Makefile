@@ -1,6 +1,7 @@
 .PHONY: sync-google-form
 
 NEW_RELEASE_VERSION ?= 0.0.1
+HB_VERSION ?= 0.0.1
 download:
 	cd ./.generator/SchemaGenerator && dotnet run --download --updateVersion
 
@@ -15,11 +16,18 @@ test:
 	make cs-test
 	make ts-test
 
+update:
+	make cs-update
+	make ts-update
+
 cs-sdk:
 	cd ./.generator/SchemaGenerator && dotnet run --genCsModel --genCsInterface --updateVersion
 
 cs-build:
 	cd ./src/CSharpSDK && dotnet build
+
+cs-update:
+	cd ./src/CSharpSDK && dotnet add DragonflySchema.csproj package HoneybeeSchema --version $(HB_VERSION)
 
 cs-test:
 	cd ./src/CSharpSDK.Tests && dotnet test
@@ -37,3 +45,7 @@ ts-test:
 	cd ./src/TypeScriptSDK.Tests && npm i ./../TypeScriptSDK/*-$(NEW_RELEASE_VERSION).tgz
 	cd ./src/TypeScriptSDK.Tests && npm i honeybee-schema
 	cd ./src/TypeScriptSDK.Tests && npm run test
+
+ts-update:
+	npm set //registry.npmjs.org/:_authToken=$(NPM_TOKEN)
+	cd ./src/TypeScriptSDK && npm i honeybee-schema@$(HB_VERSION)
