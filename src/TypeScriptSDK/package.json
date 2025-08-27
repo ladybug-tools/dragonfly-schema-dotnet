@@ -31,6 +31,6 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "honeybee-schema": "^1.5900.8"
+    "honeybee-schema": "^1.5901.1"
   }
 }
