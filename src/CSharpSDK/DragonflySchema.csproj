@@ -22,7 +22,7 @@
   
   <ItemGroup>
     <PackageReference Include="LBT.Newtonsoft.Json" Version="13.0.3.1" />
-    <PackageReference Include="HoneybeeSchema" Version="1.5901.0" />
+    <PackageReference Include="HoneybeeSchema" Version="1.5901.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
