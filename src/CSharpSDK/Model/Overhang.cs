@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"A single overhang over an entire wall.")]
     [System.Serializable]
-    [DataContract(Name = "Overhang")]
+    [DataContract(Name = "Overhang")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class Overhang : OpenAPIGenBaseModel, System.IEquatable<Overhang>
     {
         /// <summary>
@@ -65,8 +65,10 @@ namespace DragonflySchema
         /// A number for the overhang depth.
         /// </summary>
         [Summary(@"A number for the overhang depth.")]
-        [Required]
-        [DataMember(Name = "depth", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "depth", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("depth", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("depth")] // For System.Text.Json
         public double Depth { get; set; }
 
@@ -74,11 +76,11 @@ namespace DragonflySchema
         /// A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.
         /// </summary>
         [Summary(@"A number between -90 and 90 for the for an angle to rotate the overhang in degrees. 0 indicates an overhang perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
         [Range(-90, 90)]
-        [DataMember(Name = "angle")] // For Newtonsoft.Json
+        [DataMember(Name = "angle")] // For internal Serialization XML/JSON
+        [JsonProperty("angle", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("angle")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double Angle { get; set; } = 0D;
 
 

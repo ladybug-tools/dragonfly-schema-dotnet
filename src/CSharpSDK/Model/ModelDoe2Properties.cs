@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.")]
     [System.Serializable]
-    [DataContract(Name = "ModelDoe2Properties")]
+    [DataContract(Name = "ModelDoe2Properties")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class ModelDoe2Properties : OpenAPIGenBaseModel, System.IEquatable<ModelDoe2Properties>
     {
         /// <summary>

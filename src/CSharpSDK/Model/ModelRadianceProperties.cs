@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.")]
     [System.Serializable]
-    [DataContract(Name = "ModelRadianceProperties")]
+    [DataContract(Name = "ModelRadianceProperties")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class ModelRadianceProperties : OpenAPIGenBaseModel, System.IEquatable<ModelRadianceProperties>
     {
         /// <summary>
@@ -229,30 +229,30 @@ namespace DragonflySchema
         /// Global Radiance modifier set.
         /// </summary>
         [Summary(@"Global Radiance modifier set.")]
-        [DataMember(Name = "global_modifier_set")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "global_modifier_set")] // For internal Serialization XML/JSON
+        [JsonProperty("global_modifier_set", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("global_modifier_set")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public GlobalModifierSet GlobalModifierSet { get; protected set; } = GlobalModifierSetDefault;
 
         /// <summary>
         /// List of all ModifierSets in the Model.
         /// </summary>
         [Summary(@"List of all ModifierSets in the Model.")]
-        [DataMember(Name = "modifier_sets")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "modifier_sets")] // For internal Serialization XML/JSON
+        [JsonProperty("modifier_sets", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("modifier_sets")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<ModifierSet, ModifierSetAbridged>> ModifierSets { get; set; }
 
         /// <summary>
         /// A list of all unique modifiers in the model. This includes modifiers across all the Model modifier_sets.
         /// </summary>
         [Summary(@"A list of all unique modifiers in the model. This includes modifiers across all the Model modifier_sets.")]
-        [DataMember(Name = "modifiers")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "modifiers")] // For internal Serialization XML/JSON
+        [JsonProperty("modifiers", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("modifiers")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<Plastic, Glass, BSDF, Glow, Light, Trans, Metal, Void, Mirror>> Modifiers { get; set; }
 
 

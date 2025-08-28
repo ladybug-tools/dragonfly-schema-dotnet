@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.")]
     [System.Serializable]
-    [DataContract(Name = "StoryEnergyPropertiesAbridged")]
+    [DataContract(Name = "StoryEnergyPropertiesAbridged")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class StoryEnergyPropertiesAbridged : OpenAPIGenBaseModel, System.IEquatable<StoryEnergyPropertiesAbridged>
     {
         /// <summary>
@@ -63,12 +63,12 @@ namespace DragonflySchema
         /// Name of a ConstructionSet to specify all constructions for the Story. If None, the Story will use the Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects.
         /// </summary>
         [Summary(@"Name of a ConstructionSet to specify all constructions for the Story. If None, the Story will use the Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "construction_set")] // For Newtonsoft.Json
+        [DataMember(Name = "construction_set")] // For internal Serialization XML/JSON
+        [JsonProperty("construction_set", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("construction_set")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string ConstructionSet { get; set; }
 
 

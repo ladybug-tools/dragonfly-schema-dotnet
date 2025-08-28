@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Instructions for a SensorGrid generated from a Room2D's floors.")]
     [System.Serializable]
-    [DataContract(Name = "RoomGridParameter")]
+    [DataContract(Name = "RoomGridParameter")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class RoomGridParameter : GridParameterBase, System.IEquatable<RoomGridParameter>
     {
         /// <summary>
@@ -67,20 +67,20 @@ namespace DragonflySchema
         /// A number for how far to offset the grid from the Room2D floors. (Default: 1.0, suitable for Models in Meters).
         /// </summary>
         [Summary(@"A number for how far to offset the grid from the Room2D floors. (Default: 1.0, suitable for Models in Meters).")]
-        [DataMember(Name = "offset")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "offset")] // For internal Serialization XML/JSON
+        [JsonProperty("offset", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("offset")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double Offset { get; set; } = 1D;
 
         /// <summary>
         /// A number for the distance at which sensors close to walls should be removed. Note that this option has no effect unless the value is more than half of the dimension.
         /// </summary>
         [Summary(@"A number for the distance at which sensors close to walls should be removed. Note that this option has no effect unless the value is more than half of the dimension.")]
-        [DataMember(Name = "wall_offset")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "wall_offset")] // For internal Serialization XML/JSON
+        [JsonProperty("wall_offset", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("wall_offset")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double WallOffset { get; set; } = 0D;
 
 

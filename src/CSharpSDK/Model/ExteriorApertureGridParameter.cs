@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Instructions for a SensorGrid generated from exterior Aperture.")]
     [System.Serializable]
-    [DataContract(Name = "ExteriorApertureGridParameter")]
+    [DataContract(Name = "ExteriorApertureGridParameter")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class ExteriorApertureGridParameter : GridParameterBase, System.IEquatable<ExteriorApertureGridParameter>
     {
         /// <summary>
@@ -67,20 +67,20 @@ namespace DragonflySchema
         /// A number for how far to offset the grid from the Apertures. (Default: 0.1, suitable for Models in Meters).
         /// </summary>
         [Summary(@"A number for how far to offset the grid from the Apertures. (Default: 0.1, suitable for Models in Meters).")]
-        [DataMember(Name = "offset")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "offset")] // For internal Serialization XML/JSON
+        [JsonProperty("offset", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("offset")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double Offset { get; set; } = 0.1D;
 
         /// <summary>
         /// Text to specify the type of Aperture that will be used to generate grids. Window indicates Apertures in Walls. Skylights are in parent Roof faces.
         /// </summary>
         [Summary(@"Text to specify the type of Aperture that will be used to generate grids. Window indicates Apertures in Walls. Skylights are in parent Roof faces.")]
-        [DataMember(Name = "aperture_type")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "aperture_type")] // For internal Serialization XML/JSON
+        [JsonProperty("aperture_type", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("aperture_type")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public ExteriorApertureType ApertureType { get; set; } = ExteriorApertureType.All;
 
 

@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"A single window defined by an absolute area.")]
     [System.Serializable]
-    [DataContract(Name = "SimpleWindowArea")]
+    [DataContract(Name = "SimpleWindowArea")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class SimpleWindowArea : WindowParameterBase, System.IEquatable<SimpleWindowArea>
     {
         /// <summary>
@@ -66,8 +66,10 @@ namespace DragonflySchema
         /// A number for the window area in current model units. If this area is larger than the area of the Wall that it is appliedto, the window will fill the parent Wall at a 99 percent ratio.
         /// </summary>
         [Summary(@"A number for the window area in current model units. If this area is larger than the area of the Wall that it is appliedto, the window will fill the parent Wall at a 99 percent ratio.")]
-        [Required]
-        [DataMember(Name = "window_area", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "window_area", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("window_area", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("window_area")] // For System.Text.Json
         public double WindowArea { get; set; }
 
@@ -75,10 +77,10 @@ namespace DragonflySchema
         /// Boolean to note whether rectangular portions of base Face should be extracted before scaling them to create apertures. For pentagonal gabled geometries, this results in one rectangle and one triangle, which can often look more realistic and is a better input for engines like EnergyPlus that cannot model windows with more than 4 vertices. However, if a single pentagonal window is desired for such a gabled shape, this input can be set to False to produce such a result.
         /// </summary>
         [Summary(@"Boolean to note whether rectangular portions of base Face should be extracted before scaling them to create apertures. For pentagonal gabled geometries, this results in one rectangle and one triangle, which can often look more realistic and is a better input for engines like EnergyPlus that cannot model windows with more than 4 vertices. However, if a single pentagonal window is desired for such a gabled shape, this input can be set to False to produce such a result.")]
-        [DataMember(Name = "rect_split")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "rect_split")] // For internal Serialization XML/JSON
+        [JsonProperty("rect_split", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("rect_split")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public bool RectSplit { get; set; } = true;
 
 

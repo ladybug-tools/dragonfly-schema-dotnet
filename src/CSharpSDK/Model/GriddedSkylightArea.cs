@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Gridded skylights defined by an absolute area.")]
     [System.Serializable]
-    [DataContract(Name = "GriddedSkylightArea")]
+    [DataContract(Name = "GriddedSkylightArea")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class GriddedSkylightArea : OpenAPIGenBaseModel, System.IEquatable<GriddedSkylightArea>
     {
         /// <summary>
@@ -65,8 +65,10 @@ namespace DragonflySchema
         /// A number for the skylight area in current model units. If this area is larger than the area of the roof that it is applied to, the skylight will fill the parent roof at a 99 percent ratio.
         /// </summary>
         [Summary(@"A number for the skylight area in current model units. If this area is larger than the area of the roof that it is applied to, the skylight will fill the parent roof at a 99 percent ratio.")]
-        [Required]
-        [DataMember(Name = "skylight_area", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "skylight_area", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("skylight_area", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("skylight_area")] // For System.Text.Json
         public double SkylightArea { get; set; }
 
@@ -74,10 +76,10 @@ namespace DragonflySchema
         /// A number for the spacing between the centers of each grid cell. This should be less than a third of the dimension of the Roof geometry if multiple, evenly-spaced skylights are desired. If Autocalculate, a spacing of one third the smaller dimension of the parent Roof will be automatically assumed.
         /// </summary>
         [Summary(@"A number for the spacing between the centers of each grid cell. This should be less than a third of the dimension of the Roof geometry if multiple, evenly-spaced skylights are desired. If Autocalculate, a spacing of one third the smaller dimension of the parent Roof will be automatically assumed.")]
-        [DataMember(Name = "spacing")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "spacing")] // For internal Serialization XML/JSON
+        [JsonProperty("spacing", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("spacing")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public AnyOf<Autocalculate, double> Spacing { get; set; } = new Autocalculate();
 
 

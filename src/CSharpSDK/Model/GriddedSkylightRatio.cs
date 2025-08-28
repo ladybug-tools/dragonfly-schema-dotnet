@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Gridded skylights derived from an area ratio with the roof.")]
     [System.Serializable]
-    [DataContract(Name = "GriddedSkylightRatio")]
+    [DataContract(Name = "GriddedSkylightRatio")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class GriddedSkylightRatio : OpenAPIGenBaseModel, System.IEquatable<GriddedSkylightRatio>
     {
         /// <summary>
@@ -65,8 +65,10 @@ namespace DragonflySchema
         /// A number between 0 and 1 for the ratio between the skylight area and the total Roof face area.
         /// </summary>
         [Summary(@"A number between 0 and 1 for the ratio between the skylight area and the total Roof face area.")]
-        [Required]
-        [DataMember(Name = "skylight_ratio", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "skylight_ratio", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("skylight_ratio", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("skylight_ratio")] // For System.Text.Json
         public double SkylightRatio { get; set; }
 
@@ -74,10 +76,10 @@ namespace DragonflySchema
         /// A number for the spacing between the centers of each grid cell. This should be less than a third of the dimension of the Roof geometry if multiple, evenly-spaced skylights are desired. If Autocalculate, a spacing of one third the smaller dimension of the parent Roof will be automatically assumed.
         /// </summary>
         [Summary(@"A number for the spacing between the centers of each grid cell. This should be less than a third of the dimension of the Roof geometry if multiple, evenly-spaced skylights are desired. If Autocalculate, a spacing of one third the smaller dimension of the parent Roof will be automatically assumed.")]
-        [DataMember(Name = "spacing")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "spacing")] // For internal Serialization XML/JSON
+        [JsonProperty("spacing", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("spacing")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public AnyOf<Autocalculate, double> Spacing { get; set; } = new Autocalculate();
 
 

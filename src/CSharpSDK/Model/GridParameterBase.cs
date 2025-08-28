@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base object for all GridParameters.")]
     [System.Serializable]
-    [DataContract(Name = "_GridParameterBase")]
+    [DataContract(Name = "GridParameterBase")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class GridParameterBase : OpenAPIGenBaseModel, System.IEquatable<GridParameterBase>
     {
         /// <summary>
@@ -65,8 +65,10 @@ namespace DragonflySchema
         /// The dimension of the grid cells as a number.
         /// </summary>
         [Summary(@"The dimension of the grid cells as a number.")]
-        [Required]
-        [DataMember(Name = "dimension", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "dimension", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("dimension", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("dimension")] // For System.Text.Json
         public double Dimension { get; set; }
 
@@ -74,10 +76,10 @@ namespace DragonflySchema
         /// A boolean to note whether the resulting SensorGrid should include the mesh.
         /// </summary>
         [Summary(@"A boolean to note whether the resulting SensorGrid should include the mesh.")]
-        [DataMember(Name = "include_mesh")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "include_mesh")] // For internal Serialization XML/JSON
+        [JsonProperty("include_mesh", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("include_mesh")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public bool IncludeMesh { get; set; } = true;
 
 

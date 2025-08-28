@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Several detailed skylights defined by 2D Polygons (lists of 2D vertices).")]
     [System.Serializable]
-    [DataContract(Name = "DetailedSkylights")]
+    [DataContract(Name = "DetailedSkylights")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class DetailedSkylights : OpenAPIGenBaseModel, System.IEquatable<DetailedSkylights>
     {
         /// <summary>
@@ -65,8 +65,10 @@ namespace DragonflySchema
         /// An array of arrays with each sub-array representing a polygonal boundary of a skylight. Each sub-array should consist of arrays representing points, which contain 2 values for 2D coordinates in the world XY system. These coordinate values should lie within the parent Room2D Polygon.
         /// </summary>
         [Summary(@"An array of arrays with each sub-array representing a polygonal boundary of a skylight. Each sub-array should consist of arrays representing points, which contain 2 values for 2D coordinates in the world XY system. These coordinate values should lie within the parent Room2D Polygon.")]
-        [Required]
-        [DataMember(Name = "polygons", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "polygons", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("polygons", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("polygons")] // For System.Text.Json
         public List<List<List<double>>> Polygons { get; set; }
 
@@ -74,10 +76,10 @@ namespace DragonflySchema
         /// An array of booleans that align with the polygons and note whether each of the polygons represents an overhead door (True) or a skylight (False). If None, it will be assumed that all polygons represent skylights and they will be translated to Apertures in any resulting Honeybee model.
         /// </summary>
         [Summary(@"An array of booleans that align with the polygons and note whether each of the polygons represents an overhead door (True) or a skylight (False). If None, it will be assumed that all polygons represent skylights and they will be translated to Apertures in any resulting Honeybee model.")]
-        [DataMember(Name = "are_doors")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "are_doors")] // For internal Serialization XML/JSON
+        [JsonProperty("are_doors", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("are_doors")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<bool> AreDoors { get; set; }
 
 

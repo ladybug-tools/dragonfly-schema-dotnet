@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Extruded borders over all windows in the wall.")]
     [System.Serializable]
-    [DataContract(Name = "ExtrudedBorder")]
+    [DataContract(Name = "ExtrudedBorder")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class ExtrudedBorder : OpenAPIGenBaseModel, System.IEquatable<ExtrudedBorder>
     {
         /// <summary>
@@ -63,8 +63,10 @@ namespace DragonflySchema
         /// A number for the depth of the border.
         /// </summary>
         [Summary(@"A number for the depth of the border.")]
-        [Required]
-        [DataMember(Name = "depth", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "depth", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("depth", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("depth")] // For System.Text.Json
         public double Depth { get; set; }
 

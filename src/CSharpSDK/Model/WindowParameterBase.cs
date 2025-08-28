@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all window parameters.")]
     [System.Serializable]
-    [DataContract(Name = "_WindowParameterBase")]
+    [DataContract(Name = "WindowParameterBase")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class WindowParameterBase : OpenAPIGenBaseModel, System.IEquatable<WindowParameterBase>
     {
         /// <summary>
@@ -63,10 +63,10 @@ namespace DragonflySchema
         /// Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures.
         /// </summary>
         [Summary(@"Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures.")]
-        [DataMember(Name = "user_data")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "user_data")] // For internal Serialization XML/JSON
+        [JsonProperty("user_data", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("user_data")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public object UserData { get; set; }
 
 

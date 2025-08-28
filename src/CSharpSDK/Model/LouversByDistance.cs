@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"A series of louvered Shades at a given distance between each louver.")]
     [System.Serializable]
-    [DataContract(Name = "LouversByDistance")]
+    [DataContract(Name = "LouversByDistance")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class LouversByDistance : LouversBase, System.IEquatable<LouversByDistance>
     {
         /// <summary>
@@ -68,8 +68,10 @@ namespace DragonflySchema
         /// A number for the approximate distance between each louver.
         /// </summary>
         [Summary(@"A number for the approximate distance between each louver.")]
-        [Required]
-        [DataMember(Name = "distance", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "distance", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("distance", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("distance")] // For System.Text.Json
         public double Distance { get; set; }
 
