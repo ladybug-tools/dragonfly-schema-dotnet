@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all objects requiring a identifiers acceptable for all engines.")]
     [System.Serializable]
-    [DataContract(Name = "Model")]
+    [DataContract(Name = "Model")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class Model : IDdBaseModel, System.IEquatable<Model>
     {
         /// <summary>
@@ -80,8 +80,10 @@ namespace DragonflySchema
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         [Summary(@"Extension properties for particular simulation engines (Radiance, EnergyPlus).")]
-        [Required]
-        [DataMember(Name = "properties", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "properties", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("properties", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("properties")] // For System.Text.Json
         public ModelProperties Properties { get; set; }
 
@@ -89,73 +91,73 @@ namespace DragonflySchema
         /// Text string for the current version of the schema.
         /// </summary>
         [Summary(@"Text string for the current version of the schema.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
         [RegularExpression(@"([0-9]+)\.([0-9]+)\.([0-9]+)")]
-        [DataMember(Name = "version")] // For Newtonsoft.Json
+        [DataMember(Name = "version")] // For internal Serialization XML/JSON
+        [JsonProperty("version", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("version")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string Version { get; set; } = "0.0.0";
 
         /// <summary>
         /// A list of Buildings in the model.
         /// </summary>
         [Summary(@"A list of Buildings in the model.")]
-        [DataMember(Name = "buildings")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "buildings")] // For internal Serialization XML/JSON
+        [JsonProperty("buildings", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("buildings")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<Building> Buildings { get; set; }
 
         /// <summary>
         /// A list of ContextShades in the model.
         /// </summary>
         [Summary(@"A list of ContextShades in the model.")]
-        [DataMember(Name = "context_shades")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "context_shades")] // For internal Serialization XML/JSON
+        [JsonProperty("context_shades", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("context_shades")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<ContextShade> ContextShades { get; set; }
 
         /// <summary>
         /// Text indicating the units in which the model geometry exists. This is used to scale the geometry to the correct units for simulation engines like EnergyPlus, which requires all geometry be in meters.
         /// </summary>
         [Summary(@"Text indicating the units in which the model geometry exists. This is used to scale the geometry to the correct units for simulation engines like EnergyPlus, which requires all geometry be in meters.")]
-        [DataMember(Name = "units")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "units")] // For internal Serialization XML/JSON
+        [JsonProperty("units", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("units")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public Units Units { get; set; } = Units.Meters;
 
         /// <summary>
         /// The maximum difference between x, y, and z values at which vertices are considered equivalent. This value should be in the Model units and is used in a variety of checks and operations. A value of 0 will result in bypassing all checks so it is recommended that this always be a positive number when checks have not already been performed on a Model. The default of 0.01 is suitable for models in meters.
         /// </summary>
         [Summary(@"The maximum difference between x, y, and z values at which vertices are considered equivalent. This value should be in the Model units and is used in a variety of checks and operations. A value of 0 will result in bypassing all checks so it is recommended that this always be a positive number when checks have not already been performed on a Model. The default of 0.01 is suitable for models in meters.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
         [Range(0, double.MaxValue)]
-        [DataMember(Name = "tolerance")] // For Newtonsoft.Json
+        [DataMember(Name = "tolerance")] // For internal Serialization XML/JSON
+        [JsonProperty("tolerance", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("tolerance")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double Tolerance { get; set; } = 0.01D;
 
         /// <summary>
         /// The max angle difference in degrees that vertices are allowed to differ from one another in order to consider them colinear. This value is used in a variety of checks and operations that can be performed on geometry. A value of 0 will result in no checks and an inability to perform certain operations so it is recommended that this always be a positive number when checks have not already been performed on a given Model.
         /// </summary>
         [Summary(@"The max angle difference in degrees that vertices are allowed to differ from one another in order to consider them colinear. This value is used in a variety of checks and operations that can be performed on geometry. A value of 0 will result in no checks and an inability to perform certain operations so it is recommended that this always be a positive number when checks have not already been performed on a given Model.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
         [Range(0, double.MaxValue)]
-        [DataMember(Name = "angle_tolerance")] // For Newtonsoft.Json
+        [DataMember(Name = "angle_tolerance")] // For internal Serialization XML/JSON
+        [JsonProperty("angle_tolerance", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("angle_tolerance")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double AngleTolerance { get; set; } = 1D;
 
         /// <summary>
         /// A n optional list of 3 (x, y, z) values that describe a Vector3D relating the model to an original source coordinate system. Setting a value here is useful if the model has been moved from its original location and there may be future operations of merging geometry from the original source system.
         /// </summary>
         [Summary(@"A n optional list of 3 (x, y, z) values that describe a Vector3D relating the model to an original source coordinate system. Setting a value here is useful if the model has been moved from its original location and there may be future operations of merging geometry from the original source system.")]
-        [DataMember(Name = "reference_vector")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "reference_vector")] // For internal Serialization XML/JSON
+        [JsonProperty("reference_vector", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("reference_vector")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<double> ReferenceVector { get; set; }
 
 

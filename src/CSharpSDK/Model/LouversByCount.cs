@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"A specific number of louvered Shades over a wall.")]
     [System.Serializable]
-    [DataContract(Name = "LouversByCount")]
+    [DataContract(Name = "LouversByCount")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class LouversByCount : LouversBase, System.IEquatable<LouversByCount>
     {
         /// <summary>
@@ -68,8 +68,10 @@ namespace DragonflySchema
         /// A positive integer for the number of louvers to generate.
         /// </summary>
         [Summary(@"A positive integer for the number of louvers to generate.")]
-        [Required]
-        [DataMember(Name = "louver_count", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "louver_count", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("louver_count", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("louver_count")] // For System.Text.Json
         public int LouverCount { get; set; }
 

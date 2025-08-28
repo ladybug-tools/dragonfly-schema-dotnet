@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.")]
     [System.Serializable]
-    [DataContract(Name = "ModelComparisonProperties")]
+    [DataContract(Name = "ModelComparisonProperties")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class ModelComparisonProperties : OpenAPIGenBaseModel, System.IEquatable<ModelComparisonProperties>
     {
         /// <summary>

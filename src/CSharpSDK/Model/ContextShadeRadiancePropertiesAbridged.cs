@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.")]
     [System.Serializable]
-    [DataContract(Name = "ContextShadeRadiancePropertiesAbridged")]
+    [DataContract(Name = "ContextShadeRadiancePropertiesAbridged")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class ContextShadeRadiancePropertiesAbridged : OpenAPIGenBaseModel, System.IEquatable<ContextShadeRadiancePropertiesAbridged>
     {
         /// <summary>
@@ -63,10 +63,10 @@ namespace DragonflySchema
         /// Name of a Modifier to set the reflectance and specularity of the ContextShade. If None, the the default of 0.2 diffuse reflectance will be used.
         /// </summary>
         [Summary(@"Name of a Modifier to set the reflectance and specularity of the ContextShade. If None, the the default of 0.2 diffuse reflectance will be used.")]
-        [DataMember(Name = "modifier")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "modifier")] // For internal Serialization XML/JSON
+        [JsonProperty("modifier", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("modifier")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string Modifier { get; set; }
 
 

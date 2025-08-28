@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.")]
     [System.Serializable]
-    [DataContract(Name = "Room2DComparisonProperties")]
+    [DataContract(Name = "Room2DComparisonProperties")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class Room2DComparisonProperties : OpenAPIGenBaseModel, System.IEquatable<Room2DComparisonProperties>
     {
         /// <summary>
@@ -69,40 +69,40 @@ namespace DragonflySchema
         /// A list of 2D points representing the outer boundary vertices of the Room2D to which the host Room2D is being compared. The list should include at least 3 points and each point should be a list of 2 (x, y) values.
         /// </summary>
         [Summary(@"A list of 2D points representing the outer boundary vertices of the Room2D to which the host Room2D is being compared. The list should include at least 3 points and each point should be a list of 2 (x, y) values.")]
-        [DataMember(Name = "floor_boundary")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "floor_boundary")] // For internal Serialization XML/JSON
+        [JsonProperty("floor_boundary", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("floor_boundary")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<List<double>> FloorBoundary { get; set; }
 
         /// <summary>
         /// Optional list of lists with one list for each hole in the floor plate of the Room2D to which the host Room2D is being compared. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate.
         /// </summary>
         [Summary(@"Optional list of lists with one list for each hole in the floor plate of the Room2D to which the host Room2D is being compared. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate.")]
-        [DataMember(Name = "floor_holes")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "floor_holes")] // For internal Serialization XML/JSON
+        [JsonProperty("floor_holes", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("floor_holes")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<List<List<double>>> FloorHoles { get; set; }
 
         /// <summary>
         /// A list of WindowParameter objects that dictate the window geometries of the Room2D to which the host Room2D is being compared.
         /// </summary>
         [Summary(@"A list of WindowParameter objects that dictate the window geometries of the Room2D to which the host Room2D is being compared.")]
-        [DataMember(Name = "comparison_windows")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "comparison_windows")] // For internal Serialization XML/JSON
+        [JsonProperty("comparison_windows", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("comparison_windows")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<SingleWindow, SimpleWindowArea, SimpleWindowRatio, RepeatingWindowRatio, RectangularWindows, DetailedWindows>> ComparisonWindows { get; set; }
 
         /// <summary>
         /// A SkylightParameter object for the Room2D to which the host Room2D is being compared.
         /// </summary>
         [Summary(@"A SkylightParameter object for the Room2D to which the host Room2D is being compared.")]
-        [DataMember(Name = "comparison_skylight")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "comparison_skylight")] // For internal Serialization XML/JSON
+        [JsonProperty("comparison_skylight", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("comparison_skylight")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public AnyOf<GriddedSkylightArea, GriddedSkylightRatio, DetailedSkylights> ComparisonSkylight { get; set; }
 
 

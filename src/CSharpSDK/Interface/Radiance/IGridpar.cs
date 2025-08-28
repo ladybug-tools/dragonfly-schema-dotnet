@@ -14,10 +14,10 @@ namespace DragonflySchema
 	
 	public partial class ExteriorFaceGridParameter: DragonflySchema.Radiance.IGridpar {}
 	
+	public partial class GridParameterBase: DragonflySchema.Radiance.IGridpar {}
+	
 	public partial class RoomGridParameter: DragonflySchema.Radiance.IGridpar {}
 	
 	public partial class RoomRadialGridParameter: DragonflySchema.Radiance.IGridpar {}
-	
-	public partial class GridParameterBase: DragonflySchema.Radiance.IGridpar {}
 	
 }

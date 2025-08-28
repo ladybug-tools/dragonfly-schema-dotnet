@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Several rectangular windows, defined by origin, width and height.")]
     [System.Serializable]
-    [DataContract(Name = "RectangularWindows")]
+    [DataContract(Name = "RectangularWindows")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class RectangularWindows : WindowParameterBase, System.IEquatable<RectangularWindows>
     {
         /// <summary>
@@ -70,8 +70,10 @@ namespace DragonflySchema
         /// An array of 2D points within the plane of the wall for the origin of each window. Each point should be a list of 2 (x, y) values. The wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each origin point should be positive.
         /// </summary>
         [Summary(@"An array of 2D points within the plane of the wall for the origin of each window. Each point should be a list of 2 (x, y) values. The wall plane is assumed to have an origin at the first point of the wall segment and an X-axis extending along the length of the segment. The wall plane Y-axis always points upwards. Therefore, both X and Y values of each origin point should be positive.")]
-        [Required]
-        [DataMember(Name = "origins", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "origins", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("origins", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("origins")] // For System.Text.Json
         public List<List<double>> Origins { get; set; }
 
@@ -79,8 +81,10 @@ namespace DragonflySchema
         /// An array of positive numbers for the window widths. The length of this list must match the length of the origins.
         /// </summary>
         [Summary(@"An array of positive numbers for the window widths. The length of this list must match the length of the origins.")]
-        [Required]
-        [DataMember(Name = "widths", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "widths", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("widths", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("widths")] // For System.Text.Json
         public List<double> Widths { get; set; }
 
@@ -88,8 +92,10 @@ namespace DragonflySchema
         /// An array of positive numbers for the window heights. The length of this list must match the length of the origins.
         /// </summary>
         [Summary(@"An array of positive numbers for the window heights. The length of this list must match the length of the origins.")]
-        [Required]
-        [DataMember(Name = "heights", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "heights", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("heights", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("heights")] // For System.Text.Json
         public List<double> Heights { get; set; }
 
@@ -97,10 +103,10 @@ namespace DragonflySchema
         /// An array of booleans that align with the origins and note whether each of the geometries represents a door (True) or a window (False). If None, it will be assumed that all geometries represent windows and they will be translated to Apertures in any resulting Honeybee model.
         /// </summary>
         [Summary(@"An array of booleans that align with the origins and note whether each of the geometries represents a door (True) or a window (False). If None, it will be assumed that all geometries represent windows and they will be translated to Apertures in any resulting Honeybee model.")]
-        [DataMember(Name = "are_doors")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "are_doors")] // For internal Serialization XML/JSON
+        [JsonProperty("are_doors", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("are_doors")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<bool> AreDoors { get; set; }
 
 

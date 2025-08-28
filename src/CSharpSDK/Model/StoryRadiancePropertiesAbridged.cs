@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.")]
     [System.Serializable]
-    [DataContract(Name = "StoryRadiancePropertiesAbridged")]
+    [DataContract(Name = "StoryRadiancePropertiesAbridged")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class StoryRadiancePropertiesAbridged : OpenAPIGenBaseModel, System.IEquatable<StoryRadiancePropertiesAbridged>
     {
         /// <summary>
@@ -63,10 +63,10 @@ namespace DragonflySchema
         /// Name of a ModifierSet to specify all modifiers for the Story. If None, the Story will use the Building modifier_set or the Model global_modifier_set. Any ModifierSet assigned here will override those assigned to the parent objects.
         /// </summary>
         [Summary(@"Name of a ModifierSet to specify all modifiers for the Story. If None, the Story will use the Building modifier_set or the Model global_modifier_set. Any ModifierSet assigned here will override those assigned to the parent objects.")]
-        [DataMember(Name = "modifier_set")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "modifier_set")] // For internal Serialization XML/JSON
+        [JsonProperty("modifier_set", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("modifier_set")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string ModifierSet { get; set; }
 
 

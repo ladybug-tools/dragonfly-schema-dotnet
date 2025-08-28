@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Instructions for a SensorGrid of radial directions around positions from floors.\n\nThis type of sensor grid is particularly helpful for studies of multiple\nview directions, such as imageless glare studies.")]
     [System.Serializable]
-    [DataContract(Name = "RoomRadialGridParameter")]
+    [DataContract(Name = "RoomRadialGridParameter")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class RoomRadialGridParameter : RoomGridParameter, System.IEquatable<RoomRadialGridParameter>
     {
         /// <summary>
@@ -71,30 +71,30 @@ namespace DragonflySchema
         /// A positive integer for the number of radial directions to be generated around each position.
         /// </summary>
         [Summary(@"A positive integer for the number of radial directions to be generated around each position.")]
-        [DataMember(Name = "dir_count")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "dir_count")] // For internal Serialization XML/JSON
+        [JsonProperty("dir_count", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("dir_count")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public int DirCount { get; set; } = 8;
 
         /// <summary>
         /// A vector as 3 (x, y, z) values to set the start direction of the generated directions. This can be used to orient the resulting sensors to specific parts of the scene. It can also change the elevation of the resulting directions since this start vector will always be rotated in the XY plane to generate the resulting directions.
         /// </summary>
         [Summary(@"A vector as 3 (x, y, z) values to set the start direction of the generated directions. This can be used to orient the resulting sensors to specific parts of the scene. It can also change the elevation of the resulting directions since this start vector will always be rotated in the XY plane to generate the resulting directions.")]
-        [DataMember(Name = "start_vector")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "start_vector")] // For internal Serialization XML/JSON
+        [JsonProperty("start_vector", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("start_vector")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<double> StartVector { get; set; }
 
         /// <summary>
         /// An optional number to override the radius of the meshes generated around each sensor. If Autocalculate, it will be equal to 45 percent of the grid dimension.
         /// </summary>
         [Summary(@"An optional number to override the radius of the meshes generated around each sensor. If Autocalculate, it will be equal to 45 percent of the grid dimension.")]
-        [DataMember(Name = "mesh_radius")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "mesh_radius")] // For internal Serialization XML/JSON
+        [JsonProperty("mesh_radius", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("mesh_radius")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public AnyOf<Autocalculate, double> MeshRadius { get; set; } = new Autocalculate();
 
 

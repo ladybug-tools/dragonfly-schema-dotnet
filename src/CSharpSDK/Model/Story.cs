@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all objects requiring a identifiers acceptable for all engines.")]
     [System.Serializable]
-    [DataContract(Name = "Story")]
+    [DataContract(Name = "Story")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class Story : IDdBaseModel, System.IEquatable<Story>
     {
         /// <summary>
@@ -78,8 +78,10 @@ namespace DragonflySchema
         /// An array of dragonfly Room2D objects that together form an entire story of a building.
         /// </summary>
         [Summary(@"An array of dragonfly Room2D objects that together form an entire story of a building.")]
-        [Required]
-        [DataMember(Name = "room_2ds", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "room_2ds", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("room_2ds", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("room_2ds")] // For System.Text.Json
         public List<Room2D> Room2ds { get; set; }
 
@@ -87,8 +89,10 @@ namespace DragonflySchema
         /// Extension properties for particular simulation engines (Radiance, EnergyPlus).
         /// </summary>
         [Summary(@"Extension properties for particular simulation engines (Radiance, EnergyPlus).")]
-        [Required]
-        [DataMember(Name = "properties", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "properties", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("properties", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("properties")] // For System.Text.Json
         public StoryPropertiesAbridged Properties { get; set; }
 
@@ -96,51 +100,51 @@ namespace DragonflySchema
         /// A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If Autocalculate, this value will be the maximum floor_to_ceiling_height of the input room_2ds.
         /// </summary>
         [Summary(@"A number for the distance from the floor plate of this story to the floor of the story above this one (if it exists). If Autocalculate, this value will be the maximum floor_to_ceiling_height of the input room_2ds.")]
-        [DataMember(Name = "floor_to_floor_height")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "floor_to_floor_height")] // For internal Serialization XML/JSON
+        [JsonProperty("floor_to_floor_height", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("floor_to_floor_height")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public AnyOf<Autocalculate, double> FloorToFloorHeight { get; set; } = new Autocalculate();
 
         /// <summary>
         /// A number to indicate the height of the floor plane in the Z axis.If Autocalculate, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums.
         /// </summary>
         [Summary(@"A number to indicate the height of the floor plane in the Z axis.If Autocalculate, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums.")]
-        [DataMember(Name = "floor_height")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "floor_height")] // For internal Serialization XML/JSON
+        [JsonProperty("floor_height", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("floor_height")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public AnyOf<Autocalculate, double> FloorHeight { get; set; } = new Autocalculate();
 
         /// <summary>
         /// An integer that denotes the number of times that this Story is repeated over the height of the building.
         /// </summary>
         [Summary(@"An integer that denotes the number of times that this Story is repeated over the height of the building.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
         [Range(1, int.MaxValue)]
-        [DataMember(Name = "multiplier")] // For Newtonsoft.Json
+        [DataMember(Name = "multiplier")] // For internal Serialization XML/JSON
+        [JsonProperty("multiplier", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("multiplier")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public int Multiplier { get; set; } = 1;
 
         /// <summary>
         /// An optional RoofSpecification object containing geometry for generating sloped roofs over the Story. The RoofSpecification will only affect the child Room2Ds that have a True is_top_exposed property and it will only be utilized in translation to Honeybee when the Story multiplier is 1. If None, all Room2D ceilings will be flat.
         /// </summary>
         [Summary(@"An optional RoofSpecification object containing geometry for generating sloped roofs over the Story. The RoofSpecification will only affect the child Room2Ds that have a True is_top_exposed property and it will only be utilized in translation to Honeybee when the Story multiplier is 1. If None, all Room2D ceilings will be flat.")]
-        [DataMember(Name = "roof")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "roof")] // For internal Serialization XML/JSON
+        [JsonProperty("roof", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("roof")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public RoofSpecification Roof { get; set; }
 
         /// <summary>
         /// Text to indicate the type of story. Stories that are plenums are translated to Honeybee with excluded floor areas.
         /// </summary>
         [Summary(@"Text to indicate the type of story. Stories that are plenums are translated to Honeybee with excluded floor areas.")]
-        [DataMember(Name = "story_type")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "story_type")] // For internal Serialization XML/JSON
+        [JsonProperty("story_type", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("story_type")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public StoryType StoryType { get; set; } = StoryType.Standard;
 
 

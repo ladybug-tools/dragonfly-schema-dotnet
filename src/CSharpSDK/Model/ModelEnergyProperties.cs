@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.")]
     [System.Serializable]
-    [DataContract(Name = "ModelEnergyProperties")]
+    [DataContract(Name = "ModelEnergyProperties")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class ModelEnergyProperties : OpenAPIGenBaseModel, System.IEquatable<ModelEnergyProperties>
     {
         /// <summary>
@@ -509,90 +509,90 @@ namespace DragonflySchema
         /// Global Energy construction set.
         /// </summary>
         [Summary(@"Global Energy construction set.")]
-        [DataMember(Name = "global_construction_set")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "global_construction_set")] // For internal Serialization XML/JSON
+        [JsonProperty("global_construction_set", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("global_construction_set")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public GlobalConstructionSet GlobalConstructionSet { get; protected set; } = GlobalConstructionSetDefault;
 
         /// <summary>
         /// List of all ConstructionSets in the Model.
         /// </summary>
         [Summary(@"List of all ConstructionSets in the Model.")]
-        [DataMember(Name = "construction_sets")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "construction_sets")] // For internal Serialization XML/JSON
+        [JsonProperty("construction_sets", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("construction_sets")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<ConstructionSetAbridged, ConstructionSet>> ConstructionSets { get; set; }
 
         /// <summary>
         /// A list of all unique constructions in the model. This includes constructions across all the Model construction_sets.
         /// </summary>
         [Summary(@"A list of all unique constructions in the model. This includes constructions across all the Model construction_sets.")]
-        [DataMember(Name = "constructions")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "constructions")] // For internal Serialization XML/JSON
+        [JsonProperty("constructions", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("constructions")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<OpaqueConstructionAbridged, WindowConstructionAbridged, ShadeConstruction, AirBoundaryConstructionAbridged, OpaqueConstruction, WindowConstruction, AirBoundaryConstruction>> Constructions { get; set; }
 
         /// <summary>
         /// A list of all unique materials in the model. This includes materials needed to make the Model constructions.
         /// </summary>
         [Summary(@"A list of all unique materials in the model. This includes materials needed to make the Model constructions.")]
-        [DataMember(Name = "materials")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "materials")] // For internal Serialization XML/JSON
+        [JsonProperty("materials", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("materials")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<EnergyMaterial, EnergyMaterialNoMass, EnergyMaterialVegetation, EnergyWindowMaterialGlazing, EnergyWindowMaterialSimpleGlazSys, EnergyWindowMaterialGas, EnergyWindowMaterialGasMixture, EnergyWindowMaterialGasCustom, EnergyWindowFrame, EnergyWindowMaterialBlind, EnergyWindowMaterialShade>> Materials { get; set; }
 
         /// <summary>
         /// List of all HVAC systems in the Model.
         /// </summary>
         [Summary(@"List of all HVAC systems in the Model.")]
-        [DataMember(Name = "hvacs")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "hvacs")] // For internal Serialization XML/JSON
+        [JsonProperty("hvacs", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("hvacs")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<IdealAirSystemAbridged, VAV, PVAV, PSZ, PTAC, ForcedAirFurnace, FCUwithDOASAbridged, WSHPwithDOASAbridged, VRFwithDOASAbridged, RadiantwithDOASAbridged, FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residential, WindowAC, GasUnitHeater, Radiant, DetailedHVAC>> Hvacs { get; set; }
 
         /// <summary>
         /// List of all Service Hot Water (SHW) systems in the Model.
         /// </summary>
         [Summary(@"List of all Service Hot Water (SHW) systems in the Model.")]
-        [DataMember(Name = "shws")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "shws")] // For internal Serialization XML/JSON
+        [JsonProperty("shws", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("shws")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<SHWSystem> Shws { get; set; }
 
         /// <summary>
         /// List of all ProgramTypes in the Model.
         /// </summary>
         [Summary(@"List of all ProgramTypes in the Model.")]
-        [DataMember(Name = "program_types")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "program_types")] // For internal Serialization XML/JSON
+        [JsonProperty("program_types", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("program_types")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<ProgramTypeAbridged, ProgramType>> ProgramTypes { get; set; }
 
         /// <summary>
         /// A list of all unique schedules in the model. This includes schedules across all HVAC systems, ProgramTypes and ContextShades.
         /// </summary>
         [Summary(@"A list of all unique schedules in the model. This includes schedules across all HVAC systems, ProgramTypes and ContextShades.")]
-        [DataMember(Name = "schedules")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "schedules")] // For internal Serialization XML/JSON
+        [JsonProperty("schedules", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("schedules")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<ScheduleRulesetAbridged, ScheduleFixedIntervalAbridged, ScheduleRuleset, ScheduleFixedInterval>> Schedules { get; set; }
 
         /// <summary>
         /// A list of all unique ScheduleTypeLimits in the model. This all ScheduleTypeLimits needed to make the Model schedules.
         /// </summary>
         [Summary(@"A list of all unique ScheduleTypeLimits in the model. This all ScheduleTypeLimits needed to make the Model schedules.")]
-        [DataMember(Name = "schedule_type_limits")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "schedule_type_limits")] // For internal Serialization XML/JSON
+        [JsonProperty("schedule_type_limits", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("schedule_type_limits")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<ScheduleTypeLimit> ScheduleTypeLimits { get; set; }
 
 

@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Geometry for specifying sloped roofs over a Story.")]
     [System.Serializable]
-    [DataContract(Name = "RoofSpecification")]
+    [DataContract(Name = "RoofSpecification")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class RoofSpecification : OpenAPIGenBaseModel, System.IEquatable<RoofSpecification>
     {
         /// <summary>
@@ -63,8 +63,10 @@ namespace DragonflySchema
         /// An array of Face3D objects representing the geometry of the Roof. None of these geometries should overlap in plan and, together, these Face3D should either completely cover or skip each Room2D of the Story to which the RoofSpecification is assigned.
         /// </summary>
         [Summary(@"An array of Face3D objects representing the geometry of the Roof. None of these geometries should overlap in plan and, together, these Face3D should either completely cover or skip each Room2D of the Story to which the RoofSpecification is assigned.")]
-        [Required]
-        [DataMember(Name = "geometry", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "geometry", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("geometry", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("geometry")] // For System.Text.Json
         public List<Face3D> Geometry { get; set; }
 

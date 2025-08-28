@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for for a series of louvered shades over a wall.")]
     [System.Serializable]
-    [DataContract(Name = "_LouversBase")]
+    [DataContract(Name = "LouversBase")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class LouversBase : OpenAPIGenBaseModel, System.IEquatable<LouversBase>
     {
         /// <summary>
@@ -71,8 +71,10 @@ namespace DragonflySchema
         /// A number for the depth to extrude the louvers.
         /// </summary>
         [Summary(@"A number for the depth to extrude the louvers.")]
-        [Required]
-        [DataMember(Name = "depth", IsRequired = true)] // For Newtonsoft.Json
+        [Required] // For validation after deserialization
+        // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [DataMember(Name = "depth", IsRequired = true)] // For internal Serialization XML/JSON
+        [JsonProperty("depth", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("depth")] // For System.Text.Json
         public double Depth { get; set; }
 
@@ -80,42 +82,42 @@ namespace DragonflySchema
         /// A number for the distance to louvers from the wall.
         /// </summary>
         [Summary(@"A number for the distance to louvers from the wall.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
         [Range(0, double.MaxValue)]
-        [DataMember(Name = "offset")] // For Newtonsoft.Json
+        [DataMember(Name = "offset")] // For internal Serialization XML/JSON
+        [JsonProperty("offset", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("offset")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double Offset { get; set; } = 0D;
 
         /// <summary>
         /// A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.
         /// </summary>
         [Summary(@"A number between -90 and 90 for the for an angle to rotate the louvers in degrees. 0 indicates louvers perpendicular to the wall. Positive values indicate a downward rotation. Negative values indicate an upward rotation.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
         [Range(-90, 90)]
-        [DataMember(Name = "angle")] // For Newtonsoft.Json
+        [DataMember(Name = "angle")] // For internal Serialization XML/JSON
+        [JsonProperty("angle", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("angle")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public double Angle { get; set; } = 0D;
 
         /// <summary>
         /// A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours.
         /// </summary>
         [Summary(@"A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours.")]
-        [DataMember(Name = "contour_vector")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "contour_vector")] // For internal Serialization XML/JSON
+        [JsonProperty("contour_vector", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("contour_vector")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<double> ContourVector { get; set; } = new List<double>{ 0, 1 };
 
         /// <summary>
         /// Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left.
         /// </summary>
         [Summary(@"Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left.")]
-        [DataMember(Name = "flip_start_side")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "flip_start_side")] // For internal Serialization XML/JSON
+        [JsonProperty("flip_start_side", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("flip_start_side")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public bool FlipStartSide { get; set; } = false;
 
 

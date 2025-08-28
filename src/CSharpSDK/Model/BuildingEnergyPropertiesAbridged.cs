@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.")]
     [System.Serializable]
-    [DataContract(Name = "BuildingEnergyPropertiesAbridged")]
+    [DataContract(Name = "BuildingEnergyPropertiesAbridged")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class BuildingEnergyPropertiesAbridged : OpenAPIGenBaseModel, System.IEquatable<BuildingEnergyPropertiesAbridged>
     {
         /// <summary>
@@ -67,36 +67,36 @@ namespace DragonflySchema
         /// Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used.
         /// </summary>
         [Summary(@"Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "construction_set")] // For Newtonsoft.Json
+        [DataMember(Name = "construction_set")] // For internal Serialization XML/JSON
+        [JsonProperty("construction_set", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("construction_set")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string ConstructionSet { get; set; }
 
         /// <summary>
         /// Identifier of an OpaqueConstruction for the bottoms of ceiling plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple acoustic tile construction.
         /// </summary>
         [Summary(@"Identifier of an OpaqueConstruction for the bottoms of ceiling plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple acoustic tile construction.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "ceiling_plenum_construction")] // For Newtonsoft.Json
+        [DataMember(Name = "ceiling_plenum_construction")] // For internal Serialization XML/JSON
+        [JsonProperty("ceiling_plenum_construction", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("ceiling_plenum_construction")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string CeilingPlenumConstruction { get; set; }
 
         /// <summary>
         /// Identifier of an OpaqueConstruction for the tops of floor plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple wood plank construction.
         /// </summary>
         [Summary(@"Identifier of an OpaqueConstruction for the tops of floor plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple wood plank construction.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
         [MinLength(1)]
         [MaxLength(100)]
-        [DataMember(Name = "floor_plenum_construction")] // For Newtonsoft.Json
+        [DataMember(Name = "floor_plenum_construction")] // For internal Serialization XML/JSON
+        [JsonProperty("floor_plenum_construction", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("floor_plenum_construction")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string FloorPlenumConstruction { get; set; }
 
 

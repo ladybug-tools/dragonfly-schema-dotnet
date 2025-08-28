@@ -12,12 +12,12 @@ namespace DragonflySchema
 	
 	public partial class ExtrudedBorder: DragonflySchema.IShadingParameter {}
 	
+	public partial class LouversBase: DragonflySchema.IShadingParameter {}
+	
 	public partial class LouversByCount: DragonflySchema.IShadingParameter {}
 	
 	public partial class LouversByDistance: DragonflySchema.IShadingParameter {}
 	
 	public partial class Overhang: DragonflySchema.IShadingParameter {}
-	
-	public partial class LouversBase: DragonflySchema.IShadingParameter {}
 	
 }

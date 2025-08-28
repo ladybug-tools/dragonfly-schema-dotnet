@@ -25,7 +25,7 @@ namespace DragonflySchema
     /// </summary>
     [Summary(@"Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.")]
     [System.Serializable]
-    [DataContract(Name = "Room2DRadiancePropertiesAbridged")]
+    [DataContract(Name = "Room2DRadiancePropertiesAbridged")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class Room2DRadiancePropertiesAbridged : OpenAPIGenBaseModel, System.IEquatable<Room2DRadiancePropertiesAbridged>
     {
         /// <summary>
@@ -65,20 +65,20 @@ namespace DragonflySchema
         /// Identifier of a ModifierSet to specify all modifiers for the Room2D. If None, the Room2D will use the Story or Building modifier_set or the Model global_modifier_set. Any ModifierSet assigned here will override those assigned to the parent objects.
         /// </summary>
         [Summary(@"Identifier of a ModifierSet to specify all modifiers for the Room2D. If None, the Room2D will use the Story or Building modifier_set or the Model global_modifier_set. Any ModifierSet assigned here will override those assigned to the parent objects.")]
-        [DataMember(Name = "modifier_set")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "modifier_set")] // For internal Serialization XML/JSON
+        [JsonProperty("modifier_set", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("modifier_set")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public string ModifierSet { get; set; }
 
         /// <summary>
         /// An optional list of GridParameter objects to describe how sensor grids should be generated for the Room2D.
         /// </summary>
         [Summary(@"An optional list of GridParameter objects to describe how sensor grids should be generated for the Room2D.")]
-        [DataMember(Name = "grid_parameters")] // For Newtonsoft.Json
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "grid_parameters")] // For internal Serialization XML/JSON
+        [JsonProperty("grid_parameters", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("grid_parameters")] // For System.Text.Json
-        [LBT.Newtonsoft.Json.JsonProperty(NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json
         public List<AnyOf<RoomGridParameter, RoomRadialGridParameter, ExteriorFaceGridParameter, ExteriorApertureGridParameter>> GridParameters { get; set; }
 
 
