@@ -19,14 +19,15 @@ export class ContextShade extends IDdBaseModel {
     /** An array of planar Face3Ds and or Mesh3Ds that together represent the context shade. */
     geometry!: (Face3D | Mesh3D)[];
 	
-    @IsInstance(ContextShadePropertiesAbridged)
     @Type(() => ContextShadePropertiesAbridged)
+    @IsInstance(ContextShadePropertiesAbridged)
     @ValidateNested()
     @IsDefined()
     @Expose({ name: "properties" })
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
     properties!: ContextShadePropertiesAbridged;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^ContextShade$/)
@@ -34,6 +35,7 @@ export class ContextShade extends IDdBaseModel {
     /** type */
     type: string = "ContextShade";
 	
+    @Type(() => Boolean)
     @IsBoolean()
     @IsOptional()
     @Expose({ name: "is_detached" })

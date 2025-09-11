@@ -5,12 +5,14 @@ import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** A single window defined by an absolute area. */
 export class SimpleWindowArea extends _WindowParameterBase {
+    @Type(() => Number)
     @IsNumber()
     @IsDefined()
     @Expose({ name: "window_area" })
     /** A number for the window area in current model units. If this area is larger than the area of the Wall that it is appliedto, the window will fill the parent Wall at a 99 percent ratio. */
     windowArea!: number;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^SimpleWindowArea$/)
@@ -18,6 +20,7 @@ export class SimpleWindowArea extends _WindowParameterBase {
     /** type */
     type: string = "SimpleWindowArea";
 	
+    @Type(() => Boolean)
     @IsBoolean()
     @IsOptional()
     @Expose({ name: "rect_split" })

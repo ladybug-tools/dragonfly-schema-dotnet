@@ -6,6 +6,7 @@ import { RoomGridParameter } from "./RoomGridParameter";
 
 /** Instructions for a SensorGrid of radial directions around positions from floors.\n\nThis type of sensor grid is particularly helpful for studies of multiple\nview directions, such as imageless glare studies. */
 export class RoomRadialGridParameter extends RoomGridParameter {
+    @Type(() => Number)
     @IsInt()
     @IsOptional()
     @Expose({ name: "dir_count" })
@@ -13,6 +14,7 @@ export class RoomRadialGridParameter extends RoomGridParameter {
     dirCount: number = 8;
 	
     @IsArray()
+    @Type(() => Number)
     @IsNumber({},{ each: true })
     @IsOptional()
     @Expose({ name: "start_vector" })
@@ -24,6 +26,7 @@ export class RoomRadialGridParameter extends RoomGridParameter {
     /** An optional number to override the radius of the meshes generated around each sensor. If Autocalculate, it will be equal to 45 percent of the grid dimension. */
     meshRadius: (Autocalculate | number) = new Autocalculate();
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^RoomRadialGridParameter$/)

@@ -6,6 +6,7 @@ import { StoryEnergyPropertiesAbridged } from "./StoryEnergyPropertiesAbridged";
 import { StoryRadiancePropertiesAbridged } from "./StoryRadiancePropertiesAbridged";
 
 export class StoryPropertiesAbridged extends _OpenAPIGenBaseModel {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^StoryPropertiesAbridged$/)
@@ -13,16 +14,16 @@ export class StoryPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** type */
     type: string = "StoryPropertiesAbridged";
 	
-    @IsInstance(StoryEnergyPropertiesAbridged)
     @Type(() => StoryEnergyPropertiesAbridged)
+    @IsInstance(StoryEnergyPropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "energy" })
     /** energy */
     energy?: StoryEnergyPropertiesAbridged;
 	
-    @IsInstance(StoryRadiancePropertiesAbridged)
     @Type(() => StoryRadiancePropertiesAbridged)
+    @IsInstance(StoryRadiancePropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "radiance" })

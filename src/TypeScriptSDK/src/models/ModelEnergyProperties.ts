@@ -54,6 +54,7 @@ import { WSHPwithDOASAbridged } from "honeybee-schema";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^ModelEnergyProperties$/)
@@ -61,8 +62,8 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
     /** type */
     type: string = "ModelEnergyProperties";
 	
-    @IsInstance(GlobalConstructionSet)
     @Type(() => GlobalConstructionSet)
+    @IsInstance(GlobalConstructionSet)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "global_construction_set" })
@@ -575,8 +576,8 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
     hvacs?: (IdealAirSystemAbridged | VAV | PVAV | PSZ | PTAC | ForcedAirFurnace | FCUwithDOASAbridged | WSHPwithDOASAbridged | VRFwithDOASAbridged | RadiantwithDOASAbridged | FCU | WSHP | VRF | Baseboard | EvaporativeCooler | Residential | WindowAC | GasUnitHeater | Radiant | DetailedHVAC)[];
 	
     @IsArray()
-    @IsInstance(SHWSystem, { each: true })
     @Type(() => SHWSystem)
+    @IsInstance(SHWSystem, { each: true })
     @ValidateNested({ each: true })
     @IsOptional()
     @Expose({ name: "shws" })
@@ -608,8 +609,8 @@ export class ModelEnergyProperties extends _OpenAPIGenBaseModel {
     schedules?: (ScheduleRulesetAbridged | ScheduleFixedIntervalAbridged | ScheduleRuleset | ScheduleFixedInterval)[];
 	
     @IsArray()
-    @IsInstance(ScheduleTypeLimit, { each: true })
     @Type(() => ScheduleTypeLimit)
+    @IsInstance(ScheduleTypeLimit, { each: true })
     @ValidateNested({ each: true })
     @IsOptional()
     @Expose({ name: "schedule_type_limits" })

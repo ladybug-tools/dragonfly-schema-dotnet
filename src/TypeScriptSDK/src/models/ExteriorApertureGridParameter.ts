@@ -6,6 +6,7 @@ import { ExteriorApertureType } from "./ExteriorApertureType";
 
 /** Instructions for a SensorGrid generated from exterior Aperture. */
 export class ExteriorApertureGridParameter extends _GridParameterBase {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^ExteriorApertureGridParameter$/)
@@ -13,14 +14,15 @@ export class ExteriorApertureGridParameter extends _GridParameterBase {
     /** type */
     type: string = "ExteriorApertureGridParameter";
 	
+    @Type(() => Number)
     @IsNumber()
     @IsOptional()
     @Expose({ name: "offset" })
     /** A number for how far to offset the grid from the Apertures. (Default: 0.1, suitable for Models in Meters). */
     offset: number = 0.1;
 	
-    @IsEnum(ExteriorApertureType)
     @Type(() => String)
+    @IsEnum(ExteriorApertureType)
     @IsOptional()
     @Expose({ name: "aperture_type" })
     /** Text to specify the type of Aperture that will be used to generate grids. Window indicates Apertures in Walls. Skylights are in parent Roof faces. */

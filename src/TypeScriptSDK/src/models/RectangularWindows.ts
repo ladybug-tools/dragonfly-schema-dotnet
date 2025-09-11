@@ -14,6 +14,7 @@ export class RectangularWindows extends _WindowParameterBase {
     origins!: number[][];
 	
     @IsArray()
+    @Type(() => Number)
     @IsNumber({},{ each: true })
     @IsDefined()
     @Expose({ name: "widths" })
@@ -21,12 +22,14 @@ export class RectangularWindows extends _WindowParameterBase {
     widths!: number[];
 	
     @IsArray()
+    @Type(() => Number)
     @IsNumber({},{ each: true })
     @IsDefined()
     @Expose({ name: "heights" })
     /** An array of positive numbers for the window heights. The length of this list must match the length of the origins. */
     heights!: number[];
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^RectangularWindows$/)
@@ -35,6 +38,7 @@ export class RectangularWindows extends _WindowParameterBase {
     type: string = "RectangularWindows";
 	
     @IsArray()
+    @Type(() => Boolean)
     @IsBoolean({ each: true })
     @IsOptional()
     @Expose({ name: "are_doors" })

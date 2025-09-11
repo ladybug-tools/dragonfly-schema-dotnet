@@ -7,14 +7,15 @@ import { Face3D } from "honeybee-schema";
 /** Geometry for specifying sloped roofs over a Story. */
 export class RoofSpecification extends _OpenAPIGenBaseModel {
     @IsArray()
-    @IsInstance(Face3D, { each: true })
     @Type(() => Face3D)
+    @IsInstance(Face3D, { each: true })
     @ValidateNested({ each: true })
     @IsDefined()
     @Expose({ name: "geometry" })
     /** An array of Face3D objects representing the geometry of the Roof. None of these geometries should overlap in plan and, together, these Face3D should either completely cover or skip each Room2D of the Story to which the RoofSpecification is assigned. */
     geometry!: Face3D[];
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^RoofSpecification$/)

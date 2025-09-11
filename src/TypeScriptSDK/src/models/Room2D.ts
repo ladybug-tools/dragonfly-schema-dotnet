@@ -32,26 +32,29 @@ export class Room2D extends IDdBaseModel {
     /** A list of 2D points representing the outer boundary vertices of the Room2D. The list should include at least 3 points and each point should be a list of 2 (x, y) values. */
     floorBoundary!: number[][];
 	
+    @Type(() => Number)
     @IsNumber()
     @IsDefined()
     @Expose({ name: "floor_height" })
     /** A number to indicate the height of the floor plane in the Z axis. */
     floorHeight!: number;
 	
+    @Type(() => Number)
     @IsNumber()
     @IsDefined()
     @Expose({ name: "floor_to_ceiling_height" })
     /** A number for the distance between the floor and the ceiling. */
     floorToCeilingHeight!: number;
 	
-    @IsInstance(Room2DPropertiesAbridged)
     @Type(() => Room2DPropertiesAbridged)
+    @IsInstance(Room2DPropertiesAbridged)
     @ValidateNested()
     @IsDefined()
     @Expose({ name: "properties" })
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
     properties!: Room2DPropertiesAbridged;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^Room2D$/)
@@ -66,30 +69,35 @@ export class Room2D extends IDdBaseModel {
     /** Optional list of lists with one list for each hole in the floor plate. Each hole should be a list of at least 2 points and each point a list of 2 (x, y) values. If None, it will be assumed that there are no holes in the floor plate. */
     floorHoles?: number[][][];
 	
+    @Type(() => Boolean)
     @IsBoolean()
     @IsOptional()
     @Expose({ name: "is_ground_contact" })
     /** A boolean noting whether this Room2D has its floor in contact with the ground. */
     isGroundContact: boolean = false;
 	
+    @Type(() => Boolean)
     @IsBoolean()
     @IsOptional()
     @Expose({ name: "is_top_exposed" })
     /** A boolean noting whether this Room2D has its ceiling exposed to the outdoors. */
     isTopExposed: boolean = false;
 	
+    @Type(() => Boolean)
     @IsBoolean()
     @IsOptional()
     @Expose({ name: "has_floor" })
     /** A boolean for whether the room has a Floor (True) or an AirBoundary (False). If False, this property will only be meaningful if the model is translated to Honeybee with ceiling adjacency solved and there is a Room2D below this one with a has_ceiling property set to False. */
     hasFloor: boolean = true;
 	
+    @Type(() => Boolean)
     @IsBoolean()
     @IsOptional()
     @Expose({ name: "has_ceiling" })
     /** A boolean for whether the room has a RoofCeiling (True) or an AirBoundary (False). If False, this property will only be meaningful if the model is translated to Honeybee with ceiling adjacency solved and there is a Room2D above this one with a has_floor property set to False. */
     hasCeiling: boolean = true;
 	
+    @Type(() => Number)
     @IsNumber()
     @IsOptional()
     @Min(0)
@@ -97,6 +105,7 @@ export class Room2D extends IDdBaseModel {
     /** A number for the depth that a ceiling plenum extends into the room. Setting this to a positive value will result in a separate plenum room being split off of the Room2D volume during translation from Dragonfly to Honeybee. The bottom of this ceiling plenum will always be at this Room2D ceiling height minus the value specified here. Setting this to zero indicates that the room has no ceiling plenum. */
     ceilingPlenumDepth: number = 0;
 	
+    @Type(() => Number)
     @IsNumber()
     @IsOptional()
     @Min(0)
@@ -104,6 +113,7 @@ export class Room2D extends IDdBaseModel {
     /** A number for the depth that a floor plenum extends into the room. Setting this to a positive value will result in a separate plenum room being split off of the Room2D volume during translation from Dragonfly to Honeybee. The top of this floor plenum will always be at this Room2D floor height plus the value specified here. Setting this to zero indicates that the room has no floor plenum. */
     floorPlenumDepth: number = 0;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Expose({ name: "zone" })
@@ -153,6 +163,7 @@ export class Room2D extends IDdBaseModel {
     shadingParameters?: (ExtrudedBorder | Overhang | LouversByDistance | LouversByCount)[];
 	
     @IsArray()
+    @Type(() => Boolean)
     @IsBoolean({ each: true })
     @IsOptional()
     @Expose({ name: "air_boundaries" })

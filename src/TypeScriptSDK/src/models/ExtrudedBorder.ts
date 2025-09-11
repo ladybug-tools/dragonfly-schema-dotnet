@@ -5,12 +5,14 @@ import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Extruded borders over all windows in the wall. */
 export class ExtrudedBorder extends _OpenAPIGenBaseModel {
+    @Type(() => Number)
     @IsNumber()
     @IsDefined()
     @Expose({ name: "depth" })
     /** A number for the depth of the border. */
     depth!: number;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^ExtrudedBorder$/)

@@ -8,6 +8,7 @@ import { VentilationOpening } from "honeybee-schema";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^Room2DEnergyPropertiesAbridged$/)
@@ -15,6 +16,7 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** type */
     type: string = "Room2DEnergyPropertiesAbridged";
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @MinLength(1)
@@ -23,6 +25,7 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** Name of a ConstructionSet to specify all constructions for the Room2D. If None, the Room2D will use the Story or Building construction_set or the Model global_construction_set. Any ConstructionSet assigned here will override those assigned to these objects. */
     constructionSet?: string;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @MinLength(1)
@@ -31,6 +34,7 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints. */
     programType?: string;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @MinLength(1)
@@ -39,6 +43,7 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned. */
     hvac?: string;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @MinLength(1)
@@ -47,16 +52,16 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies. */
     shw?: string;
 	
-    @IsInstance(VentilationControlAbridged)
     @Type(() => VentilationControlAbridged)
+    @IsInstance(VentilationControlAbridged)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "window_vent_control" })
     /** An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open. */
     windowVentControl?: VentilationControlAbridged;
 	
-    @IsInstance(VentilationOpening)
     @Type(() => VentilationOpening)
+    @IsInstance(VentilationOpening)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "window_vent_opening" })
@@ -64,8 +69,8 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     windowVentOpening?: VentilationOpening;
 	
     @IsArray()
-    @IsInstance(ProcessAbridged, { each: true })
     @Type(() => ProcessAbridged)
+    @IsInstance(ProcessAbridged, { each: true })
     @ValidateNested({ each: true })
     @IsOptional()
     @Expose({ name: "process_loads" })

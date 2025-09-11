@@ -5,12 +5,14 @@ import { _LouversBase } from "./_LouversBase";
 
 /** A specific number of louvered Shades over a wall. */
 export class LouversByCount extends _LouversBase {
+    @Type(() => Number)
     @IsInt()
     @IsDefined()
     @Expose({ name: "louver_count" })
     /** A positive integer for the number of louvers to generate. */
     louverCount!: number;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^LouversByCount$/)

@@ -5,12 +5,14 @@ import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for for a series of louvered shades over a wall. */
 export class _LouversBase extends _OpenAPIGenBaseModel {
+    @Type(() => Number)
     @IsNumber()
     @IsDefined()
     @Expose({ name: "depth" })
     /** A number for the depth to extrude the louvers. */
     depth!: number;
 	
+    @Type(() => Number)
     @IsNumber()
     @IsOptional()
     @Min(0)
@@ -18,6 +20,7 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
     /** A number for the distance to louvers from the wall. */
     offset: number = 0;
 	
+    @Type(() => Number)
     @IsNumber()
     @IsOptional()
     @Min(-90)
@@ -27,18 +30,21 @@ export class _LouversBase extends _OpenAPIGenBaseModel {
     angle: number = 0;
 	
     @IsArray()
+    @Type(() => Number)
     @IsNumber({},{ each: true })
     @IsOptional()
     @Expose({ name: "contour_vector" })
     /** A list of two float values representing the (x, y) of a 2D vector for the direction along which contours are generated. (0, 1) will generate horizontal contours, (1, 0) will generate vertical contours, and (1, 1) will generate diagonal contours. */
     contourVector: number[] = [0, 1];
 	
+    @Type(() => Boolean)
     @IsBoolean()
     @IsOptional()
     @Expose({ name: "flip_start_side" })
     /** Boolean to note whether the side the louvers start from should be flipped. Default is False to have contours on top or right. Setting to True will start contours on the bottom or left. */
     flipStartSide: boolean = false;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^_LouversBase$/)

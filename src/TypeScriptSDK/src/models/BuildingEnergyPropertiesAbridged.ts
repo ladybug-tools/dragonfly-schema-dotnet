@@ -5,6 +5,7 @@ import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class BuildingEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^BuildingEnergyPropertiesAbridged$/)
@@ -12,6 +13,7 @@ export class BuildingEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** type */
     type: string = "BuildingEnergyPropertiesAbridged";
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @MinLength(1)
@@ -20,6 +22,7 @@ export class BuildingEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** Name of a ConstructionSet to specify all constructions for the Building. If None, the Model global_construction_set will be used. */
     constructionSet?: string;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @MinLength(1)
@@ -28,6 +31,7 @@ export class BuildingEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** Identifier of an OpaqueConstruction for the bottoms of ceiling plenums. Materials should be ordered from the plenum side to the room side. By default, this is a simple acoustic tile construction. */
     ceilingPlenumConstruction?: string;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @MinLength(1)

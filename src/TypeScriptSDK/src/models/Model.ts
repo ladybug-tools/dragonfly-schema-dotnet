@@ -9,14 +9,15 @@ import { Units } from "honeybee-schema";
 
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Model extends IDdBaseModel {
-    @IsInstance(ModelProperties)
     @Type(() => ModelProperties)
+    @IsInstance(ModelProperties)
     @ValidateNested()
     @IsDefined()
     @Expose({ name: "properties" })
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
     properties!: ModelProperties;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^Model$/)
@@ -24,6 +25,7 @@ export class Model extends IDdBaseModel {
     /** type */
     type: string = "Model";
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/([0-9]+)\.([0-9]+)\.([0-9]+)/)
@@ -32,8 +34,8 @@ export class Model extends IDdBaseModel {
     version: string = "0.0.0";
 	
     @IsArray()
-    @IsInstance(Building, { each: true })
     @Type(() => Building)
+    @IsInstance(Building, { each: true })
     @ValidateNested({ each: true })
     @IsOptional()
     @Expose({ name: "buildings" })
@@ -41,21 +43,22 @@ export class Model extends IDdBaseModel {
     buildings?: Building[];
 	
     @IsArray()
-    @IsInstance(ContextShade, { each: true })
     @Type(() => ContextShade)
+    @IsInstance(ContextShade, { each: true })
     @ValidateNested({ each: true })
     @IsOptional()
     @Expose({ name: "context_shades" })
     /** A list of ContextShades in the model. */
     contextShades?: ContextShade[];
 	
-    @IsEnum(Units)
     @Type(() => String)
+    @IsEnum(Units)
     @IsOptional()
     @Expose({ name: "units" })
     /** Text indicating the units in which the model geometry exists. This is used to scale the geometry to the correct units for simulation engines like EnergyPlus, which requires all geometry be in meters. */
     units: Units = Units.Meters;
 	
+    @Type(() => Number)
     @IsNumber()
     @IsOptional()
     @Min(0)
@@ -63,6 +66,7 @@ export class Model extends IDdBaseModel {
     /** The maximum difference between x, y, and z values at which vertices are considered equivalent. This value should be in the Model units and is used in a variety of checks and operations. A value of 0 will result in bypassing all checks so it is recommended that this always be a positive number when checks have not already been performed on a Model. The default of 0.01 is suitable for models in meters. */
     tolerance: number = 0.01;
 	
+    @Type(() => Number)
     @IsNumber()
     @IsOptional()
     @Min(0)
@@ -71,6 +75,7 @@ export class Model extends IDdBaseModel {
     angleTolerance: number = 1;
 	
     @IsArray()
+    @Type(() => Number)
     @IsNumber({},{ each: true })
     @IsOptional()
     @Expose({ name: "reference_vector" })

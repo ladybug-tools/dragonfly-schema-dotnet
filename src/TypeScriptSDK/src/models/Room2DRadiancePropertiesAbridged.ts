@@ -9,6 +9,7 @@ import { RoomRadialGridParameter } from "./RoomRadialGridParameter";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^Room2DRadiancePropertiesAbridged$/)
@@ -16,6 +17,7 @@ export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     /** type */
     type: string = "Room2DRadiancePropertiesAbridged";
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Expose({ name: "modifier_set" })

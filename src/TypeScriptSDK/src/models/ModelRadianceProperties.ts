@@ -17,6 +17,7 @@ import { Void } from "honeybee-schema";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class ModelRadianceProperties extends _OpenAPIGenBaseModel {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^ModelRadianceProperties$/)
@@ -24,8 +25,8 @@ export class ModelRadianceProperties extends _OpenAPIGenBaseModel {
     /** type */
     type: string = "ModelRadianceProperties";
 	
-    @IsInstance(GlobalModifierSet)
     @Type(() => GlobalModifierSet)
+    @IsInstance(GlobalModifierSet)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "global_modifier_set" })

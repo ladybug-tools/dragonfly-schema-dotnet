@@ -13,6 +13,7 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
     /** An array of arrays with each sub-array representing a polygonal boundary of a skylight. Each sub-array should consist of arrays representing points, which contain 2 values for 2D coordinates in the world XY system. These coordinate values should lie within the parent Room2D Polygon. */
     polygons!: number[][][];
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^DetailedSkylights$/)
@@ -21,6 +22,7 @@ export class DetailedSkylights extends _OpenAPIGenBaseModel {
     type: string = "DetailedSkylights";
 	
     @IsArray()
+    @Type(() => Boolean)
     @IsBoolean({ each: true })
     @IsOptional()
     @Expose({ name: "are_doors" })

@@ -5,6 +5,7 @@ import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class ContextShadeEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^ContextShadeEnergyPropertiesAbridged$/)
@@ -12,6 +13,7 @@ export class ContextShadeEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** type */
     type: string = "ContextShadeEnergyPropertiesAbridged";
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @MinLength(1)
@@ -20,6 +22,7 @@ export class ContextShadeEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** Name of a ShadeConstruction to set the reflectance and specularity of the ContextShade. If None, the the EnergyPlus default of 0.2 diffuse reflectance will be used. */
     construction?: string;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @MinLength(1)

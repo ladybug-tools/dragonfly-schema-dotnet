@@ -6,12 +6,14 @@ import { Autocalculate } from "honeybee-schema";
 
 /** Gridded skylights defined by an absolute area. */
 export class GriddedSkylightArea extends _OpenAPIGenBaseModel {
+    @Type(() => Number)
     @IsNumber()
     @IsDefined()
     @Expose({ name: "skylight_area" })
     /** A number for the skylight area in current model units. If this area is larger than the area of the roof that it is applied to, the skylight will fill the parent roof at a 99 percent ratio. */
     skylightArea!: number;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^GriddedSkylightArea$/)

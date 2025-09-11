@@ -6,6 +6,7 @@ import { BuildingEnergyPropertiesAbridged } from "./BuildingEnergyPropertiesAbri
 import { BuildingRadiancePropertiesAbridged } from "./BuildingRadiancePropertiesAbridged";
 
 export class BuildingPropertiesAbridged extends _OpenAPIGenBaseModel {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^BuildingPropertiesAbridged$/)
@@ -13,16 +14,16 @@ export class BuildingPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** type */
     type: string = "BuildingPropertiesAbridged";
 	
-    @IsInstance(BuildingEnergyPropertiesAbridged)
     @Type(() => BuildingEnergyPropertiesAbridged)
+    @IsInstance(BuildingEnergyPropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "energy" })
     /** energy */
     energy?: BuildingEnergyPropertiesAbridged;
 	
-    @IsInstance(BuildingRadiancePropertiesAbridged)
     @Type(() => BuildingRadiancePropertiesAbridged)
+    @IsInstance(BuildingRadiancePropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "radiance" })

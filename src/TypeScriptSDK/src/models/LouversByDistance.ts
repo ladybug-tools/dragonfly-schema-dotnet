@@ -5,12 +5,14 @@ import { _LouversBase } from "./_LouversBase";
 
 /** A series of louvered Shades at a given distance between each louver. */
 export class LouversByDistance extends _LouversBase {
+    @Type(() => Number)
     @IsNumber()
     @IsDefined()
     @Expose({ name: "distance" })
     /** A number for the approximate distance between each louver. */
     distance!: number;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^LouversByDistance$/)

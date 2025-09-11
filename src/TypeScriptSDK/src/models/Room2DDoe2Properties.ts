@@ -6,6 +6,7 @@ import { Autocalculate } from "honeybee-schema";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class Room2DDoe2Properties extends _OpenAPIGenBaseModel {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^Room2DDoe2Properties$/)

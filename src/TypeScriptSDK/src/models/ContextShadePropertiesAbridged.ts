@@ -6,6 +6,7 @@ import { ContextShadeEnergyPropertiesAbridged } from "./ContextShadeEnergyProper
 import { ContextShadeRadiancePropertiesAbridged } from "./ContextShadeRadiancePropertiesAbridged";
 
 export class ContextShadePropertiesAbridged extends _OpenAPIGenBaseModel {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^ContextShadePropertiesAbridged$/)
@@ -13,16 +14,16 @@ export class ContextShadePropertiesAbridged extends _OpenAPIGenBaseModel {
     /** type */
     type: string = "ContextShadePropertiesAbridged";
 	
-    @IsInstance(ContextShadeEnergyPropertiesAbridged)
     @Type(() => ContextShadeEnergyPropertiesAbridged)
+    @IsInstance(ContextShadeEnergyPropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "energy" })
     /** energy */
     energy?: ContextShadeEnergyPropertiesAbridged;
 	
-    @IsInstance(ContextShadeRadiancePropertiesAbridged)
     @Type(() => ContextShadeRadiancePropertiesAbridged)
+    @IsInstance(ContextShadeRadiancePropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "radiance" })

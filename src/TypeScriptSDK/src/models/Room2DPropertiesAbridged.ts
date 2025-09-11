@@ -8,6 +8,7 @@ import { Room2DEnergyPropertiesAbridged } from "./Room2DEnergyPropertiesAbridged
 import { Room2DRadiancePropertiesAbridged } from "./Room2DRadiancePropertiesAbridged";
 
 export class Room2DPropertiesAbridged extends _OpenAPIGenBaseModel {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^Room2DPropertiesAbridged$/)
@@ -15,32 +16,32 @@ export class Room2DPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** type */
     type: string = "Room2DPropertiesAbridged";
 	
-    @IsInstance(Room2DEnergyPropertiesAbridged)
     @Type(() => Room2DEnergyPropertiesAbridged)
+    @IsInstance(Room2DEnergyPropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "energy" })
     /** energy */
     energy?: Room2DEnergyPropertiesAbridged;
 	
-    @IsInstance(Room2DRadiancePropertiesAbridged)
     @Type(() => Room2DRadiancePropertiesAbridged)
+    @IsInstance(Room2DRadiancePropertiesAbridged)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "radiance" })
     /** radiance */
     radiance?: Room2DRadiancePropertiesAbridged;
 	
-    @IsInstance(Room2DDoe2Properties)
     @Type(() => Room2DDoe2Properties)
+    @IsInstance(Room2DDoe2Properties)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "doe2" })
     /** doe2 */
     doe2?: Room2DDoe2Properties;
 	
-    @IsInstance(Room2DComparisonProperties)
     @Type(() => Room2DComparisonProperties)
+    @IsInstance(Room2DComparisonProperties)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "comparison" })

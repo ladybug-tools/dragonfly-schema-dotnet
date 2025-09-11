@@ -10,6 +10,7 @@ export class _WindowParameterBase extends _OpenAPIGenBaseModel {
     /** Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures. */
     userData?: Object;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^_WindowParameterBase$/)

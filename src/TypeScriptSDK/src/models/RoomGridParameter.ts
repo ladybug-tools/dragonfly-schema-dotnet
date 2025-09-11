@@ -5,6 +5,7 @@ import { _GridParameterBase } from "./_GridParameterBase";
 
 /** Instructions for a SensorGrid generated from a Room2D's floors. */
 export class RoomGridParameter extends _GridParameterBase {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^RoomGridParameter$/)
@@ -12,12 +13,14 @@ export class RoomGridParameter extends _GridParameterBase {
     /** type */
     type: string = "RoomGridParameter";
 	
+    @Type(() => Number)
     @IsNumber()
     @IsOptional()
     @Expose({ name: "offset" })
     /** A number for how far to offset the grid from the Room2D floors. (Default: 1.0, suitable for Models in Meters). */
     offset: number = 1;
 	
+    @Type(() => Number)
     @IsNumber()
     @IsOptional()
     @Expose({ name: "wall_offset" })

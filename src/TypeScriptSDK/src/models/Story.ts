@@ -11,22 +11,23 @@ import { StoryType } from "./StoryType";
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Story extends IDdBaseModel {
     @IsArray()
-    @IsInstance(Room2D, { each: true })
     @Type(() => Room2D)
+    @IsInstance(Room2D, { each: true })
     @ValidateNested({ each: true })
     @IsDefined()
     @Expose({ name: "room_2ds" })
     /** An array of dragonfly Room2D objects that together form an entire story of a building. */
     room2ds!: Room2D[];
 	
-    @IsInstance(StoryPropertiesAbridged)
     @Type(() => StoryPropertiesAbridged)
+    @IsInstance(StoryPropertiesAbridged)
     @ValidateNested()
     @IsDefined()
     @Expose({ name: "properties" })
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
     properties!: StoryPropertiesAbridged;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^Story$/)
@@ -44,6 +45,7 @@ export class Story extends IDdBaseModel {
     /** A number to indicate the height of the floor plane in the Z axis.If Autocalculate, this will be the minimum floor height of all the room_2ds, which is suitable for cases where there are no floor plenums. */
     floorHeight: (Autocalculate | number) = new Autocalculate();
 	
+    @Type(() => Number)
     @IsInt()
     @IsOptional()
     @Min(1)
@@ -51,16 +53,16 @@ export class Story extends IDdBaseModel {
     /** An integer that denotes the number of times that this Story is repeated over the height of the building. */
     multiplier: number = 1;
 	
-    @IsInstance(RoofSpecification)
     @Type(() => RoofSpecification)
+    @IsInstance(RoofSpecification)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "roof" })
     /** An optional RoofSpecification object containing geometry for generating sloped roofs over the Story. The RoofSpecification will only affect the child Room2Ds that have a True is_top_exposed property and it will only be utilized in translation to Honeybee when the Story multiplier is 1. If None, all Room2D ceilings will be flat. */
     roof?: RoofSpecification;
 	
-    @IsEnum(StoryType)
     @Type(() => String)
+    @IsEnum(StoryType)
     @IsOptional()
     @Expose({ name: "story_type" })
     /** Text to indicate the type of story. Stories that are plenums are translated to Honeybee with excluded floor areas. */

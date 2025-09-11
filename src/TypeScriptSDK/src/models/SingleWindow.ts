@@ -5,18 +5,21 @@ import { _WindowParameterBase } from "./_WindowParameterBase";
 
 /** A single window in the wall center defined by a width * height. */
 export class SingleWindow extends _WindowParameterBase {
+    @Type(() => Number)
     @IsNumber()
     @IsDefined()
     @Expose({ name: "width" })
     /** A number for the window width. Note that, if this width is applied to a wall that is too narrow for this width, the generated window will automatically be shortened when it is applied to the wall. In this way, setting the width to be `float(""inf"")` will create parameters that always generate a ribbon window. */
     width!: number;
 	
+    @Type(() => Number)
     @IsNumber()
     @IsDefined()
     @Expose({ name: "height" })
     /** A number for the window height. Note that, if this height is applied to a wall that is too short for this height, the generated window will automatically be shortened when it is applied to the wall. */
     height!: number;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^SingleWindow$/)
@@ -24,6 +27,7 @@ export class SingleWindow extends _WindowParameterBase {
     /** type */
     type: string = "SingleWindow";
 	
+    @Type(() => Number)
     @IsNumber()
     @IsOptional()
     @Expose({ name: "sill_height" })

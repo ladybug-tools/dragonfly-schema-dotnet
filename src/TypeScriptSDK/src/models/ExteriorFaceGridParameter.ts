@@ -6,6 +6,7 @@ import { ExteriorFaceType } from "./ExteriorFaceType";
 
 /** Instructions for a SensorGrid generated from exterior Faces. */
 export class ExteriorFaceGridParameter extends _GridParameterBase {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^ExteriorFaceGridParameter$/)
@@ -13,19 +14,21 @@ export class ExteriorFaceGridParameter extends _GridParameterBase {
     /** type */
     type: string = "ExteriorFaceGridParameter";
 	
+    @Type(() => Number)
     @IsNumber()
     @IsOptional()
     @Expose({ name: "offset" })
     /** A number for how far to offset the grid from the Faces. (Default: 0.1, suitable for Models in Meters). */
     offset: number = 0.1;
 	
-    @IsEnum(ExteriorFaceType)
     @Type(() => String)
+    @IsEnum(ExteriorFaceType)
     @IsOptional()
     @Expose({ name: "face_type" })
     /** Text to specify the type of face that will be used to generate grids. Note that only Faces with Outdoors boundary conditions will be used, meaning that most Floors will typically be excluded unless they represent the underside of a cantilever. */
     faceType: ExteriorFaceType = ExteriorFaceType.Wall;
 	
+    @Type(() => Boolean)
     @IsBoolean()
     @IsOptional()
     @Expose({ name: "punched_geometry" })

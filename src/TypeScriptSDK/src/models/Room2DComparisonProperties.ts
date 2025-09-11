@@ -15,6 +15,7 @@ import { SingleWindow } from "./SingleWindow";
 
 /** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^Room2DComparisonProperties$/)

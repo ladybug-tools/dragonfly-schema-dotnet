@@ -6,12 +6,14 @@ import { Autocalculate } from "honeybee-schema";
 
 /** Gridded skylights derived from an area ratio with the roof. */
 export class GriddedSkylightRatio extends _OpenAPIGenBaseModel {
+    @Type(() => Number)
     @IsNumber()
     @IsDefined()
     @Expose({ name: "skylight_ratio" })
     /** A number between 0 and 1 for the ratio between the skylight area and the total Roof face area. */
     skylightRatio!: number;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^GriddedSkylightRatio$/)

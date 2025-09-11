@@ -5,12 +5,14 @@ import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** A single overhang over an entire wall. */
 export class Overhang extends _OpenAPIGenBaseModel {
+    @Type(() => Number)
     @IsNumber()
     @IsDefined()
     @Expose({ name: "depth" })
     /** A number for the overhang depth. */
     depth!: number;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^Overhang$/)
@@ -18,6 +20,7 @@ export class Overhang extends _OpenAPIGenBaseModel {
     /** type */
     type: string = "Overhang";
 	
+    @Type(() => Number)
     @IsNumber()
     @IsOptional()
     @Min(-90)

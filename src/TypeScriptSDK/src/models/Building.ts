@@ -9,14 +9,15 @@ import { Story } from "./Story";
 
 /** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Building extends IDdBaseModel {
-    @IsInstance(BuildingPropertiesAbridged)
     @Type(() => BuildingPropertiesAbridged)
+    @IsInstance(BuildingPropertiesAbridged)
     @ValidateNested()
     @IsDefined()
     @Expose({ name: "properties" })
     /** Extension properties for particular simulation engines (Radiance, EnergyPlus). */
     properties!: BuildingPropertiesAbridged;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^Building$/)
@@ -25,8 +26,8 @@ export class Building extends IDdBaseModel {
     type: string = "Building";
 	
     @IsArray()
-    @IsInstance(Story, { each: true })
     @Type(() => Story)
+    @IsInstance(Story, { each: true })
     @ValidateNested({ each: true })
     @IsOptional()
     @Expose({ name: "unique_stories" })
@@ -34,16 +35,16 @@ export class Building extends IDdBaseModel {
     uniqueStories?: Story[];
 	
     @IsArray()
-    @IsInstance(Room, { each: true })
     @Type(() => Room)
+    @IsInstance(Room, { each: true })
     @ValidateNested({ each: true })
     @IsOptional()
     @Expose({ name: "room_3ds" })
     /** An optional array of 3D Honeybee Room objects for additional Rooms that are a part of the Building but are not represented within the unique_stories. This is useful when there are parts of the Building geometry that cannot easily be represented with the extruded floor plate and sloped roof assumptions that underlie Dragonfly Room2Ds and RoofSpecification. Cases where this input is most useful include sloped walls and certain types of domed roofs that become tedious to implement with RoofSpecification. Matching the Honeybee Room.story property to the Dragonfly Story.display_name of an object within the unique_stories will effectively place the Honeybee Room on that Story for the purposes of floor_area, exterior_wall_area, etc. However, note that the Honeybee Room.multiplier property takes precedence over whatever multiplier is assigned to the Dragonfly Story that the Room.story may reference. (Default: None). */
     room3ds?: Room[];
 	
-    @IsInstance(RoofSpecification)
     @Type(() => RoofSpecification)
+    @IsInstance(RoofSpecification)
     @ValidateNested()
     @IsOptional()
     @Expose({ name: "roof" })

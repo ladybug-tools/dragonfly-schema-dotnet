@@ -5,18 +5,21 @@ import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 
 /** Base object for all GridParameters. */
 export class _GridParameterBase extends _OpenAPIGenBaseModel {
+    @Type(() => Number)
     @IsNumber()
     @IsDefined()
     @Expose({ name: "dimension" })
     /** The dimension of the grid cells as a number. */
     dimension!: number;
 	
+    @Type(() => Boolean)
     @IsBoolean()
     @IsOptional()
     @Expose({ name: "include_mesh" })
     /** A boolean to note whether the resulting SensorGrid should include the mesh. */
     includeMesh: boolean = true;
 	
+    @Type(() => String)
     @IsString()
     @IsOptional()
     @Matches(/^_GridParameterBase$/)
