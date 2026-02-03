@@ -1,19 +1,22 @@
-﻿import { IsArray, IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
 import { Face3D } from "honeybee-schema";
+import { Mesh3D } from "honeybee-schema";
 
 /** Geometry for specifying sloped roofs over a Story. */
 export class RoofSpecification extends _OpenAPIGenBaseModel {
     @IsArray()
-    @Type(() => Face3D)
-    @IsInstance(Face3D, { each: true })
-    @ValidateNested({ each: true })
     @IsDefined()
     @Expose({ name: "geometry" })
-    /** An array of Face3D objects representing the geometry of the Roof. None of these geometries should overlap in plan and, together, these Face3D should either completely cover or skip each Room2D of the Story to which the RoofSpecification is assigned. */
-    geometry!: Face3D[];
+    @Transform(({ value }) => value?.map((item: any) => {
+      if (item?.type === 'Face3D') return Face3D.fromJS(item);
+      else if (item?.type === 'Mesh3D') return Mesh3D.fromJS(item);
+      else return item;
+    }))
+    /** An array of Face3D (or Mesh3D) objects representing the geometry of the Roof. Cases where Room2Ds are only partially covered by these roof geometries will result in those portions of the Room2Ds being extruded to their floor_to_ceiling_height. */
+    geometry!: (Face3D | Mesh3D)[];
 	
     @Type(() => String)
     @IsString()

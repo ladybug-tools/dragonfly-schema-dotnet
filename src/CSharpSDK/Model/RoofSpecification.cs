@@ -41,10 +41,10 @@ namespace DragonflySchema
         /// <summary>
         /// Initializes a new instance of the <see cref="RoofSpecification" /> class.
         /// </summary>
-        /// <param name="geometry">An array of Face3D objects representing the geometry of the Roof. None of these geometries should overlap in plan and, together, these Face3D should either completely cover or skip each Room2D of the Story to which the RoofSpecification is assigned.</param>
+        /// <param name="geometry">An array of Face3D (or Mesh3D) objects representing the geometry of the Roof. Cases where Room2Ds are only partially covered by these roof geometries will result in those portions of the Room2Ds being extruded to their floor_to_ceiling_height.</param>
         public RoofSpecification
         (
-            List<Face3D> geometry
+            List<AnyOf<Face3D, Mesh3D>> geometry
         ) : base()
         {
             this.Geometry = geometry ?? throw new System.ArgumentNullException("geometry is a required property for RoofSpecification and cannot be null");
@@ -60,15 +60,15 @@ namespace DragonflySchema
 	
 	
         /// <summary>
-        /// An array of Face3D objects representing the geometry of the Roof. None of these geometries should overlap in plan and, together, these Face3D should either completely cover or skip each Room2D of the Story to which the RoofSpecification is assigned.
+        /// An array of Face3D (or Mesh3D) objects representing the geometry of the Roof. Cases where Room2Ds are only partially covered by these roof geometries will result in those portions of the Room2Ds being extruded to their floor_to_ceiling_height.
         /// </summary>
-        [Summary(@"An array of Face3D objects representing the geometry of the Roof. None of these geometries should overlap in plan and, together, these Face3D should either completely cover or skip each Room2D of the Story to which the RoofSpecification is assigned.")]
+        [Summary(@"An array of Face3D (or Mesh3D) objects representing the geometry of the Roof. Cases where Room2Ds are only partially covered by these roof geometries will result in those portions of the Room2Ds being extruded to their floor_to_ceiling_height.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
         [DataMember(Name = "geometry", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("geometry", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("geometry")] // For System.Text.Json
-        public List<Face3D> Geometry { get; set; }
+        public List<AnyOf<Face3D, Mesh3D>> Geometry { get; set; }
 
 
         /// <summary>

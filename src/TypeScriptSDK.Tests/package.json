@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "dragonfly-schema": "file:../TypeScriptSDK/dragonfly-schema-0.0.1.tgz",
-    "honeybee-schema": "^1.5901.4"
+    "honeybee-schema": "^1.5901.5"
   }
 }
