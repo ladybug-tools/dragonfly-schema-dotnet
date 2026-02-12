@@ -246,6 +246,7 @@
     "VAVEquipmentType": "honeybee_schema.energy.hvac.allair",
     "VRFEquipmentType": "honeybee_schema.energy.hvac.heatcool",
     "VRFwithDOASEquipmentType": "honeybee_schema.energy.hvac.doas",
+    "VentilationMethod": "honeybee_schema.energy.load",
     "VentilationType": "honeybee_schema.energy.ventcool",
     "Vintages": "honeybee_schema.energy.hvac._template",
     "WSHPEquipmentType": "honeybee_schema.energy.hvac.heatcool",
