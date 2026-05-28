@@ -67,6 +67,7 @@ namespace DragonflySchema
         [Summary(@"A number between 0 and 1 for the ratio between the skylight area and the total Roof face area.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, 1)]
         [DataMember(Name = "skylight_ratio", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("skylight_ratio", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("skylight_ratio")] // For System.Text.Json

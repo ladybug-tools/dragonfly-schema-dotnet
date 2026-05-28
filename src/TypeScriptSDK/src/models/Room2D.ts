@@ -1,4 +1,4 @@
-﻿import { IsArray, IsDefined, IsNumber, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, Min, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsDefined, IsNumber, IsInstance, ValidateNested, IsString, IsOptional, Equals, IsBoolean, Min, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
@@ -23,7 +23,6 @@ import { SimpleWindowRatio } from "./SimpleWindowRatio";
 import { SingleWindow } from "./SingleWindow";
 import { Surface } from "honeybee-schema";
 
-/** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Room2D extends IDdBaseModel {
     @IsArray()
     @IsNestedNumberArray()
@@ -36,7 +35,7 @@ export class Room2D extends IDdBaseModel {
     @IsNumber()
     @IsDefined()
     @Expose({ name: "floor_height" })
-    /** A number to indicate the height of the floor plane in the Z axis. */
+    /** A number to indicate the Z-coordinate (or elevation) of the room floor plane. */
     floorHeight!: number;
 	
     @Type(() => Number)
@@ -57,7 +56,7 @@ export class Room2D extends IDdBaseModel {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^Room2D$/)
+    @Equals("Room2D")
     @Expose({ name: "type" })
     /** type */
     type: string = "Room2D";

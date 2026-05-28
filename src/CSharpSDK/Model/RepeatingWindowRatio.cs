@@ -44,7 +44,7 @@ namespace DragonflySchema
         /// <param name="windowRatio">A number between 0 and 1 for the ratio between the window area and the parent wall surface area.</param>
         /// <param name="windowHeight">A number for the target height of the windows. Note that, if the window ratio is too large for the height, the ratio will take precedence and the actual window_height will be larger than this value.</param>
         /// <param name="sillHeight">A number for the target height above the bottom edge of the wall to start the windows. Note that, if the ratio is too large for the height, the ratio will take precedence and the sill_height will be smaller than this value.</param>
-        /// <param name="horizontalSeparation">A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced.</param>
+        /// <param name="horizontalSeparation">A number for the target separation between individual window center lines.  If this number is larger than the parent rectangle base, only one window will be produced.</param>
         /// <param name="userData">Optional dictionary of user data associated with the object.All keys and values of this dictionary should be of a standard data type to ensure correct serialization of the object (eg. str, float, int, list). When a list is used, each item in the list will be assigned to the generated Honeybee apertures.</param>
         /// <param name="verticalSeparation">An optional number to create a single vertical separation between top and bottom windows.</param>
         public RepeatingWindowRatio
@@ -74,6 +74,7 @@ namespace DragonflySchema
         [Summary(@"A number between 0 and 1 for the ratio between the window area and the parent wall surface area.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, 0.95)]
         [DataMember(Name = "window_ratio", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("window_ratio", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("window_ratio")] // For System.Text.Json
@@ -85,6 +86,7 @@ namespace DragonflySchema
         [Summary(@"A number for the target height of the windows. Note that, if the window ratio is too large for the height, the ratio will take precedence and the actual window_height will be larger than this value.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, double.MaxValue)]
         [DataMember(Name = "window_height", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("window_height", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("window_height")] // For System.Text.Json
@@ -96,15 +98,16 @@ namespace DragonflySchema
         [Summary(@"A number for the target height above the bottom edge of the wall to start the windows. Note that, if the ratio is too large for the height, the ratio will take precedence and the sill_height will be smaller than this value.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, double.MaxValue)]
         [DataMember(Name = "sill_height", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("sill_height", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("sill_height")] // For System.Text.Json
         public double SillHeight { get; set; }
 
         /// <summary>
-        /// A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced.
+        /// A number for the target separation between individual window center lines.  If this number is larger than the parent rectangle base, only one window will be produced.
         /// </summary>
-        [Summary(@"A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced.")]
+        [Summary(@"A number for the target separation between individual window center lines.  If this number is larger than the parent rectangle base, only one window will be produced.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
         [Range(0, double.MaxValue)]

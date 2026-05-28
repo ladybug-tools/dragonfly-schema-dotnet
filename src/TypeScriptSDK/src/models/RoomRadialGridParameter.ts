@@ -1,11 +1,10 @@
-﻿import { IsInt, IsOptional, IsArray, IsNumber, IsString, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsInt, IsOptional, IsArray, IsNumber, IsString, Equals, IsDefined, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { Autocalculate } from "honeybee-schema";
-import { RoomGridParameter } from "./RoomGridParameter";
 
 /** Instructions for a SensorGrid of radial directions around positions from floors.\n\nThis type of sensor grid is particularly helpful for studies of multiple\nview directions, such as imageless glare studies. */
-export class RoomRadialGridParameter extends RoomGridParameter {
+export class RoomRadialGridParameter {
     @Type(() => Number)
     @IsInt()
     @IsOptional()
@@ -29,21 +28,51 @@ export class RoomRadialGridParameter extends RoomGridParameter {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^RoomRadialGridParameter$/)
+    @Equals("RoomRadialGridParameter")
     @Expose({ name: "type" })
     /** type */
     type: string = "RoomRadialGridParameter";
 	
+    @Type(() => Number)
+    @IsNumber()
+    @IsOptional()
+    @Expose({ name: "offset" })
+    /** A number for how far to offset the grid from the Room2D floors. (Default: 1.0, suitable for Models in Meters). */
+    offset: number = 1;
+	
+    @Type(() => Number)
+    @IsNumber()
+    @IsOptional()
+    @Expose({ name: "wall_offset" })
+    /** A number for the distance at which sensors close to walls should be removed. Note that this option has no effect unless the value is more than half of the dimension. */
+    wallOffset: number = 0;
+	
+    @Type(() => Number)
+    @IsNumber()
+    @IsDefined()
+    @Expose({ name: "dimension" })
+    /** The dimension of the grid cells as a number. */
+    dimension!: number;
+	
+    @Type(() => Boolean)
+    @IsBoolean()
+    @IsOptional()
+    @Expose({ name: "include_mesh" })
+    /** A boolean to note whether the resulting SensorGrid should include the mesh. */
+    includeMesh: boolean = true;
+	
 
     constructor() {
-        super();
         this.dirCount = 8;
         this.meshRadius = new Autocalculate();
         this.type = "RoomRadialGridParameter";
+        this.offset = 1;
+        this.wallOffset = 0;
+        this.includeMesh = true;
     }
 
 
-    override init(_data?: any) {
+    init(_data?: any) {
 
         if (_data) {
             const obj = deepTransform(RoomRadialGridParameter, _data);
@@ -59,7 +88,7 @@ export class RoomRadialGridParameter extends RoomGridParameter {
     }
 
 
-    static override fromJS(data: any): RoomRadialGridParameter {
+    static fromJS(data: any): RoomRadialGridParameter {
         data = typeof data === 'object' ? data : {};
 
         if (Array.isArray(data)) {
@@ -74,13 +103,16 @@ export class RoomRadialGridParameter extends RoomGridParameter {
         return result;
     }
 
-	override toJSON(data?: any) {
+	toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["dir_count"] = this.dirCount ?? 8;
         data["start_vector"] = this.startVector;
         data["mesh_radius"] = this.meshRadius ?? new Autocalculate();
         data["type"] = this.type ?? "RoomRadialGridParameter";
-        data = super.toJSON(data);
+        data["offset"] = this.offset ?? 1;
+        data["wall_offset"] = this.wallOffset ?? 0;
+        data["dimension"] = this.dimension;
+        data["include_mesh"] = this.includeMesh ?? true;
         return instanceToPlain(data, { exposeUnsetFields: false });
     }
 

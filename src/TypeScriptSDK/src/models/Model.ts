@@ -1,13 +1,12 @@
-﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsArray, IsEnum, IsNumber, Min, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Equals, Matches, IsArray, IsEnum, IsNumber, Min, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { Building } from "./Building";
 import { ContextShade } from "./ContextShade";
 import { IDdBaseModel } from "honeybee-schema";
 import { ModelProperties } from "./ModelProperties";
-import { Units } from "honeybee-schema";
+import { Units } from "./Units";
 
-/** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Model extends IDdBaseModel {
     @Type(() => ModelProperties)
     @IsInstance(ModelProperties)
@@ -20,7 +19,7 @@ export class Model extends IDdBaseModel {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^Model$/)
+    @Equals("Model")
     @Expose({ name: "type" })
     /** type */
     type: string = "Model";

@@ -1,4 +1,4 @@
-﻿import { IsArray, IsDefined, IsInstance, ValidateNested, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsDefined, IsInstance, ValidateNested, IsString, IsOptional, Equals, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { ContextShadePropertiesAbridged } from "./ContextShadePropertiesAbridged";
@@ -6,7 +6,6 @@ import { Face3D } from "honeybee-schema";
 import { IDdBaseModel } from "honeybee-schema";
 import { Mesh3D } from "honeybee-schema";
 
-/** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class ContextShade extends IDdBaseModel {
     @IsArray()
     @IsDefined()
@@ -30,7 +29,7 @@ export class ContextShade extends IDdBaseModel {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^ContextShade$/)
+    @Equals("ContextShade")
     @Expose({ name: "type" })
     /** type */
     type: string = "ContextShade";

@@ -78,6 +78,7 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for the distance at which sensors close to walls should be removed. Note that this option has no effect unless the value is more than half of the dimension.")]
         // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [Range(0, double.MaxValue)]
         [DataMember(Name = "wall_offset")] // For internal Serialization XML/JSON
         [JsonProperty("wall_offset", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("wall_offset")] // For System.Text.Json

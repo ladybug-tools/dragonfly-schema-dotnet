@@ -68,6 +68,7 @@ namespace DragonflySchema
         [Summary(@"A number for the window area in current model units. If this area is larger than the area of the Wall that it is appliedto, the window will fill the parent Wall at a 99 percent ratio.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, double.MaxValue)]
         [DataMember(Name = "window_area", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("window_area", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("window_area")] // For System.Text.Json

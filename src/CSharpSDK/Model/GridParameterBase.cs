@@ -67,6 +67,7 @@ namespace DragonflySchema
         [Summary(@"The dimension of the grid cells as a number.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, double.MaxValue)]
         [DataMember(Name = "dimension", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("dimension", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("dimension")] // For System.Text.Json

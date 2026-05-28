@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Equals, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
@@ -7,12 +7,11 @@ import { ExteriorFaceGridParameter } from "./ExteriorFaceGridParameter";
 import { RoomGridParameter } from "./RoomGridParameter";
 import { RoomRadialGridParameter } from "./RoomRadialGridParameter";
 
-/** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class Room2DRadiancePropertiesAbridged extends _OpenAPIGenBaseModel {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^Room2DRadiancePropertiesAbridged$/)
+    @Equals("Room2DRadiancePropertiesAbridged")
     @Expose({ name: "type" })
     /** type */
     type: string = "Room2DRadiancePropertiesAbridged";

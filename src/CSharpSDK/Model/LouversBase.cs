@@ -73,6 +73,7 @@ namespace DragonflySchema
         [Summary(@"A number for the depth to extrude the louvers.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, double.MaxValue)]
         [DataMember(Name = "depth", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("depth", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("depth")] // For System.Text.Json

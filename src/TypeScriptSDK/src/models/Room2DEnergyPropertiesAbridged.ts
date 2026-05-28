@@ -1,17 +1,18 @@
-﻿import { IsString, IsOptional, Matches, MinLength, MaxLength, IsInstance, ValidateNested, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Equals, MinLength, MaxLength, IsArray, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
+import { DaylightingControl } from "honeybee-schema";
 import { ProcessAbridged } from "honeybee-schema";
 import { VentilationControlAbridged } from "honeybee-schema";
+import { VentilationFan } from "honeybee-schema";
 import { VentilationOpening } from "honeybee-schema";
 
-/** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^Room2DEnergyPropertiesAbridged$/)
+    @Equals("Room2DEnergyPropertiesAbridged")
     @Expose({ name: "type" })
     /** type */
     type: string = "Room2DEnergyPropertiesAbridged";
@@ -52,6 +53,23 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     /** An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies. */
     shw?: string;
 	
+    @IsArray()
+    @Type(() => ProcessAbridged)
+    @IsInstance(ProcessAbridged, { each: true })
+    @ValidateNested({ each: true })
+    @IsOptional()
+    @Expose({ name: "process_loads" })
+    /** An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators. */
+    processLoads?: ProcessAbridged[];
+	
+    @Type(() => DaylightingControl)
+    @IsInstance(DaylightingControl)
+    @ValidateNested()
+    @IsOptional()
+    @Expose({ name: "daylighting_control" })
+    /** An optional DaylightingControl object to dictate the dimming of lights. If None, the lighting will respond only to the schedule and not the daylight conditions within the room. */
+    daylightingControl?: DaylightingControl;
+	
     @Type(() => VentilationControlAbridged)
     @IsInstance(VentilationControlAbridged)
     @ValidateNested()
@@ -69,13 +87,13 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     windowVentOpening?: VentilationOpening;
 	
     @IsArray()
-    @Type(() => ProcessAbridged)
-    @IsInstance(ProcessAbridged, { each: true })
+    @Type(() => VentilationFan)
+    @IsInstance(VentilationFan, { each: true })
     @ValidateNested({ each: true })
     @IsOptional()
-    @Expose({ name: "process_loads" })
-    /** An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators. */
-    processLoads?: ProcessAbridged[];
+    @Expose({ name: "fans" })
+    /** An optional list of VentilationFan objects for fans within the room. Note that these fans are not connected to the heating or cooling system and are meant to represent the intentional circulation of unconditioned outdoor air for the purposes of keeping a space cooler, drier or free of indoor pollutants (as in the case of kitchen or bathroom exhaust fans). For the specification of mechanical ventilation of conditioned outdoor air, the Room.ventilation property should be used and the Room should be given a HVAC that can meet this specification. */
+    fans?: VentilationFan[];
 	
 
     constructor() {
@@ -93,9 +111,11 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
             this.programType = obj.programType;
             this.hvac = obj.hvac;
             this.shw = obj.shw;
+            this.processLoads = obj.processLoads;
+            this.daylightingControl = obj.daylightingControl;
             this.windowVentControl = obj.windowVentControl;
             this.windowVentOpening = obj.windowVentOpening;
-            this.processLoads = obj.processLoads;
+            this.fans = obj.fans;
         }
     }
 
@@ -122,9 +142,11 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
         data["program_type"] = this.programType;
         data["hvac"] = this.hvac;
         data["shw"] = this.shw;
+        data["process_loads"] = this.processLoads;
+        data["daylighting_control"] = this.daylightingControl;
         data["window_vent_control"] = this.windowVentControl;
         data["window_vent_opening"] = this.windowVentOpening;
-        data["process_loads"] = this.processLoads;
+        data["fans"] = this.fans;
         data = super.toJSON(data);
         return instanceToPlain(data, { exposeUnsetFields: false });
     }

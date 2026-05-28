@@ -20,10 +20,7 @@ using HoneybeeSchema;
 
 namespace DragonflySchema
 {
-    /// <summary>
-    /// Base class for all objects requiring a identifiers acceptable for all engines.
-    /// </summary>
-    [Summary(@"Base class for all objects requiring a identifiers acceptable for all engines.")]
+    [Summary(@"")]
     [System.Serializable]
     [DataContract(Name = "Model")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class Model : IDdBaseModel, System.IEquatable<Model>

@@ -42,12 +42,14 @@ namespace DragonflySchema
         /// Initializes a new instance of the <see cref="RoofSpecification" /> class.
         /// </summary>
         /// <param name="geometry">An array of Face3D (or Mesh3D) objects representing the geometry of the Roof. Cases where Room2Ds are only partially covered by these roof geometries will result in those portions of the Room2Ds being extruded to their floor_to_ceiling_height.</param>
+        /// <param name="clearstoryParameters">A list of ClearstoryParameter objects that dictate how to generate window geometries for any vertical walls that result from the translation of roof geometry. If None, no clearstory windows will exist over the roof.</param>
         public RoofSpecification
         (
-            List<AnyOf<Face3D, Mesh3D>> geometry
+            List<AnyOf<Face3D, Mesh3D>> geometry, List<DetailedClearstory> clearstoryParameters = default
         ) : base()
         {
             this.Geometry = geometry ?? throw new System.ArgumentNullException("geometry is a required property for RoofSpecification and cannot be null");
+            this.ClearstoryParameters = clearstoryParameters;
 
             // Set readonly properties with defaultValue
             this.Type = "RoofSpecification";
@@ -69,6 +71,16 @@ namespace DragonflySchema
         [JsonProperty("geometry", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("geometry")] // For System.Text.Json
         public List<AnyOf<Face3D, Mesh3D>> Geometry { get; set; }
+
+        /// <summary>
+        /// A list of ClearstoryParameter objects that dictate how to generate window geometries for any vertical walls that result from the translation of roof geometry. If None, no clearstory windows will exist over the roof.
+        /// </summary>
+        [Summary(@"A list of ClearstoryParameter objects that dictate how to generate window geometries for any vertical walls that result from the translation of roof geometry. If None, no clearstory windows will exist over the roof.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "clearstory_parameters")] // For internal Serialization XML/JSON
+        [JsonProperty("clearstory_parameters", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("clearstory_parameters")] // For System.Text.Json
+        public List<DetailedClearstory> ClearstoryParameters { get; set; }
 
 
         /// <summary>
@@ -94,6 +106,7 @@ namespace DragonflySchema
             sb.Append("RoofSpecification:\n");
             sb.Append("  Geometry: ").Append(this.Geometry).Append("\n");
             sb.Append("  Type: ").Append(this.Type).Append("\n");
+            sb.Append("  ClearstoryParameters: ").Append(this.ClearstoryParameters).Append("\n");
             return sb.ToString();
         }
 
@@ -155,7 +168,8 @@ namespace DragonflySchema
             if (input == null)
                 return false;
             return base.Equals(input) && 
-                    Extension.AllEquals(this.Geometry, input.Geometry);
+                    Extension.AllEquals(this.Geometry, input.Geometry) && 
+                    Extension.AllEquals(this.ClearstoryParameters, input.ClearstoryParameters);
         }
 
 
@@ -170,6 +184,8 @@ namespace DragonflySchema
                 int hashCode = base.GetHashCode();
                 if (this.Geometry != null)
                     hashCode = hashCode * 59 + this.Geometry.GetHashCode();
+                if (this.ClearstoryParameters != null)
+                    hashCode = hashCode * 59 + this.ClearstoryParameters.GetHashCode();
                 return hashCode;
             }
         }

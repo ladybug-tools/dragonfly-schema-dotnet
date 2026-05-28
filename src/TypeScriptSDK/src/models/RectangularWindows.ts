@@ -1,4 +1,4 @@
-﻿import { IsArray, IsDefined, IsNumber, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsDefined, IsNumber, IsString, IsOptional, Equals, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
@@ -32,7 +32,7 @@ export class RectangularWindows extends _WindowParameterBase {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^RectangularWindows$/)
+    @Equals("RectangularWindows")
     @Expose({ name: "type" })
     /** type */
     type: string = "RectangularWindows";

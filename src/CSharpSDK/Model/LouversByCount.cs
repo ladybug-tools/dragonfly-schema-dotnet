@@ -70,6 +70,7 @@ namespace DragonflySchema
         [Summary(@"A positive integer for the number of louvers to generate.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, int.MaxValue)]
         [DataMember(Name = "louver_count", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("louver_count", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("louver_count")] // For System.Text.Json
