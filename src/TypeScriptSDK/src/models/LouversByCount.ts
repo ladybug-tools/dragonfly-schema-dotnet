@@ -1,4 +1,4 @@
-﻿import { IsInt, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsInt, IsDefined, IsString, IsOptional, Equals, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { _LouversBase } from "./_LouversBase";
@@ -15,7 +15,7 @@ export class LouversByCount extends _LouversBase {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^LouversByCount$/)
+    @Equals("LouversByCount")
     @Expose({ name: "type" })
     /** type */
     type: string = "LouversByCount";

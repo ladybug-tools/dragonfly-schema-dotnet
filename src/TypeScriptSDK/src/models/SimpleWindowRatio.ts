@@ -1,4 +1,4 @@
-﻿import { IsNumber, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsNumber, IsDefined, IsString, IsOptional, Equals, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { _WindowParameterBase } from "./_WindowParameterBase";
@@ -15,7 +15,7 @@ export class SimpleWindowRatio extends _WindowParameterBase {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^SimpleWindowRatio$/)
+    @Equals("SimpleWindowRatio")
     @Expose({ name: "type" })
     /** type */
     type: string = "SimpleWindowRatio";

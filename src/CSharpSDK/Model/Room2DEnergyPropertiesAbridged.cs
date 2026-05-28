@@ -20,10 +20,7 @@ using HoneybeeSchema;
 
 namespace DragonflySchema
 {
-    /// <summary>
-    /// Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.
-    /// </summary>
-    [Summary(@"Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.")]
+    [Summary(@"")]
     [System.Serializable]
     [DataContract(Name = "Room2DEnergyPropertiesAbridged")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class Room2DEnergyPropertiesAbridged : OpenAPIGenBaseModel, System.IEquatable<Room2DEnergyPropertiesAbridged>
@@ -45,21 +42,25 @@ namespace DragonflySchema
         /// <param name="programType">Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints.</param>
         /// <param name="hvac">An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned.</param>
         /// <param name="shw">An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies.</param>
+        /// <param name="processLoads">An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.</param>
+        /// <param name="daylightingControl">An optional DaylightingControl object to dictate the dimming of lights. If None, the lighting will respond only to the schedule and not the daylight conditions within the room.</param>
         /// <param name="windowVentControl">An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.</param>
         /// <param name="windowVentOpening">An optional VentilationOpening to specify the operable portion of all windows of the Room2D. If None, the windows will never open.</param>
-        /// <param name="processLoads">An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.</param>
+        /// <param name="fans">An optional list of VentilationFan objects for fans within the room. Note that these fans are not connected to the heating or cooling system and are meant to represent the intentional circulation of unconditioned outdoor air for the purposes of keeping a space cooler, drier or free of indoor pollutants (as in the case of kitchen or bathroom exhaust fans). For the specification of mechanical ventilation of conditioned outdoor air, the Room.ventilation property should be used and the Room should be given a HVAC that can meet this specification.</param>
         public Room2DEnergyPropertiesAbridged
         (
-            string constructionSet = default, string programType = default, string hvac = default, string shw = default, VentilationControlAbridged windowVentControl = default, VentilationOpening windowVentOpening = default, List<ProcessAbridged> processLoads = default
+            string constructionSet = default, string programType = default, string hvac = default, string shw = default, List<ProcessAbridged> processLoads = default, DaylightingControl daylightingControl = default, VentilationControlAbridged windowVentControl = default, VentilationOpening windowVentOpening = default, List<VentilationFan> fans = default
         ) : base()
         {
             this.ConstructionSet = constructionSet;
             this.ProgramType = programType;
             this.Hvac = hvac;
             this.Shw = shw;
+            this.ProcessLoads = processLoads;
+            this.DaylightingControl = daylightingControl;
             this.WindowVentControl = windowVentControl;
             this.WindowVentOpening = windowVentOpening;
-            this.ProcessLoads = processLoads;
+            this.Fans = fans;
 
             // Set readonly properties with defaultValue
             this.Type = "Room2DEnergyPropertiesAbridged";
@@ -120,6 +121,26 @@ namespace DragonflySchema
         public string Shw { get; set; }
 
         /// <summary>
+        /// An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.
+        /// </summary>
+        [Summary(@"An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "process_loads")] // For internal Serialization XML/JSON
+        [JsonProperty("process_loads", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("process_loads")] // For System.Text.Json
+        public List<ProcessAbridged> ProcessLoads { get; set; }
+
+        /// <summary>
+        /// An optional DaylightingControl object to dictate the dimming of lights. If None, the lighting will respond only to the schedule and not the daylight conditions within the room.
+        /// </summary>
+        [Summary(@"An optional DaylightingControl object to dictate the dimming of lights. If None, the lighting will respond only to the schedule and not the daylight conditions within the room.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [DataMember(Name = "daylighting_control")] // For internal Serialization XML/JSON
+        [JsonProperty("daylighting_control", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("daylighting_control")] // For System.Text.Json
+        public DaylightingControl DaylightingControl { get; set; }
+
+        /// <summary>
         /// An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.
         /// </summary>
         [Summary(@"An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.")]
@@ -140,14 +161,14 @@ namespace DragonflySchema
         public VentilationOpening WindowVentOpening { get; set; }
 
         /// <summary>
-        /// An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.
+        /// An optional list of VentilationFan objects for fans within the room. Note that these fans are not connected to the heating or cooling system and are meant to represent the intentional circulation of unconditioned outdoor air for the purposes of keeping a space cooler, drier or free of indoor pollutants (as in the case of kitchen or bathroom exhaust fans). For the specification of mechanical ventilation of conditioned outdoor air, the Room.ventilation property should be used and the Room should be given a HVAC that can meet this specification.
         /// </summary>
-        [Summary(@"An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.")]
+        [Summary(@"An optional list of VentilationFan objects for fans within the room. Note that these fans are not connected to the heating or cooling system and are meant to represent the intentional circulation of unconditioned outdoor air for the purposes of keeping a space cooler, drier or free of indoor pollutants (as in the case of kitchen or bathroom exhaust fans). For the specification of mechanical ventilation of conditioned outdoor air, the Room.ventilation property should be used and the Room should be given a HVAC that can meet this specification.")]
         // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
-        [DataMember(Name = "process_loads")] // For internal Serialization XML/JSON
-        [JsonProperty("process_loads", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
-        // [System.Text.Json.Serialization.JsonPropertyName("process_loads")] // For System.Text.Json
-        public List<ProcessAbridged> ProcessLoads { get; set; }
+        [DataMember(Name = "fans")] // For internal Serialization XML/JSON
+        [JsonProperty("fans", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("fans")] // For System.Text.Json
+        public List<VentilationFan> Fans { get; set; }
 
 
         /// <summary>
@@ -176,9 +197,11 @@ namespace DragonflySchema
             sb.Append("  ProgramType: ").Append(this.ProgramType).Append("\n");
             sb.Append("  Hvac: ").Append(this.Hvac).Append("\n");
             sb.Append("  Shw: ").Append(this.Shw).Append("\n");
+            sb.Append("  ProcessLoads: ").Append(this.ProcessLoads).Append("\n");
+            sb.Append("  DaylightingControl: ").Append(this.DaylightingControl).Append("\n");
             sb.Append("  WindowVentControl: ").Append(this.WindowVentControl).Append("\n");
             sb.Append("  WindowVentOpening: ").Append(this.WindowVentOpening).Append("\n");
-            sb.Append("  ProcessLoads: ").Append(this.ProcessLoads).Append("\n");
+            sb.Append("  Fans: ").Append(this.Fans).Append("\n");
             return sb.ToString();
         }
 
@@ -244,9 +267,11 @@ namespace DragonflySchema
                     Extension.Equals(this.ProgramType, input.ProgramType) && 
                     Extension.Equals(this.Hvac, input.Hvac) && 
                     Extension.Equals(this.Shw, input.Shw) && 
+                    Extension.AllEquals(this.ProcessLoads, input.ProcessLoads) && 
+                    Extension.Equals(this.DaylightingControl, input.DaylightingControl) && 
                     Extension.Equals(this.WindowVentControl, input.WindowVentControl) && 
                     Extension.Equals(this.WindowVentOpening, input.WindowVentOpening) && 
-                    Extension.AllEquals(this.ProcessLoads, input.ProcessLoads);
+                    Extension.AllEquals(this.Fans, input.Fans);
         }
 
 
@@ -267,12 +292,16 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.Hvac.GetHashCode();
                 if (this.Shw != null)
                     hashCode = hashCode * 59 + this.Shw.GetHashCode();
+                if (this.ProcessLoads != null)
+                    hashCode = hashCode * 59 + this.ProcessLoads.GetHashCode();
+                if (this.DaylightingControl != null)
+                    hashCode = hashCode * 59 + this.DaylightingControl.GetHashCode();
                 if (this.WindowVentControl != null)
                     hashCode = hashCode * 59 + this.WindowVentControl.GetHashCode();
                 if (this.WindowVentOpening != null)
                     hashCode = hashCode * 59 + this.WindowVentOpening.GetHashCode();
-                if (this.ProcessLoads != null)
-                    hashCode = hashCode * 59 + this.ProcessLoads.GetHashCode();
+                if (this.Fans != null)
+                    hashCode = hashCode * 59 + this.Fans.GetHashCode();
                 return hashCode;
             }
         }

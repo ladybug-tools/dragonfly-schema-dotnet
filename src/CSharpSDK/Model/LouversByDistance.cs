@@ -70,6 +70,7 @@ namespace DragonflySchema
         [Summary(@"A number for the approximate distance between each louver.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, double.MaxValue)]
         [DataMember(Name = "distance", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("distance", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("distance")] // For System.Text.Json

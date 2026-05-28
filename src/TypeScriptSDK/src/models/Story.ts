@@ -1,4 +1,4 @@
-﻿import { IsArray, IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsInt, Min, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Equals, IsInt, Min, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { Autocalculate } from "honeybee-schema";
@@ -8,7 +8,6 @@ import { Room2D } from "./Room2D";
 import { StoryPropertiesAbridged } from "./StoryPropertiesAbridged";
 import { StoryType } from "./StoryType";
 
-/** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Story extends IDdBaseModel {
     @IsArray()
     @Type(() => Room2D)
@@ -30,7 +29,7 @@ export class Story extends IDdBaseModel {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^Story$/)
+    @Equals("Story")
     @Expose({ name: "type" })
     /** type */
     type: string = "Story";

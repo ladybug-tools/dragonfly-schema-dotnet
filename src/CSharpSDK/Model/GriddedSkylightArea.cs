@@ -67,6 +67,7 @@ namespace DragonflySchema
         [Summary(@"A number for the skylight area in current model units. If this area is larger than the area of the roof that it is applied to, the skylight will fill the parent roof at a 99 percent ratio.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, double.MaxValue)]
         [DataMember(Name = "skylight_area", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("skylight_area", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("skylight_area")] // For System.Text.Json

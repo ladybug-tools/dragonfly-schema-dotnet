@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, Matches, IsNumber, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Equals, IsNumber, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { _GridParameterBase } from "./_GridParameterBase";
@@ -8,7 +8,7 @@ export class RoomGridParameter extends _GridParameterBase {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^RoomGridParameter$/)
+    @Equals("RoomGridParameter")
     @Expose({ name: "type" })
     /** type */
     type: string = "RoomGridParameter";

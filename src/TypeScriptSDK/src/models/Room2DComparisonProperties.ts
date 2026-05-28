@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Equals, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
@@ -13,12 +13,11 @@ import { SimpleWindowArea } from "./SimpleWindowArea";
 import { SimpleWindowRatio } from "./SimpleWindowRatio";
 import { SingleWindow } from "./SingleWindow";
 
-/** Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects. */
 export class Room2DComparisonProperties extends _OpenAPIGenBaseModel {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^Room2DComparisonProperties$/)
+    @Equals("Room2DComparisonProperties")
     @Expose({ name: "type" })
     /** type */
     type: string = "Room2DComparisonProperties";

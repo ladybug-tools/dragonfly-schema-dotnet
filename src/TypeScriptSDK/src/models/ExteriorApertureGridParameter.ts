@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, Matches, IsNumber, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Equals, IsNumber, IsEnum, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { _GridParameterBase } from "./_GridParameterBase";
@@ -9,7 +9,7 @@ export class ExteriorApertureGridParameter extends _GridParameterBase {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^ExteriorApertureGridParameter$/)
+    @Equals("ExteriorApertureGridParameter")
     @Expose({ name: "type" })
     /** type */
     type: string = "ExteriorApertureGridParameter";

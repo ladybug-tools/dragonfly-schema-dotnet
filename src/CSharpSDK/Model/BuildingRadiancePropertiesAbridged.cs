@@ -20,10 +20,7 @@ using HoneybeeSchema;
 
 namespace DragonflySchema
 {
-    /// <summary>
-    /// Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.
-    /// </summary>
-    [Summary(@"Base class for all objects that are not extensible with additional keys.\n\nThis effectively includes all objects except for the Properties classes\nthat are assigned to geometry objects.")]
+    [Summary(@"")]
     [System.Serializable]
     [DataContract(Name = "BuildingRadiancePropertiesAbridged")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class BuildingRadiancePropertiesAbridged : OpenAPIGenBaseModel, System.IEquatable<BuildingRadiancePropertiesAbridged>

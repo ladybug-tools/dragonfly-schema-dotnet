@@ -1,4 +1,4 @@
-﻿import { IsNumber, IsDefined, Min, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsNumber, IsDefined, Min, IsString, IsOptional, Equals, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { _WindowParameterBase } from "./_WindowParameterBase";
@@ -31,13 +31,13 @@ export class RepeatingWindowRatio extends _WindowParameterBase {
     @IsDefined()
     @Min(0)
     @Expose({ name: "horizontal_separation" })
-    /** A number for the target separation between individual window centerlines.  If this number is larger than the parent rectangle base, only one window will be produced. */
+    /** A number for the target separation between individual window center lines.  If this number is larger than the parent rectangle base, only one window will be produced. */
     horizontalSeparation!: number;
 	
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^RepeatingWindowRatio$/)
+    @Equals("RepeatingWindowRatio")
     @Expose({ name: "type" })
     /** type */
     type: string = "RepeatingWindowRatio";

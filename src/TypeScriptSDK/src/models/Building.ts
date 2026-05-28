@@ -1,4 +1,4 @@
-﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Matches, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsInstance, ValidateNested, IsDefined, IsString, IsOptional, Equals, IsArray, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { BuildingPropertiesAbridged } from "./BuildingPropertiesAbridged";
@@ -7,7 +7,6 @@ import { RoofSpecification } from "./RoofSpecification";
 import { Room } from "honeybee-schema";
 import { Story } from "./Story";
 
-/** Base class for all objects requiring a identifiers acceptable for all engines. */
 export class Building extends IDdBaseModel {
     @Type(() => BuildingPropertiesAbridged)
     @IsInstance(BuildingPropertiesAbridged)
@@ -20,7 +19,7 @@ export class Building extends IDdBaseModel {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^Building$/)
+    @Equals("Building")
     @Expose({ name: "type" })
     /** type */
     type: string = "Building";

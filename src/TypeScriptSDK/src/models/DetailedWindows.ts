@@ -1,4 +1,4 @@
-﻿import { IsArray, IsDefined, IsString, IsOptional, Matches, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsDefined, IsString, IsOptional, Equals, IsBoolean, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { IsNestedNumberArray } from "./../helpers/class-validator";
@@ -16,7 +16,7 @@ export class DetailedWindows extends _WindowParameterBase {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^DetailedWindows$/)
+    @Equals("DetailedWindows")
     @Expose({ name: "type" })
     /** type */
     type: string = "DetailedWindows";

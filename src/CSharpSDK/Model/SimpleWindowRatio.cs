@@ -68,6 +68,7 @@ namespace DragonflySchema
         [Summary(@"A number between 0 and 1 for the ratio between the window area and the parent wall surface area.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, 1)]
         [DataMember(Name = "window_ratio", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("window_ratio", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("window_ratio")] // For System.Text.Json

@@ -20,10 +20,7 @@ using HoneybeeSchema;
 
 namespace DragonflySchema
 {
-    /// <summary>
-    /// Base class for all objects requiring a identifiers acceptable for all engines.
-    /// </summary>
-    [Summary(@"Base class for all objects requiring a identifiers acceptable for all engines.")]
+    [Summary(@"")]
     [System.Serializable]
     [DataContract(Name = "Room2D")] // Enables DataMember rules. For internal Serialization XML/JSON
     public partial class Room2D : IDdBaseModel, System.IEquatable<Room2D>
@@ -43,7 +40,7 @@ namespace DragonflySchema
         /// </summary>
         /// <param name="identifier">Text string for a unique object ID. This identifier remains constant as the object is mutated, copied, and serialized to different formats (eg. dict, idf, rad). This identifier is also used to reference the object across a Model. It must be < 100 characters and not contain any spaces or special characters.</param>
         /// <param name="floorBoundary">A list of 2D points representing the outer boundary vertices of the Room2D. The list should include at least 3 points and each point should be a list of 2 (x, y) values.</param>
-        /// <param name="floorHeight">A number to indicate the height of the floor plane in the Z axis.</param>
+        /// <param name="floorHeight">A number to indicate the Z-coordinate (or elevation) of the room floor plane.</param>
         /// <param name="floorToCeilingHeight">A number for the distance between the floor and the ceiling.</param>
         /// <param name="properties">Extension properties for particular simulation engines (Radiance, EnergyPlus).</param>
         /// <param name="displayName">Display name of the object with no character restrictions.</param>
@@ -106,9 +103,9 @@ namespace DragonflySchema
         public List<List<double>> FloorBoundary { get; set; }
 
         /// <summary>
-        /// A number to indicate the height of the floor plane in the Z axis.
+        /// A number to indicate the Z-coordinate (or elevation) of the room floor plane.
         /// </summary>
-        [Summary(@"A number to indicate the height of the floor plane in the Z axis.")]
+        [Summary(@"A number to indicate the Z-coordinate (or elevation) of the room floor plane.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
         [DataMember(Name = "floor_height", IsRequired = true)] // For internal Serialization XML/JSON

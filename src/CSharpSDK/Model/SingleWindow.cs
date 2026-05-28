@@ -70,6 +70,7 @@ namespace DragonflySchema
         [Summary(@"A number for the window width. Note that, if this width is applied to a wall that is too narrow for this width, the generated window will automatically be shortened when it is applied to the wall. In this way, setting the width to be `float(""inf"")` will create parameters that always generate a ribbon window.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, double.MaxValue)]
         [DataMember(Name = "width", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("width", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("width")] // For System.Text.Json
@@ -81,6 +82,7 @@ namespace DragonflySchema
         [Summary(@"A number for the window height. Note that, if this height is applied to a wall that is too short for this height, the generated window will automatically be shortened when it is applied to the wall.")]
         [Required] // For validation after deserialization
         // [System.Text.Json.Serialization.JsonRequired] // For System.Text.Json 
+        [Range(0, double.MaxValue)]
         [DataMember(Name = "height", IsRequired = true)] // For internal Serialization XML/JSON
         [JsonProperty("height", Required = Required.Always)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("height")] // For System.Text.Json
@@ -91,6 +93,7 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A number for the window sill height.")]
         // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [Range(0, double.MaxValue)]
         [DataMember(Name = "sill_height")] // For internal Serialization XML/JSON
         [JsonProperty("sill_height", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("sill_height")] // For System.Text.Json

@@ -1,7 +1,8 @@
-﻿import { IsArray, IsDefined, IsString, IsOptional, Matches, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsArray, IsDefined, IsString, IsOptional, Equals, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
+import { DetailedClearstory } from "./DetailedClearstory";
 import { Face3D } from "honeybee-schema";
 import { Mesh3D } from "honeybee-schema";
 
@@ -21,10 +22,19 @@ export class RoofSpecification extends _OpenAPIGenBaseModel {
     @Type(() => String)
     @IsString()
     @IsOptional()
-    @Matches(/^RoofSpecification$/)
+    @Equals("RoofSpecification")
     @Expose({ name: "type" })
     /** type */
     type: string = "RoofSpecification";
+	
+    @IsArray()
+    @Type(() => DetailedClearstory)
+    @IsInstance(DetailedClearstory, { each: true })
+    @ValidateNested({ each: true })
+    @IsOptional()
+    @Expose({ name: "clearstory_parameters" })
+    /** A list of ClearstoryParameter objects that dictate how to generate window geometries for any vertical walls that result from the translation of roof geometry. If None, no clearstory windows will exist over the roof. */
+    clearstoryParameters?: DetailedClearstory[];
 	
 
     constructor() {
@@ -39,6 +49,7 @@ export class RoofSpecification extends _OpenAPIGenBaseModel {
             const obj = deepTransform(RoofSpecification, _data);
             this.geometry = obj.geometry;
             this.type = obj.type ?? "RoofSpecification";
+            this.clearstoryParameters = obj.clearstoryParameters;
         }
     }
 
@@ -62,6 +73,7 @@ export class RoofSpecification extends _OpenAPIGenBaseModel {
         data = typeof data === 'object' ? data : {};
         data["geometry"] = this.geometry;
         data["type"] = this.type ?? "RoofSpecification";
+        data["clearstory_parameters"] = this.clearstoryParameters;
         data = super.toJSON(data);
         return instanceToPlain(data, { exposeUnsetFields: false });
     }

@@ -72,6 +72,7 @@ namespace DragonflySchema
         /// </summary>
         [Summary(@"A positive integer for the number of radial directions to be generated around each position.")]
         // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [Range(0, int.MaxValue)]
         [DataMember(Name = "dir_count")] // For internal Serialization XML/JSON
         [JsonProperty("dir_count", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("dir_count")] // For System.Text.Json
