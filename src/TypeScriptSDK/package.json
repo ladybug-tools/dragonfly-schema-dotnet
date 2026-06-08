@@ -1,7 +1,7 @@
 {
   "name": "dragonfly-schema",
   "license": "MIT",
-  "version": "2.100.0",
+  "version": "0.0.1",
   "description": "Dragonfly Schema's typescript version",
   "author": "Ladybug Tools",
   "type": "module",
