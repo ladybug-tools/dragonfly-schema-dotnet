@@ -36,6 +36,6 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "honeybee-schema": "^2.6.0"
+    "honeybee-schema": "^2.101.0"
   }
 }
