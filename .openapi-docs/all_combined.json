@@ -3,7 +3,7 @@
   "servers": [],
   "info": {
     "description": "Documentation for Dragonfly model schema",
-    "version": "2.1.5",
+    "version": "2.2.1",
     "title": "Dragonfly Model Schema",
     "contact": {
       "name": "Ladybug Tools",
@@ -13107,6 +13107,90 @@
                 "default": null,
                 "description": "An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies.",
                 "title": "Shw"
+              },
+              "person_count": {
+                "anyOf": [
+                  {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Number for the total number of people in the room or an Unassigned object to indicate that people are assigned via the program_type.",
+                "title": "Person Count"
+              },
+              "lighting_watts": {
+                "anyOf": [
+                  {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Number for the total wattage of lighting in the room or an Unassigned object to indicate that lighting is assigned via the program_type.",
+                "title": "Lighting Watts"
+              },
+              "electric_equipment_watts": {
+                "anyOf": [
+                  {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Number for the total wattage of electric equipment in the room or an Unassigned object to indicate that electric equipment is assigned via the program_type.",
+                "title": "Electric Equipment Watts"
+              },
+              "gas_equipment_watts": {
+                "anyOf": [
+                  {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Number for the total wattage of gas equipment in the room or an Unassigned object to indicate that gas equipment is assigned via the program_type.",
+                "title": "Gas Equipment Watts"
+              },
+              "hot_water_flow": {
+                "anyOf": [
+                  {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Number for the total flow of hot water in the room or an Unassigned object to indicate that service hot water is assigned via the program_type.",
+                "title": "Hot Water Flow"
+              },
+              "infiltration_ach": {
+                "anyOf": [
+                  {
+                    "minimum": 0,
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Number for the infiltration of the room in air changes per hour or an Unassigned object to indicate that infiltration is assigned via the program_type.",
+                "title": "Infiltration Ach"
               },
               "process_loads": {
                 "anyOf": [

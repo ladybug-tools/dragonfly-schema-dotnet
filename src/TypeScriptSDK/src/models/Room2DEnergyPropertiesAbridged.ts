@@ -1,4 +1,4 @@
-﻿import { IsString, IsOptional, Equals, MinLength, MaxLength, IsArray, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
+﻿import { IsString, IsOptional, Equals, MinLength, MaxLength, IsNumber, Min, IsArray, IsInstance, ValidateNested, validate, ValidationError as TsValidationError } from 'class-validator';
 import { Type, instanceToPlain, Expose, Transform } from 'class-transformer';
 import { deepTransform } from '../deepTransform';
 import { _OpenAPIGenBaseModel } from "./_OpenAPIGenBaseModel";
@@ -52,6 +52,54 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
     @Expose({ name: "shw" })
     /** An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies. */
     shw?: string;
+	
+    @Type(() => Number)
+    @IsNumber()
+    @IsOptional()
+    @Min(0)
+    @Expose({ name: "person_count" })
+    /** Number for the total number of people in the room or an Unassigned object to indicate that people are assigned via the program_type. */
+    personCount?: number;
+	
+    @Type(() => Number)
+    @IsNumber()
+    @IsOptional()
+    @Min(0)
+    @Expose({ name: "lighting_watts" })
+    /** Number for the total wattage of lighting in the room or an Unassigned object to indicate that lighting is assigned via the program_type. */
+    lightingWatts?: number;
+	
+    @Type(() => Number)
+    @IsNumber()
+    @IsOptional()
+    @Min(0)
+    @Expose({ name: "electric_equipment_watts" })
+    /** Number for the total wattage of electric equipment in the room or an Unassigned object to indicate that electric equipment is assigned via the program_type. */
+    electricEquipmentWatts?: number;
+	
+    @Type(() => Number)
+    @IsNumber()
+    @IsOptional()
+    @Min(0)
+    @Expose({ name: "gas_equipment_watts" })
+    /** Number for the total wattage of gas equipment in the room or an Unassigned object to indicate that gas equipment is assigned via the program_type. */
+    gasEquipmentWatts?: number;
+	
+    @Type(() => Number)
+    @IsNumber()
+    @IsOptional()
+    @Min(0)
+    @Expose({ name: "hot_water_flow" })
+    /** Number for the total flow of hot water in the room or an Unassigned object to indicate that service hot water is assigned via the program_type. */
+    hotWaterFlow?: number;
+	
+    @Type(() => Number)
+    @IsNumber()
+    @IsOptional()
+    @Min(0)
+    @Expose({ name: "infiltration_ach" })
+    /** Number for the infiltration of the room in air changes per hour or an Unassigned object to indicate that infiltration is assigned via the program_type. */
+    infiltrationAch?: number;
 	
     @IsArray()
     @Type(() => ProcessAbridged)
@@ -111,6 +159,12 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
             this.programType = obj.programType;
             this.hvac = obj.hvac;
             this.shw = obj.shw;
+            this.personCount = obj.personCount;
+            this.lightingWatts = obj.lightingWatts;
+            this.electricEquipmentWatts = obj.electricEquipmentWatts;
+            this.gasEquipmentWatts = obj.gasEquipmentWatts;
+            this.hotWaterFlow = obj.hotWaterFlow;
+            this.infiltrationAch = obj.infiltrationAch;
             this.processLoads = obj.processLoads;
             this.daylightingControl = obj.daylightingControl;
             this.windowVentControl = obj.windowVentControl;
@@ -142,6 +196,12 @@ export class Room2DEnergyPropertiesAbridged extends _OpenAPIGenBaseModel {
         data["program_type"] = this.programType;
         data["hvac"] = this.hvac;
         data["shw"] = this.shw;
+        data["person_count"] = this.personCount;
+        data["lighting_watts"] = this.lightingWatts;
+        data["electric_equipment_watts"] = this.electricEquipmentWatts;
+        data["gas_equipment_watts"] = this.gasEquipmentWatts;
+        data["hot_water_flow"] = this.hotWaterFlow;
+        data["infiltration_ach"] = this.infiltrationAch;
         data["process_loads"] = this.processLoads;
         data["daylighting_control"] = this.daylightingControl;
         data["window_vent_control"] = this.windowVentControl;
