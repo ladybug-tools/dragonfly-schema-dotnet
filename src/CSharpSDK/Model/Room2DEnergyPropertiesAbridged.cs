@@ -42,6 +42,12 @@ namespace DragonflySchema
         /// <param name="programType">Name of a ProgramType to specify all schedules and loads for the Room2D. If None, the Room2D will have no loads or setpoints.</param>
         /// <param name="hvac">An optional identifier of a HVAC system (such as an IdealAirSystem) that specifies how the Room2D is conditioned. If None, it will be assumed that the Room2D is not conditioned.</param>
         /// <param name="shw">An optional identifier of a Service Hot Water (SHW) system that specifies how the hot water load of the Room is met. If None, the hot water load will be met with a generic system that only measures thermal loadand does not account for system efficiencies.</param>
+        /// <param name="personCount">Number for the total number of people in the room or an Unassigned object to indicate that people are assigned via the program_type.</param>
+        /// <param name="lightingWatts">Number for the total wattage of lighting in the room or an Unassigned object to indicate that lighting is assigned via the program_type.</param>
+        /// <param name="electricEquipmentWatts">Number for the total wattage of electric equipment in the room or an Unassigned object to indicate that electric equipment is assigned via the program_type.</param>
+        /// <param name="gasEquipmentWatts">Number for the total wattage of gas equipment in the room or an Unassigned object to indicate that gas equipment is assigned via the program_type.</param>
+        /// <param name="hotWaterFlow">Number for the total flow of hot water in the room or an Unassigned object to indicate that service hot water is assigned via the program_type.</param>
+        /// <param name="infiltrationAch">Number for the infiltration of the room in air changes per hour or an Unassigned object to indicate that infiltration is assigned via the program_type.</param>
         /// <param name="processLoads">An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.</param>
         /// <param name="daylightingControl">An optional DaylightingControl object to dictate the dimming of lights. If None, the lighting will respond only to the schedule and not the daylight conditions within the room.</param>
         /// <param name="windowVentControl">An optional VentilationControl object to dictate the opening of windows. If None, the windows will never open.</param>
@@ -49,13 +55,19 @@ namespace DragonflySchema
         /// <param name="fans">An optional list of VentilationFan objects for fans within the room. Note that these fans are not connected to the heating or cooling system and are meant to represent the intentional circulation of unconditioned outdoor air for the purposes of keeping a space cooler, drier or free of indoor pollutants (as in the case of kitchen or bathroom exhaust fans). For the specification of mechanical ventilation of conditioned outdoor air, the Room.ventilation property should be used and the Room should be given a HVAC that can meet this specification.</param>
         public Room2DEnergyPropertiesAbridged
         (
-            string constructionSet = default, string programType = default, string hvac = default, string shw = default, List<ProcessAbridged> processLoads = default, DaylightingControl daylightingControl = default, VentilationControlAbridged windowVentControl = default, VentilationOpening windowVentOpening = default, List<VentilationFan> fans = default
+            string constructionSet = default, string programType = default, string hvac = default, string shw = default, double? personCount = default, double? lightingWatts = default, double? electricEquipmentWatts = default, double? gasEquipmentWatts = default, double? hotWaterFlow = default, double? infiltrationAch = default, List<ProcessAbridged> processLoads = default, DaylightingControl daylightingControl = default, VentilationControlAbridged windowVentControl = default, VentilationOpening windowVentOpening = default, List<VentilationFan> fans = default
         ) : base()
         {
             this.ConstructionSet = constructionSet;
             this.ProgramType = programType;
             this.Hvac = hvac;
             this.Shw = shw;
+            this.PersonCount = personCount;
+            this.LightingWatts = lightingWatts;
+            this.ElectricEquipmentWatts = electricEquipmentWatts;
+            this.GasEquipmentWatts = gasEquipmentWatts;
+            this.HotWaterFlow = hotWaterFlow;
+            this.InfiltrationAch = infiltrationAch;
             this.ProcessLoads = processLoads;
             this.DaylightingControl = daylightingControl;
             this.WindowVentControl = windowVentControl;
@@ -119,6 +131,72 @@ namespace DragonflySchema
         [JsonProperty("shw", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
         // [System.Text.Json.Serialization.JsonPropertyName("shw")] // For System.Text.Json
         public string Shw { get; set; }
+
+        /// <summary>
+        /// Number for the total number of people in the room or an Unassigned object to indicate that people are assigned via the program_type.
+        /// </summary>
+        [Summary(@"Number for the total number of people in the room or an Unassigned object to indicate that people are assigned via the program_type.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [Range(0, double.MaxValue)]
+        [DataMember(Name = "person_count")] // For internal Serialization XML/JSON
+        [JsonProperty("person_count", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("person_count")] // For System.Text.Json
+        public double? PersonCount { get; set; }
+
+        /// <summary>
+        /// Number for the total wattage of lighting in the room or an Unassigned object to indicate that lighting is assigned via the program_type.
+        /// </summary>
+        [Summary(@"Number for the total wattage of lighting in the room or an Unassigned object to indicate that lighting is assigned via the program_type.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [Range(0, double.MaxValue)]
+        [DataMember(Name = "lighting_watts")] // For internal Serialization XML/JSON
+        [JsonProperty("lighting_watts", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("lighting_watts")] // For System.Text.Json
+        public double? LightingWatts { get; set; }
+
+        /// <summary>
+        /// Number for the total wattage of electric equipment in the room or an Unassigned object to indicate that electric equipment is assigned via the program_type.
+        /// </summary>
+        [Summary(@"Number for the total wattage of electric equipment in the room or an Unassigned object to indicate that electric equipment is assigned via the program_type.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [Range(0, double.MaxValue)]
+        [DataMember(Name = "electric_equipment_watts")] // For internal Serialization XML/JSON
+        [JsonProperty("electric_equipment_watts", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("electric_equipment_watts")] // For System.Text.Json
+        public double? ElectricEquipmentWatts { get; set; }
+
+        /// <summary>
+        /// Number for the total wattage of gas equipment in the room or an Unassigned object to indicate that gas equipment is assigned via the program_type.
+        /// </summary>
+        [Summary(@"Number for the total wattage of gas equipment in the room or an Unassigned object to indicate that gas equipment is assigned via the program_type.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [Range(0, double.MaxValue)]
+        [DataMember(Name = "gas_equipment_watts")] // For internal Serialization XML/JSON
+        [JsonProperty("gas_equipment_watts", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("gas_equipment_watts")] // For System.Text.Json
+        public double? GasEquipmentWatts { get; set; }
+
+        /// <summary>
+        /// Number for the total flow of hot water in the room or an Unassigned object to indicate that service hot water is assigned via the program_type.
+        /// </summary>
+        [Summary(@"Number for the total flow of hot water in the room or an Unassigned object to indicate that service hot water is assigned via the program_type.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [Range(0, double.MaxValue)]
+        [DataMember(Name = "hot_water_flow")] // For internal Serialization XML/JSON
+        [JsonProperty("hot_water_flow", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("hot_water_flow")] // For System.Text.Json
+        public double? HotWaterFlow { get; set; }
+
+        /// <summary>
+        /// Number for the infiltration of the room in air changes per hour or an Unassigned object to indicate that infiltration is assigned via the program_type.
+        /// </summary>
+        [Summary(@"Number for the infiltration of the room in air changes per hour or an Unassigned object to indicate that infiltration is assigned via the program_type.")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]  // For System.Text.Json  
+        [Range(0, double.MaxValue)]
+        [DataMember(Name = "infiltration_ach")] // For internal Serialization XML/JSON
+        [JsonProperty("infiltration_ach", NullValueHandling = NullValueHandling.Ignore)] // For Newtonsoft.Json
+        // [System.Text.Json.Serialization.JsonPropertyName("infiltration_ach")] // For System.Text.Json
+        public double? InfiltrationAch { get; set; }
 
         /// <summary>
         /// An optional list of Process objects for process loads within the room. These can represent wood burning fireplaces, kilns, manufacturing equipment, and various industrial processes. They can also be used to represent certain pieces of equipment to be separated from the other end uses, such as MRI machines, theatrical lighting, and elevators.
@@ -197,6 +275,12 @@ namespace DragonflySchema
             sb.Append("  ProgramType: ").Append(this.ProgramType).Append("\n");
             sb.Append("  Hvac: ").Append(this.Hvac).Append("\n");
             sb.Append("  Shw: ").Append(this.Shw).Append("\n");
+            sb.Append("  PersonCount: ").Append(this.PersonCount).Append("\n");
+            sb.Append("  LightingWatts: ").Append(this.LightingWatts).Append("\n");
+            sb.Append("  ElectricEquipmentWatts: ").Append(this.ElectricEquipmentWatts).Append("\n");
+            sb.Append("  GasEquipmentWatts: ").Append(this.GasEquipmentWatts).Append("\n");
+            sb.Append("  HotWaterFlow: ").Append(this.HotWaterFlow).Append("\n");
+            sb.Append("  InfiltrationAch: ").Append(this.InfiltrationAch).Append("\n");
             sb.Append("  ProcessLoads: ").Append(this.ProcessLoads).Append("\n");
             sb.Append("  DaylightingControl: ").Append(this.DaylightingControl).Append("\n");
             sb.Append("  WindowVentControl: ").Append(this.WindowVentControl).Append("\n");
@@ -267,6 +351,12 @@ namespace DragonflySchema
                     Extension.Equals(this.ProgramType, input.ProgramType) && 
                     Extension.Equals(this.Hvac, input.Hvac) && 
                     Extension.Equals(this.Shw, input.Shw) && 
+                    Extension.Equals(this.PersonCount, input.PersonCount) && 
+                    Extension.Equals(this.LightingWatts, input.LightingWatts) && 
+                    Extension.Equals(this.ElectricEquipmentWatts, input.ElectricEquipmentWatts) && 
+                    Extension.Equals(this.GasEquipmentWatts, input.GasEquipmentWatts) && 
+                    Extension.Equals(this.HotWaterFlow, input.HotWaterFlow) && 
+                    Extension.Equals(this.InfiltrationAch, input.InfiltrationAch) && 
                     Extension.AllEquals(this.ProcessLoads, input.ProcessLoads) && 
                     Extension.Equals(this.DaylightingControl, input.DaylightingControl) && 
                     Extension.Equals(this.WindowVentControl, input.WindowVentControl) && 
@@ -292,6 +382,18 @@ namespace DragonflySchema
                     hashCode = hashCode * 59 + this.Hvac.GetHashCode();
                 if (this.Shw != null)
                     hashCode = hashCode * 59 + this.Shw.GetHashCode();
+                if (this.PersonCount != null)
+                    hashCode = hashCode * 59 + this.PersonCount.GetHashCode();
+                if (this.LightingWatts != null)
+                    hashCode = hashCode * 59 + this.LightingWatts.GetHashCode();
+                if (this.ElectricEquipmentWatts != null)
+                    hashCode = hashCode * 59 + this.ElectricEquipmentWatts.GetHashCode();
+                if (this.GasEquipmentWatts != null)
+                    hashCode = hashCode * 59 + this.GasEquipmentWatts.GetHashCode();
+                if (this.HotWaterFlow != null)
+                    hashCode = hashCode * 59 + this.HotWaterFlow.GetHashCode();
+                if (this.InfiltrationAch != null)
+                    hashCode = hashCode * 59 + this.InfiltrationAch.GetHashCode();
                 if (this.ProcessLoads != null)
                     hashCode = hashCode * 59 + this.ProcessLoads.GetHashCode();
                 if (this.DaylightingControl != null)
