@@ -3,7 +3,7 @@
   "servers": [],
   "info": {
     "description": "Documentation for Dragonfly model schema",
-    "version": "2.2.1",
+    "version": "2.2.2",
     "title": "Dragonfly Model Schema",
     "contact": {
       "name": "Ladybug Tools",
@@ -11168,6 +11168,14 @@
                 },
                 "description": "Number for the latent fraction of heat gain due to people or an Autocalculate object.",
                 "title": "Latent Fraction"
+              },
+              "carbon_dioxide_generation_rate": {
+                "default": 3.82e-08,
+                "description": "A number greater than or equal to 0 for the carbon dioxide generation rate per unit of activity level, in m3/s-W. The default is the EnergyPlus default, which is representative of the average adult. (Default: 3.82e-8).",
+                "minimum": 0,
+                "title": "Carbon Dioxide Generation Rate",
+                "type": "number",
+                "format": "double"
               }
             },
             "additionalProperties": false
@@ -11258,6 +11266,14 @@
                 },
                 "description": "Number for the latent fraction of heat gain due to people or an Autocalculate object.",
                 "title": "Latent Fraction"
+              },
+              "carbon_dioxide_generation_rate": {
+                "default": 3.82e-08,
+                "description": "A number greater than or equal to 0 for the carbon dioxide generation rate per unit of activity level, in m3/s-W. The default is the EnergyPlus default, which is representative of the average adult. (Default: 3.82e-8).",
+                "minimum": 0,
+                "title": "Carbon Dioxide Generation Rate",
+                "type": "number",
+                "format": "double"
               }
             },
             "additionalProperties": false
