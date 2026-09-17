@@ -3,7 +3,7 @@
   "servers": [],
   "info": {
     "description": "Documentation for Dragonfly model schema",
-    "version": "2.2.2",
+    "version": "2.2.3",
     "title": "Dragonfly Model Schema",
     "contact": {
       "name": "Ladybug Tools",
@@ -195,9 +195,9 @@
       "description": "<SchemaDefinition schemaRef=\"#/components/schemas/DaylightingControl\" />\n"
     },
     {
-      "name": "detailedclearstory_model",
-      "x-displayName": "DetailedClearstory",
-      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/DetailedClearstory\" />\n"
+      "name": "detailedclerestory_model",
+      "x-displayName": "DetailedClerestory",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/DetailedClerestory\" />\n"
     },
     {
       "name": "detailedhvac_model",
@@ -1335,7 +1335,7 @@
         "controltype_model",
         "datedbasemodel_model",
         "daylightingcontrol_model",
-        "detailedclearstory_model",
+        "detailedclerestory_model",
         "detailedhvac_model",
         "detailedskylights_model",
         "detailedwindows_model",
@@ -3676,7 +3676,7 @@
           "propertyName": "type"
         }
       },
-      "DetailedClearstory": {
+      "DetailedClerestory": {
         "allOf": [
           {
             "$ref": "#/components/schemas/_OpenAPIGenBaseModel"
@@ -3685,7 +3685,7 @@
             "type": "object",
             "properties": {
               "base_line": {
-                "description": "An array of two sub-arrays with each sub-array representing the start and end point of a 2D line segment in the world XY system. This establishes the plane and domain in which the clearstory geometries exist.",
+                "description": "An array of two sub-arrays with each sub-array representing the start and end point of a 2D line segment in the world XY system. This establishes the plane and domain in which the clerestory geometries exist.",
                 "items": {
                   "items": {
                     "type": "number",
@@ -3701,13 +3701,13 @@
                 "type": "array"
               },
               "elevation": {
-                "description": "A number for the Z-coordinate that places the base_line and the corresponding clearstory window polygons in 3D space. This elevation value should be below all of the 3D clearstory window geometries and helps set the origin of the plane in which the clearstory geometry exists.",
+                "description": "A number for the Z-coordinate that places the base_line and the corresponding clerestory window polygons in 3D space. This elevation value should be below all of the 3D clerestory window geometries and helps set the origin of the plane in which the clerestory geometry exists.",
                 "title": "Elevation",
                 "type": "number",
                 "format": "double"
               },
               "polygons": {
-                "description": "An array of arrays with each sub-array representing a polygonal boundary of a clearstory window or door. Each sub-array should consist of arrays representing points, which contain 2 values for 2D coordinates in the plane defined by the base_line. The base_line plane is assumed to have an origin at the end point of the line segment (the second point) and an X-axis extending along the length of the segment. The Y-axis of the plane always points upwards. Therefore, both X and Y coordinates of the points in each polygon should be positive.",
+                "description": "An array of arrays with each sub-array representing a polygonal boundary of a clerestory window or door. Each sub-array should consist of arrays representing points, which contain 2 values for 2D coordinates in the plane defined by the base_line. The base_line plane is assumed to have an origin at the end point of the line segment (the second point) and an X-axis extending along the length of the segment. The Y-axis of the plane always points upwards. Therefore, both X and Y coordinates of the points in each polygon should be positive.",
                 "items": {
                   "items": {
                     "items": {
@@ -3725,8 +3725,8 @@
                 "type": "array"
               },
               "type": {
-                "const": "DetailedClearstory",
-                "default": "DetailedClearstory",
+                "const": "DetailedClerestory",
+                "default": "DetailedClerestory",
                 "title": "Type",
                 "type": "string",
                 "readOnly": true
@@ -3744,7 +3744,7 @@
                   }
                 ],
                 "default": null,
-                "description": "An array of booleans that align with the polygons and note whether each of the polygons represents a door out onto a roof or balcony (True) or a clearstory window (False). If None, it will be assumed that all polygons represent windows and they will be translated to Apertures in any resulting Honeybee model",
+                "description": "An array of booleans that align with the polygons and note whether each of the polygons represents a door out onto a roof or balcony (True) or a clerestory window (False). If None, it will be assumed that all polygons represent windows and they will be translated to Apertures in any resulting Honeybee model",
                 "title": "Are Doors"
               }
             },
@@ -3756,8 +3756,8 @@
             ]
           }
         ],
-        "description": "Instructions for detailed clearstory windows, defined by 2D Polygons.",
-        "title": "DetailedClearstory",
+        "description": "Instructions for detailed clerestory windows, defined by 2D Polygons.",
+        "title": "DetailedClerestory",
         "discriminator": {
           "propertyName": "type"
         }
@@ -12397,11 +12397,11 @@
                 "type": "string",
                 "readOnly": true
               },
-              "clearstory_parameters": {
+              "clerestory_parameters": {
                 "anyOf": [
                   {
                     "items": {
-                      "$ref": "#/components/schemas/DetailedClearstory"
+                      "$ref": "#/components/schemas/DetailedClerestory"
                     },
                     "type": "array"
                   },
@@ -12410,8 +12410,8 @@
                   }
                 ],
                 "default": null,
-                "description": "A list of ClearstoryParameter objects that dictate how to generate window geometries for any vertical walls that result from the translation of roof geometry. If None, no clearstory windows will exist over the roof.",
-                "title": "Clearstory Parameters"
+                "description": "A list of ClerestoryParameter objects that dictate how to generate window geometries for any vertical walls that result from the translation of roof geometry. If None, no clerestory windows will exist over the roof.",
+                "title": "Clerestory Parameters"
               }
             },
             "additionalProperties": false,

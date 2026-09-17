@@ -31,7 +31,7 @@
     "ContextShadeRadiancePropertiesAbridged": "dragonfly_schema.radiance.properties",
     "DatedBaseModel": "honeybee_schema.energy._base",
     "DaylightingControl": "honeybee_schema.energy.daylight",
-    "DetailedClearstory": "dragonfly_schema.clearstory_parameter",
+    "DetailedClerestory": "dragonfly_schema.clerestory_parameter",
     "DetailedHVAC": "honeybee_schema.energy.hvac.detailed",
     "DetailedSkylights": "dragonfly_schema.skylight_parameter",
     "DetailedWindows": "dragonfly_schema.window_parameter",

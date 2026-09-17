@@ -15,7 +15,7 @@ export * from "./ContextShadeEnergyPropertiesAbridged";
 export * from "./ContextShadePropertiesAbridged";
 export * from "./ContextShadeRadiancePropertiesAbridged";
 export * from "./ControlType";
-export * from "./DetailedClearstory";
+export * from "./DetailedClerestory";
 export * from "./DetailedSkylights";
 export * from "./DetailedWindows";
 export * from "./EconomizerType";
