@@ -3,7 +3,7 @@
   "servers": [],
   "info": {
     "description": "Documentation for Dragonfly model schema",
-    "version": "2.2.5",
+    "version": "2.2.6",
     "title": "Dragonfly Model Schema",
     "contact": {
       "name": "Ladybug Tools",
@@ -338,6 +338,16 @@
       "name": "evaporativecoolerequipmenttype_model",
       "x-displayName": "EvaporativeCoolerEquipmentType",
       "description": "<SchemaDefinition schemaRef=\"#/components/schemas/EvaporativeCoolerEquipmentType\" />\n"
+    },
+    {
+      "name": "exhaustair_model",
+      "x-displayName": "ExhaustAir",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ExhaustAir\" />\n"
+    },
+    {
+      "name": "exhaustairabridged_model",
+      "x-displayName": "ExhaustAirAbridged",
+      "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ExhaustAirAbridged\" />\n"
     },
     {
       "name": "exterioraperturegridparameter_model",
@@ -1364,6 +1374,8 @@
         "energywindowmaterialsimpleglazsys_model",
         "evaporativecooler_model",
         "evaporativecoolerequipmenttype_model",
+        "exhaustair_model",
+        "exhaustairabridged_model",
         "exterioraperturegridparameter_model",
         "exterioraperturetype_model",
         "exteriorfacegridparameter_model",
@@ -5994,6 +6006,200 @@
         ],
         "title": "EvaporativeCoolerEquipmentType",
         "type": "string"
+      },
+      "ExhaustAir": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/IDdEnergyBaseModel"
+          },
+          {
+            "type": "object",
+            "required": [],
+            "properties": {
+              "type": {
+                "const": "ExhaustAir",
+                "default": "ExhaustAir",
+                "title": "Type",
+                "type": "string",
+                "readOnly": true
+              },
+              "flow_per_area": {
+                "default": 0,
+                "description": "Intensity of exhaust air in [m3/s per m2 of floor area].",
+                "minimum": 0,
+                "title": "Flow Per Area",
+                "type": "number",
+                "format": "double"
+              },
+              "flow_per_fixture": {
+                "default": 0,
+                "description": "The level of exhaust air ventilation in m3/s for each fixture in the room. The term \"fixture\" is used broadly as a way to reference a wide variety of contaminant sources such as toilets/urinals, shower heads, kitchen hoods, fume hoods, etc.",
+                "minimum": 0,
+                "title": "Flow Per Fixture",
+                "type": "number",
+                "format": "double"
+              },
+              "fixture_count": {
+                "default": 1,
+                "description": "An integer for the number of fixtures in the room. This is multiplied by the flow_per_fixture, which is then added to the flow_per_area to yield the final exhaust air flow rate.",
+                "minimum": 0,
+                "title": "Fixture Count",
+                "type": "integer",
+                "format": "int32"
+              },
+              "schedule": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ScheduleRuleset"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ScheduleFixedInterval"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Schedule for the exhaust air ventilation over the course of the year. The type of this schedule should be Fractional and the fractional values get multiplied by the total design flow rate to yield a complete exhaust air profile. Values of 0 in the schedule will shut the exhaust fan off completely. If None, the design level of exhaust air will be used throughout all timesteps of the simulation, meaning that this schedule is Always On.",
+                "title": "Schedule"
+              },
+              "pressure_rise": {
+                "default": 125,
+                "description": "A positive number for the the pressure rise across the fan in Pascals (N/m2). This is often a function of the fan speed and the conditions in which the fan is operating. It plays an important role in determining the amount of energy consumed by the fan. Typical kitchen and bathroom exhaust fans have pressure rises around 125 Pa but, in healthcare settings where filters create more resistance, higher pressures around 250 Pa are more common.",
+                "exclusiveMinimum": 0,
+                "title": "Pressure Rise",
+                "type": "number",
+                "format": "double"
+              },
+              "efficiency": {
+                "default": 0.35,
+                "description": "A number between 0 and 1 for the overall efficiency of the fan. Specifically, this is the ratio of the power delivered to the fluid to the electrical input power. It is the product of the fan motor efficiency and the fan impeller efficiency. Fans that have a higher blade diameter, no obstructions or filters, and operate at lower speeds with smaller pressure rises for their size tend to have higher efficiencies. Because motor efficiencies are typically between 0.8 and 0.9, the best overall fan efficiencies tend to be around 0.7 with most typical fan efficiencies between 0.5 and 0.7. When filters are added, which is common for most exhaust fans, the total efficiency typically ends up between 0.3 and 0.4.",
+                "exclusiveMinimum": 0,
+                "maximum": 1,
+                "title": "Efficiency",
+                "type": "number",
+                "format": "double"
+              },
+              "balancing_schedule": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ScheduleRuleset"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ScheduleFixedInterval"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Schedule for the fraction of exhaust air that is unbalanced by simple airflows, such as infiltration, natural ventilation, or zone mixing. Unbalanced exhaust is modeled as being provided by the outdoor air system in the central air system such that values of 1 in this schedule indicate all exhaust air balancing done by the mechanical system and values of 0 indicate all air balanced by simple air flows. If None, then all the exhaust air flow is assumed to be unbalanced by simple airflows. The the flow rates at the zone return air node are reduced by the flow rate that is being exhausted and the zone outdoor air controller will ensure that the outdoor air flow rate is sufficient to serve the exhaust.",
+                "title": "Balancing Schedule"
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "title": "ExhaustAir",
+        "discriminator": {
+          "propertyName": "type"
+        }
+      },
+      "ExhaustAirAbridged": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/IDdEnergyBaseModel"
+          },
+          {
+            "type": "object",
+            "required": [],
+            "properties": {
+              "type": {
+                "const": "ExhaustAirAbridged",
+                "default": "ExhaustAirAbridged",
+                "title": "Type",
+                "type": "string",
+                "readOnly": true
+              },
+              "flow_per_area": {
+                "default": 0,
+                "description": "Intensity of exhaust air in [m3/s per m2 of floor area].",
+                "minimum": 0,
+                "title": "Flow Per Area",
+                "type": "number",
+                "format": "double"
+              },
+              "flow_per_fixture": {
+                "default": 0,
+                "description": "The level of exhaust air ventilation in m3/s for each fixture in the room. The term \"fixture\" is used broadly as a way to reference a wide variety of contaminant sources such as toilets/urinals, shower heads, kitchen hoods, fume hoods, etc.",
+                "minimum": 0,
+                "title": "Flow Per Fixture",
+                "type": "number",
+                "format": "double"
+              },
+              "fixture_count": {
+                "default": 1,
+                "description": "An integer for the number of fixtures in the room. This is multiplied by the flow_per_fixture, which is then added to the flow_per_area to yield the final exhaust air flow rate.",
+                "minimum": 0,
+                "title": "Fixture Count",
+                "type": "integer",
+                "format": "int32"
+              },
+              "schedule": {
+                "anyOf": [
+                  {
+                    "maxLength": 100,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Identifier of the schedule for the exhaust air ventilation over the course of the year. The type of this schedule should be Fractional and the fractional values get multiplied by the total design flow rate to yield a complete exhaust air profile. Values of 0 in the schedule will shut the exhaust fan off completely. If None, the design level of exhaust air will be used throughout all timesteps of the simulation, meaning that this schedule is Always On.",
+                "title": "Schedule"
+              },
+              "pressure_rise": {
+                "default": 125,
+                "description": "A positive number for the the pressure rise across the fan in Pascals (N/m2). This is often a function of the fan speed and the conditions in which the fan is operating. It plays an important role in determining the amount of energy consumed by the fan. Typical kitchen and bathroom exhaust fans have pressure rises around 125 Pa but, in healthcare settings where filters create more resistance, higher pressures around 250 Pa are more common.",
+                "exclusiveMinimum": 0,
+                "title": "Pressure Rise",
+                "type": "number",
+                "format": "double"
+              },
+              "efficiency": {
+                "default": 0.35,
+                "description": "A number between 0 and 1 for the overall efficiency of the fan. Specifically, this is the ratio of the power delivered to the fluid to the electrical input power. It is the product of the fan motor efficiency and the fan impeller efficiency. Fans that have a higher blade diameter, no obstructions or filters, and operate at lower speeds with smaller pressure rises for their size tend to have higher efficiencies. Because motor efficiencies are typically between 0.8 and 0.9, the best overall fan efficiencies tend to be around 0.7 with most typical fan efficiencies between 0.5 and 0.7. When filters are added, which is common for most exhaust fans, the total efficiency typically ends up between 0.3 and 0.4.",
+                "exclusiveMinimum": 0,
+                "maximum": 1,
+                "title": "Efficiency",
+                "type": "number",
+                "format": "double"
+              },
+              "balancing_schedule": {
+                "anyOf": [
+                  {
+                    "maxLength": 100,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "Identifier of the schedule for the fraction of exhaust air that is unbalanced by simple airflows, such as infiltration, natural ventilation, or zone mixing. Unbalanced exhaust is modeled as being provided by the outdoor air system in the central air system such that values of 1 in this schedule indicate all exhaust air balancing done by the mechanical system and values of 0 indicate all air balanced by simple air flows. If None, then all the exhaust air flow is assumed to be unbalanced by simple airflows. The the flow rates at the zone return air node are reduced by the flow rate that is being exhausted and the zone outdoor air controller will ensure that the outdoor air flow rate is sufficient to serve the exhaust.",
+                "title": "Balancing Schedule"
+              }
+            },
+            "additionalProperties": false
+          }
+        ],
+        "title": "ExhaustAirAbridged",
+        "discriminator": {
+          "propertyName": "type"
+        }
       },
       "ExteriorApertureGridParameter": {
         "allOf": [
@@ -11695,6 +11901,18 @@
                 "default": null,
                 "description": "Ventilation to describe the minimum outdoor air requirement of the program. If None, no ventilation requirement will be assumed."
               },
+              "exhaust": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ExhaustAir"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "ExhaustAir to describe the exhaust air requirement of the program. If None, no exhaust air requirement will be assumed for the program."
+              },
               "setpoint": {
                 "anyOf": [
                   {
@@ -11814,7 +12032,19 @@
                   }
                 ],
                 "default": null,
-                "description": "Ventilation to describe the minimum outdoor air requirement of the program. If None, no ventilation requirement will be assumed."
+                "description": "Ventilation object to describe the minimum outdoor air requirement of the program. If None, no ventilation requirement will be assumed."
+              },
+              "exhaust": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ExhaustAirAbridged"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "ExhaustAir object to describe the exhaust air requirement of the program. If None, no exhaust air requirement will be assumed for the program."
               },
               "setpoint": {
                 "anyOf": [
@@ -13694,6 +13924,18 @@
                 ],
                 "default": null,
                 "description": "Ventilation object for the minimum outdoor air requirement."
+              },
+              "exhaust": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ExhaustAirAbridged"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "description": "ExhaustAir object object to describe the exhaust air requirement of the room. If None, no exhaust air requirement will be assumed for the room."
               },
               "setpoint": {
                 "anyOf": [

@@ -58,6 +58,8 @@
     "EnergyWindowMaterialShade": "honeybee_schema.energy.material",
     "EnergyWindowMaterialSimpleGlazSys": "honeybee_schema.energy.material",
     "EvaporativeCooler": "honeybee_schema.energy.hvac.heatcool",
+    "ExhaustAir": "honeybee_schema.energy.load",
+    "ExhaustAirAbridged": "honeybee_schema.energy.load",
     "ExteriorApertureGridParameter": "dragonfly_schema.radiance.gridpar",
     "ExteriorFaceGridParameter": "dragonfly_schema.radiance.gridpar",
     "ExtrudedBorder": "dragonfly_schema.shading_parameter",
