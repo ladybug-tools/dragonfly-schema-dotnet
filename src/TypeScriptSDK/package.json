@@ -5,6 +5,10 @@
   "description": "Dragonfly Schema's typescript version",
   "author": "Ladybug Tools",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ladybug-tools/dragonfly-schema-dotnet.git"
+  },
   "files": [
     "dist"
   ],
