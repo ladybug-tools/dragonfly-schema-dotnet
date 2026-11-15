@@ -116,10 +116,6 @@ jobs:
       contents: write # actions/checkout + semantic-release push the release tag with GITHUB_TOKEN
       id-token: write # required by NuGet/login to request a GitHub OIDC token
 
-    permissions:
-      id-token: write
-      contents: write
-
     steps:
       - name: Download artifact - nuget
         uses: actions/download-artifact@v4
